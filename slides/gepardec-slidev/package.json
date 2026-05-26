@@ -1,0 +1,27 @@
+{
+  "name": "slidev-theme-gepardec",
+  "version": "0.1.0",
+  "description": "Gepardec-branded Slidev theme — black background, gepardec yellow accents, italic condensed typography, // bullet markers.",
+  "keywords": [
+    "slidev-theme",
+    "slidev",
+    "gepardec"
+  ],
+  "author": "Gepardec IT Services GmbH",
+  "license": "MIT",
+  "engines": {
+    "slidev": ">=0.49.0"
+  },
+  "slidev": {
+    "defaults": {
+      "fonts": {
+        "sans": "Barlow Semi Condensed",
+        "mono": "JetBrains Mono",
+        "italic": true
+      },
+      "colorSchema": "dark",
+      "highlighter": "shiki"
+    },
+    "colorSchema": "dark"
+  }
+}

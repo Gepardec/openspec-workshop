@@ -1,0 +1,148 @@
+/* ============================================================
+   Gepardec Slidev Theme — Layout & Tokens
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+:root {
+  /* Brand palette --------------------------------------------------------- */
+  --gepardec-black:      #000000;
+  --gepardec-yellow:     #FFC800;
+  --gepardec-yellow-dim: #b88e00;
+  --gepardec-white:      #ffffff;
+  --gepardec-gray-text:  #d6d6d6;
+  --gepardec-gray-muted: #8a8a8a;
+
+  /* Slidev built-in tokens ------------------------------------------------ */
+  --slidev-theme-primary:    var(--gepardec-yellow);
+  --slidev-code-background:  #111111;
+  --slidev-code-foreground:  #e6e6e6;
+
+  /* Typography ----------------------------------------------------------- */
+  --gepardec-font-display: 'Barlow Semi Condensed', system-ui, sans-serif;
+  --gepardec-font-body:    'Barlow Semi Condensed', system-ui, sans-serif;
+  --gepardec-font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ------------------------------------------------------------------------
+   Global slide chrome
+   ------------------------------------------------------------------------ */
+.slidev-layout {
+  background-color: var(--gepardec-black);
+  color: var(--gepardec-white);
+  font-family: var(--gepardec-font-body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  padding: 2.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: var(--gepardec-font-display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gepardec-yellow);
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.slidev-layout h1 { font-size: 2.8rem; line-height: 1.1; }
+.slidev-layout h2 { font-size: 2rem;   line-height: 1.15; }
+.slidev-layout h3 { font-size: 1.5rem; line-height: 1.2; color: var(--gepardec-white); }
+.slidev-layout h4 { font-size: 1.2rem; line-height: 1.25; color: var(--gepardec-white); }
+
+.slidev-layout p,
+.slidev-layout li {
+  color: var(--gepardec-white);
+}
+
+.slidev-layout strong {
+  color: var(--gepardec-yellow);
+  font-weight: 600;
+}
+
+.slidev-layout em {
+  color: var(--gepardec-white);
+}
+
+.slidev-layout a {
+  color: var(--gepardec-yellow);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gepardec-yellow-dim);
+}
+.slidev-layout a:hover { color: #ffd84a; }
+
+.slidev-layout hr {
+  border: 0;
+  border-top: 1px solid var(--gepardec-yellow);
+  opacity: 0.4;
+  margin: 1.25rem 0;
+}
+
+.slidev-layout blockquote {
+  border-left: 3px solid var(--gepardec-yellow);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: var(--gepardec-white);
+}
+
+.slidev-layout table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.slidev-layout th,
+.slidev-layout td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.slidev-layout th {
+  color: var(--gepardec-yellow);
+  font-weight: 600;
+  border-bottom-color: var(--gepardec-yellow);
+}
+
+/* ------------------------------------------------------------------------
+   Decorative corner spots — uses bg_spots_gray.png asset
+   ------------------------------------------------------------------------ */
+.gepardec-corner-spots {
+  position: absolute;
+  right: 1.5%;
+  bottom: 9%;
+  width: 14%;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  user-select: none;
+}
+
+/* ------------------------------------------------------------------------
+   Footer logo — uses GEPARDEC_Logo_RGB_neg.png asset
+   ------------------------------------------------------------------------ */
+.gepardec-footer-logo {
+  position: absolute;
+  right: 2.2%;
+  bottom: 3%;
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+  height: 6.5%;
+  width: auto;
+}
+
+/* ------------------------------------------------------------------------
+   Slide-number widget (Slidev built-in) — restyle to brand
+   ------------------------------------------------------------------------ */
+.slidev-page {
+  color: var(--gepardec-gray-muted) !important;
+  font-family: var(--gepardec-font-display);
+  font-style: italic;
+  font-size: 0.75rem;
+}
