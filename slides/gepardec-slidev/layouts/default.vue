@@ -17,6 +17,8 @@ import CornerSpots from '../components/CornerSpots.vue'
 <style scoped>
 .gepardec-default {
   padding: 3.5rem 4.5rem 4.5rem 4.5rem;
+  height: 100%;
+  overflow: hidden;
 }
 
 .content {

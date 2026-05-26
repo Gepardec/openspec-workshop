@@ -30,6 +30,8 @@ import CornerSpots from '../components/CornerSpots.vue'
   flex-direction: column;
   padding: 3.5rem 4.5rem 4.5rem 4.5rem;
   gap: 1.4rem;
+  height: 100%;
+  overflow: hidden;
 }
 
 .title-area {

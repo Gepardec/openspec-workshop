@@ -21,6 +21,8 @@ import CornerSpots from '../components/CornerSpots.vue'
   justify-content: flex-start;
   padding: 3rem 5rem;
   text-align: left;
+  height: 100%;
+  overflow: hidden;
 }
 
 .statement-content {

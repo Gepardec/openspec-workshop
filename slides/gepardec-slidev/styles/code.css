@@ -41,3 +41,18 @@
   margin-left: -1.27rem;
   padding-left: 1.1rem;
 }
+
+/* Shiki magic-move renders multiple pre states during transitions —
+   strip the yellow border and highlight overrides so they don't stack */
+.shiki-magic-move-container,
+.shiki-magic-move-container pre {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.shiki-magic-move-container .highlighted {
+  background: transparent !important;
+  border-left: none !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
