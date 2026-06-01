@@ -6,7 +6,7 @@ layout: section
 
 ---
 
-# Ablauf
+# Ablauf (core profil)
 
 <div class="flex items-center justify-between mt-12 gap-1">
   <div v-click="1" class="flex-1 border border-white/30 rounded-xl p-5 text-center">
@@ -43,6 +43,71 @@ layout: section
   </div>
 </div>
 
+<!--
+Es gibt auch noch das extend profile. nicht näher drauf eingehen, kann nachgelesen werden.
+-->
+
+---
+
+# `opsx:explore` – der optionale Vorschritt
+
+`explore` ist kein Pflichtschritt. Es ist ein Denkpartner, bevor Artefakte entstehen.
+
+**Wann lohnt es sich?**
+
+- Anforderung ist vage: _"Irgendwie sollen Nutzer Tiere filtern können"_
+- Domäne ist neu: du weißt noch nicht, wie viele Capabilities das betrifft
+- Scope ist unklar: Feature oder mehrere Changes?
+- Du willst Edge Cases durchdenken, bevor sie in der Spec landen
+
+<v-click>
+
+**Was passiert dabei?**
+
+Ein Gesprächs-Loop mit dem Agenten: Fragen stellen, Annahmen aufdecken, Szenarien durchspielen – aber **noch kein `propose`, noch kein Artefakt**.
+
+```
+/opsx:explore   →   Frage-Antwort-Runden   →   "Jetzt sind wir bereit für propose"
+```
+
+</v-click>
+
+<v-click>
+
+**Wann überspringen?** Wenn die Anforderung klar ist – einfach direkt mit `/opsx:propose` starten.
+
+</v-click>
+
+---
+
+# `opsx:propose` – alle vier Artefakte in einem Schritt
+
+```sh
+/opsx:propose   # interaktiv, oder direkt: /opsx:propose add-filter
+```
+
+<div class="flex justify-center">
+
+```mermaid
+flowchart TD
+    proposal --> specs
+    proposal -. optional .-> design
+    specs --> tasks
+    design -.-> tasks
+
+    style proposal fill:#1e40af,stroke:#3b82f6,color:#eff6ff
+    style specs   fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
+    style tasks   fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
+    style design  fill:#0f172a,stroke:#475569,color:#94a3b8,stroke-dasharray:5
+```
+
+</div>
+
+Design entfällt, wenn keine technischen Entscheidungen getroffen werden müssen
+
+<!--
+Die folgenden Slides schauen auf jedes Dokument einzeln.
+-->
 ---
 
 # `proposal.md` – Das WARUM
@@ -106,3 +171,23 @@ Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
 - Verhindert Konflikte, wenn mehrere Changes denselben Bereich berühren
 - Beim `archive` werden Deltas in die Haupt-Specs unter `openspec/specs/` eingearbeitet
 - Davor: `openspec/specs/` = Wahrheit · `openspec/changes/*/specs/` = Vorschläge
+
+---
+
+# Was folgt nach dem propose
+
+Die Artefakte sind fertig. Zwei Phasen schließen den Loop:
+
+**apply** — Agent implementiert Task für Task, gesteuert über `opsx:apply`
+
+```
+openspec instructions → Agent implementiert Task → nächste Task …
+```
+
+**archive** — Change abschließen und Delta-Specs einarbeiten
+
+```sh
+openspec archive <change>   # deterministisch, kein LLM nötig
+```
+
+Beide werden in den folgenden Abschnitten im Detail gezeigt.

@@ -121,7 +121,41 @@ Auszug aus `.claude/commands/opsx/propose.md`:
    Parse the JSON to get `applyRequires` and `artifacts` ...
 ```
 
-Der Agent ruft also durchgehend `openspec`-Befehle auf. Wer die CLI kennt, kann jederzeit eingreifen.
+Der Agent ruft also durchgehend `openspec`-Befehle auf.
+
+---
+
+# Ausnahme: `archive` braucht keinen Agenten
+
+`openspec archive` ist ein deterministischer CLI-Befehl – kein LLM nötig.
+
+```sh
+$ openspec archive us-05-delete-animal
+```
+
+Was er tut: Delta-Specs in die Haupt-Specs mergen, Change-Verzeichnis aufräumen, History-Eintrag schreiben.
+
+<v-click>
+
+**Das Problem:** Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteuert.
+
+```md
+<!-- .claude/commands/opsx/archive.md (vereinfacht) -->
+1. Run `openspec status` and confirm all tasks complete
+2. Compare each delta spec with its main spec ...  ← KI tut das manuell
+3. mkdir -p openspec/changes/archive               ← KI tut das manuell
+4. mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
+```
+
+</v-click>
+
+<v-click>
+
+Ein offenes Issue ([\#863](https://github.com/Fission-AI/OpenSpec/issues/863)). Der Skill sollte `openspec archive` aufrufen, nicht die Arbeit selbst erledigen.
+
+**Faustregel:** Hat die CLI einen Befehl dafür → Skill ruft ihn auf, denkt nicht selbst.
+
+</v-click>
 
 ---
 

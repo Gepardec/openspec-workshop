@@ -4,7 +4,7 @@ layout: section
 
 # Moment 2: CLI als Agent-Bridge
 
-openspec instructions – Deep Dive — 15 min
+Die apply-Phase — `opsx:apply` und `openspec instructions` — 15 min
 
 ---
 
@@ -50,13 +50,15 @@ Der Agent bekommt genau das, was er braucht – nicht mehr, nicht weniger.
 
 ---
 
-# Der Agent-Loop
+# Der Agent-Loop (`opsx:apply`)
 
 ```
 openspec instructions → KI liest Kontext → KI implementiert Task
        ↑                                            ↓
-openspec apply-change ←←←←←←←←←←←←←←←←← Task abgeschlossen
+       ←←←←←←←←←←←←←←←←←←←←←←←←← Task abgeschlossen
 ```
+
+`opsx:apply` ist der Skill, der diesen Loop ausführt — Task für Task, bis alle `[x]` sind.
 
 Die CLI steuert den Loop. Der Agent erledigt die Arbeit. Du reviewst den Diff.
 
