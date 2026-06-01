@@ -1,0 +1,49 @@
+<section class="animal-profile">
+  <a class="animal-profile__back-link" mat-button [routerLink]="['/animals']">
+    <mat-icon aria-hidden="true">arrow_back</mat-icon>
+    {{ 'animalProfile.backToList' | transloco }}
+  </a>
+
+  @if (animalStore.selectedAnimal(); as animal) {
+    <mat-card class="animal-profile__card">
+      <mat-card-header>
+        <mat-card-subtitle>{{ 'animalProfile.eyebrow' | transloco }}</mat-card-subtitle>
+        <mat-card-title>{{ 'animalProfile.title' | transloco }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-divider />
+
+      <mat-list>
+        <mat-list-item>
+          <span matListItemTitle>{{ 'animalProfile.fields.name' | transloco }}</span>
+          <span matListItemLine>{{ animal.name }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>{{ 'animalProfile.fields.species' | transloco }}</span>
+          <span matListItemLine>{{ animal.species }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>{{ 'animalProfile.fields.age' | transloco }}</span>
+          <span matListItemLine>{{ animal.age }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>{{ 'animalProfile.fields.enclosure' | transloco }}</span>
+          <span matListItemLine>{{ animal.enclosure }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>{{ 'animalProfile.fields.notes' | transloco }}</span>
+          <span matListItemLine>{{ animal.notes }}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  } @else if (animalStore.selectedAnimalNotFound()) {
+    <mat-card class="animal-profile__state">
+      <mat-card-header>
+        <mat-card-title>{{ 'animalProfile.notFound.title' | transloco }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ 'animalProfile.notFound.description' | transloco }}</p>
+      </mat-card-content>
+    </mat-card>
+  }
+</section>

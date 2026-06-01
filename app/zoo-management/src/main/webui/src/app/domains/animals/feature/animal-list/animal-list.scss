@@ -28,6 +28,14 @@ h1 {
   width: 100%;
 }
 
+.animal-row {
+  cursor: pointer;
+}
+
+.animal-row:hover {
+  background-color: var(--mat-sys-surface-container-low);
+}
+
 .animal-empty {
   align-items: center;
   border: 1px dashed var(--mat-sys-outline-variant);

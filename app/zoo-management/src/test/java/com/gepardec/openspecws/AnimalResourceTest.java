@@ -22,10 +22,10 @@ class AnimalResourceTest {
 
     @Test
     void listAnimalsReturnsJsonArrayWithRegisteredAnimals() {
-        persistAnimal("Maja", "Lion");
+        persistAnimal("Maja", "Lion", 7, "Savanna", "Keeps close to the lookout rock.");
 
         given()
-                .when().get("/animals")
+                .when().get("/api/animals")
                 .then()
                 .statusCode(200)
                 .body("size()", is(1))
@@ -36,19 +36,47 @@ class AnimalResourceTest {
     }
 
     @Test
+    void getAnimalByIdReturnsAnimalWithAllFieldsWhenAnimalExists() {
+        long animalId = persistAnimal("Kira", "Giraffe", 9, "Savanna 3", "Calm during medical checks.");
+
+        given()
+                .when().get("/api/animals/{id}", animalId)
+                .then()
+                .statusCode(200)
+                .body("id", is((int) animalId))
+                .body("name", is("Kira"))
+                .body("species", is("Giraffe"))
+                .body("age", is(9))
+                .body("enclosure", is("Savanna 3"))
+                .body("notes", is("Calm during medical checks."));
+    }
+
+    @Test
+    void getAnimalByIdReturnsNotFoundWhenAnimalDoesNotExist() {
+        given()
+                .when().get("/api/animals/{id}", 99999)
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
     void listAnimalsReturnsEmptyArrayWhenNoAnimalsAreRegistered() {
         given()
-                .when().get("/animals")
+                .when().get("/api/animals")
                 .then()
                 .statusCode(200)
                 .body("", empty());
     }
 
     @Transactional
-    void persistAnimal(String name, String species) {
+    long persistAnimal(String name, String species, Integer age, String enclosure, String notes) {
         Animal animal = new Animal();
         animal.name = name;
         animal.species = species;
+        animal.age = age;
+        animal.enclosure = enclosure;
+        animal.notes = notes;
         animal.persist();
+        return animal.id;
     }
 }

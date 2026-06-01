@@ -16,5 +16,26 @@
     "eyebrow": "Tierbestand",
     "loading": "Tiere werden geladen",
     "title": "Tierliste"
+  },
+  "animalProfile": {
+    "backToList": "Zurück zur Tierliste",
+    "eyebrow": "Tierprofil",
+    "title": "Tierdetails",
+    "loading": "Tierprofil wird geladen",
+    "fields": {
+      "name": "Name",
+      "species": "Art",
+      "age": "Alter",
+      "enclosure": "Gehege",
+      "notes": "Notizen"
+    },
+    "notFound": {
+      "title": "Tier nicht gefunden",
+      "description": "Für diese ID wurde kein Tier gefunden."
+    },
+    "error": {
+      "title": "Profil konnte nicht geladen werden",
+      "description": "Beim Laden des Tierprofils ist ein Fehler aufgetreten."
+    }
   }
 }

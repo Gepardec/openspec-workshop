@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Animal } from './animal';
+import { Animal } from '../model/animal';
 
 @Injectable({ providedIn: 'root' })
 export class AnimalService {

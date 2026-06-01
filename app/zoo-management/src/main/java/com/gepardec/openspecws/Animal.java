@@ -9,4 +9,7 @@ import jakarta.persistence.Table;
 public class Animal extends PanacheEntity {
     public String name;
     public String species;
+    public Integer age;
+    public String enclosure;
+    public String notes;
 }

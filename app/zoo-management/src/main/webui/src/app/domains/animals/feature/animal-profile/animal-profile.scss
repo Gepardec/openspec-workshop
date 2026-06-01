@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.animal-profile {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 48rem;
+}
+
+.animal-profile__back-link {
+  justify-self: start;
+}
+
+.animal-profile__loading {
+  align-items: center;
+  display: grid;
+  justify-content: center;
+  min-height: 10rem;
+}
+
+.animal-profile__card,
+.animal-profile__state {
+  border-radius: 8px;
+}
+
+.animal-profile__state p {
+  margin: 0;
+}

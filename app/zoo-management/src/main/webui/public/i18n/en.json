@@ -16,5 +16,26 @@
     "eyebrow": "Animal inventory",
     "loading": "Loading animals",
     "title": "Animal list"
+  },
+  "animalProfile": {
+    "backToList": "Back to animal list",
+    "eyebrow": "Animal profile",
+    "title": "Animal details",
+    "loading": "Loading animal profile",
+    "fields": {
+      "name": "Name",
+      "species": "Species",
+      "age": "Age",
+      "enclosure": "Enclosure",
+      "notes": "Notes"
+    },
+    "notFound": {
+      "title": "Animal not found",
+      "description": "No animal was found for this ID."
+    },
+    "error": {
+      "title": "Could not load profile",
+      "description": "An error occurred while loading the animal profile."
+    }
   }
 }

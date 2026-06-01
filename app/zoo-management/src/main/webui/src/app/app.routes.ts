@@ -8,7 +8,22 @@ export const routes: Routes = [
   },
   {
     path: 'animals',
-    loadComponent: () =>
-      import('./domains/animals/animal-list/animal-list').then((module) => module.AnimalListComponent),
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('@gpdc-zoo/animals/feature/animal-list/animal-list').then(
+            (module) => module.AnimalListComponent,
+          ),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('@gpdc-zoo/animals/feature/animal-profile/animal-profile').then(
+            (module) => module.AnimalProfileComponent,
+          ),
+      },
+    ],
   },
 ];

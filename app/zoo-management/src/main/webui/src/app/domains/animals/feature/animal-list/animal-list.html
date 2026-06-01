@@ -23,7 +23,12 @@
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+      <tr
+        *matRowDef="let row; columns: displayedColumns"
+        class="animal-row"
+        mat-row
+        [routerLink]="['/animals', row.id]"
+      ></tr>
     </table>
   } @else if (animalStore.callStatus() !== 'loading') {
     <div class="animal-empty">
