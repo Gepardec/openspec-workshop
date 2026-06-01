@@ -3,18 +3,57 @@ schema: spec-driven
 # Project context (optional)
 # This is shown to AI when creating artifacts.
 # Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  # Goal
+  A simple zoo management application for managing animals, enclosures, and staff. Used as an OpenSpec workshop reference app — intentionally kept approachable so changes are easy to reason about.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+  ## Project Layout
+  - `app/zoo-management/` — Quarkus application (Maven)
+  - `app/zoo-management/src/main/webui/` — Angular CLI app, bundled into the Quarkus JAR via Quarkus Quinoa
+
+  ## Tech Stack
+
+  ### Backend
+  - Quarkus 3.35.2 (quarkus-rest + quarkus-rest-jackson for JAX-RS/JSON)
+  - Hibernate ORM with Panache, PostgreSQL (quarkus-jdbc-postgresql)
+  - Quarkus Quinoa 2.8.1 — bundles the Angular build output and serves it from the Quarkus server
+  - Testing: quarkus-junit, RestAssured, AssertJ
+
+  ### Frontend
+  - Angular 21.2 (standalone components, Angular CLI, pnpm 11 as package manager)
+  - **Zoneless change detection** (`provideZonelessChangeDetection()`) with **OnPush** on every component — no Zone.js
+  - NgRx Signal Store 21.1 + NgRx Operators 21.1 for state management (signal-based, no classic NgRx actions/reducers)
+  - Angular Material 21.2 + Angular CDK for UI components
+  - TailwindCSS 4.x for utility-first layout and spacing
+  - Transloco 8 for i18n (default language: German `de`, secondary: English `en`)
+  - RxJS 7.8 (used where reactive streams are genuinely needed, prefer signals otherwise)
+
+  ### Frontend Tooling
+  - ESLint 10 with a comprehensive rule set:
+    - `typescript-eslint` (recommended + stylistic) for TypeScript strictness
+    - `angular-eslint` (tsRecommended) enforcing Angular best practices
+    - `@softarc/eslint-plugin-sheriff` (all) for module boundary enforcement
+    - Key enforced rules: `@angular-eslint/prefer-on-push-component-change-detection`,
+      `@angular-eslint/prefer-signals`, `@angular-eslint/prefer-standalone`,
+      `@typescript-eslint/explicit-function-return-type`, `@typescript-eslint/explicit-member-accessibility`
+  - Sheriff (module boundaries): domain/feature structure at `src/app/domains/<domain>/<feature>`,
+    shell at `src/app/shell`, barrel-less imports enabled
+  - Prettier 3 with `prettier-plugin-organize-imports`
+  - Vitest 4 available (not Jest, not Karma) — but no frontend tests are written in this project
+
+  ## Conventions
+
+  ### Backend
+  - Follow RESTful API design: plural resource nouns, correct HTTP verbs, meaningful status codes.
+  - Use Panache active-record pattern for entities; keep repository logic inside the entity or a dedicated repository class.
+  - **Only write RestAssured tests** (`@QuarkusTest`) — no unit tests for individual classes. RestAssured tests validate the HTTP contract without depending on implementation details, so they can be written before the API is implemented and serve as the acceptance criteria that workshop participants fulfil.
+
+  ### Frontend
+  - **Never use inline components** — always create separate component files (`.ts` + `.html` + `.scss`).
+  - All components must use `ChangeDetectionStrategy.OnPush`; rely on signals and the async pipe instead of imperative `markForCheck()`.
+  - Prefer `signal()`, `computed()`, and `effect()` over RxJS where possible; reach for RxJS only for event streams or complex async coordination.
+  - State lives in NgRx Signal Store feature stores; keep stores co-located with their domain feature folder.
+  - Follow Sheriff domain boundaries: a feature in `domain:animals` must not import from `domain:staff` unless via `domain:shared`.
+  - Use Angular Material components for all interactive UI; use TailwindCSS only for layout, spacing, and responsive adjustments — do not duplicate Material styling.
+  - All user-visible strings go through Transloco; no hard-coded German or English text in templates.
+  - Component selectors use the `app-` prefix in kebab-case; directive selectors use the `app` prefix in camelCase.
