@@ -25,6 +25,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: ':id/edit',
+        loadComponent: () =>
+          import('@gpdc-zoo/animals/feature/animal-edit/animal-edit').then(
+            (module) => module.AnimalEditComponent,
+          ),
+      },
+      {
         path: ':id',
         loadComponent: () =>
           import('@gpdc-zoo/animals/feature/animal-profile/animal-profile').then(

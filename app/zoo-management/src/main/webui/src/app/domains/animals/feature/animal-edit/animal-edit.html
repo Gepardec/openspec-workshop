@@ -1,0 +1,90 @@
+<section class="animal-edit">
+  <header class="animal-edit__header">
+    <p class="animal-edit__eyebrow">{{ 'animalEdit.eyebrow' | transloco }}</p>
+    <h1>{{ 'animalEdit.title' | transloco }}</h1>
+  </header>
+
+  @if (animalStore.selectedAnimal()) {
+    <form class="animal-edit__form" novalidate [formRoot]="animalEditForm">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'animalEdit.fields.name.label' | transloco }}</mat-label>
+        <input
+          matInput
+          [formField]="animalEditForm.name"
+          [placeholder]="'animalEdit.fields.name.placeholder' | transloco"
+        />
+        @if (animalEditForm.name().invalid() && animalEditForm.name().touched()) {
+          <mat-error>{{ 'animalEdit.validation.nameRequired' | transloco }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'animalEdit.fields.species.label' | transloco }}</mat-label>
+        <input
+          matInput
+          [formField]="animalEditForm.species"
+          [placeholder]="'animalEdit.fields.species.placeholder' | transloco"
+        />
+        @if (animalEditForm.species().invalid() && animalEditForm.species().touched()) {
+          <mat-error>{{ 'animalEdit.validation.speciesRequired' | transloco }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'animalEdit.fields.age.label' | transloco }}</mat-label>
+        <input
+          matInput
+          type="number"
+          [formField]="animalEditForm.age"
+          [placeholder]="'animalEdit.fields.age.placeholder' | transloco"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'animalEdit.fields.enclosure.label' | transloco }}</mat-label>
+        <input
+          matInput
+          [formField]="animalEditForm.enclosure"
+          [placeholder]="'animalEdit.fields.enclosure.placeholder' | transloco"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'animalEdit.fields.notes.label' | transloco }}</mat-label>
+        <textarea
+          matInput
+          rows="4"
+          [formField]="animalEditForm.notes"
+          [placeholder]="'animalEdit.fields.notes.placeholder' | transloco"
+        ></textarea>
+      </mat-form-field>
+
+      <div class="animal-edit__actions">
+        <button mat-stroked-button type="button" [routerLink]="['/animals', id()]">
+          {{ 'animalEdit.actions.cancel' | transloco }}
+        </button>
+        <button color="primary" mat-flat-button type="submit">
+          {{ 'animalEdit.actions.submit' | transloco }}
+        </button>
+      </div>
+    </form>
+  } @else if (animalStore.callStatus() === 'loading') {
+    <mat-card class="animal-edit__state">
+      <mat-card-content>
+        <p>{{ 'animalEdit.loading' | transloco }}</p>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <mat-card class="animal-edit__state">
+      <mat-card-header>
+        <mat-card-title>{{ 'animalEdit.notFound.title' | transloco }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ 'animalEdit.notFound.description' | transloco }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button [routerLink]="['/animals']">{{ 'animalProfile.backToList' | transloco }}</a>
+      </mat-card-actions>
+    </mat-card>
+  }
+</section>

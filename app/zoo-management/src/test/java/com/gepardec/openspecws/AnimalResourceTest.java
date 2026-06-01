@@ -120,6 +120,69 @@ class AnimalResourceTest {
                 .statusCode(400);
     }
 
+    @Test
+    void updateAnimalReturnsOkWithUpdatedAnimalWhenAnimalExists() {
+        long animalId = persistAnimal("Nora", "Bear", 6, "Forest 2", "Enjoys climbing.");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body("""
+                        {
+                          "name": "Nora",
+                          "species": "Brown Bear",
+                          "age": 7,
+                          "enclosure": "Forest 3",
+                          "notes": "Moved to a larger habitat."
+                        }
+                        """)
+                .when().put("/api/animals/{id}", animalId)
+                .then()
+                .statusCode(200)
+                .body("id", is((int) animalId))
+                .body("name", is("Nora"))
+                .body("species", is("Brown Bear"))
+                .body("age", is(7))
+                .body("enclosure", is("Forest 3"))
+                .body("notes", is("Moved to a larger habitat."));
+    }
+
+    @Test
+    void updateAnimalReturnsBadRequestWhenRequiredFieldsAreMissing() {
+        long animalId = persistAnimal("Milo", "Monkey", 4, "Jungle 1", "Very curious.");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body("""
+                        {
+                          "species": "Monkey",
+                          "age": 5,
+                          "enclosure": "Jungle 2",
+                          "notes": "Changed enclosure."
+                        }
+                        """)
+                .when().put("/api/animals/{id}", animalId)
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
+    void updateAnimalReturnsNotFoundWhenAnimalDoesNotExist() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("""
+                        {
+                          "name": "Luna",
+                          "species": "Wolf",
+                          "age": 3,
+                          "enclosure": "Mountain Ridge",
+                          "notes": "Prefers dusk feeding."
+                        }
+                        """)
+                .when().put("/api/animals/{id}", 99999)
+                .then()
+                .statusCode(404);
+    }
+
     @Transactional
     long persistAnimal(String name, String species, Integer age, String enclosure, String notes) {
         Animal animal = new Animal();

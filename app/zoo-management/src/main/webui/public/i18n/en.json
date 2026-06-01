@@ -52,7 +52,49 @@
       "speciesRequired": "Species is required."
     }
   },
+  "animalEdit": {
+    "actions": {
+      "cancel": "Cancel",
+      "submit": "Save changes"
+    },
+    "eyebrow": "Animal profile",
+    "fields": {
+      "age": {
+        "label": "Age",
+        "placeholder": "Optional age in years"
+      },
+      "enclosure": {
+        "label": "Enclosure",
+        "placeholder": "Optional enclosure name"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter animal name"
+      },
+      "notes": {
+        "label": "Notes",
+        "placeholder": "Optional notes for keepers"
+      },
+      "species": {
+        "label": "Species",
+        "placeholder": "Enter species"
+      }
+    },
+    "loading": "Loading animal for editing",
+    "notFound": {
+      "title": "Animal not found",
+      "description": "No animal was found for this ID."
+    },
+    "title": "Edit animal",
+    "validation": {
+      "nameRequired": "Name is required.",
+      "speciesRequired": "Species is required."
+    }
+  },
   "animalProfile": {
+    "actions": {
+      "edit": "Edit"
+    },
     "backToList": "Back to animal list",
     "eyebrow": "Animal profile",
     "title": "Animal details",

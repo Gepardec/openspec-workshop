@@ -52,7 +52,49 @@
       "speciesRequired": "Art ist erforderlich."
     }
   },
+  "animalEdit": {
+    "actions": {
+      "cancel": "Abbrechen",
+      "submit": "Änderungen speichern"
+    },
+    "eyebrow": "Tierprofil",
+    "fields": {
+      "age": {
+        "label": "Alter",
+        "placeholder": "Optionales Alter in Jahren"
+      },
+      "enclosure": {
+        "label": "Gehege",
+        "placeholder": "Optionaler Gehegename"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Tiername eingeben"
+      },
+      "notes": {
+        "label": "Notizen",
+        "placeholder": "Optionale Hinweise für Pfleger"
+      },
+      "species": {
+        "label": "Art",
+        "placeholder": "Art eingeben"
+      }
+    },
+    "loading": "Tier für die Bearbeitung wird geladen",
+    "notFound": {
+      "title": "Tier nicht gefunden",
+      "description": "Für diese ID wurde kein Tier gefunden."
+    },
+    "title": "Tier bearbeiten",
+    "validation": {
+      "nameRequired": "Name ist erforderlich.",
+      "speciesRequired": "Art ist erforderlich."
+    }
+  },
   "animalProfile": {
+    "actions": {
+      "edit": "Bearbeiten"
+    },
     "backToList": "Zurück zur Tierliste",
     "eyebrow": "Tierprofil",
     "title": "Tierdetails",

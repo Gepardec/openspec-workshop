@@ -22,6 +22,11 @@ type AnimalProfileState = {
   selectedAnimalId: number | null;
 };
 
+type AnimalUpdateInput = {
+  data: AnimalCreateDto;
+  id: number;
+};
+
 export const AnimalStore = signalStore(
   { providedIn: 'root' },
   withEntities<Animal>(),
@@ -64,6 +69,22 @@ export const AnimalStore = signalStore(
                 next: (animal) => {
                   patchState(store, upsertEntity(animal), setLoaded());
                   void router.navigateByUrl('/animals');
+                },
+                error: (error) => patchState(store, setError(error)),
+              }),
+            ),
+          ),
+        ),
+      ),
+      update: rxMethod<AnimalUpdateInput>(
+        pipe(
+          tap(() => patchState(store, setLoading())),
+          switchMap(({ data, id }) =>
+            animalService.updateAnimal(id, data).pipe(
+              tapResponse({
+                next: (animal) => {
+                  patchState(store, upsertEntity(animal), setLoaded());
+                  void router.navigate(['/animals', id]);
                 },
                 error: (error) => patchState(store, setError(error)),
               }),

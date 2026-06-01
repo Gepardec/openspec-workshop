@@ -7,7 +7,7 @@ import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 import { AnimalStore } from '../../data/animal.store';
-import { AnimalCreateDto } from '../../model/animal-create-dto';
+import { AnimalCreateDto, initialAnimal } from '../../model/animal-create-dto';
 
 @Component({
   selector: 'app-animal-create',
@@ -27,13 +27,7 @@ import { AnimalCreateDto } from '../../model/animal-create-dto';
 export class AnimalCreateComponent {
   protected readonly animalStore = inject(AnimalStore);
 
-  protected readonly model = signal<AnimalCreateDto>({
-    age: null,
-    enclosure: '',
-    name: '',
-    notes: '',
-    species: '',
-  });
+  protected readonly model = signal<AnimalCreateDto>(initialAnimal);
 
   protected readonly animalCreateForm = form(
     this.model,

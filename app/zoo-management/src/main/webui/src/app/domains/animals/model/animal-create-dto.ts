@@ -5,3 +5,11 @@ export type AnimalCreateDto = {
   enclosure: string;
   notes: string;
 };
+
+export const initialAnimal: AnimalCreateDto = {
+  age: null,
+  enclosure: '',
+  name: '',
+  notes: '',
+  species: '',
+};

@@ -16,4 +16,8 @@ export class AnimalService {
   createAnimal(data: AnimalCreateDto): Observable<Animal> {
     return this.http.post<Animal>('/api/animals', data);
   }
+
+  updateAnimal(id: number, data: AnimalCreateDto): Observable<Animal> {
+    return this.http.put<Animal>(`/api/animals/${id}`, data);
+  }
 }

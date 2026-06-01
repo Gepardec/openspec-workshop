@@ -6,6 +6,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -45,5 +46,26 @@ public class AnimalResource {
         URI location = uriInfo.getAbsolutePathBuilder().path(String.valueOf(animal.id)).build();
 
         return Response.created(location).entity(animal).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response updateAnimal(@PathParam("id") Long id, @Valid Animal updatedAnimal) {
+        Animal animal = Animal.findById(id);
+
+        if (animal == null) {
+            throw new NotFoundException();
+        }
+
+        animal.name = updatedAnimal.name;
+        animal.species = updatedAnimal.species;
+        animal.age = updatedAnimal.age;
+        animal.enclosure = updatedAnimal.enclosure;
+        animal.notes = updatedAnimal.notes;
+        animal.persist();
+
+        return Response.ok(animal).build();
     }
 }
