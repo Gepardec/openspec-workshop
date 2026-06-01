@@ -27,4 +27,3 @@
 
 - [ ] 5.1 Run ESLint (`pnpm lint`) and fix any violations
 - [ ] 5.2 Run the Quarkus backend tests (`mvn test`) and confirm all pass
-- [ ] 5.3 Manually verify: navigate to the animal list, click an animal, confirm the profile loads with all fields; use the back link to return to the list
