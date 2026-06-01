@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+.animal-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.animal-list__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.animal-list__eyebrow {
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-label-large);
+  margin: 0 0 0.25rem;
+}
+
+h1 {
+  font: var(--mat-sys-headline-medium);
+}
+
+.animal-table {
+  overflow: hidden;
+  width: 100%;
+}
+
+.animal-empty {
+  align-items: center;
+  border: 1px dashed var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  color: var(--mat-sys-on-surface-variant);
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.animal-empty mat-icon {
+  color: var(--mat-sys-primary);
+  font-size: 2.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+}

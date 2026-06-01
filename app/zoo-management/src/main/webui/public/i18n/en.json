@@ -1,1 +1,20 @@
-{}
+{
+  "app": {
+    "animals": "Animals",
+    "navigation": "Main navigation",
+    "title": "Zoo Management"
+  },
+  "animalList": {
+    "columns": {
+      "name": "Name",
+      "species": "Species"
+    },
+    "empty": {
+      "description": "Registered animals will appear in this list.",
+      "title": "No animals registered"
+    },
+    "eyebrow": "Animal inventory",
+    "loading": "Loading animals",
+    "title": "Animal list"
+  }
+}
