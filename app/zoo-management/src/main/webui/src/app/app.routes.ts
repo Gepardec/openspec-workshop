@@ -18,6 +18,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'new',
+        loadComponent: () =>
+          import('@gpdc-zoo/animals/feature/animal-create/animal-create').then(
+            (module) => module.AnimalCreateComponent,
+          ),
+      },
+      {
         path: ':id',
         loadComponent: () =>
           import('@gpdc-zoo/animals/feature/animal-profile/animal-profile').then(

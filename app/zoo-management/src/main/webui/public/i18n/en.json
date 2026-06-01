@@ -5,6 +5,7 @@
     "title": "Zoo Management"
   },
   "animalList": {
+    "addAnimal": "Add animal",
     "columns": {
       "name": "Name",
       "species": "Species"
@@ -16,6 +17,40 @@
     "eyebrow": "Animal inventory",
     "loading": "Loading animals",
     "title": "Animal list"
+  },
+  "animalCreate": {
+    "actions": {
+      "cancel": "Cancel",
+      "submit": "Save animal"
+    },
+    "eyebrow": "Animal registration",
+    "fields": {
+      "age": {
+        "label": "Age",
+        "placeholder": "Optional age in years"
+      },
+      "enclosure": {
+        "label": "Enclosure",
+        "placeholder": "Optional enclosure name"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter animal name"
+      },
+      "notes": {
+        "label": "Notes",
+        "placeholder": "Optional notes for keepers"
+      },
+      "species": {
+        "label": "Species",
+        "placeholder": "Enter species"
+      }
+    },
+    "title": "Add animal",
+    "validation": {
+      "nameRequired": "Name is required.",
+      "speciesRequired": "Species is required."
+    }
   },
   "animalProfile": {
     "backToList": "Back to animal list",

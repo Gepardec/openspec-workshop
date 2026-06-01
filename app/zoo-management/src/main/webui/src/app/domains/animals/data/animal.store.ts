@@ -8,10 +8,12 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { setAllEntities, withEntities } from '@ngrx/signals/entities';
+import { setAllEntities, upsertEntity, withEntities } from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { Router } from '@angular/router';
 import { pipe, switchMap, tap } from 'rxjs';
 
+import { AnimalCreateDto } from '../model/animal-create-dto';
 import { Animal } from '../model/animal';
 import { AnimalService } from './animal.service';
 import { setError, setLoaded, setLoading, withCallStatus } from './call-status.feature';
@@ -37,6 +39,7 @@ export const AnimalStore = signalStore(
   })),
   withMethods((store) => {
     const animalService = inject(AnimalService);
+    const router = inject(Router);
 
     return {
       loadAnimals: rxMethod<void>(
@@ -46,6 +49,22 @@ export const AnimalStore = signalStore(
             animalService.getAnimals().pipe(
               tapResponse({
                 next: (animals) => patchState(store, setAllEntities(animals), setLoaded()),
+                error: (error) => patchState(store, setError(error)),
+              }),
+            ),
+          ),
+        ),
+      ),
+      create: rxMethod<AnimalCreateDto>(
+        pipe(
+          tap(() => patchState(store, setLoading())),
+          switchMap((data) =>
+            animalService.createAnimal(data).pipe(
+              tapResponse({
+                next: (animal) => {
+                  patchState(store, upsertEntity(animal), setLoaded());
+                  void router.navigateByUrl('/animals');
+                },
                 error: (error) => patchState(store, setError(error)),
               }),
             ),

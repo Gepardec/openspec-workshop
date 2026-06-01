@@ -1,0 +1,70 @@
+<section class="animal-create">
+  <header class="animal-create__header">
+    <p class="animal-create__eyebrow">{{ 'animalCreate.eyebrow' | transloco }}</p>
+    <h1>{{ 'animalCreate.title' | transloco }}</h1>
+  </header>
+
+  <form class="animal-create__form" novalidate [formRoot]="animalCreateForm">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'animalCreate.fields.name.label' | transloco }}</mat-label>
+      <input
+        matInput
+        [formField]="animalCreateForm.name"
+        [placeholder]="'animalCreate.fields.name.placeholder' | transloco"
+      />
+      @if (animalCreateForm.name().invalid() && animalCreateForm.name().touched()) {
+        <mat-error>{{ 'animalCreate.validation.nameRequired' | transloco }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'animalCreate.fields.species.label' | transloco }}</mat-label>
+      <input
+        matInput
+        [formField]="animalCreateForm.species"
+        [placeholder]="'animalCreate.fields.species.placeholder' | transloco"
+      />
+      @if (animalCreateForm.species().invalid() && animalCreateForm.species().touched()) {
+        <mat-error>{{ 'animalCreate.validation.speciesRequired' | transloco }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'animalCreate.fields.age.label' | transloco }}</mat-label>
+      <input
+        matInput
+        type="number"
+        [formField]="animalCreateForm.age"
+        [placeholder]="'animalCreate.fields.age.placeholder' | transloco"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'animalCreate.fields.enclosure.label' | transloco }}</mat-label>
+      <input
+        matInput
+        [formField]="animalCreateForm.enclosure"
+        [placeholder]="'animalCreate.fields.enclosure.placeholder' | transloco"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'animalCreate.fields.notes.label' | transloco }}</mat-label>
+      <textarea
+        matInput
+        rows="4"
+        [formField]="animalCreateForm.notes"
+        [placeholder]="'animalCreate.fields.notes.placeholder' | transloco"
+      ></textarea>
+    </mat-form-field>
+
+    <div class="animal-create__actions">
+      <button mat-stroked-button type="button" [routerLink]="['/animals']">
+        {{ 'animalCreate.actions.cancel' | transloco }}
+      </button>
+      <button color="primary" mat-flat-button type="submit">
+        {{ 'animalCreate.actions.submit' | transloco }}
+      </button>
+    </div>
+  </form>
+</section>

@@ -1,6 +1,8 @@
 package com.gepardec.openspecws;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.matchesRegex;
 import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
@@ -66,6 +70,54 @@ class AnimalResourceTest {
                 .then()
                 .statusCode(200)
                 .body("", empty());
+    }
+
+    @Test
+    void createAnimalReturnsCreatedWithLocationHeaderAndCreatedAnimalBody() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body("""
+                        {
+                          "name": "Nala",
+                          "species": "Lion",
+                          "age": 5,
+                          "enclosure": "Savanna 2",
+                          "notes": "Recently joined the pride."
+                        }
+                        """)
+                .when().post("/api/animals");
+
+        int createdId = response.jsonPath().getInt("id");
+
+        response
+                .then()
+                .statusCode(201)
+                .header("Location", matchesRegex(".*/animals/\\d+"))
+                .header("Location", endsWith("/api/animals/" + createdId))
+                .body("id", notNullValue())
+                .body("id", greaterThan(0))
+                .body("name", is("Nala"))
+                .body("species", is("Lion"))
+                .body("age", is(5))
+                .body("enclosure", is("Savanna 2"))
+                .body("notes", is("Recently joined the pride."));
+    }
+
+    @Test
+    void createAnimalReturnsBadRequestWhenRequiredFieldsAreMissing() {
+        given()
+                .contentType(ContentType.JSON)
+                .body("""
+                        {
+                          "species": "Elephant",
+                          "age": 14,
+                          "enclosure": "Grassland",
+                          "notes": "Very social."
+                        }
+                        """)
+                .when().post("/api/animals")
+                .then()
+                .statusCode(400);
     }
 
     @Transactional

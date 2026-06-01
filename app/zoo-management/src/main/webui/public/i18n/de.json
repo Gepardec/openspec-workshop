@@ -5,6 +5,7 @@
     "title": "Zoo-Verwaltung"
   },
   "animalList": {
+    "addAnimal": "Tier hinzufügen",
     "columns": {
       "name": "Name",
       "species": "Art"
@@ -16,6 +17,40 @@
     "eyebrow": "Tierbestand",
     "loading": "Tiere werden geladen",
     "title": "Tierliste"
+  },
+  "animalCreate": {
+    "actions": {
+      "cancel": "Abbrechen",
+      "submit": "Tier speichern"
+    },
+    "eyebrow": "Tiererfassung",
+    "fields": {
+      "age": {
+        "label": "Alter",
+        "placeholder": "Optionales Alter in Jahren"
+      },
+      "enclosure": {
+        "label": "Gehege",
+        "placeholder": "Optionaler Gehegename"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Tiername eingeben"
+      },
+      "notes": {
+        "label": "Notizen",
+        "placeholder": "Optionale Hinweise für Pfleger"
+      },
+      "species": {
+        "label": "Art",
+        "placeholder": "Art eingeben"
+      }
+    },
+    "title": "Tier hinzufügen",
+    "validation": {
+      "nameRequired": "Name ist erforderlich.",
+      "speciesRequired": "Art ist erforderlich."
+    }
   },
   "animalProfile": {
     "backToList": "Zurück zur Tierliste",

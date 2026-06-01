@@ -4,6 +4,10 @@
       <p class="animal-list__eyebrow">{{ 'animalList.eyebrow' | transloco }}</p>
       <h1>{{ 'animalList.title' | transloco }}</h1>
     </div>
+    <button color="primary" mat-flat-button type="button" [routerLink]="['/animals/new']">
+      <mat-icon aria-hidden="true">add</mat-icon>
+      {{ 'animalList.addAnimal' | transloco }}
+    </button>
   </header>
 
   @if (animalStore.callStatus() === 'loading') {
