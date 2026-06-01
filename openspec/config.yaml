@@ -28,6 +28,9 @@ context: |
   - Transloco 8 for i18n (default language: German `de`, secondary: English `en`)
   - RxJS 7.8 (used where reactive streams are genuinely needed, prefer signals otherwise)
 
+  ### Frontend Commands
+  - Run Angular CLI commands via `ng` (e.g. `ng generate component ...`, `ng build`, `ng lint`), not `pnpm`.
+
   ### Frontend Tooling
   - ESLint 10 with a comprehensive rule set:
     - `typescript-eslint` (recommended + stylistic) for TypeScript strictness
