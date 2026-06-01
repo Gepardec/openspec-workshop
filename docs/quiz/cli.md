@@ -15,6 +15,10 @@ How many changes are currently proposed in this project?
 - **6** ✓
 - 8
 
+```sh
+openspec list
+```
+
 ---
 
 ### Q2 (MC)
@@ -25,6 +29,10 @@ Which change has the fewest implementation tasks?
 - us-04-update-animal
 - **us-05-delete-animal** ✓ (13 tasks)
 
+```sh
+openspec list
+```
+
 ---
 
 ### Q3 (MC)
@@ -34,6 +42,10 @@ Which two changes have exactly the same number of implementation tasks?
 - **us-02-animal-profile and us-06-dashboard** ✓ (16 tasks each)
 - us-03-add-animal and us-05-delete-animal
 - us-04-update-animal and us-06-dashboard
+
+```sh
+openspec list
+```
 
 ---
 
@@ -47,12 +59,20 @@ How many capabilities does `us-05-delete-animal` introduce or modify in total?
 - **3** ✓ (1 new: `animal-delete`; 2 modified: `animal-profile`, `animal-list`)
 - 4
 
+```sh
+openspec show us-05-delete-animal
+```
+
 ---
 
 ### Q5 (SA)
 `us-05-delete-animal` explicitly considered and rejected one alternative deletion strategy. What was it?
 
 **Answer:** Soft delete / archiving
+
+```sh
+openspec show us-05-delete-animal
+```
 
 ---
 
@@ -64,6 +84,12 @@ Which change introduces the `animal-profile` capability for the first time?
 - us-04-update-animal
 - us-05-delete-animal
 
+```sh
+openspec show us-01-animal-list
+openspec show us-02-animal-profile
+# (check "New Capabilities" in each proposal)
+```
+
 ---
 
 ### Q7 (SA)
@@ -71,15 +97,27 @@ Which Angular Material component is used for the confirmation dialog in `us-05-d
 
 **Answer:** MatDialog (`angular/material MatDialog`)
 
+```sh
+openspec show us-05-delete-animal
+```
+
 ---
 
 ### Q8 (MC)
-Which change modifies the `animal-list` capability the most times across all proposals? (Hint: check multiple changes.)
+Which changes modify the `animal-list` capability? (Hint: check multiple proposals.)
 
-- us-01-animal-list
-- us-02-animal-profile
-- us-03-add-animal
-- **All of us-02, us-03, and us-05 modify it** ✓
+- Only us-01-animal-list
+- us-01-animal-list and us-02-animal-profile
+- us-02-animal-profile and us-05-delete-animal
+- **us-02-animal-profile, us-03-add-animal, and us-05-delete-animal** ✓
+
+```sh
+openspec show us-02-animal-profile
+openspec show us-03-add-animal
+openspec show us-04-update-animal
+openspec show us-05-delete-animal
+# (check "Modified Capabilities" in each proposal)
+```
 
 ---
 
@@ -93,6 +131,10 @@ How many artifacts must be complete before a change is considered done in the `s
 - **4** ✓ (proposal, specs, design, tasks)
 - 5
 
+```sh
+openspec status --change us-01-animal-list
+```
+
 ---
 
 ### Q10 (MC)
@@ -103,6 +145,10 @@ In what order does the `spec-driven` schema expect artifacts to be created?
 - specs → proposal → design → tasks
 - design → proposal → specs → tasks
 
+```sh
+openspec schemas
+```
+
 ---
 
 ## Section 4 — Schema & config (`openspec schemas`)
@@ -111,6 +157,10 @@ In what order does the `spec-driven` schema expect artifacts to be created?
 What is the name of the workflow schema used by this project?
 
 **Answer:** spec-driven
+
+```sh
+openspec schemas
+```
 
 ---
 
@@ -123,3 +173,9 @@ Find the change(s) with the most implementation tasks, then check their artifact
 - Most tasks: us-06-dashboard — all artifacts complete
 - **Most tasks: us-01-animal-list and us-04-update-animal (tied at 19) — both have all 4 artifacts complete** ✓
 - Most tasks: us-02-animal-profile — proposal missing
+
+```sh
+openspec list
+openspec status --change us-01-animal-list
+openspec status --change us-04-update-animal
+```
