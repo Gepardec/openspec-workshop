@@ -21,17 +21,21 @@ src: ./pages/02-phases-documents.md
 ---
 
 ---
-src: ./pages/03-cli-navigator.md
+src: ./pages/03-setup-config.md
 ---
 
 ---
-src: ./pages/04-cli-agent-bridge.md
+src: ./pages/04-cli-navigator.md
 ---
 
 ---
-src: ./pages/05-hands-on.md
+src: ./pages/05-cli-agent-bridge.md
 ---
 
 ---
-src: ./pages/06-discussion.md
+src: ./pages/06-hands-on.md
+---
+
+---
+src: ./pages/07-discussion.md
 ---

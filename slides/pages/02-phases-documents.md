@@ -6,15 +6,6 @@ layout: section
 
 ---
 
-# OpenSpec / Spec-driven development
-
-- Spec-driven: Spezifikation ist die Quelle der Wahrheit, Code ihre Umsetzung
-- Anforderungen leben als Markdown im Repo – versioniert, reviewbar
-- OpenSpec strukturiert diesen Ansatz für KI-gestützte Entwicklung
-- Artefakte (proposal, spec, design, tasks) halten den Agenten in der Spur
-
----
-
 # Ablauf
 
 <div class="flex items-center justify-between mt-12 gap-1">
@@ -90,3 +81,28 @@ layout: section
 - Pflichtformat: `- [ ] X.Y Task` – andere Formate werden nicht getrackt
 - Tasks mit nummerierten Überschriften gruppieren
 - Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
+
+---
+
+# Delta-Specs: die brownfield-Innovation
+
+Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
+
+```md
+## ADDED Requirements
+### Requirement: System SHALL allow deleting an animal
+#### Scenario: Tierpfleger löscht ein freies Tier
+- **WHEN** ein Tier nicht in einem Gehege ist
+- **THEN** lässt sich das Tier löschen
+
+## MODIFIED Requirements
+### Requirement: …
+
+## REMOVED Requirements
+### Requirement: …
+```
+
+- **Drei Sektionen** – ADDED, MODIFIED, REMOVED
+- Verhindert Konflikte, wenn mehrere Changes denselben Bereich berühren
+- Beim `archive` werden Deltas in die Haupt-Specs unter `openspec/specs/` eingearbeitet
+- Davor: `openspec/specs/` = Wahrheit · `openspec/changes/*/specs/` = Vorschläge

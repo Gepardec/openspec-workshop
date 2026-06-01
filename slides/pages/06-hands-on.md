@@ -13,7 +13,8 @@ Repo klonen und CLI installieren:
 ```sh
 git clone <repo-url>
 cd openspec-workshop
-npm install -g openspec   # oder: pnpm / yarn
+npm install -g @fission-ai/openspec@latest   # oder: pnpm / yarn
+openspec --version
 ```
 
 App starten:
@@ -22,6 +23,35 @@ App starten:
 cd app/zoo-management
 ./mvnw quarkus:dev
 ```
+
+---
+
+# Übung 0 – OpenSpec selbst aufsetzen
+
+Wir setzen `openspec init` einmal selbst durch – auf einem Branch ohne vorkonfiguriertes Setup.
+
+```sh
+git checkout workshop/00-bare       # Repo ohne openspec/-Ordner
+openspec init                       # interaktiv – Claude Code auswählen
+```
+
+**Schaut euch danach an, was angelegt wurde:**
+
+```sh
+ls openspec/
+ls .claude/commands/opsx/
+cat openspec/config.yaml
+```
+
+Anschließend zurück zur vorkonfigurierten Variante für alle weiteren Übungen:
+
+```sh
+git checkout main
+```
+
+<div class="text-xs text-white/50 mt-4">
+Tipp: Lasst eure lokalen Änderungen am `00-bare`-Branch ruhig liegen – ihr könnt jederzeit zurückspringen und vergleichen.
+</div>
 
 ---
 
