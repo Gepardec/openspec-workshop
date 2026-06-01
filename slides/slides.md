@@ -9,6 +9,10 @@ transition: slide-left
 Spec-driven development mit KI-Unterstützung
 
 ---
+src: ./pages/00-warmup.md
+---
+
+---
 src: ./pages/01-what-why.md
 ---
 
