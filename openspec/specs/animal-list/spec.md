@@ -16,7 +16,7 @@ The system SHALL expose a `GET /animals` endpoint that returns all registered an
 - **THEN** the response status is `200 OK` and the body is an empty JSON array `[]`
 
 ### Requirement: Animal list view in the UI
-The system SHALL provide an Angular route at `/animals` that displays all registered animals in a list or table. Each row SHALL show at minimum the animal's name and species.
+The system SHALL provide an Angular route at `/animals` that displays all registered animals in a list or table. Each row SHALL show at minimum the animal's name and species. Each row SHALL be a navigable link to the animal's profile at `/animals/:id`.
 
 #### Scenario: Navigating to the animal list
 - **WHEN** a zoo manager navigates to `/animals`
@@ -25,6 +25,10 @@ The system SHALL provide an Angular route at `/animals` that displays all regist
 #### Scenario: Empty list
 - **WHEN** a zoo manager navigates to `/animals` and no animals are registered
 - **THEN** the page displays an empty state (e.g., a message indicating no animals are registered)
+
+#### Scenario: Navigating to an animal profile from the list
+- **WHEN** a zoo manager clicks on an animal row in the list
+- **THEN** the application navigates to `/animals/:id` for that animal
 
 ### Requirement: Animal list accessible from navigation
 The system SHALL include a navigation entry that links to the animal list, so zoo managers can reach it from any page.
