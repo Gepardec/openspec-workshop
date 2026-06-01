@@ -183,6 +183,29 @@ class AnimalResourceTest {
                 .statusCode(404);
     }
 
+    @Test
+    void deleteAnimalReturnsNoContentWhenAnimalExists() {
+        long animalId = persistAnimal("Ravi", "Tiger", 8, "Jungle 3", "Transferred from partner zoo.");
+
+        given()
+                .when().delete("/api/animals/{id}", animalId)
+                .then()
+                .statusCode(204);
+
+        given()
+                .when().get("/api/animals/{id}", animalId)
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
+    void deleteAnimalReturnsNotFoundWhenAnimalDoesNotExist() {
+        given()
+                .when().delete("/api/animals/{id}", 99999)
+                .then()
+                .statusCode(404);
+    }
+
     @Transactional
     long persistAnimal(String name, String species, Integer age, String enclosure, String notes) {
         Animal animal = new Animal();

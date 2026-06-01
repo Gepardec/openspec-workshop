@@ -8,7 +8,7 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { setAllEntities, upsertEntity, withEntities } from '@ngrx/signals/entities';
+import { removeEntity, setAllEntities, upsertEntity, withEntities } from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { Router } from '@angular/router';
 import { pipe, switchMap, tap } from 'rxjs';
@@ -86,6 +86,19 @@ export const AnimalStore = signalStore(
                   patchState(store, upsertEntity(animal), setLoaded());
                   void router.navigate(['/animals', id]);
                 },
+                error: (error) => patchState(store, setError(error)),
+              }),
+            ),
+          ),
+        ),
+      ),
+      delete: rxMethod<number>(
+        pipe(
+          tap(() => patchState(store, setLoading())),
+          switchMap((id) =>
+            animalService.deleteAnimal(id).pipe(
+              tapResponse({
+                next: () => patchState(store, removeEntity(id), setLoaded()),
                 error: (error) => patchState(store, setError(error)),
               }),
             ),

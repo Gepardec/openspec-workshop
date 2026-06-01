@@ -3,6 +3,7 @@ package com.gepardec.openspecws;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
@@ -67,5 +68,18 @@ public class AnimalResource {
         animal.persist();
 
         return Response.ok(animal).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public Response deleteAnimal(@PathParam("id") Long id) {
+        boolean isDeleted = Animal.deleteById(id);
+
+        if (!isDeleted) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.noContent().build();
     }
 }

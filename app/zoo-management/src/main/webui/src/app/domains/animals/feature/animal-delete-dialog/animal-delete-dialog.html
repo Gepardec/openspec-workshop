@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ 'animalDeleteDialog.title' | transloco }}</h2>
+
+<mat-dialog-content>
+  <p>{{ 'animalDeleteDialog.message' | transloco: { name: data.name } }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">
+    {{ 'animalDeleteDialog.cancel' | transloco }}
+  </button>
+  <button class="app-danger-button" mat-flat-button type="button" (click)="confirmDelete()">
+    {{ 'animalDeleteDialog.confirm' | transloco }}
+  </button>
+</mat-dialog-actions>

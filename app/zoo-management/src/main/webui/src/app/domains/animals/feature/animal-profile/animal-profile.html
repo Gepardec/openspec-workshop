@@ -38,6 +38,15 @@
 
       <mat-card-actions align="end">
         <button
+          class="app-danger-button"
+          mat-stroked-button
+          type="button"
+          (click)="openDeleteDialog(animal.id, animal.name)"
+        >
+          <mat-icon aria-hidden="true">delete</mat-icon>
+          {{ 'animalProfile.actions.delete' | transloco }}
+        </button>
+        <button
           color="primary"
           mat-flat-button
           type="button"

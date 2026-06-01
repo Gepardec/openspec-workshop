@@ -24,6 +24,10 @@
   border-radius: 8px;
 }
 
+.animal-profile__card mat-card-actions {
+  gap: 0.75rem;
+}
+
 .animal-profile__state p {
   margin: 0;
 }

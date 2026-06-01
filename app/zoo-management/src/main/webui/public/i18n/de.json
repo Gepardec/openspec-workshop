@@ -93,7 +93,8 @@
   },
   "animalProfile": {
     "actions": {
-      "edit": "Bearbeiten"
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
     },
     "backToList": "Zurück zur Tierliste",
     "eyebrow": "Tierprofil",
@@ -114,5 +115,11 @@
       "title": "Profil konnte nicht geladen werden",
       "description": "Beim Laden des Tierprofils ist ein Fehler aufgetreten."
     }
+  },
+  "animalDeleteDialog": {
+    "title": "Tier löschen",
+    "message": "Möchten Sie \"{{name}}\" wirklich löschen?",
+    "confirm": "Löschen",
+    "cancel": "Abbrechen"
   }
 }

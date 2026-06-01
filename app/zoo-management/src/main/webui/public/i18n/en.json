@@ -93,7 +93,8 @@
   },
   "animalProfile": {
     "actions": {
-      "edit": "Edit"
+      "edit": "Edit",
+      "delete": "Delete"
     },
     "backToList": "Back to animal list",
     "eyebrow": "Animal profile",
@@ -114,5 +115,11 @@
       "title": "Could not load profile",
       "description": "An error occurred while loading the animal profile."
     }
+  },
+  "animalDeleteDialog": {
+    "title": "Delete animal",
+    "message": "Are you sure you want to delete \"{{name}}\"?",
+    "confirm": "Delete",
+    "cancel": "Cancel"
   }
 }

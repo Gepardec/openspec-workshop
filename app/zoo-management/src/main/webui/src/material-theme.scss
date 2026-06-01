@@ -36,3 +36,16 @@ body {
   margin: 0;
   height: 100%;
 }
+
+.app-danger-button {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--mat-sys-error),
+      filled-label-text-color: var(--mat-sys-on-error),
+      filled-state-layer-color: var(--mat-sys-on-error),
+      outlined-label-text-color: var(--mat-sys-error),
+      outlined-outline-color: var(--mat-sys-error),
+      outlined-state-layer-color: var(--mat-sys-error),
+    )
+  );
+}
