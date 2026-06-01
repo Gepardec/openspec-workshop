@@ -6,7 +6,7 @@ transition: slide-left
 
 # OpenSpec Workshop
 
-Spec-driven development with AI at the wheel
+Spec-driven development mit KI-Unterstützung
 
 ---
 src: ./pages/01-what-why.md

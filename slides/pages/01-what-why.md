@@ -2,36 +2,36 @@
 layout: section
 ---
 
-# What · Why · Problem
+# Was · Warum · Problem
 
 ---
 
-# The Problem
+# Das Problem
 
-Building software is easy. **Keeping the team aligned** is not.
+Software bauen ist einfach. **Das Team aligned zu halten** nicht.
 
-- Requirements drift between ticket, design, and implementation
-- AI pair programmers are powerful — but they have no memory of decisions
-- Reviews catch bugs late, not misunderstandings early
-
----
-
-# What is OpenSpec?
-
-A **workflow layer** that lives in your repo alongside your code.
-
-- Changes are proposed, not just coded
-- Each change carries its full context: proposal, specs, design decisions, tasks
-- The CLI makes that context navigable — for humans *and* AI agents
+- Anforderungen driften zwischen Ticket, Design und Implementierung
+- KI-Assistenten sind mächtig – aber kontextblind
+- Reviews finden Bugs spät – Missverständnisse noch später
 
 ---
 
-# Why It Works
+# Was ist OpenSpec?
 
-The spec becomes the **shared source of truth** between team members and AI tools.
+Ein **Workflow-Layer**, der im Repo neben dem Code lebt.
+
+- Changes werden vorgeschlagen, nicht einfach gebaut
+- Jeder Change trägt seinen vollständigen Kontext: proposal, specs, design, tasks
+- Die CLI macht diesen Kontext navigierbar – für Menschen *und* KI-Agenten
+
+---
+
+# Warum es funktioniert
+
+Die Spec wird zum **gemeinsamen Gedächtnis** des Teams.
 
 ```
-developer → openspec propose → specs + tasks → AI implements → review
+developer → openspec propose → specs + tasks → KI implementiert → Review
 ```
 
-No more "what were we trying to do?" — the answer is in the repo.
+Kein „Was wollten wir hier eigentlich bauen?" – die Antwort liegt im Repo.

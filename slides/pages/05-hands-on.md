@@ -2,21 +2,21 @@
 layout: section
 ---
 
-# Hands-on Exercises
+# Hands-on Übungen
 
 ---
 
-# Exercise Setup
+# Setup
 
-Clone the workshop repo and install the CLI:
+Repo klonen und CLI installieren:
 
 ```sh
 git clone <repo-url>
 cd openspec-workshop
-npm install -g openspec   # or: pnpm / yarn
+npm install -g openspec   # oder: pnpm / yarn
 ```
 
-Start the app:
+App starten:
 
 ```sh
 cd app/zoo-management
@@ -25,33 +25,33 @@ cd app/zoo-management
 
 ---
 
-# Exercise 1 — Navigate the Changes
+# Übung 1 – Changes erkunden
 
-Use `list`, `show`, and `status` to explore the six proposed changes.
+Nutze `list`, `show` und `status`, um die sechs vorgeschlagenen Changes zu erkunden.
 
-**Goal:** answer the quiz questions without looking at the files directly.
+**Ziel:** Die Quiz-Fragen beantworten, ohne die Dateien direkt zu öffnen.
 
 ---
 
-# Exercise 2 — Implement a Change
+# Übung 2 – Einen Change implementieren
 
-Pick a change that has all four artifacts complete.
+Wähle einen Change, der alle vier Artefakte vollständig hat.
 
 ```sh
-openspec status --change <your-choice>
-openspec instructions <your-choice>
+openspec status --change <deine-wahl>
+openspec instructions <deine-wahl>
 ```
 
-Paste the instructions into Claude Code (or your AI of choice) and implement the first task.
+Füge die Instructions in Claude Code (oder deinen bevorzugten KI-Assistenten) ein und implementiere die erste Task.
 
 ---
 
-# Exercise 3 — Propose Your Own Change
+# Übung 3 – Eigenen Change vorschlagen
 
-Think of a small feature for the zoo app. Use the CLI to scaffold a new change:
+Denke dir ein kleines Feature für die Zoo-App aus. Nutze die CLI, um einen neuen Change zu erstellen:
 
 ```sh
 openspec propose
 ```
 
-Fill in the proposal interactively, then review the generated artifacts.
+Fülle den Proposal interaktiv aus und überprüfe die generierten Artefakte.

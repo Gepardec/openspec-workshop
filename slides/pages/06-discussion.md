@@ -2,21 +2,21 @@
 layout: section
 ---
 
-# Discussion
+# Diskussion
 
 ---
 
-# Questions to Explore
+# Fragen zum Nachdenken
 
-- Where does spec-driven development break down?
-- How do you handle changes to the spec mid-implementation?
-- What does the review process look like when the AI wrote the code?
-- How does OpenSpec fit into your current workflow?
+- Wo stößt Spec-driven Development an seine Grenzen?
+- Wie geht man mit Spec-Änderungen mitten in der Implementierung um?
+- Wie sieht der Review-Prozess aus, wenn die KI den Code geschrieben hat?
+- Wie fügt sich OpenSpec in euren bestehenden Workflow ein?
 
 ---
 layout: center
 ---
 
-# Thank you
+# Danke
 
-Repo · docs · issues: `openspec-workshop`
+Repo · Docs · Issues: `openspec-workshop`

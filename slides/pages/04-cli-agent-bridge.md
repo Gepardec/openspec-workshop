@@ -2,79 +2,79 @@
 layout: section
 ---
 
-# Moment 2: CLI as Agent Bridge
+# Moment 2: CLI als Agent-Bridge
 
-OpenSpec instructions — deep dive — 15 min
+openspec instructions – Deep Dive — 15 min
 
 ---
 
-# The Gap
+# Die Lücke
 
-AI agents are powerful but **context-blind by default**.
+KI-Agenten sind mächtig – aber **standardmäßig kontextblind**.
 
-They don't know:
-- What the team decided last week
-- Which constraints are non-negotiable
-- What the next step actually is
+Sie wissen nicht:
+- Was das Team letzte Woche entschieden hat
+- Welche Constraints nicht verhandelbar sind
+- Was der nächste konkrete Schritt ist
 
-The spec is the answer — but only if the agent can read it.
+Die Spec ist die Antwort – aber nur, wenn der Agent sie lesen kann.
 
 ---
 
 # `openspec instructions`
 
-Generates a focused prompt the agent uses to start work on a change.
+Generiert einen fokussierten Prompt, mit dem der Agent mit der Arbeit beginnt.
 
 ```sh
 $ openspec instructions us-03-add-animal
 ```
 
-The output is a structured prompt that tells the agent:
-- What change to implement
-- Which task to start with
-- Which specs and design decisions are relevant
+Der Output ist ein strukturierter Prompt, der dem Agenten sagt:
+- Welchen Change er implementieren soll
+- Welche Task als nächstes dran ist
+- Welche Specs und Design-Entscheidungen relevant sind
 
 ---
 
-# What's Inside the Instructions?
+# Was steckt in den Instructions?
 
 ```
-1. Change summary (from proposal)
-2. Active task (from tasks.md)
-3. Relevant specs (from specs.md)
-4. Design constraints (from design.md)
-5. Project conventions (from openspec/config.yaml)
+1. Change-Zusammenfassung (aus proposal)
+2. Aktive Task (aus tasks.md)
+3. Relevante Specs (aus specs.md)
+4. Design-Constraints (aus design.md)
+5. Projekt-Konventionen (aus openspec/config.yaml)
 ```
 
-The agent gets exactly what it needs — no more, no less.
+Der Agent bekommt genau das, was er braucht – nicht mehr, nicht weniger.
 
 ---
 
-# The Agent Loop
+# Der Agent-Loop
 
 ```
-openspec instructions → AI reads context → AI implements task
-       ↑                                          ↓
-openspec apply-change ←←←←←←←←←←←←←←←←← task complete
+openspec instructions → KI liest Kontext → KI implementiert Task
+       ↑                                            ↓
+openspec apply-change ←←←←←←←←←←←←←←←←← Task abgeschlossen
 ```
 
-The CLI drives the loop. The agent does the work. You review the diff.
+Die CLI steuert den Loop. Der Agent erledigt die Arbeit. Du reviewst den Diff.
 
 ---
 
-# Why This Matters
+# Warum das wichtig ist
 
-- The agent can't hallucinate requirements — they're in the spec
-- Decisions are auditable — they're in the proposal
-- Onboarding is self-serve — `openspec show` is the answer
+- Der Agent kann keine Anforderungen halluzinieren – sie stehen in der Spec
+- Entscheidungen sind nachvollziehbar – sie stehen im proposal
+- Onboarding ist selbstständig möglich – `openspec show` ist die Antwort
 
-The spec isn't documentation. **It's the operating memory of the team.**
+Die Spec ist keine Dokumentation. **Sie ist das Arbeitsgedächtnis des Teams.**
 
 ---
 
-# Live Demo
+# Live-Demo
 
-Walking through a change from `openspec list` to implementation.
+Ein Change von `openspec list` bis zur Implementierung.
 
 ```sh
 openspec list
@@ -83,4 +83,4 @@ openspec status --change us-03-add-animal
 openspec instructions us-03-add-animal
 ```
 
-Then: hand the output to an AI agent and watch it work.
+Dann: Output an einen KI-Agenten übergeben und zusehen.

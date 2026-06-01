@@ -2,7 +2,7 @@
 layout: section
 ---
 
-# Moment 1: CLI as File Navigator
+# Moment 1: CLI als Datei-Navigator
 
 `list` · `show` · `status` — 5 min
 
@@ -10,45 +10,45 @@ layout: section
 
 # `openspec list`
 
-See all proposed changes at a glance.
+Alle vorgeschlagenen Changes auf einen Blick.
 
 ```sh
 $ openspec list
 ```
 
-Shows each change with its task count and artifact status — your project's backlog at a glance.
+Zeigt jeden Change mit Taskanzahl und Artefakt-Status – das Backlog des Projekts.
 
 ---
 
 # `openspec show <change>`
 
-Read a change's full context.
+Den vollständigen Kontext eines Change lesen.
 
 ```sh
 $ openspec show us-05-delete-animal
 ```
 
-Returns the proposal, specs, design, and tasks in one readable output — everything the team agreed to.
+Gibt proposal, specs, design und tasks in einem lesbaren Output aus – alles, worauf sich das Team geeinigt hat.
 
 ---
 
 # `openspec status --change <change>`
 
-Check which artifacts are complete.
+Welche Artefakte sind vollständig?
 
 ```sh
 $ openspec status --change us-01-animal-list
 ```
 
-Four artifacts required by `spec-driven`: proposal → specs → design → tasks.
+Das `spec-driven`-Schema erfordert vier Artefakte: proposal → specs → design → tasks.
 
-A change is only ready to implement when all four are present.
+Ein Change ist erst implementierungsbereit, wenn alle vier vorhanden sind.
 
 ---
 
-# Hands-on: Quiz Round 1
+# Hands-on: Quiz-Runde 1
 
-Open the quiz and answer questions **1–12** using only the three commands.
+Beantworte die Quiz-Fragen **1–12** mit nur diesen drei Befehlen.
 
 ```sh
 openspec list
@@ -56,4 +56,4 @@ openspec show <change>
 openspec status --change <change>
 ```
 
-You have **5 minutes** — go!
+**5 Minuten** – los!
