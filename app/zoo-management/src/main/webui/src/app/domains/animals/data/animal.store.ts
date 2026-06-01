@@ -15,8 +15,13 @@ import { pipe, switchMap, tap } from 'rxjs';
 
 import { AnimalCreateDto } from '../model/animal-create-dto';
 import { Animal } from '../model/animal';
+import {
+  setError,
+  setLoaded,
+  setLoading,
+  withCallStatus,
+} from '@gpdc-zoo/shared/util/call-status.feature';
 import { AnimalService } from './animal.service';
-import { setError, setLoaded, setLoading, withCallStatus } from './call-status.feature';
 
 type AnimalProfileState = {
   selectedAnimalId: number | null;

@@ -1,0 +1,34 @@
+<mat-card class="spotlight-card">
+  <mat-card-header>
+    <mat-card-subtitle>{{ 'dashboard.spotlight.subtitle' | transloco }}</mat-card-subtitle>
+    <mat-card-title>{{ spotlight().name }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <dl class="spotlight-card__facts">
+      <div>
+        <dt>{{ 'dashboard.fields.species' | transloco }}</dt>
+        <dd>{{ spotlight().species }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'dashboard.fields.age' | transloco }}</dt>
+        <dd>{{ spotlight().age }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'dashboard.fields.enclosure' | transloco }}</dt>
+        <dd>{{ spotlight().enclosure }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'dashboard.fields.funFact' | transloco }}</dt>
+        <dd>{{ spotlight().funFact }}</dd>
+      </div>
+    </dl>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <a color="primary" mat-flat-button [routerLink]="['/animals', spotlight().id]">
+      <mat-icon aria-hidden="true">visibility</mat-icon>
+      {{ 'dashboard.actions.viewProfile' | transloco }}
+    </a>
+  </mat-card-actions>
+</mat-card>

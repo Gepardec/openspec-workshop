@@ -1,0 +1,24 @@
+<section class="dashboard-page">
+  <header class="dashboard-page__header">
+    <p class="dashboard-page__eyebrow">{{ 'dashboard.eyebrow' | transloco }}</p>
+    <h1>{{ 'dashboard.title' | transloco }}</h1>
+  </header>
+
+  @if (spotlightStore.loading()) {
+    <div class="dashboard-page__loading">
+      <mat-spinner [attr.aria-label]="'dashboard.loading' | transloco" />
+    </div>
+  } @else if (spotlightStore.error(); as errorMessage) {
+    <mat-card class="dashboard-page__state">
+      <mat-card-header>
+        <mat-card-title>{{ 'dashboard.error.title' | transloco }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ 'dashboard.error.description' | transloco }}</p>
+        <p class="dashboard-page__error-details">{{ errorMessage }}</p>
+      </mat-card-content>
+    </mat-card>
+  } @else if (spotlightStore.spotlight(); as spotlight) {
+    <app-spotlight-card [spotlight]="spotlight" />
+  }
+</section>

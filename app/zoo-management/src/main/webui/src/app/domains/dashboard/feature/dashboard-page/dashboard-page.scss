@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+.dashboard-page {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 48rem;
+}
+
+.dashboard-page__header h1 {
+  margin: 0.25rem 0 0;
+}
+
+.dashboard-page__eyebrow {
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-label-large);
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.dashboard-page__loading {
+  display: grid;
+  justify-content: center;
+  min-height: 12rem;
+  place-items: center;
+}
+
+.dashboard-page__state {
+  border-radius: 8px;
+}
+
+.dashboard-page__error-details {
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0.5rem 0 0;
+}

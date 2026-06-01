@@ -1,6 +1,7 @@
 package com.gepardec.openspecws;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -15,4 +16,6 @@ public class Animal extends PanacheEntity {
     public Integer age;
     public String enclosure;
     public String notes;
+    @Column(name = "fun_fact")
+    public String funFact;
 }

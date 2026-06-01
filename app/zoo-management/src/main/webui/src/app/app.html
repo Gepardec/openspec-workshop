@@ -1,7 +1,7 @@
 <mat-toolbar class="app-toolbar">
   <a
     class="app-toolbar__brand"
-    routerLink="/animals"
+    routerLink="/dashboard"
     [attr.aria-label]="'app.title' | transloco"
   >
     <mat-icon aria-hidden="true">forest</mat-icon>
@@ -9,6 +9,15 @@
   </a>
 
   <nav class="app-toolbar__nav" [attr.aria-label]="'app.navigation' | transloco">
+    <a
+      class="app-toolbar__link"
+      mat-button
+      routerLink="/dashboard"
+      routerLinkActive="app-toolbar__link--active"
+    >
+      <mat-icon aria-hidden="true">dashboard</mat-icon>
+      <span>{{ 'app.dashboard' | transloco }}</span>
+    </a>
     <a
       class="app-toolbar__link"
       mat-button

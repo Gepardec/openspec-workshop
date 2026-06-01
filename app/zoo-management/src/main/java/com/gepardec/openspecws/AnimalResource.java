@@ -65,6 +65,7 @@ public class AnimalResource {
         animal.age = updatedAnimal.age;
         animal.enclosure = updatedAnimal.enclosure;
         animal.notes = updatedAnimal.notes;
+        animal.funFact = updatedAnimal.funFact;
         animal.persist();
 
         return Response.ok(animal).build();

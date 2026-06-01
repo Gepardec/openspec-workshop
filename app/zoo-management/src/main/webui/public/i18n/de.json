@@ -1,8 +1,30 @@
 {
   "app": {
     "animals": "Tiere",
+    "dashboard": "Dashboard",
     "navigation": "Hauptnavigation",
     "title": "Zoo-Verwaltung"
+  },
+  "dashboard": {
+    "actions": {
+      "viewProfile": "Profil anzeigen"
+    },
+    "eyebrow": "Willkommen",
+    "error": {
+      "description": "Das Spotlight ist aktuell nicht verf\u00fcgbar.",
+      "title": "Spotlight nicht verf\u00fcgbar"
+    },
+    "fields": {
+      "age": "Alter",
+      "enclosure": "Gehege",
+      "funFact": "Fun Fact",
+      "species": "Art"
+    },
+    "loading": "Spotlight wird geladen",
+    "spotlight": {
+      "subtitle": "Tier im Rampenlicht"
+    },
+    "title": "Dashboard"
   },
   "animalList": {
     "addAnimal": "Tier hinzufügen",

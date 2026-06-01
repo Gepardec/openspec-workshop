@@ -4,7 +4,14 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'animals',
+    redirectTo: 'dashboard',
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('@gpdc-zoo/dashboard/feature/dashboard-page/dashboard-page').then(
+        (module) => module.DashboardPageComponent,
+      ),
   },
   {
     path: 'animals',

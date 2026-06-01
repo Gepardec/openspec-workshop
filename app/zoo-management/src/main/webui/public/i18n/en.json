@@ -1,8 +1,30 @@
 {
   "app": {
     "animals": "Animals",
+    "dashboard": "Dashboard",
     "navigation": "Main navigation",
     "title": "Zoo Management"
+  },
+  "dashboard": {
+    "actions": {
+      "viewProfile": "View profile"
+    },
+    "eyebrow": "Welcome",
+    "error": {
+      "description": "The spotlight is currently unavailable.",
+      "title": "Spotlight unavailable"
+    },
+    "fields": {
+      "age": "Age",
+      "enclosure": "Enclosure",
+      "funFact": "Fun fact",
+      "species": "Species"
+    },
+    "loading": "Loading spotlight",
+    "spotlight": {
+      "subtitle": "Animal spotlight"
+    },
+    "title": "Dashboard"
   },
   "animalList": {
     "addAnimal": "Add animal",
