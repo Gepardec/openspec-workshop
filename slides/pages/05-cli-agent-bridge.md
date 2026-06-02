@@ -52,10 +52,13 @@ Der Agent bekommt genau das, was er braucht – nicht mehr, nicht weniger.
 
 # Der Agent-Loop (`opsx:apply`)
 
-```
-openspec instructions → KI liest Kontext → KI implementiert Task
-       ↑                                            ↓
-       ←←←←←←←←←←←←←←←←←←←←←←←←← Task abgeschlossen
+```mermaid
+flowchart LR
+    INS["openspec instructions\nKontext-Prompt"] --> READ["KI liest\nKontext"]
+    READ --> IMPL["KI implementiert\nTask"]
+    IMPL --> CHECK{"Alle Tasks\nfertig?"}
+    CHECK -->|nein| INS
+    CHECK -->|ja| DONE["Du reviewst\nden Diff"]
 ```
 
 `opsx:apply` ist der Skill, der diesen Loop ausführt — Task für Task, bis alle `[x]` sind.
