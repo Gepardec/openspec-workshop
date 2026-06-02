@@ -6,82 +6,52 @@ layout: section
 
 ---
 
-# Setup
+# Übung 1 – OpenSpec selbst aufsetzen
 
-Repo klonen und CLI installieren:
+`exercises/01_init_openspec/README.md`
 
-```sh
-git clone <repo-url>
-cd openspec-workshop
-npm install -g @fission-ai/openspec@latest   # oder: pnpm / yarn
-openspec --version
-```
-
-App starten:
-
-```sh
-cd app/zoo-management
-./mvnw quarkus:dev
-```
+Setup, CLI-Installation und `openspec init` — ihr seht, was OpenSpec aus einem leeren Repo macht.
 
 ---
 
-# Übung 0 – OpenSpec selbst aufsetzen
+# Übung 2 – Workshop-Setup übernehmen
 
-Wir setzen `openspec init` einmal selbst durch – auf einem Branch ohne vorkonfiguriertes Setup.
+`exercises/02_setup_openspec/README.md`
 
-```sh
-git checkout workshop/00-bare       # Repo ohne openspec/-Ordner
-openspec init                       # interaktiv – Claude Code auswählen
-```
-
-**Schaut euch danach an, was angelegt wurde:**
-
-```sh
-ls openspec/
-ls .claude/commands/opsx/
-cat openspec/config.yaml
-```
-
-Anschließend zurück zur vorkonfigurierten Variante für alle weiteren Übungen:
-
-```sh
-git checkout main
-```
-
-<div class="text-xs text-white/50 mt-4">
-Tipp: Lasst eure lokalen Änderungen am `00-bare`-Branch ruhig liegen – ihr könnt jederzeit zurückspringen und vergleichen.
-</div>
+Ihr kopiert das vorkonfigurierte `openspec/`-Verzeichnis in euer Repo-Root. Ab jetzt arbeitet ihr mit dem vollständigen Workshop-Stand — inkl. aller Changes und Specs.
 
 ---
 
-# Übung 1 – Changes erkunden
+# Übung 3 – Einen aktiven Change archivieren
 
-Nutze `list`, `show` und `status`, um die sechs vorgeschlagenen Changes zu erkunden.
+`exercises/03_archive_change/README.md`
 
-**Ziel:** Die Quiz-Fragen beantworten, ohne die Dateien direkt zu öffnen.
-
----
-
-# Übung 2 – Einen Change implementieren
-
-Wähle einen Change, der alle vier Artefakte vollständig hat.
-
-```sh
-openspec status --change <deine-wahl>
-openspec instructions <deine-wahl>
-```
-
-Füge die Instructions in Claude Code (oder deinen bevorzugten KI-Assistenten) ein und implementiere die erste Task.
+Der Change `us-06-dashboard` ist fertig implementiert. Archiviert ihn mit OpenSpec — und schaut euch an, was danach in `openspec/` anders ist.
 
 ---
 
-# Übung 3 – Eigenen Change vorschlagen
+# Übung 4 – Einen vorbereiteten Change anwenden
 
-Denke dir ein kleines Feature für die Zoo-App aus. Nutze die CLI, um einen neuen Change zu erstellen:
+`exercises/04_apply_change/README.md`
 
-```sh
-openspec propose
-```
+Ein fertig ausformulierter Change liegt bereit. Ihr kopiert ihn ins `openspec/changes/`-Verzeichnis, wendet ihn an und archiviert ihn anschließend.
 
-Fülle den Proposal interaktiv aus und überprüfe die generierten Artefakte.
+---
+
+# Übung 5 – Change-Proposal aus einer User Story
+
+`exercises/05_propose_change/README.md`
+
+Eine User Story liegt bereit. Erstellt daraus ein vollständiges Change-Proposal mit `openspec propose`.
+
+Wer noch Token übrig hat: wendet den Change auch gleich an und archiviert ihn.
+
+---
+
+# Übung 6 – Exploration einer unklaren Anforderung
+
+`exercises/06_explore_requirements/README.md`
+
+Eine vage Anforderung liegt bereit. Startet eine Exploration, um die Anforderung zu schärfen — und erstellt am Ende ein Proposal.
+
+Wer noch Token übrig hat: wendet den Change auch gleich an und archiviert ihn.
