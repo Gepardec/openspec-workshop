@@ -15,6 +15,8 @@ Bewertung aller Slides in `slides/pages/` nach den Kriterien:
 ## Fehlt komplett: Tagesüberblick für Teilnehmer
 ### Regel B (roter Faden)
 Nach dem Warm-Up (`00-warmup.md`) springt der Foliensatz direkt in das Why-Kapitel. Teilnehmer haben keinen Überblick, was sie an diesem Tag erwartet, wie lange welcher Block dauert und wann die Hands-on-Phase beginnt. Eine kurze Agenda-Slide würde den Erwartungshorizont setzen und die Verbindung zu den im Warm-Up gesammelten Erwartungen schaffen.
+
+**Wo platzieren?** Direkt nach dem Warm-Up, nicht davor. Frage 4 im Warm-Up sammelt Erwartungen ans Whiteboard — die Agenda direkt danach erzeugt den natürlichen Rückbezug: „Ihr habt gesammelt, was ihr erwartet, hier ist was geplant ist." Erst Beziehung/Aktivierung, dann Struktur.
 ### Lösungsvorschlag
 Neue Slide am Ende von `00-warmup.md` oder als eigene Datei `00b-agenda.md` einfügen. Vorschlag für den Inhalt:
 
@@ -25,27 +27,66 @@ layout: default
 
 # Agenda
 
-| Block | Inhalt | Zeit |
-|---|---|---|
-| 1 | Warum Spec-driven? Warum jetzt? | 20 min |
-| 2 | Phasen & Dokumente | 30 min |
-| 3 | Setup & Konfiguration | 20 min |
-| 4 | CLI als Datei-Navigator (+ Quiz) | 15 min |
-| 5 | CLI als Agent-Bridge (+ Live-Demo) | 25 min |
-| 6 | Hands-on Übungen | 90 min |
-| 7 | Diskussion & Wrap-up | 20 min |
+| Zeit | Block |
+|---|---|
+| ✓ 09:00 – 09:30 | Warm-Up + Erwartungen |
+| 09:30 – 10:15 | 1 · Warum Spec-driven? Warum jetzt? |
+| 10:15 – 10:30 | Kaffeepause |
+| 10:30 – 11:30 | 2 · Phasen & Dokumente |
+| 11:30 – 12:00 | 3 · Setup & Konfiguration |
+| 12:00 – 12:30 | 4 · CLI als Datei-Navigator + Quiz |
+| 12:30 – 13:30 | Mittagspause |
+| 13:30 – 14:15 | 5 · CLI als Agent-Bridge + Live-Demo |
+| 14:15 – 16:45 | 6 · Hands-on Übungen (mit Kaffeepause) |
+| 16:45 – 17:30 | 7 · Diskussion & Wrap-up |
 
 <!--
-Pausen zwischendurch nach Bedarf. Punkte vom Whiteboard
-(Erwartungen aus dem Warm-Up) im Lauf des Tages abhaken.
+Pausen sind Richtwerte — Kaffeepause am Nachmittag flexibel
+nach Fortschritt der Hands-on-Übungen einlegen.
+Punkte vom Whiteboard (Erwartungen aus Warm-Up) im Lauf
+des Tages abhaken.
 -->
 ```
 
-Alternativ als Mermaid-Timeline-Diagramm visualisieren — das macht die Zeitanteile sichtbarer. Zeiten an den tatsächlich geplanten Tagesablauf anpassen.
+**Rationale Zeitverteilung:**
+
+- **Vormittag (3h Theorie + Quiz):** Block 1 bekommt 45 min, damit die Why-Diskussion atmen kann. Block 2 (Phasen, das inhaltliche Schwergewicht) bekommt 60 min. Block 3+4 sind komprimierter — beim Quiz reicht 30 min für die Mentimeter/Forms-Runde inkl. kurzer Auflösung.
+- **Quiz vor der Mittagspause** ist ein guter Übergang: Theorie wird durch Interaktion verfestigt, danach Pause zum Setzen lassen.
+- **Nachmittag (~3h Praxis + 45 min Wrap-up):** Block 5 als „Bridge"-Theorie + Live-Demo bekommt 45 min. Die Hands-on-Phase hat 2.5h netto — das ist realistisch für 4-5 Übungen pro Teilnehmer, nicht zwingend alle 6.
+- **Wrap-up bewusst 45 min:** Diskussion + Sammeln der Erkenntnisse + ggf. Verlängerung bei lebhafter Runde.
+
+**Alternative:** Als Mermaid-Timeline visualisieren — macht die Zeitanteile sichtbarer und den Tagesablauf auf einen Blick lesbar.
+
+---
+
+# slides.md (Titelfolie)
+
+## OpenSpec Workshop / Spec-driven development mit KI-Unterstützung
+### Regel C (generischer Titel)
+Der aktuelle Titel sagt nicht, warum man in diesem Workshop sitzen sollte. „Spec-driven development mit KI-Unterstützung" ist eine Kategorisierung, kein Versprechen.
+### Lösungsvorschlag
+Titel auf **„OpenSpec — Specs, die mit dem Code leben"** ändern, Untertitel **„Spec-driven Workflow für KI-gestützte Entwicklung"**. Greift den Brownfield- und Repo-Aspekt direkt auf.
 
 ---
 
 # 01-what-why.md
+
+## Section-Titel: „Warum Spec-driven? Warum jetzt?"
+### Regel D (Marketing)
+Das doppelte „Warum?" ist klassische Konferenz-Keynote-Rhetorik. Der „Warum jetzt?"-Teil suggeriert künstliche Dringlichkeit — passt zum Pitch-Stil, den auch die einzelnen Slides des Kapitels haben, aber nicht zu einem Workshop.
+### Lösungsvorschlag
+Auf **„Was ist Spec-driven Development und wozu?"** ändern. Deckt beides ab, was das Kapitel tatsächlich macht (was ist es + warum), ohne künstliche Dringlichkeit.
+
+## Header-Pattern „Eigenschaft 1/2/3: …"
+### Regel C (Lehrbuch-Sprache)
+„Eigenschaft" klingt nach Lehrbuch, nicht nach Vortrag. Außerdem verstecken die Header die eigentliche Aussage hinter dem Präfix.
+### Lösungsvorschlag
+Präfix komplett weglassen und als plakative Aussage formulieren:
+- „Eigenschaft 1: Die Spec lebt im Repo" → **„Specs im Repo, nicht im Wiki"**
+- „Eigenschaft 2: Wächst mit der Codebase" → **„Wächst mit dem Code"**
+- „Eigenschaft 3: Tool-agnostic" → **„Nicht an ein Tool gebunden"**
+
+Optional in der Ecke ein kleiner Counter `1/3`, `2/3`, `3/3` zur Wiedererkennung der Reihe.
 
 ## Code ist nicht mehr der Engpass
 ### Regel D (Marketing)
@@ -88,7 +129,7 @@ Slide entweder streichen oder als echten Übergang nutzen: ein einziger Sequence
 ### Regel C (Tippfehler/Casing)
 Im Titel steht „core profil" — sollte „core profile" oder besser „core-Profil" sein.
 ### Lösungsvorschlag
-Titel zu „Ablauf (core-Profil)" ändern.
+Titel zu „Ablauf" ändern.
 
 ## proposal.md – Das WARUM
 ### Regel A (logischer Abschluss) + C (unklarer Bullet)
@@ -155,6 +196,12 @@ Teil 2+3 (Skill-Bug + Faustregel) auf eine eigene Slide auslagern mit Titel „F
 
 # 04-cli-navigator.md
 
+## Section-Titel: „Moment 1: CLI als Datei-Navigator"
+### Regel C (unmenschliche Formulierung)
+„Moment" passt nicht; klingt wie eine schief gegangene Übersetzung aus dem Englischen.
+### Lösungsvorschlag
+Präfix komplett weglassen: **„Die CLI als Datei-Navigator"**. Lässt den Inhalt sprechen, kein künstlicher Nummerierungs-Overhead.
+
 ## `openspec status --change <change>`
 ### Regel B (Widerspruch zum vorigen Abschnitt!)
 Die Slide sagt: „Das `spec-driven`-Schema erfordert vier Artefakte: proposal → specs → design → tasks. Ein Change ist erst implementierungsbereit, wenn alle vier vorhanden sind."
@@ -172,6 +219,12 @@ Help-Output entfernen oder auf drei bis vier relevante Befehle reduzieren (`list
 ---
 
 # 05-cli-agent-bridge.md
+
+## Section-Titel: „Moment 2: CLI als Agent-Bridge"
+### Regel C (unmenschliche Formulierung)
+Wie in 04: „Moment" wirkt wie eine Fehlübersetzung.
+### Lösungsvorschlag
+Präfix weglassen: **„Die CLI als Agent-Bridge"**.
 
 ## Die Lücke
 ### Regel B (Wiederholung) + D (Marketing)
