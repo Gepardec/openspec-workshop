@@ -66,4 +66,3 @@ OpenSpec ist nicht an einen KI-Agenten gekoppelt.
 - Claude Code, Cursor, Copilot, Cline, Windsurf, Continue … 30+ Tools werden bei `init` verdrahtet
 - Skills + Slash-Commands werden tool-spezifisch generiert
 - Die Spec selbst ist plain Markdown – jeder Agent (und jeder Mensch) kann sie lesen
-- Wechsel des Agenten = `openspec init` neu laufen lassen, sonst nichts
