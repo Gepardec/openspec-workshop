@@ -91,19 +91,19 @@ Ein Gesprächs-Loop mit dem Agenten: Fragen stellen, Annahmen aufdecken, Szenari
 ```mermaid
 flowchart TD
     proposal --> specs
-    proposal -. optional .-> design
+    proposal --> design
     specs --> tasks
-    design -.-> tasks
+    design --> tasks
 
     style proposal fill:#1e40af,stroke:#3b82f6,color:#eff6ff
     style specs   fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
     style tasks   fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
-    style design  fill:#0f172a,stroke:#475569,color:#94a3b8,stroke-dasharray:5
+    style design  fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
 ```
 
 </div>
 
-Design entfällt, wenn keine technischen Entscheidungen getroffen werden müssen
+Alle vier Artefakte sind Pflicht — tasks ist blockiert, bis specs und design vorliegen
 
 <!--
 Die folgenden Slides schauen auf jedes Dokument einzeln.

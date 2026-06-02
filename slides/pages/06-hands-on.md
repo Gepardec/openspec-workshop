@@ -64,7 +64,7 @@ Ein fertig ausformulierter Change liegt bereit. Ihr kopiert ihn ins `openspec/ch
 
 `exercises/05_propose_change/README.md`
 
-Eine User Story liegt bereit. Erstellt daraus ein vollständiges Change-Proposal mit `openspec propose`.
+Eine User Story liegt bereit. Erstellt daraus ein vollständiges Change-Proposal mit `/opsx:propose`.
 
 Wer noch Token übrig hat: wendet den Change auch gleich an und archiviert ihn.
 

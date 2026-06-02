@@ -4,8 +4,6 @@ layout: section
 
 # Die CLI als Agent-Bridge
 
-Die apply-Phase — `opsx:apply` und `openspec instructions` — 15 min
-
 ---
 
 # Die Lücke
@@ -20,33 +18,32 @@ Er weiß nicht, was entschieden wurde, was nicht verhandelbar ist, was als näch
 
 # `openspec instructions`
 
-Generiert einen fokussierten Prompt, mit dem der Agent mit der Arbeit beginnt.
+Liefert dem Agenten Anweisungen für das Erstellen eines Artefakts — Template, Projekt-Kontext, Inhalte der Abhängigkeiten.
 
 ```sh
-$ openspec instructions us-03-add-animal
+$ openspec instructions <artifact> --change us-06-dashboard
 ```
 
-Der Output ist ein strukturierter Prompt, der dem Agenten sagt:
-- Welchen Change er implementieren soll
-- Welche Task als nächstes dran ist
-- Welche Specs und Design-Entscheidungen relevant sind
+Gültige Argumente: `proposal` · `specs` · `design` · `tasks` · `apply`
+
+`/opsx:propose` ruft diesen Befehl für jedes Artefakt auf. Sonderfall `apply`: liefert Implementierungsanweisungen für den aktiven Task.
 
 ---
 
 # Was steckt in den Instructions?
 
+Abhängig vom angefragten Artefakt — immer: Template + Projekt-Konventionen + Pfade zu fertigen Abhängigkeiten.
+
 ```mermaid
 flowchart LR
-    P["proposal.md\nChange-Zusammenfassung"] --> IP
-    T["tasks.md\nAktive Task"] --> IP
-    S["specs.md\nRelevante Specs"] --> IP
-    D["design.md\nDesign-Constraints"] --> IP
-    C["config.yaml\nProjekt-Konventionen"] --> IP["instructions\nPrompt"]
+    T["Template\n(schema-spezifisch)"] --> IP
+    C["config.yaml\nKonventionen"] --> IP
+    A["Pfade zu fertigen\nAbhängigkeiten"] --> IP["instructions\nPrompt"]
 
     style IP fill:#1e40af,stroke:#3b82f6,color:#eff6ff
 ```
 
-Der Agent bekommt genau das, was er braucht – nicht mehr, nicht weniger.
+Der Agent liest die referenzierten Dateien selbst — `instructions` zeigt ihm nur, wo er schauen soll.
 
 ---
 
@@ -54,7 +51,7 @@ Der Agent bekommt genau das, was er braucht – nicht mehr, nicht weniger.
 
 ```mermaid
 flowchart LR
-    INS["openspec instructions\nKontext-Prompt"] --> READ["KI liest\nKontext"]
+    INS["openspec instructions apply\nImplementierungskontext"] --> READ["KI liest\nKontext"]
     READ --> IMPL["KI implementiert\nTask"]
     IMPL --> CHECK{"Alle Tasks\nfertig?"}
     CHECK -->|nein| INS
@@ -69,13 +66,19 @@ Die CLI steuert den Loop. Der Agent erledigt die Arbeit. Du reviewst den Diff.
 
 # Live-Demo
 
-Ein Change von `openspec list` bis zur Implementierung.
+Was der Agent als Input bekommt — einmal pro Artefakt, einmal für die Implementierung.
 
 ```sh
-openspec list
-openspec show us-03-add-animal
-openspec status --change us-03-add-animal
-openspec instructions us-03-add-animal
+# Während propose: Anweisungen zum Schreiben eines Artefakts
+openspec instructions proposal --change us-06-dashboard
+openspec instructions specs --change us-06-dashboard
+openspec instructions design --change us-06-dashboard
+openspec instructions tasks --change us-06-dashboard
+
+# Während apply: Anweisungen zur Implementierung des nächsten Tasks
+openspec instructions apply --change us-06-dashboard
 ```
 
-Dann: Output an einen KI-Agenten übergeben und zusehen.
+<!--
+Vergleich: Alle Tasks erledigt vs. alle Tasks offen
+-->

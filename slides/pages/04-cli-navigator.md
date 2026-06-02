@@ -8,39 +8,77 @@ layout: section
 
 # `openspec list`
 
-Alle vorgeschlagenen Changes auf einen Blick.
+Alle aktiven Changes auf einen Blick.
 
 ```sh
 $ openspec list
 ```
 
-Zeigt jeden Change mit Taskanzahl und Artefakt-Status – das Backlog des Projekts.
+```
+Changes:
+  us-06-dashboard     ✓ Complete    18m ago
+  us-07-filter        2/4 artifacts  3m ago
+```
+
+Mit `--specs` werden stattdessen alle Haupt-Specs aufgelistet. JSON-Output mit `--json`.
 
 ---
 
 # `openspec show <change>`
 
-Den vollständigen Kontext eines Change lesen.
+Den Proposal-Inhalt eines Change lesen.
 
 ```sh
-$ openspec show us-05-delete-animal
+$ openspec show us-06-dashboard
 ```
 
-Gibt proposal, specs, design und tasks in einem lesbaren Output aus – alles, worauf sich das Team geeinigt hat.
+Gibt den Inhalt von `proposal.md` aus — Why, What Changes, Capabilities und Impact.
+
+```md
+## Why
+The app currently lands the user directly on the animal list...
+
+## What Changes
+- Add a new `/dashboard` route as the default landing page
+...
+```
+
+Mit `--type spec <name>` zeigt der Befehl den Inhalt einer Haupt-Spec.
 
 ---
 
 # `openspec status --change <change>`
 
-Welche Artefakte sind vollständig?
+Welche Artefakte sind vollständig — und was ist noch blockiert?
 
 ```sh
-$ openspec status --change us-01-animal-list
+$ openspec status --change us-07-filter
 ```
 
-Das `spec-driven`-Schema kennt vier Artefakt-Typen: proposal, specs, design, tasks.
+```
+Change: us-07-filter
+Schema: spec-driven
+Progress: 2/4 artifacts complete
 
-`status` zeigt, welche davon für den aktuellen Change bereits vorhanden sind — design ist optional, die anderen drei sind Pflicht.
+[x] proposal
+[ ] design
+[x] specs
+[-] tasks (blocked by: design)
+```
+
+Alle vier Artefakte sind Pflicht. `tasks` ist blockiert, bis sowohl `specs` als auch `design` vorhanden sind.
+
+---
+
+# `openspec view`
+
+Interaktives Terminal-Dashboard.
+
+```sh
+$ openspec view
+```
+
+Übersicht aller Changes und Specs im Projekt. Nur für den menschlichen Einsatz im Terminal — kein JSON-Output.
 
 ---
 
@@ -50,9 +88,9 @@ Beantworte die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit openspec C
 
 ```sh
 openspec list                           # alle aktiven Changes
-openspec show <change>                  # vollständiger Kontext
+openspec show <change>                  # Proposal-Inhalt eines Change
 openspec status --change <change>       # welche Artefakte sind vorhanden?
 openspec view                           # interaktives Dashboard
 ```
 
-<img src="./qr-code-cli-quiz.png" class="h-48 mx-auto mt-6" />
+<img src="./qr-code-cli-quiz.png" alt="QR-Code Quiz-Formular" class="h-48 mx-auto mt-6" />
