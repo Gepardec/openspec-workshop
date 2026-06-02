@@ -4,9 +4,9 @@ title: OpenSpec Workshop
 transition: slide-left
 ---
 
-# OpenSpec Workshop
+# OpenSpec — Specs, die mit dem Code leben
 
-Spec-driven development mit KI-Unterstützung
+Spec-driven Workflow für KI-gestützte Entwicklung
 
 ---
 src: ./pages/00-warmup.md

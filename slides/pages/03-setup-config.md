@@ -19,7 +19,7 @@ $ openspec init
 Interaktiv: OpenSpec fragt nach den AI-Tools, die in diesem Projekt benutzt werden – und verdrahtet sie automatisch.
 
 - Claude Code, Codex, Copilot, OpenCode, ... 30+ Optionen
-- Mehrfachauswahl möglich – ein Projekt, mehrere Assistenten
+- Mehrfachauswahl möglich – ein Projekt, mehrere Agenten
 - Erneut ausführbar: nachträglich Tools hinzufügen oder updaten
 
 ---
@@ -62,6 +62,10 @@ Tool-unabhängig. Lebt im Repo, gehört in <code>git</code>.
 Pro ausgewähltem Agent eigene Skills. Commands/Workflows nur dort, wo das Tool sie unterstützt (Claude Code, Cursor, Copilot, …).
 </div>
 
+<div v-click="2" class="text-sm text-amber-400/80 mt-2">
+<code>AGENTS.md</code> / <code>CLAUDE.md</code> werden bewusst nicht angelegt — wenn vorhanden, bleiben sie unverändert.
+</div>
+
 ---
 
 # Tipp: CLAUDE.md / AGENTS.md auf OpenSpec verweisen
@@ -82,7 +86,7 @@ Projekt-Kontext, Tech-Stack und Konventionen liegen in
 
 ---
 
-# `config.yaml` – das eine wichtige File
+# `config.yaml` – die eine Datei, die zählt
 
 Zwei Dinge, die jedes Team früh definiert:
 
@@ -110,15 +114,13 @@ context: |                  # erscheint in JEDEM Artefakt
 
 Auszug aus `.claude/commands/opsx/propose.md`:
 
-```md
-2. **Create the change directory**
-   ```bash
-   openspec new change "<name>"
+```text
+2. Create the change directory
+   → openspec new change "<name>"
 
-3. **Get the artifact build order**
-   ```bash
-   openspec status --change "<name>" --json
-   Parse the JSON to get `applyRequires` and `artifacts` ...
+3. Get the artifact build order
+   → openspec status --change "<name>" --json
+   Parse the JSON to get applyRequires and artifacts ...
 ```
 
 Der Agent ruft also durchgehend `openspec`-Befehle auf.
@@ -139,23 +141,32 @@ Was er tut: Delta-Specs in die Haupt-Specs mergen, Change-Verzeichnis aufräumen
 
 **Das Problem:** Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteuert.
 
-```md
-<!-- .claude/commands/opsx/archive.md (vereinfacht) -->
-1. Run `openspec status` and confirm all tasks complete
+```text
+1. Run openspec status and confirm all tasks complete
 2. Compare each delta spec with its main spec ...  ← KI tut das manuell
 3. mkdir -p openspec/changes/archive               ← KI tut das manuell
 4. mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
 ```
 
-</v-click>
-
-<v-click>
-
-Ein offenes Issue ([\#863](https://github.com/Fission-AI/OpenSpec/issues/863)). Der Skill sollte `openspec archive` aufrufen, nicht die Arbeit selbst erledigen.
-
-**Faustregel:** Hat die CLI einen Befehl dafür → Skill ruft ihn auf, denkt nicht selbst.
+Ein offenes Issue ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)).
 
 </v-click>
+
+---
+
+# Faustregel: Skills rufen die CLI auf, sie denken nicht selbst
+
+Hat die CLI einen Befehl dafür → Skill ruft ihn auf, erledigt die Arbeit nicht selbst.
+
+```sh
+# gut
+openspec archive <change>
+
+# schlecht
+# KI vergleicht Specs manuell, verschiebt Verzeichnisse, schreibt History selbst
+```
+
+Die CLI ist die State-Machine. Der Agent ist der Executor.
 
 ---
 

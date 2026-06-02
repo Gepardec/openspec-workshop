@@ -2,9 +2,7 @@
 layout: section
 ---
 
-# Moment 1: CLI als Datei-Navigator
-
-`list` · `show` · `status` — 5 min
+# Die CLI als Datei-Navigator
 
 ---
 
@@ -40,9 +38,9 @@ Welche Artefakte sind vollständig?
 $ openspec status --change us-01-animal-list
 ```
 
-Das `spec-driven`-Schema erfordert vier Artefakte: proposal → specs → design → tasks.
+Das `spec-driven`-Schema kennt vier Artefakt-Typen: proposal, specs, design, tasks.
 
-Ein Change ist erst implementierungsbereit, wenn alle vier vorhanden sind.
+`status` zeigt, welche davon für den aktuellen Change bereits vorhanden sind — design ist optional, die anderen drei sind Pflicht.
 
 ---
 
@@ -51,24 +49,10 @@ Ein Change ist erst implementierungsbereit, wenn alle vier vorhanden sind.
 Beantworte die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit openspec CLI Befehlen.
 
 ```sh
-Commands:
-  init [options] [path]              Initialize OpenSpec in your project
-  update [options] [path]            Update OpenSpec instruction files
-  list [options]                     List items (changes by default). Use --specs to list specs.
-  view                               Display an interactive dashboard of specs and changes
-  change                             Manage OpenSpec change proposals
-  archive [options] [change-name]    Archive a completed change and update main specs
-  spec                               Manage and view OpenSpec specifications
-  config [options]                   View and modify global OpenSpec configuration
-  schema                             Manage workflow schemas [experimental]
-  validate [options] [item-name]     Validate changes and specs
-  show [options] [item-name]         Show a change or spec
-  feedback [options] <message>       Submit feedback about OpenSpec
-  completion                         Manage shell completions for OpenSpec CLI
-  status [options]                   Display artifact completion status for a change
-  instructions [options] [artifact]  Output enriched instructions for creating an artifact or applying tasks
-  templates [options]                Show resolved template paths for all artifacts in a schema
-  schemas [options]                  List available workflow schemas with descriptions
-  new                                Create new items
-  help [command]                     display help for command
+openspec list                           # alle aktiven Changes
+openspec show <change>                  # vollständiger Kontext
+openspec status --change <change>       # welche Artefakte sind vorhanden?
+openspec view                           # interaktives Dashboard
 ```
+
+<img src="./qr-code-cli-quiz.png" class="h-48 mx-auto mt-6" />

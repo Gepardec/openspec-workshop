@@ -6,7 +6,7 @@ layout: section
 
 ---
 
-# Ablauf (core profil)
+# Ablauf
 
 <div class="flex items-center justify-between mt-12 gap-1">
   <div v-click="1" class="flex-1 border border-white/30 rounded-xl p-5 text-center">
@@ -116,7 +116,6 @@ Die folgenden Slides schauen auf jedes Dokument einzeln.
 - Vier Abschnitte: Why, What Changes, Capabilities, Impact
 - Capabilities: „Vertrag" zur spec.md – pro Capability eine Spec-Datei
 - Breaking Changes immer explizit als BREAKING markieren
-- Fundament für alles Weitere
 
 ---
 
@@ -126,7 +125,7 @@ Die folgenden Slides schauen auf jedes Dokument einzeln.
 - Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN)
 - Szenarien brauchen exakt 4 Hashtags – sonst Silent Failure
 - Normative Sprache: SHALL / MUST – kein „should" oder „may"
-- Jedes Szenario ist ein potenzieller Testfall – Spec und Test sind dieselbe Quelle
+- Jedes Szenario ist die direkte Vorlage für einen Akzeptanztest
 
 ---
 
@@ -149,7 +148,7 @@ Die folgenden Slides schauen auf jedes Dokument einzeln.
 
 ---
 
-# Delta-Specs: die brownfield-Innovation
+# Delta-Specs: das brownfield-Konzept
 
 Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
 
@@ -174,20 +173,10 @@ Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
 
 ---
 
-# Was folgt nach dem propose
+# Nach propose: apply und archive
 
 Die Artefakte sind fertig. Zwei Phasen schließen den Loop:
 
 **apply** — Agent implementiert Task für Task, gesteuert über `opsx:apply`
 
-```
-openspec instructions → Agent implementiert Task → nächste Task …
-```
-
 **archive** — Change abschließen und Delta-Specs einarbeiten
-
-```sh
-openspec archive <change>   # deterministisch, kein LLM nötig
-```
-
-Beide werden in den folgenden Abschnitten im Detail gezeigt.

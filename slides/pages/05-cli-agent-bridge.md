@@ -2,7 +2,7 @@
 layout: section
 ---
 
-# Moment 2: CLI als Agent-Bridge
+# Die CLI als Agent-Bridge
 
 Die apply-Phase — `opsx:apply` und `openspec instructions` — 15 min
 
@@ -10,14 +10,11 @@ Die apply-Phase — `opsx:apply` und `openspec instructions` — 15 min
 
 # Die Lücke
 
-KI-Agenten sind mächtig – aber **standardmäßig kontextblind**.
+Erinnert ihr euch: der Agent ist standardmäßig kontextblind.
 
-Sie wissen nicht:
-- Was das Team letzte Woche entschieden hat
-- Welche Constraints nicht verhandelbar sind
-- Was der nächste konkrete Schritt ist
+Er weiß nicht, was entschieden wurde, was nicht verhandelbar ist, was als nächstes zu tun ist.
 
-Die Spec ist die Antwort – aber nur, wenn der Agent sie lesen kann.
+`openspec instructions` ist das Werkzeug dagegen.
 
 ---
 
@@ -38,12 +35,15 @@ Der Output ist ein strukturierter Prompt, der dem Agenten sagt:
 
 # Was steckt in den Instructions?
 
-```
-1. Change-Zusammenfassung (aus proposal)
-2. Aktive Task (aus tasks.md)
-3. Relevante Specs (aus specs.md)
-4. Design-Constraints (aus design.md)
-5. Projekt-Konventionen (aus openspec/config.yaml)
+```mermaid
+flowchart LR
+    P["proposal.md\nChange-Zusammenfassung"] --> IP
+    T["tasks.md\nAktive Task"] --> IP
+    S["specs.md\nRelevante Specs"] --> IP
+    D["design.md\nDesign-Constraints"] --> IP
+    C["config.yaml\nProjekt-Konventionen"] --> IP["instructions\nPrompt"]
+
+    style IP fill:#1e40af,stroke:#3b82f6,color:#eff6ff
 ```
 
 Der Agent bekommt genau das, was er braucht – nicht mehr, nicht weniger.
@@ -64,16 +64,6 @@ flowchart LR
 `opsx:apply` ist der Skill, der diesen Loop ausführt — Task für Task, bis alle `[x]` sind.
 
 Die CLI steuert den Loop. Der Agent erledigt die Arbeit. Du reviewst den Diff.
-
----
-
-# Warum das wichtig ist
-
-- Der Agent kann keine Anforderungen halluzinieren – sie stehen in der Spec
-- Entscheidungen sind nachvollziehbar – sie stehen im proposal
-- Onboarding ist selbstständig möglich – `openspec show` ist die Antwort
-
-Die Spec ist keine Dokumentation. **Sie ist das Arbeitsgedächtnis des Teams.**
 
 ---
 

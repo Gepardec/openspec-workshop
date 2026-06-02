@@ -2,7 +2,7 @@
 layout: section
 ---
 
-# Diskussion
+# Diskussion & Wrap-up
 
 ---
 
@@ -19,4 +19,4 @@ layout: center
 
 # Danke
 
-Repo · Docs · Issues: `openspec-workshop`
+Repo · Docs · Issues: [github.com/Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec)
