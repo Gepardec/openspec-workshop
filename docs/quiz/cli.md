@@ -1,19 +1,19 @@
 # OpenSpec CLI Quiz
 
-Each question lists the command(s) that lead to the answer.
-For Google Forms: questions marked **(MC)** are multiple-choice; **(SA)** are short-answer.
+Jede Frage nennt den Befehl, der zur Antwort führt.
+**(MC)** = Multiple Choice; **(SA)** = Kurzantwort.
 
 ---
 
-## Section 1 — Navigating changes (`openspec list`)
+## Abschnitt 1 — Changes erkunden (`openspec list`)
 
 ### Q1 (MC)
-How many changes are currently proposed in this project?
+Wie viele aktive Changes gibt es aktuell?
 
-- 4
+- **1** ✓
+- 2
 - 5
-- **6** ✓
-- 8
+- 6
 
 ```sh
 openspec list
@@ -21,110 +21,62 @@ openspec list
 
 ---
 
-### Q2 (MC)
-Which change has the fewest implementation tasks?
+## Abschnitt 2 — Einen Change lesen (`openspec show <change>`)
 
-- us-01-animal-list
-- us-03-add-animal
-- us-04-update-animal
-- **us-05-delete-animal** ✓ (13 tasks)
+### Q2 (SA)
+Welche neue Capability führt `us-06-dashboard` ein?
+
+**Antwort:** `dashboard`
 
 ```sh
-openspec list
+openspec show us-06-dashboard
 ```
 
 ---
 
-### Q3 (MC)
-Which two changes have exactly the same number of implementation tasks?
+### Q3 (SA)
+Welcher neue REST-Endpunkt wird in `us-06-dashboard` eingeführt?
 
-- us-01-animal-list and us-03-add-animal
-- **us-02-animal-profile and us-06-dashboard** ✓ (16 tasks each)
-- us-03-add-animal and us-05-delete-animal
-- us-04-update-animal and us-06-dashboard
+**Antwort:** `GET /api/dashboard/spotlight`
 
 ```sh
-openspec list
+openspec show us-06-dashboard
 ```
 
 ---
-
-## Section 2 — Reading a change (`openspec show <change>`)
 
 ### Q4 (MC)
-How many capabilities does `us-05-delete-animal` introduce or modify in total?
+Aus wie vielen Tasks besteht der aktuelle Change?
 
-- 1
-- 2
-- **3** ✓ (1 new: `animal-delete`; 2 modified: `animal-profile`, `animal-list`)
+- 12
+- 14
+- **16** ✓
+- 19
+
+```sh
+openspec show us-06-dashboard oder openspec list --json
+```
+
+---
+
+### Q5 (MC)
+In wie viele Abschnitte ist das Artefakt `tasks.md` des aktuellen Changes unterteilt?
+
+- 3
 - 4
+- **5** ✓ (Backend Data Model, Backend Spotlight Endpoint, Frontend Dashboard Domain, Frontend Dashboard Component, Frontend Routing & Navigation)
+- 6
 
 ```sh
-openspec show us-05-delete-animal
+openspec show us-06-dashboard
 ```
 
 ---
 
-### Q5 (SA)
-`us-05-delete-animal` explicitly considered and rejected one alternative deletion strategy. What was it?
-
-**Answer:** Soft delete / archiving
-
-```sh
-openspec show us-05-delete-animal
-```
-
----
+## Abschnitt 3 — Artefaktstatus (`openspec status --change <change>`)
 
 ### Q6 (MC)
-Which change introduces the `animal-profile` capability for the first time?
-
-- us-01-animal-list
-- **us-02-animal-profile** ✓
-- us-04-update-animal
-- us-05-delete-animal
-
-```sh
-openspec show us-01-animal-list
-openspec show us-02-animal-profile
-# (check "New Capabilities" in each proposal)
-```
-
----
-
-### Q7 (SA)
-Which Angular Material component is used for the confirmation dialog in `us-05-delete-animal`?
-
-**Answer:** MatDialog (`angular/material MatDialog`)
-
-```sh
-openspec show us-05-delete-animal
-```
-
----
-
-### Q8 (MC)
-Which changes modify the `animal-list` capability? (Hint: check multiple proposals.)
-
-- Only us-01-animal-list
-- us-01-animal-list and us-02-animal-profile
-- us-02-animal-profile and us-05-delete-animal
-- **us-02-animal-profile, us-03-add-animal, and us-05-delete-animal** ✓
-
-```sh
-openspec show us-02-animal-profile
-openspec show us-03-add-animal
-openspec show us-04-update-animal
-openspec show us-05-delete-animal
-# (check "Modified Capabilities" in each proposal)
-```
-
----
-
-## Section 3 — Artifact completion (`openspec status --change <change>`)
-
-### Q9 (MC)
-How many artifacts must be complete before a change is considered done in the `spec-driven` schema?
+Wie viele Artefakte muss ein Change im `spec-driven`-Schema vollständig haben?
 
 - 2
 - 3
@@ -132,13 +84,13 @@ How many artifacts must be complete before a change is considered done in the `s
 - 5
 
 ```sh
-openspec status --change us-01-animal-list
+openspec status --change us-06-dashboard
 ```
 
 ---
 
-### Q10 (MC)
-In what order does the `spec-driven` schema expect artifacts to be created?
+### Q7 (MC)
+In welcher Reihenfolge werden die Artefakte im `spec-driven`-Schema erstellt?
 
 - proposal → design → specs → tasks
 - **proposal → specs → design → tasks** ✓
@@ -151,12 +103,12 @@ openspec schemas
 
 ---
 
-## Section 4 — Schema & config (`openspec schemas`)
+## Abschnitt 4 — Schema & Konfiguration (`openspec schemas`)
 
-### Q11 (SA)
-What is the name of the workflow schema used by this project?
+### Q8 (SA)
+Wie heißt das Workflow-Schema dieses Projekts?
 
-**Answer:** spec-driven
+**Antwort:** `spec-driven`
 
 ```sh
 openspec schemas
@@ -164,18 +116,30 @@ openspec schemas
 
 ---
 
-## Section 5 — Bonus: chained commands
+## Abschnitt 5 — Bonus: Specifications
 
-### Q12 (MC)
-Find the change(s) with the most implementation tasks, then check their artifact status. What do you find?
+### Q9 (MC)
+Wie viele Specifications sind im Hauptverzeichnis (`openspec/specs/`) umgesetzt?
 
-- Most tasks: us-03-add-animal — artifacts incomplete
-- Most tasks: us-06-dashboard — all artifacts complete
-- **Most tasks: us-01-animal-list and us-04-update-animal (tied at 19) — both have all 4 artifacts complete** ✓
-- Most tasks: us-02-animal-profile — proposal missing
+- 4
+- **5** ✓ (animal-list, animal-profile, animal-create, animal-edit, animal-delete)
+- 6
+- 8
 
 ```sh
-openspec list
-openspec status --change us-01-animal-list
-openspec status --change us-04-update-animal
+ls openspec/specs/
+```
+
+---
+
+### Q10 (MC)
+Wie viele Requirements sind insgesamt in allen Specifications?
+
+- 9
+- 12
+- **15** ✓
+- 20
+
+```sh
+openspec view
 ```
