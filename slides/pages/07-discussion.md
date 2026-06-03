@@ -13,10 +13,6 @@ layout: section
 - Wie sieht der Review-Prozess aus, wenn die KI den Code geschrieben hat?
 - Wie fügt sich OpenSpec in euren bestehenden Workflow ein?
 
----
-layout: center
----
-
-# Danke
-
-Repo · Docs · Issues: [github.com/Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec)
+<!--
+opsx:verify erwähnen (extended profile)
+-->

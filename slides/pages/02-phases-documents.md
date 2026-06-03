@@ -169,7 +169,24 @@ Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
 - **Drei Sektionen** – ADDED, MODIFIED, REMOVED
 - Verhindert Konflikte, wenn mehrere Changes denselben Bereich berühren
 - Beim `archive` werden Deltas in die Haupt-Specs unter `openspec/specs/` eingearbeitet
-- Davor: `openspec/specs/` = Wahrheit · `openspec/changes/*/specs/` = Vorschläge
+- Bis dahin gilt: `openspec/specs/` ist der abgenommene Stand, `openspec/changes/*/specs/` sind offene Vorschläge
+
+---
+
+# Review-Time
+
+Die Artefakte sind fertig. Nun gilt es, die Artefakte gründlich in dieser Reihenfolge zu lesen:
+
+1. `proposal.md`
+2. `spec.md` (1 - n)
+3. `design.md`
+4. `tasks.md`
+
+<span v-click>Abweichung bemerkt? Neue Runde drehen: "Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte."</span>
+
+<span v-click>Dieses Spiel wird so lange gespielt, bis alle Artefakte genau das beschreiben, was die Anforderung ist.</span>
+
+<span v-click>WICHTIG: Keine **Open Questions** in der `design.md`!</span>
 
 ---
 

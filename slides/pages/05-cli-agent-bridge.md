@@ -32,8 +32,6 @@ Gültige Argumente: `proposal` · `specs` · `design` · `tasks` · `apply`
 
 # Was steckt in den Instructions?
 
-Abhängig vom angefragten Artefakt — immer: Template + Projekt-Konventionen + Pfade zu fertigen Abhängigkeiten.
-
 ```mermaid
 flowchart LR
     T["Template\n(schema-spezifisch)"] --> IP

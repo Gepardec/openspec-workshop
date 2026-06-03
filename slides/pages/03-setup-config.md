@@ -166,8 +166,6 @@ openspec archive <change>
 # KI vergleicht Specs manuell, verschiebt Verzeichnisse, schreibt History selbst
 ```
 
-Die CLI ist die State-Machine. Der Agent ist der Executor.
-
 ---
 
 # `openspec validate` – das Qualitätsgate
@@ -200,4 +198,4 @@ OpenSpec liefert mehrere Workflow-Profile.
 $ openspec config profile        # interaktiv wechseln
 ```
 
-Für den Workshop reicht **core**. Expanded lohnt sich erst, wenn ihr parallel an mehreren Changes arbeitet.
+Für den Workshop reicht **core**. Expanded ist für Teams und komplexere Workflows gedacht.

@@ -6,28 +6,6 @@ layout: section
 
 ---
 
-# Übersicht & Abhängigkeiten
-
-```mermaid
-flowchart LR
-    O1["01\ninit"] --> O2["02\nsetup"]
-    O2 --> O3["03\narchive"]
-    O2 --> O4["04\napply"]
-    O2 --> O5["05\npropose"]
-    O2 --> O6["06\nexplore"]
-
-    style O1 fill:#1e3a5f,stroke:#3b82f6,color:#eff6ff
-    style O2 fill:#1e3a5f,stroke:#3b82f6,color:#eff6ff
-    style O3 fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
-    style O4 fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
-    style O5 fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
-    style O6 fill:#0f172a,stroke:#475569,color:#94a3b8
-```
-
-01 und 02 sind Pflicht. 03–05 können parallel bearbeitet werden. 06 ist Bonus.
-
----
-
 # Übung 1 – OpenSpec selbst aufsetzen
 
 `exercises/01_init_openspec/README.md`
