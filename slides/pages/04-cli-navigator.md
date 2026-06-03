@@ -86,11 +86,15 @@ $ openspec view
 
 Beantworte die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit openspec CLI Befehlen.
 
+1. Git-Tag `cli-quiz` auschecken
+2. `npm install -g @fission-ai/openspec@latest`
+3. `openspec`-Befehle aus dem Root-Verzeichnis des Projekts starten
+
 ```sh
 openspec list                           # alle aktiven Changes
-openspec show <change>                  # Proposal-Inhalt eines Change
+openspec show <change>                  # Proposal-Inhalt eines Change bzw. einer Spec
 openspec status --change <change>       # welche Artefakte sind vorhanden?
-openspec view                           # interaktives Dashboard
+openspec view                           # Dashboard
 ```
 
 <img src="./qr-code-cli-quiz.png" alt="QR-Code Quiz-Formular" class="h-48 mx-auto mt-6" />
