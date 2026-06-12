@@ -29,3 +29,14 @@ The workshop focuses on the practical OpenSpec loop:
 
 ```text
 explore → propose → review → apply → sync → archive
+```
+
+## Prerequisites
+- Java 21+
+- Node.js 24+
+- pnpm 11+ (`npm i -g pnpm`)
+
+## Start the app
+1. Go into the app directory: `cd app/zoo-management`
+2. Launch the app: `./mvnw quarkus:dev`
+3. Open http://localhost:8080 in your browser
