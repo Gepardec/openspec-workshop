@@ -6,6 +6,17 @@ layout: section
 
 ---
 
+# Empfehlungen/Best Practices für die Übungen
+
+- Nach jeder Übung einen Commit machen, damit ihr jederzeit zum vorherigen Stand zurückkehren könnt
+- Generell: Zumindest je ein Commit nach ...
+  - ... dem Change Proposal - `feat: propose change "<change-name>"`
+  - ... dem Anwenden - `feat: apply change "<change-name>"`
+  - ... dem Archivieren des Changes - `feat: archive change "<change-name>"`
+- Change final? → alles zwischen _"propose change"_ und _"archive change"_ squashen
+
+---
+
 # Übung 1 – OpenSpec selbst aufsetzen
 
 `exercises/01_init_openspec/README.md`
@@ -22,11 +33,23 @@ Ihr kopiert das vorkonfigurierte `openspec/`-Verzeichnis in euer Repo-Root. Ab j
 
 ---
 
-# Übung 3 – Einen aktiven Change archivieren
+# Übung 3.a – Einen aktiven Change archivieren (CLI)
 
 `exercises/03_archive_change/README.md`
 
 Der Change `us-06-dashboard` ist fertig implementiert. Archiviert ihn mit OpenSpec — und schaut euch an, was danach in `openspec/` anders ist.
+
+Was fällt euch sonst noch auf?
+
+---
+
+# Übung 3.b – Einen aktiven Change archivieren (Agentic)
+
+Archive-Befehl erzeugt keinen Purpose-Text.
+
+Wir archivieren den Change `us-06-dashboard` gemeinsam mithilfe eines Agenten.
+
+`git reset HEAD --hard`
 
 ---
 

@@ -6,6 +6,15 @@ layout: section
 
 ---
 
+# Reflexion
+
+- Was ist euch aufgefallen?
+- Was war überraschend?
+- Was war herausfordernd?
+- Was würdet ihr das nächste Mal anders machen?
+
+---
+
 # Fragen zum Nachdenken
 
 - Wo stößt Spec-driven Development an seine Grenzen?
