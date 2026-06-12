@@ -49,6 +49,27 @@ Es gibt auch noch das extend profile. nicht näher drauf eingehen, kann nachgele
 
 ---
 
+# Szenario: Abfrage Abrechnungsmonat
+
+Neues Feature im Zoo-Management-System — zwei Sichten auf denselben Datensatz:
+
+<div class="grid grid-cols-2 gap-6 mt-6">
+  <div class="border border-white/30 rounded-xl p-5">
+    <div class="font-bold text-sm mb-3 text-blue-300">Mitarbeiter</div>
+    <div class="text-xs text-white/70">Laufender Monat — sind alle Tasks des Abrechnungsmonats (= Vormonat) bereits erledigt?</div>
+  </div>
+  <div class="border border-white/30 rounded-xl p-5">
+    <div class="font-bold text-sm mb-3 text-green-300">Projektleiter</div>
+    <div class="text-xs text-white/70">Immer Abrechnungsmonat (= Vormonat) — Überblick über den abzuschließenden Monat</div>
+  </div>
+</div>
+
+<div class="mt-10 text-center text-white/50 text-sm">
+  Wir begleiten diesen Change von <code>explore</code> bis <code>archive</code>
+</div>
+
+---
+
 # `opsx:explore` – der optionale Vorschritt
 
 `explore` ist kein Pflichtschritt. Es ist ein Denkpartner, bevor Artefakte entstehen.
@@ -80,6 +101,21 @@ Ein Gesprächs-Loop mit dem Agenten: Fragen stellen, Annahmen aufdecken, Szenari
 
 ---
 
+# `opsx:explore` — Praxisbeispiel
+
+<div class="border-2 border-dashed border-white/30 rounded-xl flex flex-col items-center justify-center h-72 text-white/40 text-sm gap-3">
+  <div class="text-3xl">📸</div>
+  <div>Screenshot: Explore-Konversation einfügen</div>
+  <code class="text-xs opacity-70">slides/public/screenshots/explore-chat.png</code>
+</div>
+
+<!--
+Zeige hier den Gesprächsverlauf, in dem die zwei Sichten (Mitarbeiter vs. Projektleiter)
+und der Begriff "Abrechnungsmonat" herausgearbeitet wurden.
+-->
+
+---
+
 # `opsx:propose` – alle vier Artefakte in einem Schritt
 
 ```sh
@@ -108,6 +144,22 @@ Alle vier Artefakte sind Pflicht — tasks ist blockiert, bis specs und design v
 <!--
 Die folgenden Slides schauen auf jedes Dokument einzeln.
 -->
+
+---
+
+# `opsx:propose` — Praxisbeispiel
+
+<div class="border-2 border-dashed border-white/30 rounded-xl flex flex-col items-center justify-center h-72 text-white/40 text-sm gap-3">
+  <div class="text-3xl">📸</div>
+  <div>Screenshot: Propose-Konversation einfügen</div>
+  <code class="text-xs opacity-70">slides/public/screenshots/propose-chat.png</code>
+</div>
+
+<!--
+Zeige hier, wie der Agent alle vier Artefakte in einem Schritt erzeugt hat —
+der "aha"-Moment, wenn proposal, spec, design und tasks in einem Rutsch entstehen.
+-->
+
 ---
 
 # `proposal.md` – Das WARUM
@@ -116,6 +168,27 @@ Die folgenden Slides schauen auf jedes Dokument einzeln.
 - Vier Abschnitte: Why, What Changes, Capabilities, Impact
 - Capabilities: „Vertrag" zur spec.md – pro Capability eine Spec-Datei
 - Breaking Changes immer explizit als BREAKING markieren
+
+---
+
+# `proposal.md` — Praxisbeispiel
+
+<div class="grid grid-cols-5 gap-4 h-full">
+  <div class="col-span-2 text-xs text-white/50 flex flex-col gap-2 pt-1">
+    <div><span class="text-white/80 font-semibold">Why</span> — was ist der Auslöser?</div>
+    <div><span class="text-white/80 font-semibold">What Changes</span> — welche Capabilities?</div>
+    <div><span class="text-white/80 font-semibold">Impact</span> — was ist betroffen?</div>
+  </div>
+  <div class="col-span-3">
+
+```md
+<!-- TODO: Ausschnitt aus proposal.md einfügen -->
+<!-- Pfad: openspec/changes/<change-name>/proposal.md -->
+<!-- Empfehlung: "Why" + "Capabilities"-Abschnitt -->
+```
+
+  </div>
+</div>
 
 ---
 
@@ -129,6 +202,27 @@ Die folgenden Slides schauen auf jedes Dokument einzeln.
 
 ---
 
+# `spec.md` — Praxisbeispiel
+
+<div class="grid grid-cols-5 gap-4 h-full">
+  <div class="col-span-2 text-xs text-white/50 flex flex-col gap-2 pt-1">
+    <div><span class="text-white/80 font-semibold">Requirement</span> — was soll das System können?</div>
+    <div><span class="text-white/80 font-semibold">Scenario</span> — WHEN / THEN in normativem SHALL</div>
+    <div class="text-white/30 italic">zwei Sichten → zwei Requirements</div>
+  </div>
+  <div class="col-span-3">
+
+```md
+<!-- TODO: Ausschnitt aus spec.md einfügen -->
+<!-- Pfad: openspec/changes/<change-name>/specs/<capability>.md -->
+<!-- Empfehlung: 1 Requirement mit 2 Szenarien (Mitarbeiter + Projektleiter) -->
+```
+
+  </div>
+</div>
+
+---
+
 # `design.md` – Das WIE
 
 - Architektur und technische Entscheidungen – keine Implementierungsanleitung
@@ -139,12 +233,54 @@ Die folgenden Slides schauen auf jedes Dokument einzeln.
 
 ---
 
+# `design.md` — Praxisbeispiel
+
+<div class="grid grid-cols-5 gap-4 h-full">
+  <div class="col-span-2 text-xs text-white/50 flex flex-col gap-2 pt-1">
+    <div><span class="text-white/80 font-semibold">Decision</span> — Entscheidung + Begründung</div>
+    <div><span class="text-white/80 font-semibold">Alternatives</span> — warum verworfen?</div>
+    <div><span class="text-white/80 font-semibold">Risks</span> → Mitigation</div>
+  </div>
+  <div class="col-span-3">
+
+```md
+<!-- TODO: Ausschnitt aus design.md einfügen -->
+<!-- Pfad: openspec/changes/<change-name>/design.md -->
+<!-- Empfehlung: eine Decision mit Alternative und Begründung -->
+```
+
+  </div>
+</div>
+
+---
+
 # `tasks.md` – Die TODO-Liste
 
 - Bricht die Umsetzung in konkrete, verifizierbare Schritte herunter
 - Pflichtformat: `- [ ] X.Y Task` – andere Formate werden nicht getrackt
 - Tasks mit nummerierten Überschriften gruppieren
 - Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
+
+---
+
+# `tasks.md` — Praxisbeispiel
+
+<div class="grid grid-cols-5 gap-4 h-full">
+  <div class="col-span-2 text-xs text-white/50 flex flex-col gap-2 pt-1">
+    <div><span class="text-white/80 font-semibold">Gruppe</span> — nummerierte Überschrift</div>
+    <div><span class="text-white/80 font-semibold">Task</span> — <code>- [ ] X.Y</code> Format</div>
+    <div class="text-white/30 italic">was wird zuerst gebaut?</div>
+  </div>
+  <div class="col-span-3">
+
+```md
+<!-- TODO: Ausschnitt aus tasks.md einfügen -->
+<!-- Pfad: openspec/changes/<change-name>/tasks.md -->
+<!-- Empfehlung: erste Gruppe vollständig + 1-2 Tasks der zweiten Gruppe -->
+```
+
+  </div>
+</div>
 
 ---
 
