@@ -86,9 +86,9 @@ $ openspec view
 
 Beantworte die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit openspec CLI Befehlen.
 
-1. Git-Tag `cli-quiz` auschecken
+1. `main`-Branch auschecken
 2. `npm install -g @fission-ai/openspec@latest`
-3. `openspec`-Befehle aus dem Root-Verzeichnis des Projekts starten
+3. (optional) `openspec completion <shell>` für Shell Autocompletion
 
 ```sh
 openspec list                           # alle aktiven Changes

@@ -35,6 +35,7 @@ explore → propose → review → apply → sync → archive
 - Java 21+
 - Node.js 24+
 - pnpm 11+ (`npm i -g pnpm`)
+- openspec-CLI (`npm install -g @fission-ai/openspec@latest`)
 
 ## Start the app
 1. Go into the app directory: `cd app/zoo-management`
