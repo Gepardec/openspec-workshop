@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session: dev-repos-mega-backend</title>
+<style>body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; background: #fff; color: #1a1a1a; line-height: 1.6; }
+h1 { border-bottom: 2px solid #e5e5e5; padding-bottom: 0.5rem; }
+.meta { color: #6b7280; font-size: 0.85em; margin-bottom: 1.5rem; }
+.meta span { margin-right: 1.5rem; }
+.message { border-bottom: 1px solid #e5e5e5; padding: 1rem 0; }
+.role { font-weight: 700; }
+.role.user { color: #2563eb; }
+.role.assistant { color: #059669; }
+.model { color: #9ca3af; font-size: 0.8em; margin-left: 0.5rem; }
+.timestamp { color: #9ca3af; font-size: 0.85em; margin-left: 0.5rem; }
+.content { margin-top: 0.5rem; word-wrap: break-word; }
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 { margin: 0.75rem 0 0.25rem; font-size: 1.1em; }
+.content h1 { font-size: 1.3em; } .content h2 { font-size: 1.15em; }
+.content p { margin: 0.4rem 0; }
+.content ul, .content ol { margin: 0.4rem 0; padding-left: 1.5rem; }
+.content li { margin: 0.15rem 0; }
+.content code { background: #f3f4f6; padding: 0.15rem 0.35rem; border-radius: 3px; font-size: 0.9em; }
+.content pre { background: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 0.5rem 0; }
+.content pre code { background: none; padding: 0; color: inherit; }
+.content blockquote { margin: 0.5rem 0; padding: 0.5rem 1rem; border-left: 3px solid #d1d5db; background: #f9fafb; color: #4b5563; }
+.content blockquote p { margin: 0.2rem 0; }
+.content a { color: #2563eb; text-decoration: underline; }
+.content hr { border: none; border-top: 1px solid #e5e5e5; margin: 0.75rem 0; }
+.content img { max-width: 100%; height: auto; border-radius: 4px; margin: 0.5rem 0; }
+.content table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.9em; }
+.content th, .content td { border: 1px solid #d1d5db; padding: 0.4rem 0.75rem; text-align: left; }
+.content th { background: #f3f4f6; font-weight: 600; }
+.content tr:nth-child(even) { background: #f9fafb; }
+.tool { background: #f3f4f6; border-left: 3px solid #6366f1; padding: 0.5rem 0.75rem; margin: 0.5rem 0; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, monospace; }
+.result { background: #f0fdf4; border-left: 3px solid #22c55e; padding: 0.5rem 0.75rem; margin: 0.5rem 0; font-size: 0.9em; white-space: pre-wrap; }
+.thinking { color: #6b7280; font-style: italic; }
+.code-block { background: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 4px; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.9em; margin: 0.5rem 0; white-space: pre-wrap; }
+.search { color: #6366f1; font-size: 0.9em; }
+.media { color: #9ca3af; font-style: italic; }
+.usage { color: #9ca3af; font-size: 0.8em; margin-top: 0.5rem; }
+pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+code { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.9em; }
+details { margin: 0.5rem 0; }
+summary { cursor: pointer; color: #6b7280; font-style: italic; }
+@media print { body { max-width: 100%; padding: 1rem; } .message { page-break-inside: avoid; } }</style>
+</head>
+<body>
+<div class="message">
+<span class="role user">User</span>
+<span class="timestamp">20:30:59</span>
+<div class="content"><p>Yes, write up the proposal /opsx:propose</p>
+</div>
+
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:01</span>
+<div class="content"><details><summary class="thinking">Thinking</summary><p class="thinking"></p></details></div>
+<div class="usage">Tokens: in: 3 / out: 1</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:18</span>
+<div class="content"><div class="tool">Skill(args: Add payroll month endpoints to the hexagon monthend context.
+
+## Context (from exploration session)
+
+The legacy backend ..., skill: opsx:propose)</div>
+<div class="result">Launching skill: opsx:propose</div></div>
+<div class="usage">Tokens: in: 3 / out: 854</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:21</span>
+<div class="content"><details><summary class="thinking">Thinking</summary><p class="thinking"></p></details></div>
+<div class="usage">Tokens: in: 3 / out: 7</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:22</span>
+<div class="content"><div class="tool">Bash(command: openspec new change &quot;add-payroll-month-endpoints&quot; 2&gt;&amp;1, description: Create new openspec change)</div>
+<div class="result">- Creating change 'add-payroll-month-endpoints'...
+✔ Created change 'add-payroll-month-endpoints' at openspec/changes/add-payroll-month-endpoints/ (schema: spec-driven)</div></div>
+<div class="usage">Tokens: in: 3 / out: 137</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:26</span>
+<div class="content"><div class="tool">Bash(command: openspec status --change &quot;add-payroll-month-endpoints&quot; --json 2&gt;&amp;1, description: Get artifact build order and status)</div>
+<div class="result">- Loading change status...
+{
+  &quot;changeName&quot;: &quot;add-payroll-month-endpoints&quot;,
+  &quot;schemaName&quot;: &quot;spec-driven&quot;,
+  &quot;isComplete&quot;: false,
+  &quot;applyRequires&quot;: [
+    &quot;tasks&quot;
+  ],
+  &quot;artifacts&quot;: [
+    {
+      &quot;id&quot;: &quot;proposal&quot;,
+      &quot;outputPath&quot;: &quot;proposal.md&quot;,
+      &quot;status&quot;: &quot;ready&quot;
+    },
+    {
+      &quot;id&quot;: &quot;design&quot;,
+      &quot;outputPath&quot;: &quot;design.md&quot;,
+      &quot;status&quot;: &quot;blocked&quot;,
+      &quot;missingDeps&quot;: [
+        &quot;proposal&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;specs&quot;,
+      &quot;outputPath&quot;: &quot;specs/**/*.md&quot;,
+      &quot;sta...</div></div>
+<div class="usage">Tokens: in: 1 / out: 94</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:30</span>
+<div class="content"><div class="tool">Bash(command: openspec instructions proposal --change &quot;add-payroll-month-endpoints&quot; --json 2&gt;&amp;1, description: Get proposal artifact instructions)</div>
+<div class="result">- Generating instructions...
+{
+  &quot;changeName&quot;: &quot;add-payroll-month-endpoints&quot;,
+  &quot;artifactId&quot;: &quot;proposal&quot;,
+  &quot;schemaName&quot;: &quot;spec-driven&quot;,
+  &quot;changeDir&quot;: &quot;/Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints&quot;,
+  &quot;outputPath&quot;: &quot;proposal.md&quot;,
+  &quot;description&quot;: &quot;Initial proposal document outlining the change&quot;,
+  &quot;instruction&quot;: &quot;Create the proposal document that establishes WHY this change is needed.\n\nSections:\n- **Why**: 1-2 sentences on the problem or opportunity. W...</div></div>
+<div class="usage">Tokens: in: 1 / out: 93</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:35</span>
+<div class="content"><div class="tool">Bash(command: ls /Users/olivertod/dev/repos/mega-backend/openspec/specs/ 2&gt;/dev/null || echo &quot;no specs dir&quot;, description: Check existing specs)</div>
+<div class="result">employment-periods-aggregate
+hexagon-boundary-conventions
+hexagon-layer-constraints
+hexagon-transaction-boundary
+monthend-clarifications
+monthend-employee-project-context
+monthend-rest-api
+monthend-self-service-preparation
+monthend-status-overview
+monthend-task-aggregate
+monthend-task-completion
+monthend-task-generation
+monthend-zep-mail-processing
+notification-clarification-lifecycle
+notification-reminder-scheduling
+notification-zep-mail-processing
+project-aggregate
+project-leads-sync
+project-s...</div></div>
+<div class="usage">Tokens: in: 1 / out: 104</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:40</span>
+<div class="content"><details><summary class="thinking">Thinking</summary><p class="thinking"></p></details></div>
+<div class="usage">Tokens: in: 1 / out: 31</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:31:50</span>
+<div class="content"><div class="tool">Write(content: ## Why
+
+When the frontend loads, it needs to know which payroll month to display before fetching any data — this month i..., file_path: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/proposal.md)</div>
+<div class="result">File created successfully at: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/proposal.md</div></div>
+<div class="usage">Tokens: in: 1 / out: 674</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:35:23</span>
+<div class="content"><div class="tool">Bash(command: openspec status --change &quot;add-payroll-month-endpoints&quot; --json 2&gt;&amp;1, description: Check status after proposal)</div>
+<div class="result">- Loading change status...
+{
+  &quot;changeName&quot;: &quot;add-payroll-month-endpoints&quot;,
+  &quot;schemaName&quot;: &quot;spec-driven&quot;,
+  &quot;isComplete&quot;: false,
+  &quot;applyRequires&quot;: [
+    &quot;tasks&quot;
+  ],
+  &quot;artifacts&quot;: [
+    {
+      &quot;id&quot;: &quot;proposal&quot;,
+      &quot;outputPath&quot;: &quot;proposal.md&quot;,
+      &quot;status&quot;: &quot;done&quot;
+    },
+    {
+      &quot;id&quot;: &quot;design&quot;,
+      &quot;outputPath&quot;: &quot;design.md&quot;,
+      &quot;status&quot;: &quot;ready&quot;
+    },
+    {
+      &quot;id&quot;: &quot;specs&quot;,
+      &quot;outputPath&quot;: &quot;specs/**/*.md&quot;,
+      &quot;status&quot;: &quot;ready&quot;
+    },
+    {
+      &quot;id&quot;: &quot;tasks&quot;,
+      ...</div></div>
+<div class="usage">Tokens: in: 1 / out: 92</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:35:28</span>
+<div class="content"><div class="tool">Bash(command: openspec instructions design --change &quot;add-payroll-month-endpoints&quot; --json 2&gt;&amp;1 &amp;&amp; openspec instructions specs --change ..., description: Get design and specs instructions in parallel)</div>
+<div class="result">- Generating instructions...
+{
+  &quot;changeName&quot;: &quot;add-payroll-month-endpoints&quot;,
+  &quot;artifactId&quot;: &quot;design&quot;,
+  &quot;schemaName&quot;: &quot;spec-driven&quot;,
+  &quot;changeDir&quot;: &quot;/Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints&quot;,
+  &quot;outputPath&quot;: &quot;design.md&quot;,
+  &quot;description&quot;: &quot;Technical design document with implementation details&quot;,
+  &quot;instruction&quot;: &quot;Create the design document that explains HOW to implement the change.\n\nWhen to include design.md (create only if any apply):\n- Cross-cutti...</div></div>
+<div class="usage">Tokens: in: 1 / out: 120</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:35:32</span>
+<div class="content"><details><summary class="thinking">Thinking</summary><p class="thinking"></p></details></div>
+<div class="usage">Tokens: in: 1 / out: 27</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:35:32</span>
+<div class="content"><div class="tool">Read(file_path: /Users/olivertod/dev/repos/mega-backend/openspec/specs/monthend-rest-api/spec.md)</div>
+<div class="result">1	# monthend-rest-api Specification
+2	
+3	## Purpose
+4	TBD - created by archiving change add-spec-first-monthend-api. Update Purpose after archive.
+5	## Requirements
+6	### Requirement: Monthend REST API contract is defined spec-first
+7	The system SHALL define the monthend REST API in a single canonical OpenAPI document. Java API interfaces and HTTP models for monthend endpoints SHALL be generated from that contract and used by the REST adapter implementation.
+8	
+9	#### Scenario: Generated API typ...</div></div>
+<div class="usage">Tokens: in: 1 / out: 141</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:35:39</span>
+<div class="content"><details><summary class="thinking">Thinking</summary><p class="thinking"></p></details></div>
+<div class="usage">Tokens: in: 1 / out: 33</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:35:39</span>
+<div class="content"><p>Now I&#39;ll create design.md and both spec files.</p>
+</div>
+<div class="usage">Tokens: in: 1 / out: 33</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:36:09</span>
+<div class="content"><div class="tool">Write(content: ## Context
+
+The legacy backend resolves the &quot;active payroll month&quot; via a `PayrollMonthProvider` in the REST layer — a CD..., file_path: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/design.md)</div>
+<div class="result">File created successfully at: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/design.md</div></div>
+<div class="usage">Tokens: in: 1 / out: 1,386</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:36:12</span>
+<div class="content"><p>Now the two spec files:</p>
+</div>
+<div class="usage">Tokens: in: 1 / out: 2</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:36:13</span>
+<div class="content"><div class="tool">Bash(command: mkdir -p /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/specs/payroll-month /Users..., description: Create spec subdirectories)</div>
+<div class="result">(Bash completed with no output)</div></div>
+<div class="usage">Tokens: in: 1 / out: 154</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:36:24</span>
+<div class="content"><div class="tool">Write(content: ## ADDED Requirements
+
+### Requirement: Employee payroll month resolves based on open monthend tasks
+The system SHALL re..., file_path: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/specs/payroll-month/spec.md)</div>
+<div class="result">File created successfully at: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/specs/payroll-month/spec.md</div></div>
+<div class="usage">Tokens: in: 1 / out: 579</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:36:36</span>
+<div class="content"><div class="tool">Write(content: ## ADDED Requirements
+
+### Requirement: Payroll month is available via role-suffixed endpoints
+The system SHALL provide ..., file_path: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/specs/monthend-rest-api/spec.md)</div>
+<div class="result">File created successfully at: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/specs/monthend-rest-api/spec.md</div></div>
+<div class="usage">Tokens: in: 1 / out: 603</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:36:40</span>
+<div class="content"><div class="tool">Bash(command: openspec status --change &quot;add-payroll-month-endpoints&quot; --json 2&gt;&amp;1, description: Check status after design and specs)</div>
+<div class="result">- Loading change status...
+{
+  &quot;changeName&quot;: &quot;add-payroll-month-endpoints&quot;,
+  &quot;schemaName&quot;: &quot;spec-driven&quot;,
+  &quot;isComplete&quot;: false,
+  &quot;applyRequires&quot;: [
+    &quot;tasks&quot;
+  ],
+  &quot;artifacts&quot;: [
+    {
+      &quot;id&quot;: &quot;proposal&quot;,
+      &quot;outputPath&quot;: &quot;proposal.md&quot;,
+      &quot;status&quot;: &quot;done&quot;
+    },
+    {
+      &quot;id&quot;: &quot;design&quot;,
+      &quot;outputPath&quot;: &quot;design.md&quot;,
+      &quot;status&quot;: &quot;done&quot;
+    },
+    {
+      &quot;id&quot;: &quot;specs&quot;,
+      &quot;outputPath&quot;: &quot;specs/**/*.md&quot;,
+      &quot;status&quot;: &quot;done&quot;
+    },
+    {
+      &quot;id&quot;: &quot;tasks&quot;,
+      &quot;o...</div></div>
+<div class="usage">Tokens: in: 1 / out: 35</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:36:44</span>
+<div class="content"><div class="tool">Bash(command: openspec instructions tasks --change &quot;add-payroll-month-endpoints&quot; --json 2&gt;&amp;1, description: Get tasks artifact instructions)</div>
+<div class="result">- Generating instructions...
+{
+  &quot;changeName&quot;: &quot;add-payroll-month-endpoints&quot;,
+  &quot;artifactId&quot;: &quot;tasks&quot;,
+  &quot;schemaName&quot;: &quot;spec-driven&quot;,
+  &quot;changeDir&quot;: &quot;/Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints&quot;,
+  &quot;outputPath&quot;: &quot;tasks.md&quot;,
+  &quot;description&quot;: &quot;Implementation checklist with trackable tasks&quot;,
+  &quot;instruction&quot;: &quot;Create the task list that breaks down the implementation work.\n\n**IMPORTANT: Follow the template below exactly.** The apply phase parses\ncheckbox fo...</div></div>
+<div class="usage">Tokens: in: 1 / out: 93</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:37:00</span>
+<div class="content"><details><summary class="thinking">Thinking</summary><p class="thinking"></p></details></div>
+<div class="usage">Tokens: in: 1 / out: 25</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:37:00</span>
+<div class="content"><div class="tool">Glob(path: /Users/olivertod/dev/repos/mega-backend/src/main/resources/openapi, pattern: **/*.yaml)</div>
+<div class="result">src/main/resources/openapi/parameters/common.yaml
+src/main/resources/openapi/responses/common.yaml
+src/main/resources/openapi/openapi.yaml
+src/main/resources/openapi/schemas/shared.yaml
+src/main/resources/openapi/paths/worktime.yaml
+src/main/resources/openapi/schemas/worktime.yaml
+src/main/resources/openapi/schemas/monthend.yaml
+src/main/resources/openapi/paths/monthend.yaml</div></div>
+<div class="usage">Tokens: in: 1 / out: 855</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:37:16</span>
+<div class="content"><div class="tool">Write(content: ## 1. OpenAPI Contract
+
+- [ ] 1.1 Add `GET /monthend/payroll-month/employee` path to `src/main/resources/openapi/paths/m..., file_path: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/tasks.md)</div>
+<div class="result">File created successfully at: /Users/olivertod/dev/repos/mega-backend/openspec/changes/add-payroll-month-endpoints/tasks.md</div></div>
+<div class="usage">Tokens: in: 1 / out: 960</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:37:19</span>
+<div class="content"><div class="tool">Bash(command: openspec status --change &quot;add-payroll-month-endpoints&quot; 2&gt;&amp;1, description: Final status check)</div>
+<div class="result">- Loading change status...
+Change: add-payroll-month-endpoints
+Schema: spec-driven
+Progress: 4/4 artifacts complete
+
+[x] proposal
+[x] design
+[x] specs
+[x] tasks
+
+All artifacts complete!</div></div>
+<div class="usage">Tokens: in: 1 / out: 89</div>
+</div>
+<div class="message">
+<span class="role assistant">Assistant</span><span class="model">claude-sonnet-4-6</span>
+<span class="timestamp">20:37:29</span>
+<div class="content"><p>All artifacts created. Here&#39;s the summary:</p>
+<p><strong>Change:</strong> <code>add-payroll-month-endpoints</code><br><strong>Location:</strong> <code>openspec/changes/add-payroll-month-endpoints/</code></p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>proposal.md</code></td>
+<td>Why this is needed; two new capabilities identified</td>
+</tr>
+<tr>
+<td><code>design.md</code></td>
+<td>5 documented decisions including why monthend context, why separate use cases, why the 14th gate is dropped</td>
+</tr>
+<tr>
+<td><code>specs/payroll-month/spec.md</code></td>
+<td>New capability — the three resolution rules as testable scenarios</td>
+</tr>
+<tr>
+<td><code>specs/monthend-rest-api/spec.md</code></td>
+<td>Delta spec — adds 5 scenarios for the two new REST endpoints</td>
+</tr>
+<tr>
+<td><code>tasks.md</code></td>
+<td>16 tasks across OpenAPI contract → ports → services → adapter → tests</td>
+</tr>
+</tbody></table>
+<p>Run <code>/opsx:apply</code> when you&#39;re ready to implement.</p>
+</div>
+<div class="usage">Tokens: in: 1 / out: 208</div>
+</div>
+
+</body>
+</html>
