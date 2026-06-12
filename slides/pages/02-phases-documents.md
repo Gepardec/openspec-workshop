@@ -282,6 +282,15 @@ Die Artefakte sind fertig. Nun gilt es, die Artefakte gründlich in dieser Reihe
 
 ---
 
+# Worauf achte ich beim Review?
+
+- Ist die formulierte Spec ein Delta zu einer bestehenden Spec oder eine neue?
+- Gibt es Open Questions?
+- Wird eine Lösung für ein Problem beschrieben, das eigentlich kein Problem ist? (z.B. Migration-Plan für ein Feature noch in Entwicklung)
+- Gibt es Widersprüche zwischen Artefakten?
+
+---
+
 # Nach propose: apply und archive
 
 Die Artefakte sind fertig. Zwei Phasen schließen den Loop:
@@ -301,3 +310,12 @@ Die Artefakte sind fertig. Zwei Phasen schließen den Loop:
 # `opsx:archive` — Praxisbeispiel
 
 <iframe src="/chats/archive.html" class="w-full h-99 rounded-xl border-0" title="archive Konversation" />
+
+---
+
+# Best practices
+
+- Nach jeder Phase (außer Explore) neue Session starten - sauberes Kontext-Fenster!
+- Unklarheiten nach propose klären, bevor apply beginnt
+- Implementierungsfehler in derselben Session korrigieren - Spec anpassen, falls das Verhalten davon abweicht
+- Umfangreiche Aufgaben: Implementierung von einem anderen Agenten reviewen lassen (neue Session!)
