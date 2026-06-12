@@ -77,4 +77,6 @@ Wer noch Token übrig hat: wendet den Change auch gleich an und archiviert ihn.
 
 Eine vage Anforderung liegt bereit. Startet eine Exploration, um die Anforderung zu schärfen — und erstellt am Ende ein Proposal.
 
+Lasst euch nach der Explore-Phase einen Click-Dummy erzeugen (Tipp: Skill `frontend-design`).
+
 Wer noch Token übrig hat: wendet den Change auch gleich an und archiviert ihn.
