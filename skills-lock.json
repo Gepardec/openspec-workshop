@@ -7,6 +7,12 @@
       "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
       "computedHash": "4de273da58236f27f3a59e70a2bbcc34167e298933f9a6f3b132f1d9ca44643c"
     },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
+    },
     "slidev": {
       "source": "slidevjs/slidev",
       "sourceType": "github",
