@@ -25,7 +25,7 @@ Nehmt euch **5 Minuten** und überlegt euch kurz Antworten auf diese Fragen:
   </div>
 </div>
 
-<div class="mt-10">
+<div v-click class="mt-10">
   <Countdown :minutes="5" />
 </div>
 
