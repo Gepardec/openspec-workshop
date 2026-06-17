@@ -1,11 +1,8 @@
 <mat-toolbar class="app-toolbar">
-  <a
-    class="app-toolbar__brand"
-    routerLink="/dashboard"
-    [attr.aria-label]="'app.title' | transloco"
-  >
-    <mat-icon aria-hidden="true">forest</mat-icon>
-    <span>{{ 'app.title' | transloco }}</span>
+  <a class="app-toolbar__brand" routerLink="/dashboard" [attr.aria-label]="'app.title' | transloco">
+    <div class="relative h-16 w-40">
+      <img alt="gepardec Logo" fill ngSrc="/logo.png" priority />
+    </div>
   </a>
 
   <nav class="app-toolbar__nav" [attr.aria-label]="'app.navigation' | transloco">

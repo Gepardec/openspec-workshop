@@ -4,16 +4,18 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use 'styles/material' as material-theme;
+@use 'styles/font/barlow';
 
 html {
   height: 100%;
   @include mat.theme(
     (
       color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+        primary: material-theme.$primary-palette,
+        tertiary: material-theme.$tertiary-palette,
       ),
-      typography: Roboto,
+      typography: Barlow,
       density: 0,
     )
   );
@@ -23,7 +25,7 @@ body {
   // Default the application to a light color theme. This can be changed to
   // `dark` to enable the dark color theme, or to `light dark` to defer to the
   // user's system settings.
-  color-scheme: light;
+  color-scheme: dark;
 
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
