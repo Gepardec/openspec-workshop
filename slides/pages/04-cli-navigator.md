@@ -97,4 +97,4 @@ openspec status --change <change>       # welche Artefakte sind vorhanden?
 openspec view                           # Dashboard
 ```
 
-<img src="../public/images/qr-code-cli-quiz.png" alt="QR-Code Quiz-Formular" class="h-48 mx-auto mt-6" />
+<img src="../public/images/qr-code-cli-quiz.png" alt="QR-Code Quiz-Formular" class="h-44 mx-auto mt-6" />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import GepardecLogo from '../components/GepardecLogo.vue'
 import CornerSpots from '../components/CornerSpots.vue'
-import defaultCheetah from '../assets/cheetah.jpg'
+import defaultCheetah from '../assets/cheetah_cropped.jpg'
 
 defineProps<{
   /**
@@ -23,7 +23,7 @@ defineProps<{
       <slot />
     </div>
 
-    <CornerSpots :opacity="0.55" />
+    <CornerSpots />
     <GepardecLogo />
   </div>
 </template>
@@ -31,9 +31,11 @@ defineProps<{
 <style scoped>
 .gepardec-section {
   padding: 0;
+  height: 100%;
   display: grid;
-  grid-template-columns: 50% 50%;
-  align-items: center;
+  grid-template-columns: 25% 75%;
+  grid-template-rows: 1fr;
+  align-items: stretch;
 }
 
 .section-image {
@@ -41,12 +43,15 @@ defineProps<{
   width: 100%;
   background-color: #000;
   background-size: cover;
-  background-position: 35% center;
+  background-position: right center;
 }
 
 .section-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 3rem 4rem 3rem 1rem;
-  z-index: 2;
+  z-index: 3;
 }
 
 .section-content :deep(h1) {

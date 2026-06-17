@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import GepardecLogo from '../components/GepardecLogo.vue'
-import CornerSpots from '../components/CornerSpots.vue'
 </script>
 
 <template>
@@ -19,7 +18,6 @@ import CornerSpots from '../components/CornerSpots.vue'
       </div>
     </div>
 
-    <CornerSpots :opacity="0.5" />
     <GepardecLogo />
   </div>
 </template>
@@ -35,7 +33,7 @@ import CornerSpots from '../components/CornerSpots.vue'
 }
 
 .title-area {
-  z-index: 2;
+  z-index: 3;
 }
 
 .title-area :deep(h1),
@@ -49,9 +47,7 @@ import CornerSpots from '../components/CornerSpots.vue'
   gap: 3rem;
   flex: 1;
   min-height: 0;
-  z-index: 2;
-  /* Leave room on the right for the spots cluster */
-  padding-right: 4%;
+  z-index: 3;
 }
 
 .col {

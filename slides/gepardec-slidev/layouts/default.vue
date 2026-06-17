@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import GepardecLogo from '../components/GepardecLogo.vue'
-import CornerSpots from '../components/CornerSpots.vue'
 </script>
 
 <template>
@@ -9,7 +8,6 @@ import CornerSpots from '../components/CornerSpots.vue'
       <slot />
     </div>
 
-    <CornerSpots />
     <GepardecLogo />
   </div>
 </template>
@@ -23,7 +21,7 @@ import CornerSpots from '../components/CornerSpots.vue'
 
 .content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   /* Title and content sit naturally - no borders, no boxes.
      The first heading becomes the title, the rest is content. */
 }
@@ -34,7 +32,5 @@ import CornerSpots from '../components/CornerSpots.vue'
 }
 
 /* Constrain content width so it doesn't run under the spots cluster */
-.content :deep(> *) {
-  max-width: 78%;
-}
+
 </style>

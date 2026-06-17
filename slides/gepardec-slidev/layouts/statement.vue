@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import GepardecLogo from '../components/GepardecLogo.vue'
-import CornerSpots from '../components/CornerSpots.vue'
 </script>
 
 <template>
@@ -9,7 +8,6 @@ import CornerSpots from '../components/CornerSpots.vue'
       <slot />
     </div>
 
-    <CornerSpots :opacity="0.4" />
     <GepardecLogo />
   </div>
 </template>
@@ -27,7 +25,7 @@ import CornerSpots from '../components/CornerSpots.vue'
 
 .statement-content {
   max-width: 75%;
-  z-index: 2;
+  z-index: 3;
 }
 
 .statement-content :deep(h1) {
