@@ -93,7 +93,7 @@ Zwei Dinge, die jedes Team früh definiert:
 ```yaml
 schema: spec-driven         # welcher Workflow gilt
 
-context: |                  # erscheint in JEDEM Artefakt
+context: |                  # erscheint bei Erstellung JEDES Artefakts
   ## Tech Stack
   - Quarkus 3.35 + Hibernate Panache + PostgreSQL
   - Angular 21, zoneless, NgRx Signal Store
@@ -104,6 +104,10 @@ context: |                  # erscheint in JEDEM Artefakt
 
 - **`context`** = was der Agent immer wissen muss (Tech-Stack, Konventionen)
 - Optional pro Artefakt-Typ: **`rules`** – z.B. "Proposals enthalten immer einen Rollback-Plan"
+
+<!--
+Kann config.yaml automatisiert aktualisiert werden?
+-->
 
 ---
 
@@ -151,6 +155,10 @@ Was er tut: Delta-Specs in die Haupt-Specs mergen, Change-Verzeichnis aufräumen
 Ein offenes Issue ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)).
 
 </v-click>
+
+<!--
+Erwähnen, dass der Grund am Nachmittag noch ersichtlich werden wird
+-->
 
 ---
 
