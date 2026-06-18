@@ -23,6 +23,10 @@ layout: section
 
 Setup, CLI-Installation und `openspec init` — ihr seht, was OpenSpec aus einem leeren Repo macht.
 
+<!--
+An passender Stelle erwähnen, dass mindestens Claude Code, Codex und Junie zu installieren ist.
+-->
+
 ---
 
 # Übung 2 – Workshop-Setup übernehmen
@@ -30,6 +34,10 @@ Setup, CLI-Installation und `openspec init` — ihr seht, was OpenSpec aus einem
 `exercises/02_setup_openspec/README.md`
 
 Ihr kopiert das vorkonfigurierte `openspec/`-Verzeichnis in euer Repo-Root. Ab jetzt arbeitet ihr mit dem vollständigen Workshop-Stand — inkl. aller Changes und Specs.
+
+<!--
+CLI-Befehl zum kopieren funktioniert nicht!
+-->
 
 ---
 
