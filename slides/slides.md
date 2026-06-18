@@ -4,9 +4,9 @@ title: OpenSpec Workshop
 transition: slide-left
 ---
 
-# OpenSpec — Specs, die mit dem Code leben
+# Hands-on Agentic AI: Spec-driven Development mit OpenSpec
 
-Spec-driven Workflow für KI-gestützte Entwicklung
+Oliver Tod, Wien, 18.06.2026
 
 ---
 src: ./pages/00-warmup.md
