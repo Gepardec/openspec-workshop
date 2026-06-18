@@ -13,6 +13,10 @@ layout: section
 - Was war herausfordernd?
 - Was würdet ihr das nächste Mal anders machen?
 
+<!--
+Timer hinzufügen
+-->
+
 ---
 
 # Fragen zum Nachdenken

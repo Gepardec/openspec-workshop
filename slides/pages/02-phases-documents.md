@@ -51,7 +51,7 @@ Es gibt auch noch das extend profile. nicht näher drauf eingehen, kann nachgele
 
 # Szenario: Abfrage Abrechnungsmonat
 
-Neues Feature im Zoo-Management-System — zwei Sichten auf denselben Datensatz:
+Zwei Sichten auf denselben Datensatz:
 
 <div class="grid grid-cols-2 gap-6 mt-6">
   <div class="border border-white/30 rounded-xl p-5">
@@ -68,9 +68,13 @@ Neues Feature im Zoo-Management-System — zwei Sichten auf denselben Datensatz:
   Wir begleiten diesen Change von <code>explore</code> bis <code>archive</code>
 </div>
 
+<!--
+Das Szenario entstammt einer Anwendung, die ich mit diesem Ansatz modernisiert habe.
+-->
+
 ---
 
-# `opsx:explore` – der optionale Vorschritt
+# `opsx:explore` – der Pionier
 
 `explore` ist kein Pflichtschritt. Es ist ein Denkpartner, bevor Artefakte entstehen.
 
@@ -261,7 +265,7 @@ Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
 - **Drei Sektionen** – ADDED, MODIFIED, REMOVED
 - Verhindert Konflikte, wenn mehrere Changes denselben Bereich berühren
 - Beim `archive` werden Deltas in die Haupt-Specs unter `openspec/specs/` eingearbeitet
-- Bis dahin gilt: `openspec/specs/` ist der abgenommene Stand, `openspec/changes/*/specs/` sind offene Vorschläge
+- `openspec/specs/` ist der abgenommene Stand, `openspec/changes/*/specs/` sind offene Vorschläge
 
 ---
 
@@ -284,10 +288,11 @@ Die Artefakte sind fertig. Nun gilt es, die Artefakte gründlich in dieser Reihe
 
 # Worauf achte ich beim Review?
 
-- Ist die formulierte Spec ein Delta zu einer bestehenden Spec oder eine neue?
 - Gibt es Open Questions?
-- Wird eine Lösung für ein Problem beschrieben, das eigentlich kein Problem ist? (z.B. Migration-Plan für ein Feature noch in Entwicklung)
 - Gibt es Widersprüche zwischen Artefakten?
+- Wurden Anforderungen erfunden bzw. falsche Entscheidungen getroffen?
+- Ist die formulierte Spec ein Delta zu einer bestehenden Spec oder eine neue?
+- Wird eine Lösung für ein Problem beschrieben, das eigentlich kein Problem ist? (z.B. Migration-Plan für ein Feature noch in Entwicklung)
 
 ---
 

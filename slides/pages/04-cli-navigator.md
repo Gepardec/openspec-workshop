@@ -88,7 +88,7 @@ Beantworte die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit openspec C
 
 1. `main`-Branch auschecken
 2. `npm install -g @fission-ai/openspec@latest`
-3. (optional) `openspec completion <shell>` für Shell Autocompletion
+3. (optional) `openspec completion install` für Shell Autocompletion
 
 ```sh
 openspec list                           # alle aktiven Changes
@@ -97,4 +97,6 @@ openspec status --change <change>       # welche Artefakte sind vorhanden?
 openspec view                           # Dashboard
 ```
 
-<img src="../public/images/qr-code-cli-quiz.png" alt="QR-Code Quiz-Formular" class="h-44 mx-auto mt-6" />
+<!--
+Frage 1: Change ist nicht aktiv, sondern completed. AUSBESSERN!
+-->

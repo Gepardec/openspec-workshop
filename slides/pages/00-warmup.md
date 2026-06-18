@@ -82,35 +82,35 @@ layout: default
     <span class="block-title">Warm-Up &amp; Erwartungen</span>
   </div>
   <div class="agenda-row">
-    <span class="time">09:30 – 10:15</span>
+    <span class="time">09:30 – 09:45</span>
     <span class="block-title"><span class="num">1</span> Was ist Spec-driven?</span>
   </div>
+  <div class="agenda-row">
+    <span class="time">09:45 – 10:30</span>
+    <span class="block-title"><span class="num">2</span> Phasen &amp; Dokumente</span>
+  </div>
   <div class="agenda-row break">
-    <span class="time">10:15 – 10:30</span>
+    <span class="time">10:30 – 10:45</span>
     <span class="block-title">Kaffeepause</span>
   </div>
   <div class="agenda-row">
-    <span class="time">10:30 – 11:30</span>
-    <span class="block-title"><span class="num">2</span> Phasen &amp; Dokumente</span>
-  </div>
-  <div class="agenda-row">
-    <span class="time">11:30 – 12:00</span>
+    <span class="time">10:45 – 11:15</span>
     <span class="block-title"><span class="num">3</span> Setup &amp; Konfiguration</span>
   </div>
   <div class="agenda-row">
-    <span class="time">12:00 – 12:30</span>
+    <span class="time">11:15 – 12:00</span>
     <span class="block-title"><span class="num">4</span> CLI als Datei-Navigator + Quiz</span>
   </div>
   <div class="agenda-row break">
-    <span class="time">12:30 – 13:30</span>
+    <span class="time">12:00 – 13:00</span>
     <span class="block-title">Mittagspause</span>
   </div>
   <div class="agenda-row">
-    <span class="time">13:30 – 14:15</span>
+    <span class="time">13:00 – 13:45</span>
     <span class="block-title"><span class="num">5</span> CLI als Agent-Bridge + Live-Demo</span>
   </div>
   <div class="agenda-row">
-    <span class="time">14:15 – 16:45</span>
+    <span class="time">13:45 – 16:45</span>
     <span class="block-title"><span class="num">6</span> Hands-on Übungen</span>
   </div>
   <div class="agenda-row">

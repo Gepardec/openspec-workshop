@@ -79,4 +79,6 @@ openspec instructions apply --change us-06-dashboard
 
 <!--
 Vergleich: Alle Tasks erledigt vs. alle Tasks offen
+
+Validate: wann wird eine violation geworfen??
 -->
