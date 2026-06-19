@@ -6,7 +6,7 @@ In `REQUIREMENT.md` liegt eine vage Anforderung — noch nicht reif für ein Pro
 
 ## Ziel
 
-Startet eine Exploration, um die Anforderung zu schärfen, und erstellt am Ende ein Proposal. Wer noch Token übrig hat, wendet den Change an und archiviert ihn.
+Führt die Anforderung durch den vollständigen Loop: Exploration, um sie zu schärfen, daraus ein Proposal, dann anwenden, syncen und archivieren.
 
 ## Erfolgskriterium
 
