@@ -1,83 +1,81 @@
 # Hands-on Agentic AI: Spec-driven Development mit OpenSpec
 
-**Format:** vorzugsweise vor Ort — Remote nur in Ausnahmefällen, keine Mischform
-**Dauer:** 1 Tag (ca. 8 Stunden inkl. Pausen)
-**Gruppengröße:** maximal 10 Teilnehmer:innen
-
-**Preis (offene Workshops zu fixen Terminen):**
-
-- € 1.000,– pro Teilnehmer:in
-- 50 % Rabatt für Gepardec-Stammkund:innen
-- Inkludiert: Zugang zu KI-Modellen für den Workshop-Tag und Mittagessen
-
-**Preis (In-House / kundenspezifischer Workshop):** auf Anfrage
+KI-Agenten generieren Code schneller, als Teams Anforderungen klären können. Was im Chat besprochen wurde, lebt nicht im Repo — der Agent vergisst zwischen Sessions, was bereits entschieden war, und halluziniert den Rest. Dieser Workshop zeigt, wie Spec-driven Development mit OpenSpec das ändert: überprüfbare Artefakte, die dem Agenten Kontext geben und Entscheidungen im Repository verankern.
 
 ---
 
-## Worum geht es?
+## Was wirst du lernen?
 
-KI-Agenten generieren Code heute schneller, als Teams Anforderungen klären können. Was im Chat-Fenster besprochen wurde, lebt nicht im Repo. Anforderungen driften zwischen Ticket, Design und Implementierung auseinander. Kontextfenster sind limitiert — der Agent vergisst zwischen Sessions, was bereits entschieden war.
+Nach einem Tag mit einer Mischung aus Theorie, geführten Beispielen und eigenständigen Hands-on Übungen:
 
-**Spec-driven Development mit OpenSpec** setzt eine Schicht aus überprüfbaren Artefakten zwischen Anforderung und Code: jeder Change trägt seinen vollständigen Kontext (Proposal, Spec, Design, Tasks) als versionierte Markdown-Dateien im Repository. Die Spec wird zur Leitplanke für den Agenten — Halluzinationen verschwinden, weil dem Modell der Spielraum genommen wird.
-
-In diesem Workshop lernen die Teilnehmer:innen den vollständigen OpenSpec-Loop kennen — von der Exploration einer vagen Anforderung bis zum archivierten Change — und wenden ihn in praxisnahen Übungen auf eine bestehende Java/Angular-Anwendung an.
-
----
-
-## Lernziele
-
-Nach diesem Workshop können die Teilnehmer:innen:
-
-- die Kernkonzepte von OpenSpec und Spec-driven Development einordnen
-- zwischen Haupt-Specs, aktiven Changes, Design-Entscheidungen und Tasks unterscheiden
-- den vollständigen Workflow `explore → propose → apply → sync → archive` mit einem KI-Coding-Agenten ihrer Wahl ausführen
-- generierte Artefakte (`proposal.md`, `spec.md`, `design.md`, `tasks.md`) reviewen und gezielt verbessern
-- OpenSpec sauber in ein bestehendes Projekt integrieren und über `openspec/config.yaml` projektspezifisch konfigurieren
-- den Ansatz auf reale Features in ihrer eigenen Codebase übertragen
+- wirst du verstehen, warum Spec-driven Development in Enterprise-Projekten zum Accelerator wird — und wie es sich grundlegend von Vibe-Coding unterscheidet
+- weißt du, wie OpenSpec-Konzepte, Artefakte und CLI zusammenspielen und wie der Agent damit interagiert
+- kannst du aus unklaren Anforderungen strukturierte, reviewbare Spezifikationen erarbeiten und deren Qualität gezielt beurteilen
+- kannst du einen Change eigenständig durch alle Phasen führen — von der Exploration bis zur archivierten Spezifikation
+- weißt du, wie Projektkonventionen in OpenSpec verankert werden, damit jeder neue Change die Qualitätsansprüche deines Teams erfüllt
 
 ---
 
-## Zielgruppe
+## Für wen ist das Training geeignet?
 
-- Softwareentwickler:innen, die KI-Agenten produktiv im Daily Business einsetzen wollen
-- Architekt:innen und Tech Leads, die einen verlässlichen Workflow für KI-gestützte Entwicklung etablieren wollen
-- DevOps- und Plattformteams, die Standards für agentengestütztes Arbeiten definieren
-- Teams, die heute „Vibe-Coding" betreiben und auf reviewbare, persistierte Specs umstellen wollen
-- Brownfield-Projekte mit bestehender Codebase, in der Anforderungen und Implementierung auseinanderlaufen
+- Softwareentwickler:innen, die KI-Agenten produktiv im Alltag einsetzen wollen
+- Architekt:innen und Tech Leads, die einen reviewbaren Workflow für ihr Team etablieren wollen
+- Teams, die heute „Vibe-Coding" betreiben und auf nachvollziehbare Specs umstellen wollen
 
 ---
 
-## Voraussetzungen
+## Welche Inhalte darfst du erwarten?
 
-**Empfohlene Vorkenntnisse**
+**Spec-driven Development & OpenSpec**
+- Warum agentic Development in Enterprise-Projekten scheitert — und was dagegen hilft
+- Was Spec-driven Development ist und welche Artefakte ihn tragen
+- Wie OpenSpec-CLI und Agent zusammenarbeiten
 
-- Grundlegende Erfahrung in der Softwareentwicklung (Programmiersprache egal)
-- Erste Berührungspunkte mit KI-Coding-Agenten (Claude Code, Codex, Copilot o.ä.) sind hilfreich, aber nicht Voraussetzung
-- Vertrautheit mit Git und der Kommandozeile
+**Vom Requirement zur Spezifikation**
+- Vage Anforderungen im Sparring mit dem Agenten präzisieren (Explore)
+- Artefakte generieren, qualitativ beurteilen und gezielt verfeinern (Propose)
+- Projektkonventionen manifestieren und automatisch in jeden Change einfließen lassen
 
-**Technische Voraussetzungen** (Teilnehmer-Notebook)
+**Implementierung & Abschluss**
+- Den Agenten mit vollständigem Kontext implementieren lassen (Apply)
+- Erzeugten Code reviewen und mit statischen Analysetools und Tests validieren
+- Änderungen in die Haupt-Specs überführen und einen Change sauber abschließen (Sync & Archive)
 
-- Java 21+
-- Node.js 24+
-- pnpm 11+
-- Maven 3.9+
-- Git
-- Internetzugang
-- Browser
+Alle Phasen werden anhand einer Java/Angular-Referenzanwendung hands-on durchlaufen — die Konzepte sind sprachunabhängig und direkt auf die eigene Codebase übertragbar.
 
-**Trainingsmaterialien**
+---
 
-- Vorbereitetes Workshop-Repository mit Beispielanwendung, Übungen und Musterlösungen — bleibt nach dem Workshop als Nachschlagewerk in der Hand der Teilnehmer:innen.
-- Präsentation als PDF nach dem Workshop
+## Welche Vorbereitung empfehlen wir dir?
+
+- Grundlegende Erfahrung in der Softwareentwicklung und Vertrautheit mit Git
+- Erste Erfahrungen mit einem KI-Coding-Agenten sind hilfreich, aber kein Muss
+
+---
+
+## Was benötigst du zum Training?
+
+- Notebook mit Browser und Internetzugang
+- Die Arbeitsumgebung wird als virtuelle Umgebung bereitgestellt — keine lokale Installation nötig
+- Das Workshop-Repository bleibt nach dem Training als Nachschlagewerk in deinen Händen
+
+---
+
+## Eckdaten
+
+**Format:** vor Ort | **Dauer:** 1 Tag | **Gruppe:** max. 10 Personen
+
+**Preis:** € 1.000,– pro Person (50 % Rabatt für Gepardec-Stammkund:innen)
+
+Inkludiert: Zugang zu KI-Modellen für den Workshop-Tag und Mittagessen.
+
+In-House / kundenspezifischer Workshop auf Anfrage.
 
 ---
 
 ## Trainer
 
-**Oliver Tod**, Software Engineer bei Gepardec, arbeitet aktiv mit KI-Agenten in Kundenprojekten und hat OpenSpec in produktiven Brownfield-Anwendungen eingeführt. Der Workshop basiert auf praktischen Erfahrungen aus der Modernisierung bestehender Anwendungen mit spec-driven Workflows.
+**Oliver Tod** ist Software Engineer bei Gepardec und begleitet Kundenprojekte bei der Einführung von KI-gestützten Entwicklungsworkflows. Er hat Spec-driven Development mit OpenSpec in produktiven Brownfield-Projekten eingeführt. Der Workshop basiert auf praktischen Erfahrungen aus der Modernisierung bestehender Anwendungen.
 
 ---
 
-## Kontakt & Buchung
-
-Für ein individuelles Angebot oder die Buchung als In-House-Schulung kontaktieren Sie uns gerne unter [office@gepardec.com](mailto:office@gepardec.com).
+Für Buchung und individuelle Angebote: [office@gepardec.com](mailto:office@gepardec.com)
