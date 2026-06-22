@@ -1,6 +1,6 @@
-# Hands-on Agentic AI: Spec-driven Development mit OpenSpec
+# Gib deinem KI-Dev-Prozess Struktur — Spec-driven Development mit OpenSpec
 
-KI-Agenten generieren Code schneller, als Teams Anforderungen klären können. Was im Chat besprochen wurde, lebt nicht im Repo — der Agent vergisst zwischen Sessions, was bereits entschieden war, und halluziniert den Rest. Dieser Workshop zeigt, wie Spec-driven Development mit OpenSpec das ändert: überprüfbare Artefakte, die dem Agenten Kontext geben und Entscheidungen im Repository verankern.
+KI-Agenten generieren Code schneller, als Teams Anforderungen klären können. Was im Chat mit der KI besprochen wurde, lebt nicht im Repo — der Agent vergisst zwischen Sessions, was bereits entschieden war, und halluziniert den Rest. Dieser Workshop zeigt, wie Spec-driven Development mit OpenSpec das ändert: überprüfbare Artefakte, die dem Agenten Kontext geben und Entscheidungen im Repository verankern.
 
 ---
 
@@ -19,7 +19,7 @@ Nach einem Tag mit einer Mischung aus Theorie, geführten Beispielen und eigenst
 ## Für wen ist das Training geeignet?
 
 - Softwareentwickler:innen, die KI-Agenten produktiv im Alltag einsetzen wollen
-- Architekt:innen und Tech Leads, die einen reviewbaren Workflow für ihr Team etablieren wollen
+- Architekt:innen und Tech Leads, die einen nachvollziehbaren, reviewbaren KI-Workflow für ihr Team etablieren wollen
 - Teams, die heute „Vibe-Coding" betreiben und auf nachvollziehbare Specs umstellen wollen
 
 ---
@@ -28,7 +28,7 @@ Nach einem Tag mit einer Mischung aus Theorie, geführten Beispielen und eigenst
 
 **Spec-driven Development & OpenSpec**
 - Warum agentic Development in Enterprise-Projekten scheitert — und was dagegen hilft
-- Was Spec-driven Development ist und welche Artefakte ihn tragen
+- Was Spec-driven Development ist und welche Artefakte dabei entstehen
 - Wie OpenSpec-CLI und Agent zusammenarbeiten
 
 **Vom Requirement zur Spezifikation**
@@ -38,10 +38,10 @@ Nach einem Tag mit einer Mischung aus Theorie, geführten Beispielen und eigenst
 
 **Implementierung & Abschluss**
 - Den Agenten mit vollständigem Kontext implementieren lassen (Apply)
-- Erzeugten Code reviewen und mit statischen Analysetools und Tests validieren
-- Änderungen in die Haupt-Specs überführen und einen Change sauber abschließen (Sync & Archive)
+- Erzeugten Code reviewen — und verstehen, warum gut konfigurierte Analysetools und Tests als Qualitätsnetz für Agenten-Implementierungen unverzichtbar sind
+- Änderungen in die bestehenden Spezifikationen überführen und einen Change sauber abschließen (Sync & Archive)
 
-Alle Phasen werden anhand einer Java/Angular-Referenzanwendung hands-on durchlaufen — die Konzepte sind sprachunabhängig und direkt auf die eigene Codebase übertragbar.
+Alle Phasen werden anhand einer Java/Angular-Referenzanwendung hands-on durchlaufen — Java- oder Angular-Kenntnisse sind dafür nicht erforderlich; die Konzepte sind sprachunabhängig und direkt auf die eigene Codebase übertragbar.
 
 ---
 
@@ -79,3 +79,9 @@ In-House / kundenspezifischer Workshop auf Anfrage.
 ---
 
 Für Buchung und individuelle Angebote: [office@gepardec.com](mailto:office@gepardec.com)
+
+---
+
+## Weiterführendes
+
+- [Vortrag: Spec-driven Development mit OpenSpec](https://www.youtube.com/watch?v=ebVuRe7F470)
