@@ -32,7 +32,7 @@ podman run --rm -it -v $HOME/.aws:/root/.aws:ro -v $(pwd)/:/opt/train/workdir gh
 Zuerst die benötigen ansible collections herunterladen mit:
 [source,shell]
 ----
-ansible-galaxy collection install -r requirements.yml
+ansible-galaxy collection install -r requirements.yml --force
 ----
 
 
@@ -44,7 +44,7 @@ ansible-playbook -i openspec-workshop/inventory -f 6 --tags execute playbook.yam
 
 ## Verbinden mit Webtop
 
-Auf Port 3000 jedes Rechners läuft ein Web-GUI z.B: https://3.71.32.5:3000/. Siehe Datei `openspec-workshop/readme.txt` für die URLs
+Auf jeder Instanz läuft ein Web-GUI z.B: https://3.71.32.5/. Siehe Datei `openspec-workshop/readme.txt` für die URLs
 
 ## Verbinden mit SSH
 SSH Keys wurden generiert und liegen unter openspec-workshop/x/access
