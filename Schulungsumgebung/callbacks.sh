@@ -21,7 +21,7 @@ function train_create_readme {
   local readme=${2}
 
   ansible_host=$(terraform output -json instance_public_ips | jq ".[0][${counter}]" | tr -d '"')
-  webtop_url="http://${ansible_host}:3000/?login=true"
+  webtop_url="https://${ansible_host}/?login=true"
 
   echo """user_${counter}: $webtop_url""" >> $readme
 
