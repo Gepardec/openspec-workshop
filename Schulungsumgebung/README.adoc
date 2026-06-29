@@ -1,0 +1,53 @@
+# Schulungsumgebung in AWS
+
+Wir bauen X Schulungsumgebungen in AWS auf.
+
+Es wird terraform verwendet, um eine isolierte Umgebung zu erstellen.
+
+Danach wird ansible verwendet, um die VMs für das Training einzurichten.
+
+## Terraform
+
+Für den Aufbau der Schulungsumgebung gibt es ein eigenes https://github.com/Gepardec/train[Git Repository] und https://github.com/Gepardec/train/pkgs/container/train[Images] welches Terraform verwendet.
+https://gepardec.github.io/train/[Github Pages] liefert die Dokumentation.
+
+Ein passender ami_name kann in https://eu-central-1.console.aws.amazon.com/ec2/home?region=eu-central-1#Images:visibility=public-images;search=:Fedora-Cloud-Base-;v=3;$case=tags:false%5C,client:false;$regex=tags:false%5C,client:false[aws] gefunden werden. Achtung wahrscheinlich muss auch ami_owners angepasst werden.
+
+
+### Erstellen der AWS Rechner
+Variablen in variables.tfvar setzen und dann ausführen mit:
+[source,shell]
+----
+podman run --rm -it -v $HOME/.aws:/root/.aws:ro -v $(pwd)/:/opt/train/workdir ghcr.io/gepardec/train:latest apply
+----
+
+### Destroy AWS Rechner
+[source,shell]
+----
+podman run --rm -it -v $HOME/.aws:/root/.aws:ro -v $(pwd)/:/opt/train/workdir ghcr.io/gepardec/train:latest destroy
+----
+
+## Konfigurieren der Rechner mit Ansible
+
+Zuerst die benötigen ansible collections herunterladen mit:
+[source,shell]
+----
+ansible-galaxy collection install -r requirements.yml
+----
+
+
+Danach kann das ansible-playbook ausgeführt werden.
+[source,shell]
+----
+ansible-playbook -i openspec-workshop/inventory -f 6 --tags execute playbook.yaml
+----
+
+## Verbinden mit Webtop
+
+Auf Port 3000 jedes Rechners läuft ein Web-GUI z.B: https://3.71.32.5:3000/. Siehe Datei `openspec-workshop/readme.txt` für die URLs
+
+## Verbinden mit SSH
+SSH Keys wurden generiert und liegen unter openspec-workshop/x/access
+----
+ssh -i openspec-workshop/x/access fedora@3.71.32.5
+----

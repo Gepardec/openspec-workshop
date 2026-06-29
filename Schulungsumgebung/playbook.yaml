@@ -1,0 +1,189 @@
+---
+- name: Install OpenSpec Training
+  hosts: all
+  gather_facts: true
+  any_errors_fatal: true
+  vars:
+  tasks:
+    - name: Disable SELinux
+      tags: execute
+      become: true
+      ansible.posix.selinux:
+        state: disabled
+
+    - name: Install needed packages
+      tags: execute
+      become: true
+      ansible.builtin.command: sudo dnf install -y unzip git time bc gedit net-tools pip python3-setuptools xorg-x11-xauth
+
+    - name: Install python dependencies
+      tags: execute
+      ansible.builtin.pip:
+        name:
+          - docker # Needed by docker_container
+
+    - name: Create directories
+      tags: execute
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      with_items:
+        - bin
+        - Downloads
+        - webtop/Desktop
+        - webtop/.config
+
+    - name: Ensure group docker exists
+      tags: execute
+      become: true
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    - name: Add the user to docker group
+      tags: execute
+      become: true
+      ansible.builtin.user:
+        name: "{{ linux_user }}"
+        groups: docker
+        append: true
+
+    - name: Install docker
+      tags: execute
+      become: true
+      ansible.builtin.shell: dnf install -y docker
+
+    - name: Start and enable docker
+      tags: execute
+      become: true
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Generate SSH key
+      tags: execute
+      community.crypto.openssh_keypair:
+        path: "~/.ssh/id_rsa"
+        type: rsa
+
+    - name: Allow local user to login
+      tags: execute
+      ansible.posix.authorized_key:
+        user: "{{ linux_user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: Fetch the keyfile from remote server
+      tags: execute
+      ansible.builtin.fetch:
+        src: "~/.ssh/id_rsa.pub"
+        dest: "/tmp/remote-{{ inventory_hostname }}-id_rsa.pub"
+        flat: true
+
+    - name: Allow remote user to login remote
+      tags: execute
+      ansible.posix.authorized_key:
+        user: "{{ linux_user }}"
+        state: present
+        key: "{{ lookup('file','/tmp/remote-{{inventory_hostname}}-id_rsa.pub')}}"
+
+    - name: Copy ssh-config to the webtop directory
+      tags: execute
+      ansible.builtin.copy:
+        src: .ssh
+        dest: webtop/
+        remote_src: true
+        mode: 0700
+
+    - name: Create ssh config file
+      tags: execute
+      ansible.builtin.copy:
+        dest: "webtop/.ssh/config"
+        mode: 0600
+        content: |
+          Host localhost
+            Hostname localhost
+            User "{{ linux_user }}"
+            StrictHostKeyChecking no
+
+    - name: Run Webtop
+      tags: execute
+      become: true
+      community.docker.docker_container:
+        name: webtop
+        image: lscr.io/linuxserver/webtop:fedora-xfce-2dcb9ef8-ls289
+        state: started
+        env:
+          PUID: "1000"
+          PGID: "1000"
+          TZ: "Europe/Vienna"
+          SUBFOLDER: "/"
+          KEYBOARD: "de-de-qwertz"
+          CUSTOM_PORT: "80"
+          CUSTOM_HTTPS_PORT: "443"
+        volumes:
+          - /home/{{ linux_user }}/webtop:/config
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /:/host
+        security_opts:
+          - "seccomp:unconfined"
+        shm_size: 1G
+        network_mode: host
+
+    - name: Create desktop shortcut file explorer to home VM via sftp
+      tags: execute
+      ansible.builtin.copy:
+        dest: "webtop/Desktop/home_vm.desktop"
+        mode: '0755'
+        content: |
+          [Desktop Entry]
+          Version=1.0
+          Type=Application
+          Name=Home VM
+          Exec=thunar sftp://localhost/home/{{ linux_user }}
+          Icon=go-home
+          Path=
+          Terminal=false
+          StartupNotify=false
+
+    - name: Create desktop shortcut terminal to VM
+      tags: execute
+      ansible.builtin.copy:
+        dest: "webtop/Desktop/terminal_vm.desktop"
+        mode: '0755'
+        content: |
+          [Desktop Entry]
+          Version=1.0
+          Type=Application
+          Name=Terminal VM
+          Exec=ssh -Y localhost
+          Icon=utilities-terminal
+          Path=
+          Terminal=true
+          StartupNotify=false
+
+    - name: Create README
+      tags: execute
+      ansible.builtin.copy:
+        dest: "webtop/Desktop/README.txt"
+        mode: '0644'
+        content: |
+         Eigenheiten der Umgebung:
+         Der Desktop läuft innerhalb eines Docker Containers in der VM
+
+         Icons:
+            "Home VM": Anzeigen des HOME-Verzeichnisses der VM
+            "Terminal VM": SSH-Verbindung zur VM
+
+##############################
+### Start Workshop Inhalte ###
+##############################
+
+    - name: Clone OpenSpec Repo
+      tags: execute
+      ansible.builtin.git:
+        repo: https://github.com/Gepardec/openspec-workshop.git
+        dest: "{{ ansible_env.HOME }}/openspec-workshop"
+        version: refs/tags/3.28.3
