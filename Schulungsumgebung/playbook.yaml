@@ -14,7 +14,7 @@
     - name: Install needed packages
       tags: execute
       become: true
-      ansible.builtin.command: sudo dnf install -y unzip chromium git time bc gedit net-tools pip xorg-x11-xauth java-25-openjdk-devel.x86_64 maven node #python3-setuptools
+      ansible.builtin.command: sudo dnf install -y unzip chromium git time bc gedit net-tools pip xorg-x11-xauth java-25-openjdk-devel.x86_64 maven node python3-setuptools
 
     - name: Install python dependencies
       tags: execute
@@ -200,13 +200,25 @@
       become: true
       ansible.builtin.command: sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     - name: Install VS Code - Repo
-      tags: execute
       become: true
-      ansible.builtin.command: echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
-#    - name: Install VS Code - Update
-#      tags: execute
-#      become: true
-#      ansible.builtin.command: dnf check-update
+      tags: execute
+      ansible.builtin.copy:
+        dest: "/etc/yum.repos.d/vscode.repo"
+        mode: '0644'
+        content: |
+          [code]
+          name=Visual Studio Code
+          baseurl=https://packages.microsoft.com/yumrepos/vscode
+          enabled=1
+          autorefresh=1
+          type=rpm-md
+          gpgcheck=1
+          gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+    - name: Install VS Code - Update
+      tags: execute
+      ignore_errors: true
+      become: true
+      ansible.builtin.command: sudo dnf check-update
     - name: Install VS Code
       tags: execute
       become: true

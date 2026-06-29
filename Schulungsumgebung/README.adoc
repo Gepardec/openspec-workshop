@@ -34,12 +34,13 @@ Zuerst die benötigen ansible collections herunterladen mit:
 ----
 ansible-galaxy collection install -r requirements.yml --force
 ----
-
+In `openspec-workshop/inventory` muss dann noch der OpenAI Api Key bei `[all:vars]` hinzugefügt werden:
+OPENAI_API_KEY=...
 
 Danach kann das ansible-playbook ausgeführt werden.
 [source,shell]
 ----
-ansible-playbook -i openspec-workshop/inventory -f 6 --tags execute playbook.yaml
+ansible-playbook -i openspec-workshop/inventory -f 10 --tags execute playbook.yaml
 ----
 
 ## Verbinden mit Webtop
