@@ -282,3 +282,6 @@
           Terminal=false
           StartupNotify=false
 
+    - name: Install slides
+      tags: execute
+      ansible.builtin.command: pnpm install --dir openspec-workshop/slides/
