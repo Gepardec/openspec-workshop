@@ -1,5 +1,5 @@
 ---
-theme: ./gepardec-slidev
+theme: '@gepardec/slidev-theme-gepardec'
 title: OpenSpec Workshop
 transition: slide-left
 ---

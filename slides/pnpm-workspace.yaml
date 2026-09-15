@@ -1,1 +1,5 @@
+allowBuilds:
+  playwright-chromium: true
+minimumReleaseAgeExclude:
+  - '@gepardec/slidev-theme-gepardec'
 shamefullyHoist: true
