@@ -1,12 +1,15 @@
 ---
 layout: section
+variant: ascii
 ---
 
 # Die CLI als Datei-Navigator
 
 ---
+layout: default
+---
 
-# `openspec list`
+# openspec list
 
 Alle aktiven Changes auf einen Blick.
 
@@ -23,8 +26,10 @@ Changes:
 Mit `--specs` werden stattdessen alle Haupt-Specs aufgelistet. JSON-Output mit `--json`.
 
 ---
+layout: default
+---
 
-# `openspec show <change>`
+# openspec show
 
 Den Proposal-Inhalt eines Change lesen.
 
@@ -46,8 +51,10 @@ The app currently lands the user directly on the animal list...
 Mit `--type spec <name>` zeigt der Befehl den Inhalt einer Haupt-Spec.
 
 ---
+layout: default
+---
 
-# `openspec status --change <change>`
+# openspec status
 
 Welche Artefakte sind vollständig — und was ist noch blockiert?
 
@@ -69,8 +76,11 @@ Progress: 2/4 artifacts complete
 Alle vier Artefakte sind Pflicht. `tasks` ist blockiert, bis sowohl `specs` als auch `design` vorhanden sind.
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
-# `openspec view`
+# openspec view
 
 Interaktives Terminal-Dashboard.
 
@@ -80,6 +90,8 @@ $ openspec view
 
 Übersicht aller Changes und Specs im Projekt. Nur für den menschlichen Einsatz im Terminal — kein JSON-Output.
 
+---
+layout: default
 ---
 
 # Hands-on: Quiz-Runde
