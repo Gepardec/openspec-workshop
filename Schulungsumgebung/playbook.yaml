@@ -68,13 +68,6 @@
         path: "~/.ssh/id_rsa"
         type: rsa
 
-    - name: Allow local user to login
-      tags: execute
-      ansible.posix.authorized_key:
-        user: "{{ linux_user }}"
-        state: present
-        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-
     - name: Fetch the keyfile from remote server
       tags: execute
       ansible.builtin.fetch:

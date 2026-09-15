@@ -4,5 +4,5 @@ instance_type    = "t2.xlarge"
 # muss x86_64 sein.
 ami_name         = ["Fedora-Cloud-Base-AmazonEC2.x86_64-44-20260623.0"]
 ami_owners       = ["125523088429"]
-owner            = "hwirnsberger"
+owner            = "otod"
 resource_prefix  = "openspec-workshop"
