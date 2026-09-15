@@ -22,6 +22,8 @@ import { execFileSync, execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { upstream, sources, noImpact } from './sources.mjs';
 import { assertions } from './assertions.mjs';
+import { probes } from './inventory.mjs';
+import { coverage } from './coverage.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '../..');
@@ -67,6 +69,25 @@ async function ghFile(tag, p) {
   return text;
 }
 
+async function ghTree(tag) {
+  const cached = path.join(CACHE, 'gh', tag, '__tree.json');
+  if (fs.existsSync(cached)) return JSON.parse(fs.readFileSync(cached, 'utf8'));
+  const api = `repos/${upstream.owner}/${upstream.repo}/git/trees/${tag}?recursive=1`;
+  let data;
+  try {
+    data = JSON.parse(execFileSync('gh', ['api', api], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }));
+  } catch {
+    const res = await fetch(`https://api.github.com/${api}`);
+    if (!res.ok) throw new Error(`${res.status} while listing the tree at ${tag}`);
+    data = await res.json();
+  }
+  if (data.truncated) process.stderr.write('  ! GitHub truncated the tree listing; the inventory may be incomplete\n');
+  const paths = (data.tree ?? []).filter((e) => e.type === 'blob').map((e) => e.path);
+  fs.mkdirSync(path.dirname(cached), { recursive: true });
+  fs.writeFileSync(cached, JSON.stringify(paths));
+  return paths;
+}
+
 function ghIssue(n) {
   try {
     return JSON.parse(execFileSync('gh', ['api', `repos/${upstream.owner}/${upstream.repo}/issues/${n}`], { encoding: 'utf8' }));
@@ -89,6 +110,7 @@ function makeCtx(version) {
       });
     },
     issue: (n) => ghIssue(n),
+    tree: () => ghTree(tag),
   };
 }
 
@@ -211,6 +233,30 @@ if (changed.length && pinned) {
   }
 }
 
+// 3b. coverage — what exists upstream that the ledger has no verdict on
+const probeResults = [];
+for (const probe of probes) {
+  try {
+    const items = await probe.list(ctxLatest);
+    const seen = new Set();
+    const fresh = [], known = [];
+    for (const item of items) {
+      const key = `${probe.id}:${item}`;
+      seen.add(key);
+      (coverage[key] ? known : fresh).push(item);
+    }
+    const gone = Object.keys(coverage)
+      .filter((k) => k.startsWith(probe.id + ':') && !seen.has(k))
+      .map((k) => k.slice(probe.id.length + 1));
+    probeResults.push({ probe, fresh, known, gone });
+  } catch (e) {
+    probeResults.push({ probe, error: e.message });
+  }
+}
+const freshCount = probeResults.reduce((a, r) => a + (r.fresh?.length ?? 0), 0);
+const goneCount = probeResults.reduce((a, r) => a + (r.gone?.length ?? 0), 0);
+const probeErrors = probeResults.filter((r) => r.error);
+
 // 4. changelog window ------------------------------------------------------
 let releases = [];
 if (pinned && cmpVer(latest, pinned) > 0) {
@@ -289,7 +335,34 @@ if (!baselined) {
 for (const f of failed) p(`- **unreadable**: \`${f.src.id}\` — ${f.error}`);
 p();
 
-p(`## 3. Changelog ${pinned ? `${pinned} → ${latest}` : '(no window without a baseline)'}`);
+p(`## 3. Coverage — upstream surface with no verdict`);
+p();
+p(`_Hashes cannot see additions: a file you never tracked has no baseline. These_`);
+p(`_probes enumerate what exists and flag anything \`coverage.mjs\` has not ruled on._`);
+p();
+if (probeErrors.length) {
+  for (const r of probeErrors) p(`- **probe failed**: \`${r.probe.id}\` — ${r.error}`);
+  p();
+}
+if (freshCount === 0 && goneCount === 0) {
+  p(`Every item across ${probeResults.length - probeErrors.length} surfaces has a verdict. Nothing new upstream.`);
+} else {
+  p(`**${freshCount} without a verdict**${goneCount ? `, **${goneCount} gone from upstream**` : ''}. Decide each in \`coverage.mjs\`:`);
+  p(`\`taught\` · \`mentioned\` · \`out-of-scope\` (with a \`why\`). Until then they repeat every run.`);
+  p();
+  for (const r of probeResults) {
+    if (r.error || (!r.fresh.length && !r.gone.length)) continue;
+    p(`### ${r.probe.label} · \`${r.probe.id}\``);
+    if (r.probe.hint) p(`_${r.probe.hint}_`);
+    p();
+    for (const item of r.fresh) p(`- **NEW** \`${item}\``);
+    for (const item of r.gone) p(`- **GONE** \`${item}\` — in the ledger, no longer upstream; check the exercises`);
+    p();
+  }
+}
+p();
+
+p(`## 4. Changelog ${pinned ? `${pinned} → ${latest}` : '(no window without a baseline)'}`);
 p();
 if (!releases.length) p(`_No releases in the window._`);
 for (const r of releases) {
@@ -299,7 +372,7 @@ for (const r of releases) {
   p();
 }
 
-p(`## 4. Not tracked, on purpose`);
+p(`## 5. Not tracked, on purpose`);
 p();
 p(noImpact.map((n) => '`' + n + '`').join(', '));
 p();
@@ -319,6 +392,8 @@ if (UPDATE) {
   process.stderr.write(`\nbaseline updated -> ${latest} (${Object.keys(next.sources).length} sources)\n`);
 }
 
-const dirty = mismatches.length || unresolved.length || changed.length || (!baselined);
+const dirty =
+  mismatches.length || unresolved.length || changed.length ||
+  freshCount || goneCount || probeErrors.length || !baselined;
 process.stderr.write(`\nreport written to ${path.relative(REPO, REPORT)}\n`);
 process.exit(UPDATE ? 0 : dirty ? 1 : 0);

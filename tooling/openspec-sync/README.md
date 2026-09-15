@@ -24,13 +24,33 @@ OpenSpec ships roughly weekly. Three things were measured before designing this:
    assertions instead of diffs, which matters because the deck is German and the
    docs are English, so string diffing cannot help there.
 
-## Three mechanisms
+## Two questions, four mechanisms
+
+**"Did something I teach change?"** — regression:
 
 | | File | Determinism |
 |---|---|---|
 | Executable assertions | `assertions.mjs` | total — hard pass/fail, no model involved |
 | Content baseline | `sync.lock.json` | high — an unchanged hash is *proof* of no work |
 | Changelog window | (fetched) | narrative — the *why*, for what did move |
+
+**"Did something appear that I don't teach?"** — coverage:
+
+| | File | Determinism |
+|---|---|---|
+| Inventory probes + ledger | `inventory.mjs` + `coverage.mjs` | total — an item either has a verdict or it does not |
+
+Hashing structurally cannot answer the second question: a file you never tracked
+has no baseline hash, so a brand-new `docs/team-workflow.md` or a new `store`
+command is invisible to it. The probes instead *enumerate* eight upstream
+surfaces — CLI commands and subcommands, `openspec/config.yaml` keys,
+`.openspec.yaml` change metadata, workflows, docs pages, shipped skills,
+workflow schemas — and `coverage.mjs` carries one verdict per item:
+`taught` / `mentioned` / `out-of-scope`. Anything with no verdict is reported
+as NEW, and keeps being reported until you rule on it.
+
+`out-of-scope` is a real decision and needs a `why`. It is what stops the same
+item resurfacing forever, and what tells a future reader that you considered it.
 
 `sources.mjs` is the map: upstream surface → the slides that depend on it, with
 the exact claim each slide makes. It is the analogue of APM's
@@ -58,6 +78,12 @@ which release the deck was last true for.
   `sources.mjs`. One line.
 - **New mechanically checkable claim** → add it to `deckClaims` and write an
   assertion. This is where the leverage is; prefer it over a tier-2 source.
+- **Report says NEW under section 3** → add a verdict to `coverage.mjs`. If you
+  decide to teach it, that usually also means a new source in `sources.mjs`.
+- **Report says GONE** → upstream removed something you had ruled on. Check the
+  exercises before deleting the ledger entry; a removed command can break a lab.
+- **`--update` never touches the ledger.** Hashes are mechanical, verdicts are
+  yours, so re-baselining can never silently accept an unreviewed addition.
 - **You edit a slide that an assertion encodes** → update the `deckClaims`
   constant in the same commit. That pairing is what keeps the assertion honest.
 - **An assertion reports `UNRESOLVED`** → upstream renamed or moved something and
@@ -66,9 +92,12 @@ which release the deck was last true for.
 
 ## Known limits — read before trusting it
 
-- **It cannot see pedagogical drift.** If OpenSpec's *recommended practice*
-  shifts without a flag, schema or doc change, nothing here fires. The changelog
-  catches some of it; nothing catches "the community consensus moved".
+- **It cannot see pedagogical drift.** New *capability* is covered by the probes,
+  but if OpenSpec's *recommended practice* shifts without a new command, config
+  key, doc page or schema change, nothing fires. The changelog catches some of
+  it; nothing catches "the community consensus moved".
+- **Probes see names, not meaning.** A probe reports that `operations` appeared
+  in the config schema; whether that deserves a slide is your call, every time.
 - **`docs/` is mid-migration.** Upstream is rewriting its docs into `docs-lab/`
   for the new website. `docs/` is still the live tree (68 commits in 90 days vs
   8), but when they cut over, every `docs/*` path here breaks at once. The fix is

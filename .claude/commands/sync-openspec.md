@@ -30,7 +30,19 @@ and the exact claim each slide makes. For every diff, decide one of:
 
 Sources listed as unchanged are proof of no work. Skip them entirely.
 
-**Section 3 — changelog.** Use it as the *why* behind the diffs in section 2,
+**Section 3 — coverage.** These are upstream items with no verdict in
+`coverage.mjs` — things that *exist* and the deck may simply never mention. This
+is a pedagogical call, not a correctness one, so never decide it silently. For
+each, propose one of:
+- `taught` — it belongs on a slide; say which slide and what it would replace or extend
+- `mentioned` — worth a sentence or a presenter note, not a slide
+- `out-of-scope` — with a concrete `why`, in the workshop's terms
+
+Group them by what they would cost to teach, and lead with the ones that change
+what a participant would do differently. A `GONE` entry means upstream removed
+something you had ruled on — check `exercises/` before dropping it.
+
+**Section 4 — changelog.** Use it as the *why* behind the diffs in section 2,
 and to catch behaviour changes that no tracked file revealed. Features usually
 land here one release before the docs catch up.
 
@@ -57,3 +69,6 @@ node tooling/openspec-sync/sync.mjs --update
 
 That records the current release as the new content baseline. Running it before
 the deck is fixed silently accepts the drift, so never run it on your own initiative.
+It deliberately does **not** touch `coverage.mjs` — verdicts are the user's, so an
+unreviewed addition can never be re-baselined away. Write accepted verdicts there
+by hand as part of the same change.
