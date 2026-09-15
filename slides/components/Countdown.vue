@@ -2,7 +2,7 @@
   <div class="flex items-center gap-6">
     <div
       class="font-mono text-5xl font-bold tabular-nums"
-      :class="status === 'done' ? 'text-green-400' : status === 'running' ? 'text-yellow-300' : 'text-white'"
+      :class="status === 'done' ? 'text-green-400' : status === 'running' ? 'text-[var(--gepardec-yellow)]' : 'text-white'"
     >
       {{ display.m }}:{{ display.s }}
     </div>
@@ -87,16 +87,29 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Brand-Look statt Grau-Wash: gelbe Outline, keine abgerundeten Ecken. */
 .timer-btn {
-  padding: 0.45rem 1.2rem;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
+  padding: 0.4rem 1.2rem;
+  background: transparent;
+  border: 1px solid var(--gepardec-yellow);
+  color: var(--gepardec-yellow);
+  font-family: var(--gepardec-font-display);
+  font-style: italic;
+  font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
-.timer-btn:hover { background: rgba(255,255,255,0.2); }
-.timer-btn-reset { background: rgba(255,255,255,0.06); }
+.timer-btn:hover {
+  background: var(--gepardec-yellow);
+  color: var(--gepardec-black);
+}
+.timer-btn-reset {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.75);
+}
+.timer-btn-reset:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--gepardec-white);
+}
 </style>

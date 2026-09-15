@@ -5,6 +5,9 @@ layout: section
 # Die CLI als Agent-Bridge
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
 # Die Lücke
 
@@ -15,8 +18,10 @@ Er weiß nicht, was entschieden wurde, was nicht verhandelbar ist, was als näch
 `openspec instructions` ist das Werkzeug dagegen.
 
 ---
+layout: default
+---
 
-# `openspec instructions`
+# openspec instructions
 
 Liefert dem Agenten Anweisungen für das Erstellen eines Artefakts — Template, Projekt-Kontext, Inhalte der Abhängigkeiten.
 
@@ -29,27 +34,29 @@ Gültige Argumente: `proposal` · `specs` · `design` · `tasks` · `apply`
 `/opsx:propose` ruft diesen Befehl für jedes Artefakt auf. Sonderfall `apply`: liefert Implementierungsanweisungen für den aktiven Task.
 
 ---
+layout: default
+---
 
 # Was steckt in den Instructions?
 
-```mermaid
+```mermaid {scale: 0.75}
 flowchart LR
-    T["Template\n(schema-spezifisch)"] --> IP
+    T["Template\n(schema)"] --> IP
     C["config.yaml\nKonventionen"] --> IP
-    A["Pfade zu fertigen\nAbhängigkeiten"] --> IP["instructions\nPrompt"]
-
-    style IP fill:#1e40af,stroke:#3b82f6,color:#eff6ff
+    A["Pfade zu\nAbhängigkeiten"] --> IP["instructions\nPrompt"]
 ```
 
 Der Agent liest die referenzierten Dateien selbst — `instructions` zeigt ihm nur, wo er schauen soll.
 
 ---
+layout: default
+---
 
-# Der Agent-Loop (`opsx:apply`)
+# Der Agent-Loop
 
 ```mermaid
 flowchart LR
-    INS["openspec instructions apply\nImplementierungskontext"] --> READ["KI liest\nKontext"]
+    INS["openspec\ninstructions apply"] --> READ["KI liest\nKontext"]
     READ --> IMPL["KI implementiert\nTask"]
     IMPL --> CHECK{"Alle Tasks\nfertig?"}
     CHECK -->|nein| INS
@@ -60,6 +67,8 @@ flowchart LR
 
 Die CLI steuert den Loop. Der Agent erledigt die Arbeit. Du reviewst den Diff.
 
+---
+layout: default
 ---
 
 # Live-Demo

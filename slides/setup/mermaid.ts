@@ -1,0 +1,33 @@
+import { defineMermaidSetup } from '@slidev/types'
+
+/**
+ * Mermaid in Brand-Farben — zentral, damit kein Diagramm eigene `style`-Zeilen
+ * mitschleppt. Schwarzer Grund, graue Knotenrahmen, gelbe Kanten.
+ */
+export default defineMermaidSetup(() => ({
+  theme: 'base',
+  themeVariables: {
+    darkMode: true,
+    background: '#000000',
+
+    // Knoten
+    primaryColor: '#111111',
+    primaryBorderColor: '#8a8a8a',
+    primaryTextColor: '#ffffff',
+    mainBkg: '#111111',
+    nodeBorder: '#8a8a8a',
+    nodeTextColor: '#ffffff',
+
+    // Kanten und Labels
+    lineColor: '#FFC800',
+    textColor: '#d6d6d6',
+    edgeLabelBackground: '#000000',
+
+    // Cluster
+    clusterBkg: '#0a0a0a',
+    clusterBorder: '#3a3a3a',
+
+    fontFamily: "'Barlow Semi Condensed', system-ui, sans-serif",
+    fontSize: '16px',
+  },
+}))

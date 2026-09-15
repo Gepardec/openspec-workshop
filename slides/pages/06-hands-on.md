@@ -1,12 +1,15 @@
 ---
 layout: section
+variant: ascii
 ---
 
 # Hands-on Übungen
 
 ---
+layout: default
+---
 
-# Empfehlungen/Best Practices für die Übungen
+# Best Practices für die Übungen
 
 - Nach jeder Übung einen Commit machen, damit ihr jederzeit zum vorherigen Stand zurückkehren könnt
 - Generell: Zumindest je ein Commit nach ...
@@ -15,6 +18,9 @@ layout: section
   - ... dem Archivieren des Changes - `feat: archive change "<change-name>"`
 - Change final? → alles zwischen _"propose change"_ und _"archive change"_ squashen
 
+---
+layout: default
+class: gepardec-text-lg
 ---
 
 # Übung 1 – OpenSpec selbst aufsetzen
@@ -28,6 +34,9 @@ An passender Stelle erwähnen, dass mindestens Claude Code, Codex und Junie zu i
 -->
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
 # Übung 2 – Workshop-Setup übernehmen
 
@@ -40,8 +49,11 @@ CLI-Befehl zum kopieren funktioniert nicht!
 -->
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
-# Übung 3.a – Einen aktiven Change archivieren (CLI)
+# Übung 3.a – Change archivieren (CLI)
 
 `exercises/03_archive_change/README.md`
 
@@ -50,8 +62,11 @@ Der Change `us-06-dashboard` ist fertig implementiert. Archiviert ihn mit OpenSp
 Was fällt euch sonst noch auf?
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
-# Übung 3.b – Einen aktiven Change archivieren (Agentic)
+# Übung 3.b – Change archivieren (Agentic)
 
 Archive-Befehl erzeugt keinen Purpose-Text.
 
@@ -60,26 +75,35 @@ Wir archivieren den Change `us-06-dashboard` gemeinsam mithilfe eines Agenten.
 `git reset HEAD --hard`
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
-# Übung 4 – Einen vorbereiteten Change anwenden
+# Übung 4 – Vorbereiteten Change anwenden
 
 `exercises/04_apply_change/README.md`
 
 Ein fertig ausformulierter Change liegt bereit. Ihr kopiert ihn ins `openspec/changes/`-Verzeichnis, wendet ihn an und archiviert ihn anschließend.
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
-# Übung 5 – Change-Proposal aus einer User Story
+# Übung 5 – Proposal aus einer User Story
 
 `exercises/05_propose_change/README.md`
 
 Eine User Story liegt bereit. Erstellt daraus ein vollständiges Change-Proposal mit `/opsx:propose`.
 
-Wer noch Token übrig hat: wendet den Change auch gleich an und archiviert ihn.
+Wer noch Token übrig hat: Change anwenden und archivieren.
 
 ---
+layout: default
+class: gepardec-text-lg
+---
 
-# Übung 6 – Exploration einer unklaren Anforderung
+# Übung 6 – Unklare Anforderung erkunden
 
 `exercises/06_explore_requirements/README.md`
 
@@ -87,4 +111,4 @@ Eine vage Anforderung liegt bereit. Startet eine Exploration, um die Anforderung
 
 Lasst euch nach der Explore-Phase einen Click-Dummy erzeugen (Tipp: Skill `frontend-design`).
 
-Wer noch Token übrig hat: wendet den Change auch gleich an und archiviert ihn.
+Wer noch Token übrig hat: Change anwenden und archivieren.

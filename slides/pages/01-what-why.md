@@ -5,6 +5,8 @@ layout: section
 # Was ist Spec-driven Development und wozu?
 
 ---
+layout: default
+---
 
 # Wo es heute hakt
 
@@ -13,6 +15,8 @@ layout: section
 - Was wir mit dem Agenten besprochen haben, lebt nur im Chat-Fenster
 - Limitierte Kontextfenster
 
+---
+layout: default
 ---
 
 # Was ist OpenSpec?
@@ -26,31 +30,61 @@ Ein **Workflow-Layer**, der im Repo neben dem Code lebt.
 - Die CLI macht diesen Kontext navigierbar – für Menschen *und* KI-Agenten
 
 ---
+layout: two-cols-header
+---
 
 # Guardrails statt Vibe-Coding
 
 KI-Agenten halluzinieren, wenn sie raten müssen, was zu tun ist.
 
-- **Ohne Spec:** Agent erfindet Anforderungen, Constraints, Edge Cases
-- **Mit Spec:** Agent liest, was bereits entschieden ist – und arbeitet darin
-- Die Spec ist die Leitplanke – nicht das Schienennetz
+::left::
+
+### Ohne Spec
+
+- Agent erfindet Anforderungen, Constraints, Edge Cases
+- Das Besprochene lebt nur im Chat-Fenster
+- Jede neue Session fängt bei null an
+
+::right::
+
+### Mit Spec
+
+- Agent liest, was bereits entschieden ist – und arbeitet darin
 - Entscheidungen sind über Sessions hinweg persistiert
+- Die Spec ist die Leitplanke – nicht das Schienennetz
 
-<span v-click>Halluzinationen verschwinden nicht, weil das Modell besser wird – sondern weil ihm der Spielraum genommen wird.</span>
-
---- 
+---
+layout: quadrants
+---
 
 # Specs im Repo, nicht im Wiki
 
-Specs sind Markdown-Dateien neben dem Code, statt in einem separaten Wiki.
+::one::
 
-- **Versionierung gratis** – jede Spec-Änderung ist ein Commit
-- **Reviewbar wie Code** – Pull Request, Diff, Approval
-- **Single Source of Truth** – kein „*welche Version meinst du?*"
-- **Synchron mit dem Branch** – die Spec eines Features lebt im Feature-Branch
+### Versionierung gratis
 
-<span v-click>Spec-Änderungen tauchen im Diff auf — wer den Code reviewt, sieht auch die Anforderungsänderung.</span>
+Jede Spec-Änderung ist ein Commit.
 
+::two::
+
+### Reviewbar wie Code
+
+Pull Request, Diff, Approval.
+
+::three::
+
+### Single Source of Truth
+
+Kein „*welche Version meinst du?*"
+
+::four::
+
+### Synchron mit dem Branch
+
+Die Spec eines Features lebt im Feature-Branch.
+
+---
+layout: default
 ---
 
 # Wächst mit dem Code
@@ -61,8 +95,10 @@ OpenSpec ist **brownfield-first** – designed für Code, der bereits existiert.
 - Beim Archivieren werden Deltas in die Haupt-Specs eingearbeitet
 - Die Spec-Sammlung wächst organisch mit jedem gemergten Change
 
-<span v-click>Selbstverständlich kann man aber auch auf der grünen Wiese starten 😉</span>
+> Selbstverständlich kann man aber auch auf der grünen Wiese starten 😉
 
+---
+layout: default
 ---
 
 # Nicht an ein Tool gebunden

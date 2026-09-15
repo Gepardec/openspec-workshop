@@ -4,11 +4,11 @@ layout: section
 
 # Setup & Konfiguration
 
-Wie OpenSpec ins Projekt kommt — und was du danach drehen kannst.
-
+---
+layout: default
 ---
 
-# `openspec init`
+# openspec init
 
 Ein Befehl, der das Projekt OpenSpec-fähig macht.
 
@@ -23,10 +23,10 @@ Interaktiv: OpenSpec fragt nach den AI-Tools, die in diesem Projekt benutzt werd
 - Erneut ausführbar: nachträglich Tools hinzufügen oder updaten
 
 ---
+layout: default
+---
 
 # Was wird angelegt?
-
-Zuerst die tool-unabhängige Schicht – dann pro ausgewähltem Agent.
 
 ````md magic-move {lines: true}
 ```text
@@ -42,33 +42,40 @@ openspec/
 ├── specs/               ← die Wahrheit (leer beim Start)
 └── changes/             ← aktive Vorschläge
 
-.claude/skills/                          ← Skills (primär, pro Agent)
+.claude/skills/                    ← Skills (primär, pro Agent)
 ├── openspec-propose/SKILL.md
 ├── openspec-apply-change/SKILL.md
 └── openspec-archive-change/SKILL.md
-
-.claude/commands/opsx/                   ← Slash-Commands (wo unterstützt)
+.claude/commands/opsx/             ← Slash-Commands (wo unterstützt)
 ├── propose.md
 ├── apply.md
 └── archive.md
 ```
 ````
 
-<div v-click.hide="1" class="text-sm text-white/60 mt-3">
-Tool-unabhängig. Lebt im Repo, gehört in <code>git</code>.
+<div v-click.hide="1" class="gepardec-text-sm mt-3">
+
+Tool-unabhängig. Lebt im Repo, gehört in `git`.
+
 </div>
 
-<div v-click="1" class="text-sm text-white/60 mt-3">
-Pro ausgewähltem Agent eigene Skills. Commands/Workflows nur dort, wo das Tool sie unterstützt (Claude Code, Cursor, Copilot, …).
+<div v-click="1" class="gepardec-text-sm mt-3">
+
+Pro Agent eigene Skills. Commands nur dort, wo das Tool sie unterstützt.
+
 </div>
 
-<div v-click="2" class="text-sm text-amber-400/80 mt-2">
-<code>AGENTS.md</code> / <code>CLAUDE.md</code> werden bewusst nicht angelegt — wenn vorhanden, bleiben sie unverändert.
+<div v-click="2" class="gepardec-text-sm mt-2">
+
+**`AGENTS.md` / `CLAUDE.md`** werden nicht angelegt — vorhandene bleiben unverändert.
+
 </div>
 
 ---
+layout: default
+---
 
-# Tipp: CLAUDE.md / AGENTS.md auf OpenSpec verweisen
+# CLAUDE.md zeigt auf OpenSpec
 
 Wenn ihr eine `CLAUDE.md`, `AGENTS.md` oder ähnliches im Repo habt – **nicht duplizieren**.
 
@@ -85,10 +92,12 @@ Projekt-Kontext, Tech-Stack und Konventionen liegen in
 - Keine Drift zwischen zwei Kopien derselben Konventionen
 
 ---
+layout: default
+---
 
-# `config.yaml` – die eine Datei, die zählt
+# config.yaml
 
-Zwei Dinge, die jedes Team früh definiert:
+Die eine Datei, die zählt — zwei Dinge, die jedes Team früh definiert.
 
 ```yaml
 schema: spec-driven         # welcher Workflow gilt
@@ -110,11 +119,13 @@ Kann config.yaml automatisiert aktualisiert werden?
 -->
 
 ---
+layout: default
+---
 
-# CLI vs. Slash-Command — wer macht was?
+# CLI vs. Slash-Command
 
-**Slash-Command** = Playbook für den Agenten
-**CLI** = State-Machine, die der Agent abfragt
+- **Slash-Command** = Playbook für den Agenten
+- **CLI** = State-Machine, die der Agent abfragt
 
 Auszug aus `.claude/commands/opsx/propose.md`:
 
@@ -130,8 +141,10 @@ Auszug aus `.claude/commands/opsx/propose.md`:
 Der Agent ruft also durchgehend `openspec`-Befehle auf.
 
 ---
+layout: default
+---
 
-# Ausnahme: `archive` braucht keinen Agenten
+# archive braucht keinen Agenten
 
 `openspec archive` ist ein deterministischer CLI-Befehl – kein LLM nötig.
 
@@ -141,9 +154,13 @@ $ openspec archive us-05-delete-animal
 
 Was er tut: Delta-Specs in die Haupt-Specs mergen, Change-Verzeichnis aufräumen, History-Eintrag schreiben.
 
-<v-click>
+---
+layout: default
+---
 
-**Das Problem:** Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteuert.
+# Das Problem: opsx:archive per LLM
+
+Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteuert.
 
 ```text
 1. Run openspec status and confirm all tasks complete
@@ -154,15 +171,15 @@ Was er tut: Delta-Specs in die Haupt-Specs mergen, Change-Verzeichnis aufräumen
 
 Ein offenes Issue ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)).
 
-</v-click>
-
 <!--
-Erwähnen, dass der Grund am Nachmittag noch ersichtlich werden wird
+Erwähnen, dass der Grund am Nachmittag noch ersichtlich werden wird.
 -->
 
 ---
+layout: default
+---
 
-# Faustregel: Skills rufen die CLI auf, sie denken nicht selbst
+# Faustregel
 
 Hat die CLI einen Befehl dafür → Skill ruft ihn auf, erledigt die Arbeit nicht selbst.
 
@@ -175,10 +192,12 @@ openspec archive <change>
 ```
 
 ---
+layout: default
+---
 
-# `openspec validate` – das Qualitätsgate
+# openspec validate
 
-Findet Silent Failures, bevor der Agent damit weiterarbeitet.
+Das Qualitätsgate: findet Silent Failures, bevor der Agent damit weiterarbeitet.
 
 ```sh
 $ openspec validate --all --strict
@@ -191,6 +210,8 @@ $ openspec validate --all --strict
 
 **Faustregel:** rotes `validate` ⇒ kein `apply`.
 
+---
+layout: default
 ---
 
 # Profile: core vs. expanded

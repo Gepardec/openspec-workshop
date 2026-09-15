@@ -5,6 +5,8 @@ layout: section
 # Diskussion & Wrap-up
 
 ---
+layout: default
+---
 
 # Reflexion
 
@@ -13,10 +15,12 @@ layout: section
 - Was war herausfordernd?
 - Was würdet ihr das nächste Mal anders machen?
 
-<!--
-Timer hinzufügen
--->
+<div class="mt-8">
+  <Countdown :minutes="10" />
+</div>
 
+---
+layout: default
 ---
 
 # Fragen zum Nachdenken
@@ -29,3 +33,14 @@ Timer hinzufügen
 <!--
 opsx:verify erwähnen (extended profile)
 -->
+
+---
+layout: contact
+name: Oliver Tod
+role: Senior Software Engineer
+email: oliver.tod@gepardec.com
+phone: +43 664 538 7077
+photo: /contact.jpg
+---
+
+# Fragen?

@@ -1,12 +1,15 @@
 ---
-theme: ./gepardec-slidev
+theme: '@gepardec/slidev-theme-gepardec'
 title: OpenSpec Workshop
 transition: slide-left
+layout: cover
 ---
 
-# Hands-on Agentic AI: Spec-driven Development mit OpenSpec
+# Spec-driven Development mit OpenSpec
 
-Oliver Tod, Wien, 18.06.2026
+Oliver Tod
+
+Wien, TT.MM.JJJJ
 
 ---
 src: ./pages/00-warmup.md
