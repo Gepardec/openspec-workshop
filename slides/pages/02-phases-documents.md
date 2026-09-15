@@ -55,7 +55,7 @@ layout: default
 </div>
 
 <!--
-Es gibt auch noch das extended profile. Nicht näher drauf eingehen, kann nachgelesen werden.
+Es gibt auch noch weitere Workflows, die nur das custom-Profil installiert. Nicht näher drauf eingehen, kann nachgelesen werden.
 
 sync sieht nach nichts aus, ist aber der Schritt, in dem aus einem Change
 dauerhaftes Wissen wird.

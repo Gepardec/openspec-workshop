@@ -65,9 +65,9 @@ export const sources = [
   { id: 'schema.tpl.tasks', tier: 1, kind: 'github-file', path: 'schemas/spec-driven/templates/tasks.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Pflichtformat "- [ ] X.Y Task", nummerierte Gruppen-Überschriften' }] },
   { id: 'src.profiles', tier: 1, kind: 'github-file', path: 'src/core/profiles.ts',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Profil-Tabelle: core = propose/apply/sync/archive/explore' }] },
+    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Profil-Tabelle, Zeile core = propose/explore/apply/update/sync/archive' }] },
   { id: 'src.global-config', tier: 1, kind: 'github-file', path: 'src/core/global-config.ts',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Profil-Tabelle nennt "expanded" als zweites Profil' }] },
+    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Profil-Tabelle nennt genau zwei Profile: core und custom' }] },
 
   // CLI surface — one entry per command the deck actually types on a slide.
   { id: 'cli.root', tier: 1, kind: 'cli-help', argv: [],
@@ -87,7 +87,7 @@ export const sources = [
   { id: 'cli.archive', tier: 1, kind: 'cli-help', argv: ['archive'],
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'openspec archive <change> ist deterministisch, merged Deltas, räumt auf, schreibt History' }] },
   { id: 'cli.instructions', tier: 1, kind: 'cli-help', argv: ['instructions'],
-    backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Gültige Argumente: proposal · specs · design · tasks · apply' }] },
+    backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Gültige Argumente: proposal · specs · design · tasks, dazu apply und archive' }] },
   { id: 'cli.config', tier: 1, kind: 'cli-help', argv: ['config'],
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'openspec config profile wechselt interaktiv das Profil' }] },
   { id: 'cli.completion', tier: 1, kind: 'cli-help', argv: ['completion'],
@@ -139,6 +139,7 @@ export const sources = [
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'sync ist der Schritt, in dem aus einem Change dauerhaftes Wissen wird' }] },
 
   // ---------------------------------------------------------------- tier 4
-  { id: 'issue.863', tier: 4, kind: 'github-issue', number: 863, expect: 'open',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Ein OFFENES Issue (#863)' }] },
+  // Expectation lives in assertions.mjs (deckClaims.issue863State) — single source of truth.
+  { id: 'issue.863', tier: 4, kind: 'github-issue', number: 863,
+    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: '#863 ist geschlossen; der Skill erledigt Vergleich und mv trotzdem selbst' }] },
 ];

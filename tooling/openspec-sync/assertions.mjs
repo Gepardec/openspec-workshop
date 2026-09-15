@@ -28,14 +28,14 @@ export const deckClaims = {
     text: 'tasks ist blockiert, bis specs und design vorliegen',
   },
   coreWorkflows: {
-    value: ['propose', 'apply', 'sync', 'archive', 'explore'],
+    value: ['propose', 'explore', 'apply', 'update', 'sync', 'archive'],
     slide: 'slides/pages/03-setup-config.md',
     text: 'Profil-Tabelle, Zeile "core (default)"',
   },
   profileNames: {
-    value: ['core', 'expanded'],
+    value: ['core', 'custom'],
     slide: 'slides/pages/03-setup-config.md',
-    text: 'Profil-Tabelle nennt die Profile "core" und "expanded"',
+    text: 'Profil-Tabelle nennt die Profile "core" und "custom"',
   },
   commandsUsed: {
     value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new'],
@@ -55,14 +55,14 @@ export const deckClaims = {
     ],
   },
   instructionsTargets: {
-    value: ['proposal', 'specs', 'design', 'tasks', 'apply'],
+    value: ['proposal', 'specs', 'design', 'tasks', 'apply', 'archive'],
     slide: 'slides/pages/05-cli-agent-bridge.md',
-    text: 'Gültige Argumente: proposal · specs · design · tasks · apply',
+    text: 'Gültige Argumente: proposal · specs · design · tasks, dazu apply und archive',
   },
   issue863State: {
-    value: 'open',
+    value: 'closed',
     slide: 'slides/pages/03-setup-config.md',
-    text: 'Ein offenes Issue (#863)',
+    text: '#863 ist geschlossen, das beschriebene Verhalten besteht aber fort',
   },
 };
 
@@ -208,7 +208,7 @@ export const assertions = [
       if (!issue) return { status: 'unresolved', detail: 'could not read issue #863 (gh CLI unavailable or unauthenticated)' };
       return issue.state === deckClaims.issue863State.value
         ? { status: 'ok', detail: `#863 is ${issue.state}` }
-        : { status: 'mismatch', detail: `#863 is ${issue.state}${issue.closed_at ? ` (since ${issue.closed_at.slice(0, 10)})` : ''}, slide calls it "ein offenes Issue"` };
+        : { status: 'mismatch', detail: `#863 is ${issue.state}${issue.closed_at ? ` (since ${issue.closed_at.slice(0, 10)})` : ''}, slide states it is closed` };
     },
   },
 ];
