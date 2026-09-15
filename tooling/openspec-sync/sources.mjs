@@ -125,6 +125,12 @@ export const sources = [
       { slide: 'slides/pages/04-cli-navigator.md', claim: 'npm install -g @fission-ai/openspec@latest' },
       { slide: 'exercises/01_init_openspec/README.md', claim: 'Installationsschritt der Übung 1' },
     ] },
+  { id: 'docs.how-commands-work', tier: 2, kind: 'github-file', path: 'docs/how-commands-work.md',
+    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'CLI vs. Slash-Command: openspec läuft im Terminal, /opsx im Agenten-Chat' }] },
+  { id: 'docs.reviewing-changes', tier: 2, kind: 'github-file', path: 'docs/reviewing-changes.md',
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Review-Reihenfolge proposal → spec → design → tasks; worauf beim Review achten' }] },
+  { id: 'docs.existing-projects', tier: 2, kind: 'github-file', path: 'docs/existing-projects.md',
+    backs: [{ slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' }] },
 
   // Generated agent-facing text. The deck quotes these verbatim on slides.
   { id: 'skill.propose', tier: 2, kind: 'github-file', path: 'skills/openspec-propose/SKILL.md',

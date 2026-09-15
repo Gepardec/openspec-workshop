@@ -113,6 +113,7 @@ context: |                  # erscheint bei Erstellung JEDES Artefakts
 
 - **`context`** = was der Agent immer wissen muss (Tech-Stack, Konventionen)
 - Optional pro Artefakt-Typ: **`rules`** – z.B. "Proposals enthalten immer einen Rollback-Plan"
+- Optional pro Operation: **`operations`** – z.B. für `apply`: "Fokussierte Tests vor der vollen Suite"
 
 <!--
 Kann config.yaml automatisiert aktualisiert werden?

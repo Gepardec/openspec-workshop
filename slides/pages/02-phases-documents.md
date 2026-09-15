@@ -244,6 +244,8 @@ flowchart LR
 
 Alle vier Artefakte sind Pflicht — tasks ist blockiert, bis specs und design vorliegen.
 
+Einzige Ausnahme: `skip_specs: true` in der `.openspec.yaml` des Change — für reine Refactorings, Tooling oder Doku, wo sich kein Verhalten ändert.
+
 <!--
 Die folgenden Slides schauen auf jedes Dokument einzeln.
 -->
@@ -502,7 +504,7 @@ Die Artefakte sind fertig. Nun gilt es, sie gründlich in dieser Reihenfolge zu 
 
 <v-clicks>
 
-Abweichung bemerkt? Neue Runde drehen: „Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte."
+Abweichung bemerkt? Mit `/opsx:update` eine neue Runde drehen: „Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte."
 
 Dieses Spiel wird so lange gespielt, bis alle Artefakte genau das beschreiben, was die Anforderung ist.
 
