@@ -1,0 +1,181 @@
+{
+  "openspec_version": "1.13.0",
+  "reconciled_at": "2026-09-15",
+  "sources": {
+    "schema.spec-driven": {
+      "kind": "github-file",
+      "hash": "37ace6cc5389af57e3b69bbf5063999511ad6d0e7d5ec93ef6e5aac0c87e2f1c",
+      "tier": 1
+    },
+    "schema.tpl.proposal": {
+      "kind": "github-file",
+      "hash": "ea0879a322bb1a3c6e3002c67b5a29e31120dcb17219e3000d43775f48481284",
+      "tier": 1
+    },
+    "schema.tpl.spec": {
+      "kind": "github-file",
+      "hash": "1f370642f106589d901c0568e81b5f7741e9289da48df41b70dd21ad99592a0c",
+      "tier": 1
+    },
+    "schema.tpl.design": {
+      "kind": "github-file",
+      "hash": "e47df296318c6622f0b0911407e16b1578169403b96f61bf35fe1db7f7b417d6",
+      "tier": 1
+    },
+    "schema.tpl.tasks": {
+      "kind": "github-file",
+      "hash": "b2a6a4c08c15f347a1d8c3e2d43e0c8fb066dc5cc0feb795f47555f176f9c421",
+      "tier": 1
+    },
+    "src.profiles": {
+      "kind": "github-file",
+      "hash": "f5272bdc644943358eac1d24d2f15d7d90769f7fe3c6009b2e1fb290710189af",
+      "tier": 1
+    },
+    "src.global-config": {
+      "kind": "github-file",
+      "hash": "b17dbbd2ff48db9a8103f37248607fa00795716f4f68213834012cb7fbf57e4d",
+      "tier": 1
+    },
+    "cli.root": {
+      "kind": "cli-help",
+      "hash": "2ba2e4850559b8228a3c8de035253335d7ae488a3141e518f7b1298d69bb6f1b",
+      "tier": 1
+    },
+    "cli.init": {
+      "kind": "cli-help",
+      "hash": "d0798ca71d758d863a52ab4f1c0cbb1f85bfa5dc44d6f8f51748692ab514ad0d",
+      "tier": 1
+    },
+    "cli.list": {
+      "kind": "cli-help",
+      "hash": "887ff818a31f34818758891b384e13c5c8466baecedd69b43a7a25a416014675",
+      "tier": 1
+    },
+    "cli.show": {
+      "kind": "cli-help",
+      "hash": "d8235d734d1091e1ecdd205a15ec141b854e930caf112a53a0ef96e55e747ade",
+      "tier": 1
+    },
+    "cli.status": {
+      "kind": "cli-help",
+      "hash": "8cc736ce37b65bd911d8814cdc162376f18a3087ec5d9e6bea7242f1d6ff5c6f",
+      "tier": 1
+    },
+    "cli.view": {
+      "kind": "cli-help",
+      "hash": "e815a03105dcaf61297d0c30ddb109901be9e48a3e5c60e90b2033499dab5c03",
+      "tier": 1
+    },
+    "cli.validate": {
+      "kind": "cli-help",
+      "hash": "2359d89c8af0e38be17309555a58370ff68e8fc1d6df4f798c2a4691958f3b59",
+      "tier": 1
+    },
+    "cli.archive": {
+      "kind": "cli-help",
+      "hash": "094e7c3a5e84562ac94eeb23f26a661b890abf8199b4866eff1f095600abf00b",
+      "tier": 1
+    },
+    "cli.instructions": {
+      "kind": "cli-help",
+      "hash": "9a3915e0aa80992c69cfa50eda545c5185f3900e4ac3cfae6519a3adcf44a999",
+      "tier": 1
+    },
+    "cli.config": {
+      "kind": "cli-help",
+      "hash": "a203d6d998ee37eb2e590dfbc005c5036aa718c8e0335fdb631db9b8b645678a",
+      "tier": 1
+    },
+    "cli.completion": {
+      "kind": "cli-help",
+      "hash": "c4e3a7e4775629ab9841537e9410912eb802ab2b8eff477172d30cb009e4d58c",
+      "tier": 1
+    },
+    "docs.cli": {
+      "kind": "github-file",
+      "hash": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "tier": 2
+    },
+    "docs.agent-contract": {
+      "kind": "github-file",
+      "hash": "132d29bf8d70d61a27e096fa696b4f88020b62168e207c4662143412f43032ba",
+      "tier": 2
+    },
+    "docs.getting-started": {
+      "kind": "github-file",
+      "hash": "be7e189153f29907f7deadcf9e44b9eb95f4369141893b77613bf4e9270b946e",
+      "tier": 2
+    },
+    "docs.customization": {
+      "kind": "github-file",
+      "hash": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "tier": 2
+    },
+    "docs.supported-tools": {
+      "kind": "github-file",
+      "hash": "8d9fd431e9cb53d7a117e7f828bd4ac586e6d9972902b19bdf76402d98b9279d",
+      "tier": 2
+    },
+    "docs.concepts": {
+      "kind": "github-file",
+      "hash": "370f8ef1a1142cd1d250588f4a27f740e4fda66c6e4e15f68bbfcb86c47cf0b7",
+      "tier": 2
+    },
+    "docs.workflows": {
+      "kind": "github-file",
+      "hash": "1915fbbead7061d9c19b26283314356dff1a640334ce9f03ba32ac667e1cf10e",
+      "tier": 2
+    },
+    "docs.opsx": {
+      "kind": "github-file",
+      "hash": "412a4d5139d858921420ffc722974e391627c8361d794dcb88309ea1d7c02d0e",
+      "tier": 2
+    },
+    "docs.explore": {
+      "kind": "github-file",
+      "hash": "8eeb3f1e52bacd3ede204a8c3d6db4cea666fac9a965384c1e9f8714cbd88439",
+      "tier": 2
+    },
+    "docs.writing-specs": {
+      "kind": "github-file",
+      "hash": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "tier": 2
+    },
+    "docs.installation": {
+      "kind": "github-file",
+      "hash": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "tier": 2
+    },
+    "skill.propose": {
+      "kind": "github-file",
+      "hash": "af5f5e5ebd0c8af4ee4498e1f7a3e196395030507e51adb52393e181f73a5c89",
+      "tier": 2
+    },
+    "skill.apply": {
+      "kind": "github-file",
+      "hash": "0cf1cb26935b55d83e240631500c8cee484a7b241c84a705387c0eeb88676ccf",
+      "tier": 2
+    },
+    "skill.archive": {
+      "kind": "github-file",
+      "hash": "3ad0def4d299469fdfd5b05e4842284d65558e6b28710b5962f7f214d6153855",
+      "tier": 2
+    },
+    "skill.explore": {
+      "kind": "github-file",
+      "hash": "7c067bebac7045752437e78a0cc4f0ba46b21648e97acc5229ac44a245e8c0c7",
+      "tier": 2
+    },
+    "skill.sync": {
+      "kind": "github-file",
+      "hash": "daf0e52b188a3010e1f494427eb6807fb61a68df653403759b2be54a3aa37e74",
+      "tier": 2
+    },
+    "issue.863": {
+      "kind": "github-issue",
+      "hash": "9ee8f441710b821904e830879b6c9a1360ce0899d9536673ad1545387a9860e3",
+      "tier": 4
+    }
+  }
+}
