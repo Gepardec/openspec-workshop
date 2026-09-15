@@ -94,9 +94,7 @@ class: gepardec-text-lg
 
 `exercises/05_propose_change/README.md`
 
-Eine User Story liegt bereit. Erstellt daraus ein vollständiges Change-Proposal mit `/opsx:propose`.
-
-Wer noch Token übrig hat: Change anwenden und archivieren.
+Eine User Story liegt bereit. Erstellt daraus ein vollständiges Change-Proposal mit `/opsx:propose` — und führt den Change anschließend bis zum Archiv durch.
 
 ---
 layout: default
@@ -111,4 +109,4 @@ Eine vage Anforderung liegt bereit. Startet eine Exploration, um die Anforderung
 
 Lasst euch nach der Explore-Phase einen Click-Dummy erzeugen (Tipp: Skill `frontend-design`).
 
-Wer noch Token übrig hat: Change anwenden und archivieren.
+Danach der vollständige Loop: propose, apply, sync, archive.
