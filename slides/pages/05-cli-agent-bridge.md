@@ -29,9 +29,9 @@ Liefert dem Agenten Anweisungen für das Erstellen eines Artefakts — Template,
 $ openspec instructions <artifact> --change us-06-dashboard
 ```
 
-Gültige Argumente: `proposal` · `specs` · `design` · `tasks` · `apply`
+Gültige Argumente: `proposal` · `specs` · `design` · `tasks` — dazu `apply` und `archive`
 
-`/opsx:propose` ruft diesen Befehl für jedes Artefakt auf. Sonderfall `apply`: liefert Implementierungsanweisungen für den aktiven Task.
+`/opsx:propose` ruft diesen Befehl für jedes Artefakt auf. `apply` liefert Implementierungsanweisungen für den aktiven Task, `archive` die Eingaben für den Abschluss — rein lesend, es wird nichts archiviert.
 
 ---
 layout: default

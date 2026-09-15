@@ -113,6 +113,7 @@ context: |                  # erscheint bei Erstellung JEDES Artefakts
 
 - **`context`** = was der Agent immer wissen muss (Tech-Stack, Konventionen)
 - Optional pro Artefakt-Typ: **`rules`** – z.B. "Proposals enthalten immer einen Rollback-Plan"
+- Optional pro Operation: **`operations`** – z.B. für `apply`: "Fokussierte Tests vor der vollen Suite"
 
 <!--
 Kann config.yaml automatisiert aktualisiert werden?
@@ -169,7 +170,7 @@ Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteue
 4. mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
 ```
 
-Ein offenes Issue ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)).
+Das Issue dazu ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)) ist seit August 2026 geschlossen — der Skill vergleicht und verschiebt aber weiterhin selbst.
 
 <!--
 Erwähnen, dass der Grund am Nachmittag noch ersichtlich werden wird.
@@ -214,17 +215,18 @@ $ openspec validate --all --strict
 layout: default
 ---
 
-# Profile: core vs. expanded
+# Profile: core vs. custom
 
-OpenSpec liefert mehrere Workflow-Profile.
+OpenSpec kennt genau zwei Workflow-Profile.
 
 | Profil | Slash-Commands |
 |---|---|
-| **core** (default) | `propose` · `apply` · `sync` · `archive` · `explore` |
-| **expanded** | + `new` · `continue` · `ff` · `verify` · `bulk-archive` … |
+| **core** (default) | `propose` · `explore` · `apply` · `update` · `sync` · `archive` |
+| **custom** | frei wählbar — auch `new` · `continue` · `ff` · `verify` · `bulk-archive` · `onboard` |
 
 ```sh
-$ openspec config profile        # interaktiv wechseln
+$ openspec config profile        # interaktiv zusammenstellen
+$ openspec config profile core   # zurück auf core (einziges Preset)
 ```
 
-Für den Workshop reicht **core**. Expanded ist für Teams und komplexere Workflows gedacht.
+Für den Workshop reicht **core**. `custom` ist für Teams, die einzelne Schritte getrennt steuern wollen.

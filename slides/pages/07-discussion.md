@@ -31,7 +31,7 @@ layout: default
 - Wie fügt sich OpenSpec in euren bestehenden Workflow ein?
 
 <!--
-opsx:verify erwähnen (extended profile)
+opsx:verify erwähnen (nur im custom-Profil)
 -->
 
 ---
