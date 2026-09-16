@@ -122,6 +122,11 @@
       "hash": "370f8ef1a1142cd1d250588f4a27f740e4fda66c6e4e15f68bbfcb86c47cf0b7",
       "tier": 2
     },
+    "docs.overview": {
+      "kind": "github-file",
+      "hash": "d8ada6f4b9b95452df489553c886639dceac30f207d454cf48a280d15393c47e",
+      "tier": 2
+    },
     "docs.workflows": {
       "kind": "github-file",
       "hash": "1915fbbead7061d9c19b26283314356dff1a640334ce9f03ba32ac667e1cf10e",
@@ -192,9 +197,9 @@
       "hash": "9ee8f441710b821904e830879b6c9a1360ce0899d9536673ad1545387a9860e3",
       "tier": 4
     },
-    "docs.overview": {
+    "docs.glossary": {
       "kind": "github-file",
-      "hash": "d8ada6f4b9b95452df489553c886639dceac30f207d454cf48a280d15393c47e",
+      "hash": "0254e7a40eb2b2581dfe16cc2bba1e4109fb97f715cf26c955535b1a4a083209",
       "tier": 2
     }
   }

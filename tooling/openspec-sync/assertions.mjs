@@ -45,6 +45,11 @@ export const deckClaims = {
     slide: 'slides/pages/03-setup-config.md',
     text: 'Profil-Tabelle nennt die Profile "core" und "custom"',
   },
+  strictRequiresShall: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'Notes Begriffe: validate --strict verlangt ein englisches SHALL/MUST je Requirement; ohne --strict nur Warnung',
+  },
   commandsUsed: {
     value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new'],
     slide: 'slides/pages/03-setup-config.md, 04-cli-navigator.md, 05-cli-agent-bridge.md',
@@ -186,6 +191,26 @@ export const assertions = [
         const archive = ctx.run(['archive', 'probe', '--yes'], dir);
         if (archive.code !== 0) return { status: 'mismatch', detail: `archive now refuses a change without design.md:\n      ${archive.out.trim()}` };
         return { status: 'ok', detail: 'design is conditional in schema.yaml; validate --strict and archive pass without design.md' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.strict-requires-shall',
+    claim: deckClaims.strictRequiresShall,
+    async run(ctx) {
+      const dir = makeProject(ctx, {
+        'openspec/changes/probe/proposal.md': PROBE_PROPOSAL,
+        'openspec/changes/probe/specs/probe/spec.md': PROBE_SPEC.replace('The system SHALL respond', 'The system should respond'),
+        'openspec/changes/probe/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const lenient = ctx.run(['validate', 'probe'], dir);
+        const strict = ctx.run(['validate', 'probe', '--strict'], dir);
+        if (lenient.code !== 0) return { status: 'mismatch', detail: `validate without --strict now rejects a SHOULD-only requirement:\n      ${lenient.out.trim()}` };
+        if (strict.code === 0) return { status: 'mismatch', detail: 'validate --strict now accepts a requirement without SHALL/MUST' };
+        return { status: 'ok', detail: 'SHOULD-only requirement: warning without --strict, failure with --strict' };
       } finally {
         dropProject(dir);
       }

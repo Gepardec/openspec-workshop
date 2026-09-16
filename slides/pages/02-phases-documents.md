@@ -9,6 +9,103 @@ variant: ascii
 layout: default
 ---
 
+# Was gilt — und was kommt
+
+````md magic-move {lines: true}
+```text
+openspec/
+├── specs/                          ← was gilt
+│   ├── animal-create/spec.md
+│   ├── …
+│   └── animal-profile/spec.md
+└── changes/                        ← was vorgeschlagen ist
+    └── us-06-dashboard/
+        ├── proposal.md
+        ├── design.md
+        ├── tasks.md
+        └── specs/dashboard/spec.md ← Delta-Spec
+```
+
+```text
+openspec/
+├── specs/                          ← was gilt
+│   ├── animal-create/spec.md
+│   ├── …
+│   ├── animal-profile/spec.md
+│   └── dashboard/spec.md           ← aus dem Delta
+└── changes/
+    └── archive/
+        └── YYYY-MM-DD-us-06-dashboard/
+```
+````
+
+<div class="grid mt-3">
+<div v-click.hide="1" class="[grid-area:1/1]">
+
+`specs/` beschreibt, wie das System **heute** funktioniert. Jeder Change ist ein eigener Ordner mit allem, was dazugehört.
+
+</div>
+<div v-click="1" class="[grid-area:1/1]">
+
+`archive` arbeitet die Deltas in `specs/` ein und legt den Change vollständig ins Archiv. Die Specs beschreiben jetzt den **neuen** Stand.
+
+</div>
+</div>
+
+<!--
+Das ganze Modell auf einer Folie: zwei Ordner. specs/ ist die Wahrheit,
+changes/ sind Vorschläge. Archivieren macht aus einem Vorschlag Wahrheit.
+
+Weil Changes getrennte Ordner sind, können mehrere parallel laufen, ohne sich
+zu stören — erst beim Archivieren treffen sie auf specs/.
+
+Genau dieser Change ist Übung 3 am Nachmittag.
+-->
+
+---
+layout: two-cols-header
+class: gepardec-text-sm
+---
+
+# Begriffe
+
+::left::
+
+### Die Kernbegriffe
+
+- **Spec** — wie sich ein Teil des Systems verhält
+- **Haupt-Specs** — `specs/`, der abgenommene Stand
+- **Change** — eine Arbeitseinheit, ein Ordner in `changes/`
+- **Artefakt** — ein Dokument im Change
+- **Delta-Spec** — nur, was sich an einer Spec ändert
+- **Capability** — eine Fähigkeit mit eigener Spec
+
+::right::
+
+### In einer Spec
+
+- **Requirement** — ein Verhalten, das das System haben muss: das *Was*, nicht das *Wie*
+- **Scenario** — ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN
+- **SHALL / MUST** — verbindlich; SHOULD und MAY schwächen ab (RFC 2119)
+
+<!--
+Upstream-Glossar, Abschnitte „The core nouns" und „Inside a spec".
+
+Artefakte im Standard-Schema: proposal, Delta-Specs, design, tasks.
+
+Capability im Zoo-Projekt: animal-list, animal-profile, … — je ein Ordner
+unter specs/. Domänen gruppieren Capabilities, wenn ein Projekt wächst:
+specs/identity/user-auth/. Das Zoo-Projekt ist flach organisiert.
+
+SHALL/MUST: `openspec validate --strict` verlangt in jedem Requirement ein
+englisches SHALL oder MUST. Nur SHOULD — oder ein deutsches SOLL — fällt durch,
+ohne --strict gibt es eine Warnung.
+-->
+
+---
+layout: default
+---
+
 # Ablauf
 
 <div class="mt-14 grid grid-cols-5 gap-4 items-start">
@@ -59,6 +156,45 @@ Es gibt auch noch weitere Workflows, die nur das custom-Profil installiert. Nich
 
 sync sieht nach nichts aus, ist aber der Schritt, in dem aus einem Change
 dauerhaftes Wissen wird.
+-->
+
+---
+layout: default
+---
+
+# Aktionen, keine Phasen
+
+Jeder Schritt bleibt möglich — die Pfeile zeigen, was als Nächstes sinnvoll ist.
+
+<div class="flex justify-center">
+
+```mermaid {scale: 0.8}
+flowchart LR
+    E["explore"] -.-> P["propose"]
+    P --> R{"Review"}
+    R -->|anpassen| U["update"]
+    U --> R
+    R -->|passt| A["apply"]
+    A -->|Plan ändert sich| U
+    A -.-> V["verify"]
+    V -.->|nachbessern| A
+    A --> AR["archive"]
+    V -.-> AR
+```
+
+</div>
+
+Gestrichelt: optional. Stimmt der Plan nicht, wird er angepasst — nicht umgangen.
+
+<!--
+Upstream: „fluid not rigid", „iterative not waterfall". Kein Schritt sperrt
+einen anderen; der Preis dafür ist Disziplin — nichts zwingt einen Change,
+fokussiert zu bleiben.
+
+verify gibt es nur im custom-Profil, dazu mehr nach apply. sync ist hier
+weggelassen: archive bietet es ohnehin an.
+
+Quelle: docs/workflows.md, „Workflow at a Glance".
 -->
 
 ---

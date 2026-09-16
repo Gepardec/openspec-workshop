@@ -125,7 +125,7 @@ export const coverage = {
   // -------------------------------------------------- Dokumentationsseiten
   'docs.page:agent-contract.md': taught(S5),
   'docs.page:cli.md': taught(S4),
-  'docs.page:concepts.md': taught(S1),
+  'docs.page:concepts.md': taught(S2), // „Was gilt — und was kommt“, dazu brownfield/Deltas in S1
   'docs.page:customization.md': taught(S3),
   'docs.page:explore.md': taught(S2),
   'docs.page:getting-started.md': taught(S3),
@@ -143,7 +143,7 @@ export const coverage = {
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),
   'docs.page:overview.md': taught(S1), // quadrants „Lohnt sich der Mehraufwand?“ + Statement zum Ein-Zeilen-Fix
   'docs.page:community.md': skip('Links zu Discord/Contributing'),
-  'docs.page:glossary.md': skip('Begriffe werden im Vortrag ohnehin eingeführt'),
+  'docs.page:glossary.md': taught(S2), // Folie „Begriffe“: core nouns + inside a spec
   'docs.page:faq.md': skip('Fragen kommen im Workshop live'),
   'docs.page:troubleshooting.md': skip('Support-Material, kein Foliencontent'),
   'docs.page:commands.md': skip('Referenz aller Slash-Commands; die fünf relevanten haben eigene Folien, opsx.md ist getrackt'),
