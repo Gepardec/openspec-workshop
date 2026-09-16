@@ -26,8 +26,9 @@ merge
 Plan und Code liegen im selben Branch — und werden gemeinsam reviewt.
 
 <!--
-OpenSpec liest und schreibt nur Markdown unter openspec/. Es committet,
-branched, pusht und merged nie. Alles hier ist Konvention, kein Zwang.
+OpenSpec liest und schreibt nur Markdown unter openspec/. Im Projekt-Repo
+committet, branched, pusht und merged es nie. Alles hier ist Konvention, kein
+Zwang.
 
 openspec/ wird committet wie Quellcode: Haupt-Specs, aktive Changes, Archiv.
 
@@ -72,17 +73,23 @@ Nach dem Code-Review archiviert, wer den PR gebaut hat — erst dann wird gemerg
 
 - Auf `main` gibt es nie Code ohne passende Specs
 - Der PR zeigt den Diff an `openspec/specs/` mit
-- Ändern zwei Changes dasselbe Requirement, meldet git den Konflikt beim Merge
+- Ändern zwei Changes dieselben Zeilen einer Spec, meldet git den Konflikt beim Merge
 
 Wird erst nach dem Merge archiviert, kann der zweite Change den ersten **still überschreiben**.
 
 <!--
 Durchgespielt mit OpenSpec 1.13.0: zwei Branches ändern per MODIFIED dasselbe
 Requirement.
-- Archiv im PR: git meldet beim zweiten Merge einen Konflikt in
-  openspec/specs/animal-list/spec.md.
+- Archiv im PR, dieselben Zeilen geändert: git meldet beim zweiten Merge einen
+  Konflikt in openspec/specs/animal-list/spec.md.
 - Archiv nach dem Merge: validate und archive laufen durch, die zweite Fassung
-  ersetzt die erste — ohne Warnung.
+  ersetzt die erste vollständig — ohne Warnung.
+
+Ganz dicht ist auch das Archiv im PR nicht: ändert der eine Change die
+SHALL-Zeile und der andere eine THEN-Zeile desselben Requirements, mergt git
+ohne Konflikt — und die Spec kann sich danach widersprechen. Verloren geht
+dabei nichts, aber nach dem Merge lohnt ein Blick auf den Diff in
+openspec/specs/.
 
 Upstream nennt beide Konventionen und empfiehlt „nach dem Merge", weil der PR
 dann ruhiger bleibt. Wir empfehlen bewusst das Gegenteil.
@@ -98,15 +105,21 @@ layout: default
 
 - **Verschiedene Changes, verschiedene Leute** — getrennte Ordner, getrennte Branches, kein Problem
 - **Ein Change, ein Owner** — zwei Leute im selben Change-Ordner kollidieren wie in jeder anderen Datei
-- **Konflikte entstehen in `openspec/specs/`** — wenn zwei Changes dasselbe Requirement ändern oder an dieselbe Spec anhängen
+- **Konflikte entstehen in `openspec/specs/`** — wenn zwei Changes dieselben Zeilen einer Spec ändern oder an dieselbe Spec anhängen
 
 Ein Konflikt dort ist ein Feature: zwei Changes sind sich uneinig, wie sich das System verhalten soll.
 
 <!--
 Durchgespielt mit OpenSpec 1.13.0, Archiv jeweils im PR:
 - ADDED + ADDED an derselben Spec: Konflikt (beide hängen ans Ende an)
-- MODIFIED + MODIFIED am selben Requirement: Konflikt
-- MODIFIED + ADDED, oder MODIFIED an verschiedenen Requirements: sauberer Merge
+- MODIFIED + MODIFIED an denselben Zeilen: Konflikt
+- MODIFIED + MODIFIED an verschiedenen Zeilen desselben Requirements: sauberer
+  Merge — die Spec kann sich danach widersprechen
+- MODIFIED + ADDED: sauberer Merge, außer das geänderte Requirement steht am
+  Ende der Spec
+- MODIFIED an verschiedenen Requirements: sauberer Merge
+
+git vergleicht Zeilen, nicht Requirements.
 
 Wie man so einen Konflikt auflöst, steht in den häufigen Fragen.
 

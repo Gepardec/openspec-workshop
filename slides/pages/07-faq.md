@@ -100,7 +100,7 @@ Durchgespielt mit OpenSpec 1.13.0: ein Delta unter
 specs/billing/invoice-create/spec.md validiert, archiviert und erscheint in
 openspec list --specs als billing/invoice-create.
 
-Domänen erst anlegen, wenn der erste Change dort sie braucht — die Taxonomie
+Domänen erst anlegen, wenn der erste Change sie dort braucht — die Taxonomie
 muss nicht vorab stehen.
 -->
 
@@ -142,7 +142,7 @@ skip_specs: true      # ← ergänzen
 <!--
 Mit dem Flag zeigt openspec status specs als „skipped".
 
-Das Schema sagt ausdrücklich: keine Requirement erfinden, nur um validate
+Das Schema sagt ausdrücklich: kein Requirement erfinden, nur um validate
 zufriedenzustellen.
 -->
 
@@ -165,8 +165,12 @@ Mit unserer Konvention — archivieren vor dem Merge — taucht der Konflikt bei
 zweiten Merge als normaler git-Konflikt auf. Siehe Team-Kapitel.
 
 Durchgespielt: zwei ADDED an derselben Spec kollidieren nur textuell (beide
-hängen ans Ende an). Zwei MODIFIED am selben Requirement widersprechen sich
-inhaltlich — dort lohnt das LLM.
+hängen ans Ende an). Zwei MODIFIED an denselben Zeilen eines Requirements
+widersprechen sich inhaltlich — dort lohnt das LLM.
+
+git meldet nur Konflikte an denselben oder benachbarten Zeilen. Ändern zwei
+Changes verschiedene Zeilen desselben Requirements, mergt git ohne Konflikt —
+auch dann den Diff in openspec/specs/ lesen.
 
 Upstream: den Konflikt lösen wie jeden anderen und die Fassung behalten, die
 der Realität entspricht.

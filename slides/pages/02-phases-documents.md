@@ -164,7 +164,7 @@ layout: default
 
 # Aktionen, keine Phasen
 
-Jeder Schritt bleibt möglich — die Pfeile zeigen, was als Nächstes sinnvoll ist.
+Kein fester Phasenablauf — die Pfeile zeigen, was als Nächstes sinnvoll ist.
 
 <div class="flex justify-center">
 
@@ -187,9 +187,10 @@ flowchart LR
 Gestrichelt: optional. Stimmt der Plan nicht, wird er angepasst — nicht umgangen.
 
 <!--
-Upstream: „fluid not rigid", „iterative not waterfall". Kein Schritt sperrt
-einen anderen; der Preis dafür ist Disziplin — nichts zwingt einen Change,
-fokussiert zu bleiben.
+Upstream: „fluid not rigid", „iterative not waterfall" (docs/concepts.md).
+Außer apply — das braucht eine tasks.md — sperrt kein Schritt einen anderen.
+Der Preis dafür ist Disziplin: nichts zwingt einen Change, fokussiert zu
+bleiben.
 
 verify gibt es nur im custom-Profil, dazu mehr nach apply. sync ist hier
 weggelassen: archive bietet es ohnehin an.
@@ -391,8 +392,8 @@ Kein geändertes Verhalten (Refactoring, Tooling, Doku)? `skip_specs: true` in d
 <!--
 Die folgenden Slides schauen auf jedes Dokument einzeln.
 
-Upstream nennt das „enablers, not gates". Die CLI prüft die Pfeile nicht:
-validate, apply und archive laufen auch ohne design.md.
+Upstream nennt das „enablers, not gates". Die CLI erzwingt nur, dass apply
+eine tasks.md hat: validate, apply und archive laufen auch ohne design.md.
 
 Wann design.md sich lohnt, steht in der design-Instruction von schema.yaml:
 Änderung über mehrere Module oder Services, neues Architekturmuster, neue
@@ -569,7 +570,7 @@ layout: default
 
 - Beschreibt Verhalten, das man von außen prüfen kann — nicht, wie es gebaut ist
 - **Faustregel:** Kann sich etwas ändern, ohne dass sich sichtbares Verhalten ändert? Dann gehört es nicht in die Spec.
-- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) — exakt 4 Hashtags, sonst Silent Failure
+- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) — exakt 4 Hashtags, sonst wird das Scenario nicht erkannt
 - Jedes Requirement braucht ein SHALL/MUST und mindestens ein Scenario
 - Jedes Scenario ist die Vorlage für einen Akzeptanztest
 
@@ -689,8 +690,8 @@ layout: two-cols-header
 
 <!--
 Im Praxisbeispiel ist „No tasks have been generated yet for previous month"
-genau so ein Randfall-Scenario. „Pflichtfelder fehlen" steht wörtlich in der
-Zoo-Spec animal-create.
+genau so ein Randfall-Scenario. In der Zoo-Spec animal-create heißt das
+Scenario „Required fields missing".
 
 Vor dem Approve fragen: Welchen Fall würde ich am wenigsten kaputt sehen
 wollen — und hat er ein Scenario?
@@ -899,8 +900,9 @@ Fehlende Scenarios fangen `validate` und `archive` ab — fehlenden Text nicht.
 Praxisbeispiel: monthend-rest-api ist eine geänderte Capability, bekommt aber
 ein ADDED Requirement — es kommt nur ein neues Verhalten dazu.
 
-Der Vier-Schritte-Ablauf steht wörtlich in der specs-Instruction von
-schema.yaml („MODIFIED requirements workflow").
+Der Ablauf steht in der specs-Instruction von schema.yaml („MODIFIED
+requirements workflow") — dort als vier Schritte; der vierte, Überschrift
+exakt gleich lassen, steckt hier in Schritt 3.
 
 Beim Review hilft `openspec show <change> --diff`: zeigt pro MODIFIED-Requirement
 nur, was sich tatsächlich ändert.

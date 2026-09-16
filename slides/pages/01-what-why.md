@@ -151,11 +151,11 @@ Quelle: docs/overview.md, „Why this is worth the small overhead".
 layout: statement
 ---
 
-# Für den Ein-Zeilen-Fix lohnt es sich nicht — überall, wo **Einigkeit zählt**, schon.
+# Für den Ein-Zeilen-Fix lohnt es sich meist nicht — überall, wo **Einigkeit zählt**, schon.
 
 <!--
 Upstream sagt das selbst: für einen wirklich trivialen Fix zahlt sich die
-Zeremonie nicht aus. Einigkeit zählt aber fast immer, sobald ein Agent
+Zeremonie womöglich nicht aus. Einigkeit zählt aber fast immer, sobald ein Agent
 selbstbewusst baut, was man ihm vage aufgetragen hat.
 
 Rückgriff in der Diskussion: „Wo stößt Spec-driven Development an seine Grenzen?"

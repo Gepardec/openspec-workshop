@@ -127,7 +127,7 @@ export const sources = [
   { id: 'docs.overview', tier: 2, kind: 'github-file', path: 'docs/overview.md',
     backs: [
       { slide: 'slides/pages/01-what-why.md', claim: 'Lohnt sich der Mehraufwand? Fehler früh abfangen (400 Zeilen), Das Warum bleibt (sechs Monate), Review ohne Chat-Archäologie, kein Big-Bang-Dokumentieren (50.000 Zeilen)' },
-      { slide: 'slides/pages/01-what-why.md', claim: 'Statement: beim trivialen Ein-Zeilen-Fix lohnt die Zeremonie nicht; überall, wo Einigkeit zählt, schon' },
+      { slide: 'slides/pages/01-what-why.md', claim: 'Statement: beim trivialen Ein-Zeilen-Fix lohnt die Zeremonie meist nicht; überall, wo Einigkeit zählt, schon' },
     ] },
   { id: 'docs.glossary', tier: 2, kind: 'github-file', path: 'docs/glossary.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Begriffe: Spec, Haupt-Specs (source of truth), Change, Artefakt, Delta-Spec, Capability; Requirement (Was, nicht Wie), Scenario (prüfbar), RFC-2119-Stufen' }] },
@@ -157,7 +157,7 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/03-setup-config.md', claim: 'CLI vs. Slash-Command: openspec läuft im Terminal, /opsx im Agenten-Chat' },
       { slide: 'slides/pages/03-setup-config.md', claim: 'Die CLI ist der Motor (kennt Ordner, Abhängigkeiten, Delta-Merge, überall gleich), Slash-Commands/Skills das Lenkrad (pro Tool eigenes Format)' },
-      { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: Lenkrad = Skill, Motor = CLI' },
+      { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: Lenkrad = Skill, Motor = CLI (deterministischer Merge nur bei openspec archive; /opsx:archive merged per Agent)' },
     ] },
   { id: 'docs.reviewing-changes', tier: 2, kind: 'github-file', path: 'docs/reviewing-changes.md',
     backs: [
@@ -172,7 +172,7 @@ export const sources = [
       { slide: 'slides/pages/06-team.md', claim: 'OpenSpec fasst git nicht an; Change = Branch = PR; openspec/ wird committet' },
       { slide: 'slides/pages/06-team.md', claim: 'Review im PR: proposal → Delta → Code-Diff; Ansatz am Proposal diskutieren' },
       { slide: 'slides/pages/06-team.md', claim: 'Archivieren: Upstream nennt „nach dem Merge“ (empfohlen) und „im PR“ — Deck empfiehlt bewusst im PR, nach dem Code-Review' },
-      { slide: 'slides/pages/06-team.md', claim: 'Parallel: verschiedene Changes kein Problem; ein Change ein Owner; Konflikte in openspec/specs/ sind ein Feature' },
+      { slide: 'slides/pages/06-team.md', claim: 'Parallel: verschiedene Changes kein Problem; ein Change ein Owner; Konflikte in openspec/specs/ (git: dieselben Zeilen) sind ein Feature' },
       { slide: 'slides/pages/07-faq.md', claim: 'Merge-Konflikte: Upstream — wie jeden Konflikt lösen, die Fassung behalten, die der Realität entspricht (Notes)' },
     ] },
   { id: 'docs.faq', tier: 2, kind: 'github-file', path: 'docs/faq.md',
