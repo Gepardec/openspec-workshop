@@ -107,8 +107,10 @@ class: gepardec-text-sm
 
 - Anforderung ist vage: _"Irgendwie sollen Nutzer Tiere filtern können"_
 - Domäne ist neu: du weißt noch nicht, wie viele Capabilities das betrifft
-- Scope ist unklar: Feature oder mehrere Changes?
+- Du kennst die Codebasis noch nicht gut und möchtest sie erkunden
 - Du willst Edge Cases durchdenken, bevor sie in der Spec landen
+- Du das Problem kennst, aber keine Lösung beschreiben kannst
+- Du verschiedene Lösungsansätze gegenüberstellen möchtest.
 
 ::right::
 
@@ -128,6 +130,10 @@ Ein Gesprächs-Loop mit dem Agenten: Fragen stellen, Annahmen aufdecken, Szenari
 ::bottom::
 
 **Wann überspringen?** Wenn die Anforderung klar ist – einfach direkt mit `/opsx:propose` starten.
+
+<!--
+Faustregel: je ungenauer der Task, umso mehr lohnt es sich
+-->
 
 ---
 layout: conversation
