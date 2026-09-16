@@ -112,6 +112,7 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/03-setup-config.md', claim: 'config.yaml: schema + context; optional rules pro Artefakt-Typ' },
       { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: eigene Regeln in config.yaml, eigene Artefakt-Form braucht ein eigenes Schema' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Eigener Prozess: schema fork spec-driven my-workflow, Template + Artefakt ergänzen, schema validate, schema: my-workflow in config.yaml' },
     ] },
   { id: 'docs.supported-tools', tier: 2, kind: 'github-file', path: 'docs/supported-tools.md',
     backs: [
@@ -172,9 +173,23 @@ export const sources = [
       { slide: 'slides/pages/06-team.md', claim: 'Review im PR: proposal → Delta → Code-Diff; Ansatz am Proposal diskutieren' },
       { slide: 'slides/pages/06-team.md', claim: 'Archivieren: Upstream nennt „nach dem Merge“ (empfohlen) und „im PR“ — Deck empfiehlt bewusst im PR, nach dem Code-Review' },
       { slide: 'slides/pages/06-team.md', claim: 'Parallel: verschiedene Changes kein Problem; ein Change ein Owner; Konflikte in openspec/specs/ sind ein Feature' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Merge-Konflikte: Upstream — wie jeden Konflikt lösen, die Fassung behalten, die der Realität entspricht (Notes)' },
     ] },
+  { id: 'docs.faq', tier: 2, kind: 'github-file', path: 'docs/faq.md',
+    backs: [
+      { slide: 'slides/pages/07-faq.md', claim: 'Modelle: Upstream empfiehlt High-Reasoning-Modelle für Planung und Umsetzung (Notes); Deck-Empfehlung ist ausdrücklich persönlich' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Sprache: Anweisung in context; Schema anpassen per fork' },
+    ] },
+  { id: 'docs.multi-language', tier: 2, kind: 'github-file', path: 'docs/multi-language.md',
+    backs: [{ slide: 'slides/pages/07-faq.md', claim: 'Specs auf Deutsch: context mit Sprach-Anweisung; init --language; Strukturüberschriften und SHALL/MUST bleiben englisch' }] },
+  { id: 'docs.stores-user-guide', tier: 2, kind: 'github-file', path: 'docs/stores-beta/user-guide.md',
+    backs: [{ slide: 'slides/pages/07-faq.md', claim: 'Mehrere Repos: Stores = Planung in eigenem Repo, auf das Code-Repos verweisen; Beta, Befehle und Formate können sich ändern' }] },
   { id: 'docs.existing-projects', tier: 2, kind: 'github-file', path: 'docs/existing-projects.md',
-    backs: [{ slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' }] },
+    backs: [
+      { slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Bestand: übersetztes Zitat „You do not document your whole codebase to start …“; Specs nicht nachträglich für unveränderten Code schreiben' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Monorepo: ein openspec/ im Root, Domänen passend zu Paketen/Services; mehrere Repos → Stores (Beta)' },
+    ] },
 
   // Generated agent-facing text. The deck quotes these verbatim on slides.
   { id: 'skill.propose', tier: 2, kind: 'github-file', path: 'skills/openspec-propose/SKILL.md',

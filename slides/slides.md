@@ -40,6 +40,10 @@ src: ./pages/06-team.md
 ---
 
 ---
+src: ./pages/07-faq.md
+---
+
+---
 src: ./pages/08-hands-on.md
 ---
 

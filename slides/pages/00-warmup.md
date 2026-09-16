@@ -45,6 +45,7 @@ layout: agenda
 - CLI als Datei-Navigator
 - CLI als Agent-Bridge
 - OpenSpec im Team
+- Häufige Fragen
 - Hands-on Übungen
 - Diskussion & Wrap-up
 
