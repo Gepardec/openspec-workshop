@@ -38,7 +38,7 @@ Beide sind bereits als Speaker-Note im Deck markiert.
 
 - [ ] **Übung 2 – Kopierbefehl funktioniert nicht.**
       `exercises/02_setup_openspec/README.md`: `cp -r exercises/02_setup_openspec/openspec/ .`
-      Note in `slides/pages/06-hands-on.md`: *"CLI-Befehl zum kopieren funktioniert nicht!"*
+      Note in `slides/pages/08-hands-on.md`: *"CLI-Befehl zum kopieren funktioniert nicht!"*
       → Befehl korrigieren und einmal auf einem frischen Clone durchspielen.
 - [ ] **Quiz-Frage 1 ist fachlich falsch.**
       Note in `slides/pages/04-cli-navigator.md`: *"Frage 1: Change ist nicht aktiv,
@@ -53,7 +53,7 @@ Beide sind bereits als Speaker-Note im Deck markiert.
 `playbook.yaml` provisioniert VS Code + Codex (`.codex/auth.json` mit `OPENAI_API_KEY`) —
 **kein Claude Code, kein IntelliJ/Junie**. Dem stehen gegenüber:
 
-- Speaker-Note in `slides/pages/06-hands-on.md`: *"mindestens Claude Code, Codex und Junie zu installieren"*
+- Speaker-Note in `slides/pages/08-hands-on.md`: *"mindestens Claude Code, Codex und Junie zu installieren"*
 - `exercises/06_explore_requirements` + Slide: Tipp auf Skill `frontend-design` → Claude Code
 - `slides/pages/03-setup-config.md` zeigt `.claude/skills/` und `CLAUDE.md` als Beispiel
 - Angebot (`docs/offer.md`): "Die Arbeitsumgebung wird als virtuelle Umgebung bereitgestellt —

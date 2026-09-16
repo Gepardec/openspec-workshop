@@ -36,9 +36,9 @@ src: ./pages/05-cli-agent-bridge.md
 ---
 
 ---
-src: ./pages/06-hands-on.md
+src: ./pages/08-hands-on.md
 ---
 
 ---
-src: ./pages/07-discussion.md
+src: ./pages/09-discussion.md
 ---

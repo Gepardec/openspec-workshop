@@ -27,8 +27,8 @@ const S2 = 'slides/pages/02-phases-documents.md';
 const S3 = 'slides/pages/03-setup-config.md';
 const S4 = 'slides/pages/04-cli-navigator.md';
 const S5 = 'slides/pages/05-cli-agent-bridge.md';
-const S6 = 'slides/pages/06-hands-on.md';
-const S7 = 'slides/pages/07-discussion.md';
+const S8 = 'slides/pages/08-hands-on.md';
+const S9 = 'slides/pages/09-discussion.md';
 
 // Stores, references, working context and worksets ship together and their own
 // guide calls them beta: "command names, flags, file formats, and JSON output
@@ -138,7 +138,7 @@ export const coverage = {
   'docs.page:reviewing-changes.md': taught(S2), // = Folien "Review-Time" / "Worauf achte ich beim Review?"
   'docs.page:existing-projects.md': taught(S1), // = Folie "Wächst mit dem Code"
   'docs.page:editing-changes.md': mentioned(S2), // "neue Runde drehen" deckt den Kern, die Seite ist breiter
-  'docs.page:team-workflow.md': mentioned(S6), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
+  'docs.page:team-workflow.md': mentioned(S8), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
   'docs.page:multi-language.md': mentioned(S3), // `init --language`; die Frage "können die Specs deutsch sein?" kommt sicher
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),
   'docs.page:overview.md': skip('Einstiegsseite; Inhalt steckt in concepts.md'),
@@ -158,7 +158,7 @@ export const coverage = {
   'skill:openspec-explore': taught(S2),
   'skill:openspec-sync-specs': taught(S2),
   'skill:openspec-update-change': taught(S2), // benannt auf der Review-Time-Folie
-  'skill:openspec-verify-change': mentioned(S7),
+  'skill:openspec-verify-change': mentioned(S9),
   'skill:openspec-new-change': mentioned(S3),
   'skill:openspec-continue-change': mentioned(S3),
   'skill:openspec-ff-change': mentioned(S3),
