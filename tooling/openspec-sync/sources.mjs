@@ -58,6 +58,7 @@ export const sources = [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Delta-Specs: REMOVED mit Reason und Migration; RENAMED mit FROM:/TO:; Purpose nur für neue Capabilities' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'MODIFIED richtig schreiben: 4-Schritte-Workflow, ganzer Block, Überschrift unverändert; neue Anliegen ohne Verhaltensänderung → ADDED' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'tasks.md: jeder Task nennt seine Verifikation; klein genug für eine Session' },
+      { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'schema.yaml – der Styleguide: Auszug der tasks-Instruction (wörtlich), template, requires [specs, design]' },
     ],
   },
   { id: 'schema.tpl.proposal', tier: 1, kind: 'github-file', path: 'schemas/spec-driven/templates/proposal.md',
@@ -104,11 +105,14 @@ export const sources = [
       { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'openspec instructions Verhalten' },
     ] },
   { id: 'docs.agent-contract', tier: 2, kind: 'github-file', path: 'docs/agent-contract.md',
-    backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Instructions = Template + config.yaml + Pfade zu Abhängigkeiten; Agent liest referenzierte Dateien selbst' }] },
+    backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Instructions = schema.yaml (instruction + template) + config.yaml (context + rules) + Pfade zu Abhängigkeiten; Agent liest referenzierte Dateien selbst' }] },
   { id: 'docs.getting-started', tier: 2, kind: 'github-file', path: 'docs/getting-started.md',
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Was init anlegt: openspec/{config.yaml,specs,changes} + .claude/skills + .claude/commands/opsx; AGENTS.md/CLAUDE.md werden NICHT angelegt' }] },
   { id: 'docs.customization', tier: 2, kind: 'github-file', path: 'docs/customization.md',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'config.yaml: schema + context; optional rules pro Artefakt-Typ' }] },
+    backs: [
+      { slide: 'slides/pages/03-setup-config.md', claim: 'config.yaml: schema + context; optional rules pro Artefakt-Typ' },
+      { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: eigene Regeln in config.yaml, eigene Artefakt-Form braucht ein eigenes Schema' },
+    ] },
   { id: 'docs.supported-tools', tier: 2, kind: 'github-file', path: 'docs/supported-tools.md',
     backs: [
       { slide: 'slides/pages/01-what-why.md', claim: '30+ Tools werden bei init verdrahtet; Skills + Slash-Commands tool-spezifisch generiert' },
@@ -149,7 +153,11 @@ export const sources = [
       { slide: 'exercises/01_init_openspec/README.md', claim: 'Installationsschritt der Übung 1' },
     ] },
   { id: 'docs.how-commands-work', tier: 2, kind: 'github-file', path: 'docs/how-commands-work.md',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'CLI vs. Slash-Command: openspec läuft im Terminal, /opsx im Agenten-Chat' }] },
+    backs: [
+      { slide: 'slides/pages/03-setup-config.md', claim: 'CLI vs. Slash-Command: openspec läuft im Terminal, /opsx im Agenten-Chat' },
+      { slide: 'slides/pages/03-setup-config.md', claim: 'Die CLI ist der Motor (kennt Ordner, Abhängigkeiten, Delta-Merge, überall gleich), Slash-Commands/Skills das Lenkrad (pro Tool eigenes Format)' },
+      { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: Lenkrad = Skill, Motor = CLI' },
+    ] },
   { id: 'docs.reviewing-changes', tier: 2, kind: 'github-file', path: 'docs/reviewing-changes.md',
     backs: [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Review-Reihenfolge proposal → spec → design → tasks; worauf beim Review achten' },

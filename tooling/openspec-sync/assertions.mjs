@@ -65,6 +65,21 @@ export const deckClaims = {
     slide: 'slides/pages/02-phases-documents.md',
     text: 'Delta-Specs-Tabelle: ## Purpose wird Purpose der neuen Haupt-Spec',
   },
+  schemaTasksExcerpt: {
+    value: [
+      '- Each task MUST be a checkbox: `- [ ] X.Y Task description`',
+      '- Tasks should be small enough to complete in one session',
+      '- Each task MUST state how to verify completion (a test, command,',
+      'observable behavior, or delivered artifact). …', // trailing " …" = the line continues upstream
+    ],
+    slide: 'slides/pages/05-cli-agent-bridge.md',
+    text: 'schema.yaml – der Styleguide: wörtlicher Auszug aus der tasks-Instruction',
+  },
+  instructionsFields: {
+    value: ['instruction', 'template', 'context', 'rules', 'dependencies'],
+    slide: 'slides/pages/05-cli-agent-bridge.md',
+    text: 'Was steckt in den Instructions?: schema.yaml (instruction + template), config.yaml (context + rules), Pfade zu Abhängigkeiten',
+  },
   commandsUsed: {
     value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new'],
     slide: 'slides/pages/03-setup-config.md, 04-cli-navigator.md, 05-cli-agent-bridge.md',
@@ -292,6 +307,44 @@ export const assertions = [
         return spec.includes('Exists only so the sync tooling can exercise archive behaviour.')
           ? { status: 'ok', detail: 'the delta\'s ## Purpose became the Purpose of the new main spec' }
           : { status: 'mismatch', detail: 'archive no longer carries a new capability\'s ## Purpose into the main spec' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'schema.tasks-excerpt',
+    claim: deckClaims.schemaTasksExcerpt,
+    async run(ctx) {
+      const tasks = artifactBlocks(await ctx.gh('schemas/spec-driven/schema.yaml')).find((b) => b.id === 'tasks');
+      if (!tasks) return { status: 'unresolved', detail: 'no artifact with id "tasks"' };
+      const lines = tasks.block.split(/\r?\n/).map((l) => l.trim());
+      const quoted = (l) => (l.endsWith(' …') ? lines.some((x) => x.startsWith(l.slice(0, -2))) : lines.includes(l));
+      const missing = deckClaims.schemaTasksExcerpt.value.filter((l) => !quoted(l));
+      return missing.length === 0
+        ? { status: 'ok', detail: 'all quoted lines are verbatim in the tasks instruction' }
+        : { status: 'mismatch', detail: `no longer verbatim in schema.yaml:\n      - ${missing.join('\n      - ')}` };
+    },
+  },
+  {
+    id: 'cli.instructions-fields',
+    claim: deckClaims.instructionsFields,
+    async run(ctx) {
+      const dir = makeProject(ctx, {
+        'openspec/config.yaml': 'schema: spec-driven\ncontext: |\n  Probe context\nrules:\n  tasks:\n    - Probe rule\n',
+      });
+      try {
+        const created = ctx.run(['new', 'change', 'probe'], dir);
+        if (created.code !== 0) return { status: 'unresolved', detail: `could not create the probe change:\n      ${created.out.trim()}` };
+        const out = ctx.run(['instructions', 'tasks', '--change', 'probe', '--json'], dir);
+        let json;
+        try { json = JSON.parse(out.out); } catch { return { status: 'unresolved', detail: `instructions --json did not return JSON:\n      ${out.out.trim().slice(0, 300)}` }; }
+        const missing = deckClaims.instructionsFields.value.filter((k) => !(k in json));
+        if (missing.length) return { status: 'mismatch', detail: `instructions --json no longer has ${fmt(missing)}` };
+        if (!String(json.context).includes('Probe context') || !JSON.stringify(json.rules).includes('Probe rule')) {
+          return { status: 'mismatch', detail: 'context or rules from config.yaml no longer reach the tasks instructions' };
+        }
+        return { status: 'ok', detail: `instructions --json carries ${fmt(deckClaims.instructionsFields.value)}, context and rules from config.yaml` };
       } finally {
         dropProject(dir);
       }
