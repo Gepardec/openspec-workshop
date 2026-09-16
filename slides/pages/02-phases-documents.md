@@ -152,7 +152,7 @@ layout: default
 </div>
 
 <!--
-Es gibt auch noch weitere Workflows, die nur das custom-Profil installiert. Nicht näher drauf eingehen, kann nachgelesen werden.
+Es gibt auch noch weitere Workflows, die nur das custom-Profil installiert. Außer verify (kommt nach apply) nicht näher drauf eingehen, kann nachgelesen werden.
 
 sync sieht nach nichts aus, ist aber der Schritt, in dem aus einem Change
 dauerhaftes Wissen wird.
@@ -1080,7 +1080,7 @@ und Linter das eigentliche Netz.
 CRITICAL: offene Tasks, nicht gefundene Requirements. WARNING: Abweichung von
 Spec oder Design, Scenario ohne Test. SUGGESTION: Muster-Abweichungen.
 
-Fehlt design.md, lässt verify die Coherence-Prüfung weg und sagt das.
+Fehlt design.md, überspringt verify den Abgleich mit dem Design und sagt das.
 
 Quelle: skills/openspec-verify-change/SKILL.md, docs/workflows.md „Verify".
 -->

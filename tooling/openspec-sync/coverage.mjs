@@ -29,8 +29,6 @@ const S4 = 'slides/pages/04-cli-navigator.md';
 const S5 = 'slides/pages/05-cli-agent-bridge.md';
 const S6 = 'slides/pages/06-team.md';
 const S7 = 'slides/pages/07-faq.md';
-const S8 = 'slides/pages/08-hands-on.md';
-const S9 = 'slides/pages/09-discussion.md';
 
 // Stores, references, working context and worksets ship together and their own
 // guide calls them beta: "command names, flags, file formats, and JSON output
