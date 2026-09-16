@@ -112,6 +112,7 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/03-setup-config.md', claim: 'config.yaml: schema + context; optional rules pro Artefakt-Typ' },
       { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: eigene Regeln in config.yaml, eigene Artefakt-Form braucht ein eigenes Schema' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Eigener Prozess: schema fork spec-driven my-workflow, Template + Artefakt ergänzen, schema validate, schema: my-workflow in config.yaml' },
     ] },
   { id: 'docs.supported-tools', tier: 2, kind: 'github-file', path: 'docs/supported-tools.md',
     backs: [
@@ -126,7 +127,7 @@ export const sources = [
   { id: 'docs.overview', tier: 2, kind: 'github-file', path: 'docs/overview.md',
     backs: [
       { slide: 'slides/pages/01-what-why.md', claim: 'Lohnt sich der Mehraufwand? Fehler früh abfangen (400 Zeilen), Das Warum bleibt (sechs Monate), Review ohne Chat-Archäologie, kein Big-Bang-Dokumentieren (50.000 Zeilen)' },
-      { slide: 'slides/pages/01-what-why.md', claim: 'Statement: beim trivialen Ein-Zeilen-Fix lohnt die Zeremonie nicht; überall, wo Einigkeit zählt, schon' },
+      { slide: 'slides/pages/01-what-why.md', claim: 'Statement: beim trivialen Ein-Zeilen-Fix lohnt die Zeremonie meist nicht; überall, wo Einigkeit zählt, schon' },
     ] },
   { id: 'docs.glossary', tier: 2, kind: 'github-file', path: 'docs/glossary.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Begriffe: Spec, Haupt-Specs (source of truth), Change, Artefakt, Delta-Spec, Capability; Requirement (Was, nicht Wie), Scenario (prüfbar), RFC-2119-Stufen' }] },
@@ -156,7 +157,7 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/03-setup-config.md', claim: 'CLI vs. Slash-Command: openspec läuft im Terminal, /opsx im Agenten-Chat' },
       { slide: 'slides/pages/03-setup-config.md', claim: 'Die CLI ist der Motor (kennt Ordner, Abhängigkeiten, Delta-Merge, überall gleich), Slash-Commands/Skills das Lenkrad (pro Tool eigenes Format)' },
-      { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: Lenkrad = Skill, Motor = CLI' },
+      { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Wer bestimmt was?: Lenkrad = Skill, Motor = CLI (deterministischer Merge nur bei openspec archive; /opsx:archive merged per Agent)' },
     ] },
   { id: 'docs.reviewing-changes', tier: 2, kind: 'github-file', path: 'docs/reviewing-changes.md',
     backs: [
@@ -166,8 +167,29 @@ export const sources = [
     ] },
   { id: 'docs.editing-changes', tier: 2, kind: 'github-file', path: 'docs/editing-changes.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Der Plan lebt: Artefakte jederzeit editierbar (Datei oder KI); apply liest den aktuellen Stand und macht beim ersten offenen Task weiter; Code von Hand geändert → vor archive in die richtige Richtung abgleichen' }] },
+  { id: 'docs.team-workflow', tier: 2, kind: 'github-file', path: 'docs/team-workflow.md',
+    backs: [
+      { slide: 'slides/pages/06-team.md', claim: 'OpenSpec fasst git nicht an; Change = Branch = PR; openspec/ wird committet' },
+      { slide: 'slides/pages/06-team.md', claim: 'Review im PR: proposal → Delta → Code-Diff; Ansatz am Proposal diskutieren' },
+      { slide: 'slides/pages/06-team.md', claim: 'Archivieren: Upstream nennt „nach dem Merge“ (empfohlen) und „im PR“ — Deck empfiehlt bewusst im PR, nach dem Code-Review' },
+      { slide: 'slides/pages/06-team.md', claim: 'Parallel: verschiedene Changes kein Problem; ein Change ein Owner; Konflikte in openspec/specs/ (git: dieselben Zeilen) sind ein Feature' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Merge-Konflikte: Upstream — wie jeden Konflikt lösen, die Fassung behalten, die der Realität entspricht (Notes)' },
+    ] },
+  { id: 'docs.faq', tier: 2, kind: 'github-file', path: 'docs/faq.md',
+    backs: [
+      { slide: 'slides/pages/07-faq.md', claim: 'Modelle: Upstream empfiehlt High-Reasoning-Modelle für Planung und Umsetzung (Notes); Deck-Empfehlung ist ausdrücklich persönlich' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Sprache: Anweisung in context; Schema anpassen per fork' },
+    ] },
+  { id: 'docs.multi-language', tier: 2, kind: 'github-file', path: 'docs/multi-language.md',
+    backs: [{ slide: 'slides/pages/07-faq.md', claim: 'Specs auf Deutsch: context mit Sprach-Anweisung; init --language; Strukturüberschriften und SHALL/MUST bleiben englisch' }] },
+  { id: 'docs.stores-user-guide', tier: 2, kind: 'github-file', path: 'docs/stores-beta/user-guide.md',
+    backs: [{ slide: 'slides/pages/07-faq.md', claim: 'Mehrere Repos: Stores = Planung in eigenem Repo, auf das Code-Repos verweisen; Beta, Befehle und Formate können sich ändern' }] },
   { id: 'docs.existing-projects', tier: 2, kind: 'github-file', path: 'docs/existing-projects.md',
-    backs: [{ slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' }] },
+    backs: [
+      { slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Bestand: übersetztes Zitat „You do not document your whole codebase to start …“; Specs nicht nachträglich für unveränderten Code schreiben' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Monorepo: ein openspec/ im Root, Domänen passend zu Paketen/Services; mehrere Repos → Stores (Beta)' },
+    ] },
 
   // Generated agent-facing text. The deck quotes these verbatim on slides.
   { id: 'skill.propose', tier: 2, kind: 'github-file', path: 'skills/openspec-propose/SKILL.md',

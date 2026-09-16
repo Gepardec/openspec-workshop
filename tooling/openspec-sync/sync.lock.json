@@ -167,6 +167,16 @@
       "hash": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
       "tier": 2
     },
+    "docs.editing-changes": {
+      "kind": "github-file",
+      "hash": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "tier": 2
+    },
+    "docs.team-workflow": {
+      "kind": "github-file",
+      "hash": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "tier": 2
+    },
     "docs.existing-projects": {
       "kind": "github-file",
       "hash": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
@@ -207,9 +217,19 @@
       "hash": "9ee8f441710b821904e830879b6c9a1360ce0899d9536673ad1545387a9860e3",
       "tier": 4
     },
-    "docs.editing-changes": {
+    "docs.faq": {
       "kind": "github-file",
-      "hash": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "hash": "7e98f2075d86b29afcac46b3b93f6c6b2f5c69931e224f13ea3a53dedb7e402f",
+      "tier": 2
+    },
+    "docs.multi-language": {
+      "kind": "github-file",
+      "hash": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "tier": 2
+    },
+    "docs.stores-user-guide": {
+      "kind": "github-file",
+      "hash": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
       "tier": 2
     }
   }

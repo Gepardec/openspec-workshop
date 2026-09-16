@@ -66,13 +66,16 @@ Vier Schichten, jede mit genau einer Aufgabe.
 | Schicht | Wo | Bestimmt |
 |---|---|---|
 | Lenkrad | Skill / Slash-Command | Vorgehen und Guardrails: welcher Befehl wann, wann nachfragen |
-| Motor | `openspec` CLI | Zustand, Reihenfolge der Artefakte, Delta-Merge |
+| Motor | `openspec` CLI | Zustand, Abhängigkeiten aus dem Schema, deterministischer Merge bei `openspec archive` |
 | Schema | `schema.yaml` + Templates | Form und Schreibregeln jedes Artefakts |
 | Projekt | `openspec/config.yaml` | Kontext und Regeln eures Teams |
 
 Eigene Regeln gehören in `config.yaml`. Eine eigene Artefakt-Form braucht ein eigenes Schema.
 
 <!--
+Mit /opsx:archive und /opsx:sync führt der Agent den Merge selbst durch — die
+CLI merged deterministisch nur bei openspec archive (siehe Kapitel 3).
+
 Die Regeln aus Kapitel 2 — Delta-Operationen, MODIFIED-Workflow, Verifikation
 pro Task, wann design.md sich lohnt — stammen nicht aus dem Skill, sondern aus
 der instruction des Schemas. Der Skill sagt nur, wann welches Artefakt dran ist.

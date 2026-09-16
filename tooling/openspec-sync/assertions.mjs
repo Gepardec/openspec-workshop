@@ -80,9 +80,34 @@ export const deckClaims = {
     slide: 'slides/pages/05-cli-agent-bridge.md',
     text: 'Was steckt in den Instructions?: schema.yaml (instruction + template), config.yaml (context + rules), Pfade zu Abhängigkeiten',
   },
+  lateArchiveOverwrites: {
+    value: true,
+    slide: 'slides/pages/06-team.md',
+    text: 'Archivieren vor dem Merge: wird erst nach dem Merge archiviert, kann der zweite Change den ersten still überschreiben',
+  },
+  languageLine: {
+    value: 'Keep OpenSpec structural headings and SHALL/MUST keywords in English.',
+    slide: 'slides/pages/07-faq.md',
+    text: 'Specs auf Deutsch?: diese Zeile schreibt openspec init --language wörtlich; --language ändert keine bestehende config.yaml',
+  },
+  skipSpecs: {
+    value: true,
+    slide: 'slides/pages/07-faq.md, 02-phases-documents.md',
+    text: 'Refactoring: ohne skip_specs lehnt validate einen Change ohne Deltas ab, mit skip_specs nicht',
+  },
+  schemaForkExtraArtifact: {
+    value: true,
+    slide: 'slides/pages/07-faq.md',
+    text: 'Eigener Prozess: fork, Artefakt + Template ergänzen, schema validate, schema: in config.yaml — status zeigt das neue Artefakt',
+  },
+  nestedCapabilityPath: {
+    value: true,
+    slide: 'slides/pages/07-faq.md',
+    text: 'Monorepo: Capability-Pfad billing/invoice-create funktioniert für validate, archive und list --specs',
+  },
   commandsUsed: {
-    value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new'],
-    slide: 'slides/pages/03-setup-config.md, 04-cli-navigator.md, 05-cli-agent-bridge.md',
+    value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new', 'update', 'schema'],
+    slide: 'slides/pages/03-setup-config.md, 04-cli-navigator.md, 05-cli-agent-bridge.md, 02-phases-documents.md, 07-faq.md',
     text: 'jeder openspec-Befehl, den eine Folie tippt',
   },
   flagsUsed: {
@@ -91,6 +116,11 @@ export const deckClaims = {
       { argv: ['list'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['show'], flag: '--type', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['show'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
+      { argv: ['show'], flag: '--diff', slide: 'slides/pages/06-team.md' },
+      { argv: ['init'], flag: '--language', slide: 'slides/pages/07-faq.md' },
+      // subcommands: the check is the same substring test against `schema --help`
+      { argv: ['schema'], flag: 'fork', slide: 'slides/pages/07-faq.md' },
+      { argv: ['schema'], flag: 'validate', slide: 'slides/pages/07-faq.md' },
       { argv: ['status'], flag: '--change', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['status'], flag: '--json', slide: 'slides/pages/02-phases-documents.md' },
       { argv: ['validate'], flag: '--all', slide: 'slides/pages/03-setup-config.md' },
@@ -345,6 +375,138 @@ export const assertions = [
           return { status: 'mismatch', detail: 'context or rules from config.yaml no longer reach the tasks instructions' };
         }
         return { status: 'ok', detail: `instructions --json carries ${fmt(deckClaims.instructionsFields.value)}, context and rules from config.yaml` };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.late-archive-overwrites',
+    claim: deckClaims.lateArchiveOverwrites,
+    async run(ctx) {
+      // Two changes were written against the same main spec and modify the same
+      // requirement, keeping its scenario name. Archiving them one after the
+      // other is what "archive after merge" does on main.
+      const main = '# probe Specification\n\n## Purpose\nExists only so the sync tooling can exercise archive behaviour.\n\n## Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe.\n\n#### Scenario: Probe is called\n- **WHEN** the probe is called\n- **THEN** the system responds\n';
+      const modified = (how) => `## MODIFIED Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe ${how}.\n\n#### Scenario: Probe is called\n- **WHEN** the probe is called\n- **THEN** the system responds ${how}\n`;
+      const proposal = PROBE_PROPOSAL.replace('### New Capabilities', '### Modified Capabilities');
+      const change = (name, how) => ({
+        [`openspec/changes/${name}/proposal.md`]: proposal,
+        [`openspec/changes/${name}/specs/probe/spec.md`]: modified(how),
+        [`openspec/changes/${name}/tasks.md`]: PROBE_TASKS,
+        [`openspec/changes/${name}/.openspec.yaml`]: 'schema: spec-driven\n',
+      });
+      const dir = makeProject(ctx, { 'openspec/specs/probe/spec.md': main, ...change('first-change', 'quickly'), ...change('second-change', 'politely') });
+      try {
+        const first = ctx.run(['archive', 'first-change', '--yes'], dir);
+        if (first.code !== 0) return { status: 'unresolved', detail: `archiving the first change failed:\n      ${first.out.trim()}` };
+        const validate = ctx.run(['validate', 'second-change', '--strict'], dir);
+        const second = ctx.run(['archive', 'second-change', '--yes'], dir);
+        const spec = fs.readFileSync(path.join(dir, 'openspec/specs/probe/spec.md'), 'utf8');
+        const overwritten = second.code === 0 && validate.code === 0 && spec.includes('politely') && !spec.includes('quickly');
+        return overwritten
+          ? { status: 'ok', detail: 'the second archive replaced the first change\'s requirement without an error or warning exit' }
+          : { status: 'mismatch', detail: `OpenSpec now guards against it (validate exit ${validate.code}, archive exit ${second.code}) — the slide's warning may be obsolete:\n      ${second.out.trim()}` };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.init-language-line',
+    claim: deckClaims.languageLine,
+    async run(ctx) {
+      const fresh = ctx.sandbox();
+      const existing = makeProject(ctx);
+      try {
+        const init = ctx.run(['init', '--tools', 'none', '--no-animation', '--language', 'Deutsch'], fresh);
+        if (init.code !== 0) return { status: 'unresolved', detail: `init --language failed:\n      ${init.out.trim()}` };
+        const config = fs.readFileSync(path.join(fresh, 'openspec/config.yaml'), 'utf8');
+        if (!config.includes(deckClaims.languageLine.value)) return { status: 'mismatch', detail: `init --language no longer writes the quoted line; context now reads:\n      ${config.split('context:')[1]?.split('\n\n')[0]?.trim()}` };
+        const again = ctx.run(['init', '--tools', 'none', '--no-animation', '--language', 'Deutsch'], existing);
+        if (again.code === 0) return { status: 'mismatch', detail: 'init --language now changes an existing config.yaml — the notes say it refuses' };
+        if (!/does not overwrite/.test(again.out)) return { status: 'unresolved', detail: `init --language failed on an existing project, but not with the expected refusal:\n      ${again.out.trim()}` };
+        return { status: 'ok', detail: 'init --language writes the line verbatim and refuses an existing config.yaml' };
+      } finally {
+        dropProject(fresh);
+        dropProject(existing);
+      }
+    },
+  },
+  {
+    id: 'cli.skip-specs',
+    claim: deckClaims.skipSpecs,
+    async run(ctx) {
+      const proposal = '## Why\nThe probe service grew messy and needs a behaviour-neutral cleanup.\n\n## What Changes\n- Restructure internal code\n\n## Capabilities\n\n## Impact\n- Internal only\n';
+      const dir = makeProject(ctx, {
+        'openspec/changes/refactor/proposal.md': proposal,
+        'openspec/changes/refactor/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const without = ctx.run(['validate', 'refactor', '--strict'], dir);
+        fs.appendFileSync(path.join(dir, 'openspec/changes/refactor/.openspec.yaml'), 'skip_specs: true\n');
+        const withFlag = ctx.run(['validate', 'refactor', '--strict'], dir);
+        if (without.code === 0) return { status: 'mismatch', detail: 'validate now accepts a zero-delta change without skip_specs' };
+        if (!/skip_specs/.test(without.out)) return { status: 'unresolved', detail: `validate failed, but not over the missing deltas:\n      ${without.out.trim()}` };
+        if (withFlag.code !== 0) return { status: 'mismatch', detail: `validate rejects a zero-delta change despite skip_specs:\n      ${withFlag.out.trim()}` };
+        return { status: 'ok', detail: 'zero deltas: rejected without skip_specs, accepted with it' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.schema-fork-extra-artifact',
+    claim: deckClaims.schemaForkExtraArtifact,
+    async run(ctx) {
+      const dir = makeProject(ctx);
+      try {
+        const fork = ctx.run(['schema', 'fork', 'spec-driven', 'my-workflow'], dir);
+        if (fork.code !== 0) return { status: 'mismatch', detail: `schema fork failed:\n      ${fork.out.trim()}` };
+        const schemaPath = path.join(dir, 'openspec/schemas/my-workflow/schema.yaml');
+        let schema = fs.readFileSync(schemaPath, 'utf8');
+        const at = schema.indexOf('  - id: tasks');
+        if (at < 0) return { status: 'unresolved', detail: 'forked schema has no "  - id: tasks" block to insert before' };
+        const adr = '  - id: adr\n    generates: adr.md\n    description: Architecture decision record\n    template: adr.md\n    instruction: |\n      Record the key architecture decision of this change.\n    requires:\n      - design\n\n';
+        schema = schema.slice(0, at) + adr + schema.slice(at);
+        fs.writeFileSync(schemaPath, schema);
+        fs.writeFileSync(path.join(dir, 'openspec/schemas/my-workflow/templates/adr.md'), '## Decision\n');
+        const validate = ctx.run(['schema', 'validate', 'my-workflow'], dir);
+        if (validate.code !== 0) return { status: 'mismatch', detail: `schema validate rejects the extended fork:\n      ${validate.out.trim()}` };
+        const configPath = path.join(dir, 'openspec/config.yaml');
+        fs.writeFileSync(configPath, fs.readFileSync(configPath, 'utf8').replace(/^schema: .*$/m, 'schema: my-workflow'));
+        const created = ctx.run(['new', 'change', 'probe'], dir);
+        if (created.code !== 0) return { status: 'unresolved', detail: `new change failed:\n      ${created.out.trim()}` };
+        const status = ctx.run(['status', '--change', 'probe', '--json'], dir);
+        let ids;
+        try { ids = JSON.parse(status.out).artifacts.map((x) => x.id); } catch { return { status: 'unresolved', detail: `status --json unreadable:\n      ${status.out.trim().slice(0, 300)}` }; }
+        return ids.includes('adr')
+          ? { status: 'ok', detail: `forked schema with an extra artifact validates and drives status: ${fmt(ids)}` }
+          : { status: 'mismatch', detail: `status does not list the added artifact: ${fmt(ids)}` };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.nested-capability-path',
+    claim: deckClaims.nestedCapabilityPath,
+    async run(ctx) {
+      const dir = makeProject(ctx, {
+        'openspec/changes/probe/proposal.md': PROBE_PROPOSAL.replace('`probe`', '`billing/invoice-create`'),
+        'openspec/changes/probe/specs/billing/invoice-create/spec.md': PROBE_SPEC,
+        'openspec/changes/probe/tasks.md': PROBE_TASKS,
+        'openspec/changes/probe/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const validate = ctx.run(['validate', 'probe', '--strict'], dir);
+        if (validate.code !== 0) return { status: 'mismatch', detail: `validate rejects a nested capability path:\n      ${validate.out.trim()}` };
+        const archive = ctx.run(['archive', 'probe', '--yes'], dir);
+        const listed = ctx.run(['list', '--specs'], dir).out;
+        if (archive.code !== 0 || !fs.existsSync(path.join(dir, 'openspec/specs/billing/invoice-create/spec.md')) || !listed.includes('billing/invoice-create')) {
+          return { status: 'mismatch', detail: `nested capability did not archive or list as billing/invoice-create:\n      ${archive.out.trim()}` };
+        }
+        return { status: 'ok', detail: 'billing/invoice-create validates, archives to specs/billing/invoice-create/ and lists by its path' };
       } finally {
         dropProject(dir);
       }

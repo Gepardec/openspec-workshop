@@ -27,8 +27,8 @@ const S2 = 'slides/pages/02-phases-documents.md';
 const S3 = 'slides/pages/03-setup-config.md';
 const S4 = 'slides/pages/04-cli-navigator.md';
 const S5 = 'slides/pages/05-cli-agent-bridge.md';
-const S8 = 'slides/pages/08-hands-on.md';
-const S9 = 'slides/pages/09-discussion.md';
+const S6 = 'slides/pages/06-team.md';
+const S7 = 'slides/pages/07-faq.md';
 
 // Stores, references, working context and worksets ship together and their own
 // guide calls them beta: "command names, flags, file formats, and JSON output
@@ -52,14 +52,14 @@ export const coverage = {
   'cli.command:update': mentioned(S2), // Notes verify-Folie: nach `config profile` die Skills neu schreiben; dazu Profil-Folie S3
   'cli.command:change': skip('`change list` ist zugunsten von `openspec list` deprecated, `change show` dupliziert `show`'),
   'cli.command:spec': skip('liefert dieselben Daten wie `list --specs` und `show --type spec`, die die Folien zeigen'),
-  'cli.command:schema': skip('von OpenSpec als [experimental] markiert; im Workshop gibt es nur spec-driven'),
+  'cli.command:schema': mentioned(S7), // FAQ „Eigener Prozess“: fork + validate, ausdrücklich als experimental gekennzeichnet
   'cli.command:store': skip(BETA),
   'cli.command:doctor': skip(BETA),
   'cli.command:context': skip(BETA),
   'cli.command:workset': skip(BETA),
   'cli.command:feedback': skip('Feedback an die Maintainer, kein Inhalt für Teilnehmer'),
-  'cli.command:templates': skip('Debug-Hilfe für Schema-Autoren; im Workshop gibt es nur spec-driven'),
-  'cli.command:schemas': skip('listet verfügbare Schemas; im Workshop gibt es nur spec-driven'),
+  'cli.command:templates': skip('Debug-Hilfe für Schema-Autoren; die FAQ zeigt nur fork und validate'),
+  'cli.command:schemas': skip('listet verfügbare Schemas; die FAQ zeigt nur fork und validate'),
 
   // ------------------------------------------------------ CLI: subcommands
   'cli.subcommand:config profile': taught(S3),
@@ -80,10 +80,10 @@ export const coverage = {
   'cli.subcommand:spec show': skip('Entscheidung fällt bei cli.command:spec'),
   'cli.subcommand:spec list': skip('Entscheidung fällt bei cli.command:spec'),
   'cli.subcommand:spec validate': skip('Entscheidung fällt bei cli.command:spec'),
-  'cli.subcommand:schema which': skip('Entscheidung fällt bei cli.command:schema'),
-  'cli.subcommand:schema validate': skip('Entscheidung fällt bei cli.command:schema'),
-  'cli.subcommand:schema fork': skip('Entscheidung fällt bei cli.command:schema'),
-  'cli.subcommand:schema init': skip('Entscheidung fällt bei cli.command:schema'),
+  'cli.subcommand:schema which': skip('Debug-Hilfe zur Schema-Auflösung; die FAQ zeigt nur fork und validate'),
+  'cli.subcommand:schema validate': mentioned(S7),
+  'cli.subcommand:schema fork': mentioned(S7),
+  'cli.subcommand:schema init': skip('Schema von Grund auf; die FAQ empfiehlt den Fork des Standard-Schemas'),
   'cli.subcommand:store setup': skip('Entscheidung fällt bei cli.command:store'),
   'cli.subcommand:store register': skip('Entscheidung fällt bei cli.command:store'),
   'cli.subcommand:store unregister': skip('Entscheidung fällt bei cli.command:store'),
@@ -100,7 +100,7 @@ export const coverage = {
   'config.key:githubCopilot': skip('setzt `init`, wenn man den Copilot-Cloud-Agent wählt; reines Tool-Detail'),
 
   // ------------------------------------------- .openspec.yaml change metadata
-  'change-meta.key:skip_specs': taught(S2), // propose-Folie: ohne Verhaltensänderung entstehen keine Specs
+  'change-meta.key:skip_specs': taught(S7), // FAQ „Refactoring“; dazu die propose-Folie in S2
   'change-meta.key:schema': skip('schreibt die CLI selbst beim Anlegen des Change'),
   'change-meta.key:created': skip('schreibt die CLI selbst beim Anlegen des Change'),
   'change-meta.key:goal': skip('beschreibende Metadaten, ändern kein Verhalten'),
@@ -138,18 +138,18 @@ export const coverage = {
   'docs.page:reviewing-changes.md': taught(S2), // = Folien "Review-Time" / "Worauf achte ich beim Review?"
   'docs.page:existing-projects.md': taught(S1), // = Folie "Wächst mit dem Code"
   'docs.page:editing-changes.md': taught(S2), // „Der Plan lebt“ + „Update oder neuer Change?“
-  'docs.page:team-workflow.md': mentioned(S8), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
-  'docs.page:multi-language.md': mentioned(S3), // `init --language`; die Frage "können die Specs deutsch sein?" kommt sicher
+  'docs.page:team-workflow.md': taught(S6), // eigenes Kapitel; Archiv bewusst vor dem Merge statt danach
+  'docs.page:multi-language.md': taught(S7), // FAQ „Specs auf Deutsch?“ mit der Zeile, die init --language schreibt
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),
   'docs.page:overview.md': taught(S1), // quadrants „Lohnt sich der Mehraufwand?“ + Statement zum Ein-Zeilen-Fix
   'docs.page:community.md': skip('Links zu Discord/Contributing'),
   'docs.page:glossary.md': taught(S2), // Folie „Begriffe“: core nouns + inside a spec
-  'docs.page:faq.md': skip('Fragen kommen im Workshop live'),
+  'docs.page:faq.md': taught(S7), // eigenes FAQ-Kapitel; Modell- und Sprachfrage decken sich mit Upstream
   'docs.page:troubleshooting.md': skip('Support-Material, kein Foliencontent'),
   'docs.page:commands.md': skip('Referenz aller Slash-Commands; die fünf relevanten haben eigene Folien, opsx.md ist getrackt'),
   'docs.page:examples.md': skip('Rezepte von A bis Z — genau das sind die eigenen Übungen in exercises/'),
   'docs.page:migration-guide.md': skip('Umstieg vom Legacy-Workflow auf OPSX; Teilnehmer starten auf der grünen Wiese'),
-  'docs.page:stores-beta/user-guide.md': skip(BETA),
+  'docs.page:stores-beta/user-guide.md': mentioned(S7), // nur genannt, ausdrücklich als nicht stable, nicht gezeigt
 
   // ----------------------------------------------------------------- Skills
   'skill:openspec-propose': taught(S3),

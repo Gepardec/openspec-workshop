@@ -26,12 +26,16 @@ layout: default
 # Fragen zum Nachdenken
 
 - Wo stößt Spec-driven Development an seine Grenzen?
-- Wie geht man mit Spec-Änderungen mitten in der Implementierung um?
+- Was müsste in eurer `config.yaml` stehen — und bräuchtet ihr ein eigenes Schema?
 - Wie sieht der Review-Prozess aus, wenn die KI den Code geschrieben hat?
 - Wie fügt sich OpenSpec in euren bestehenden Workflow ein?
 
 <!--
-opsx:verify erwähnen (nur im custom-Profil)
+Die frühere Frage nach Spec-Änderungen mitten in der Implementierung
+beantworten jetzt „Der Plan lebt" und „Update oder neuer Change?" in Kapitel 2.
+
+Grenzen: Rückgriff auf das Statement am Ende von Kapitel 1 — beim
+Ein-Zeilen-Fix lohnt die Zeremonie nicht.
 -->
 
 ---
