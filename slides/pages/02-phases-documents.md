@@ -378,13 +378,41 @@ layout: default
 - Breaking Changes immer explizit als BREAKING markieren
 
 ---
-layout: default
-class: wrap-code
+layout: document
+source: proposal.md
+depth: 2
 ---
 
-# proposal.md — Praxisbeispiel
+# Proposal — Praxisbeispiel
 
-<<< @/public/artifacts/add-payroll-month-endpoints/proposal.md md {maxHeight:'330px'}
+::doc::
+
+## Why
+
+When the frontend loads, it needs to know which payroll month to display before fetching any data — this month is not always the current calendar month. The legacy backend has a `PayrollMonthProvider` concept for this, but it lives in the REST layer and has never been migrated to the hexagon. Without it, the hexagon's monthend and worktime endpoints cannot be used as the primary data source on initial page load.
+
+## What Changes
+
+- Add `GET /monthend/payroll-month/employee` endpoint — resolves the active payroll month for the authenticated employee based on their open monthend tasks
+- Add `GET /monthend/payroll-month/project-lead` endpoint — resolves the active payroll month for the authenticated project lead (always previous month)
+- Add `GetEmployeePayrollMonthUseCase` and `GetProjectLeadPayrollMonthUseCase` to the `monthend` application layer
+- Add corresponding service implementations in the `monthend` application layer
+
+## Capabilities
+
+### New Capabilities
+- `payroll-month`: Rules for resolving the active payroll month per actor role, and the REST endpoints that expose it
+
+### Modified Capabilities
+- `monthend-rest-api`: Two new endpoints added to the monthend REST surface
+
+## Impact
+
+- New endpoints in `com.gepardec.mega.hexagon.monthend`
+- New use cases and services in `monthend.application` and `monthend.application.port.inbound`
+- `MonthEndTaskRepository` (existing outbound port) used as-is — no new ports needed
+- No changes to the legacy backend
+- Frontend can replace the legacy `GET /worker/payrollMonth` call with `GET /monthend/payroll-month/employee`, and use the new project-lead endpoint as a new capability
 
 ---
 layout: default
@@ -399,23 +427,83 @@ layout: default
 - Jedes Szenario ist die direkte Vorlage für einen Akzeptanztest
 
 ---
-layout: two-cols-header
-class: wrap-code gepardec-text-sm
+layout: document
+source: specs/payroll-month/spec.md
+depth: 4
 ---
 
-# spec.md — Praxisbeispiel
+# Spec — Neue Capability
 
-::left::
+::doc::
 
-#### specs/payroll-month/spec.md
+## ADDED Requirements
 
-<<< @/public/artifacts/add-payroll-month-endpoints/specs/payroll-month/spec.md md {maxHeight:'300px'}
+### Requirement: Employee payroll month resolves based on open monthend tasks
+The system SHALL resolve the active payroll month for an authenticated employee by inspecting their open monthend tasks for the previous calendar month. If no open tasks exist for the previous month (including the case where no tasks have been generated yet), the system SHALL return the current calendar month. Otherwise, the system SHALL return the previous calendar month.
 
-::right::
+#### Scenario: Employee has open tasks in previous month
+- **WHEN** the authenticated employee has one or more open monthend tasks where they are the subject for the previous calendar month
+- **THEN** the resolved payroll month is the previous calendar month
 
-#### specs/monthend-rest-api/spec.md
+#### Scenario: Employee has no open tasks in previous month
+- **WHEN** the authenticated employee has no open monthend tasks where they are the subject for the previous calendar month
+- **THEN** the resolved payroll month is the current calendar month
 
-<<< @/public/artifacts/add-payroll-month-endpoints/specs/monthend-rest-api/spec.md md {maxHeight:'300px'}
+#### Scenario: No tasks have been generated yet for previous month
+- **WHEN** no monthend tasks exist at all for the previous calendar month for the authenticated employee
+- **THEN** the resolved payroll month is the current calendar month
+
+### Requirement: Project-lead payroll month always resolves to previous month
+The system SHALL resolve the active payroll month for an authenticated project lead as the previous calendar month, unconditionally. No task state is consulted.
+
+#### Scenario: Project lead requests their payroll month
+- **WHEN** an authenticated project lead requests the payroll month
+- **THEN** the resolved payroll month is the previous calendar month regardless of any task state
+
+### Requirement: Payroll month resolution does not apply a calendar-day gate
+The system SHALL NOT apply any day-of-month threshold when resolving the payroll month. The resolution SHALL depend only on task completion state (for employees) or be unconditional (for project leads).
+
+#### Scenario: Employee completes all tasks before the 14th
+- **WHEN** the authenticated employee has no open tasks for the previous month and today is before the 14th of the current month
+- **THEN** the resolved payroll month is still the current calendar month
+
+---
+layout: document
+source: specs/monthend-rest-api/spec.md
+depth: 4
+---
+
+# Spec — Geänderte Capability
+
+::doc::
+
+## ADDED Requirements
+
+### Requirement: Payroll month is available via role-suffixed endpoints
+The system SHALL provide two role-specific payroll month endpoints — one for the employee view and one for the project-lead view — so that actors holding both roles can independently request either resolved month. `GET /monthend/payroll-month/employee` SHALL return the resolved payroll month for the authenticated employee. `GET /monthend/payroll-month/project-lead` SHALL return the resolved payroll month for the authenticated project lead.
+
+#### Scenario: Employee retrieves their payroll month
+- **WHEN** an authenticated employee requests `GET /monthend/payroll-month/employee`
+- **THEN** the API returns the resolved payroll month as a `YearMonth` string in `yyyy-MM` format
+- **THEN** the response reflects the payroll month resolution rule defined in the `payroll-month` capability
+
+#### Scenario: Project lead retrieves their payroll month
+- **WHEN** an authenticated project lead requests `GET /monthend/payroll-month/project-lead`
+- **THEN** the API returns the resolved payroll month as a `YearMonth` string in `yyyy-MM` format
+- **THEN** the resolved month is the previous calendar month
+
+#### Scenario: Project lead retrieves employee payroll month for their own employee view
+- **WHEN** an authenticated project lead requests `GET /monthend/payroll-month/employee`
+- **THEN** the API applies the employee rule to the authenticated lead as the subject actor
+- **THEN** the response may differ from the result of `GET /monthend/payroll-month/project-lead`
+
+#### Scenario: Unauthenticated caller cannot access payroll month endpoints
+- **WHEN** an unauthenticated caller requests either payroll month endpoint
+- **THEN** the API rejects the request as unauthorized
+
+#### Scenario: Non-project-lead cannot access the project-lead payroll month endpoint
+- **WHEN** an authenticated actor without the project-lead role requests `GET /monthend/payroll-month/project-lead`
+- **THEN** the API rejects the request as forbidden
 
 ---
 layout: default
@@ -430,13 +518,73 @@ layout: default
 - „Open Questions" – vor Implementierung klären
 
 ---
-layout: default
-class: wrap-code
+layout: document
+source: design.md
 ---
 
-# design.md — Praxisbeispiel
+# Design — Praxisbeispiel
 
-<<< @/public/artifacts/add-payroll-month-endpoints/design.md md {maxHeight:'330px'}
+::doc::
+
+## Context
+
+The legacy backend resolves the "active payroll month" via a `PayrollMonthProvider` in the REST layer — a CDI-qualified bean injected into resource implementations. Two variants exist: one for employees (stateful check against step entries) and one for management/project-leads (always previous month). Neither has been migrated to the hexagon.
+
+The frontend calls a payroll-month endpoint on initial page load to anchor subsequent data fetches (monthend status overview, worktime). Without this in the hexagon, the frontend must continue to rely on the legacy backend for this bootstrapping step.
+
+## Goals / Non-Goals
+
+**Goals:**
+- Add `GET /monthend/payroll-month/employee` and `GET /monthend/payroll-month/project-lead` to the hexagon
+- Place all logic in the `monthend` bounded context (application layer)
+- Reuse the existing `MonthEndTaskRepository.findOpenEmployeeTasks` port without modification
+
+**Non-Goals:**
+- Migrating or touching the legacy `PayrollMonthProvider` — it stays as-is until the legacy is decommissioned
+- Adding payroll month resolution to the `worktime` context
+- Introducing any new outbound port
+
+## Decisions
+
+### Decision: payroll-month endpoints belong in the `monthend` context
+
+**Rationale**: The employee rule depends directly on monthend task state (`findOpenEmployeeTasks`). Placing it in `monthend` requires no cross-BC dependency. Placing it in `worktime` would require `worktime` to reach into `monthend` state via a new outbound port, violating the BC boundary.
+
+**Alternative considered**: `shared` context — rejected because the concept is not truly cross-cutting; only the frontend treats it as a bootstrapping step, not something multiple BCs need.
+
+### Decision: Two separate use cases — `GetEmployeePayrollMonthUseCase` and `GetProjectLeadPayrollMonthUseCase`
+
+**Rationale**: The rules are different in kind, not just parameterisation. The employee rule queries repository state; the project-lead rule is a pure date computation. Separate use cases keep each testable in isolation and leave a clear seam to evolve the project-lead rule independently in future.
+
+**Alternative considered**: Single use case with a role parameter — rejected because it merges two distinct policies into one place, complicating future changes to either rule.
+
+### Decision: Drop the legacy "14th of month" gate
+
+**Rationale**: The gate was a conservative buffer — "don't advance to the current month until we're halfway through it." The new rule is simpler and more correct: the month advances the moment the actor has no open tasks, regardless of calendar date. There is no business requirement for the gate in the hexagon.
+
+### Decision: Empty task list (no tasks generated yet) resolves to current month
+
+**Rationale**: `findOpenEmployeeTasks` returns an empty list both when all tasks are done and when no tasks exist yet. Treating both as "move forward" is consistent with the rule's intent: nothing is blocking the actor. This edge case only arises in the first month of use.
+
+### Decision: `MonthEndTaskRepository.findOpenEmployeeTasks` is sufficient — no new port
+
+**Rationale**: The existing query returns tasks that are open for a given employee and month. An empty result means all employee-owned tasks for that month are done. No new query or port is needed.
+
+### Decision: Endpoints are added to `MonthEndResource` as two new methods
+
+**Rationale**: Consistent with the existing pattern in `MonthEndResource`, which already hosts both employee and project-lead endpoints with per-method role guards. Dedicated sub-resources would add class overhead for two simple read methods.
+
+### Decision: Response is a plain `YearMonth` string (e.g. `"2026-03"`)
+
+**Rationale**: The only information the frontend needs is the resolved month. A wrapper object adds no value. Consistent with the worktime endpoints that accept `YearMonth` as a string path/query param.
+
+## Risks / Trade-offs
+
+- **Empty-task-list ambiguity** → The "no tasks yet" and "all tasks done" states are indistinguishable at the repository level and both resolve to current month. This is an accepted simplification; it only affects the first calendar month of use and the behaviour is reasonable in both cases.
+
+- **Project-lead rule is static** → Always returning previous month may need revision if business rules change (e.g. a project-lead gets the same smart-check as employees). The separate use case provides the right seam for this without touching the employee path.
+
+- **Legacy and hexagon endpoints coexist** → Both `GET /worker/payrollMonth` (legacy) and `GET /monthend/payroll-month/employee` will exist simultaneously until the legacy is decommissioned. This is intentional and not a risk — the frontend migrates when ready.
 
 ---
 layout: default
@@ -450,13 +598,46 @@ layout: default
 - Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
 
 ---
-layout: default
-class: wrap-code
+layout: document
+source: tasks.md
 ---
 
-# tasks.md — Praxisbeispiel
+# Tasks — Praxisbeispiel
 
-<<< @/public/artifacts/add-payroll-month-endpoints/tasks.md md {maxHeight:'330px'}
+::doc::
+
+## 1. OpenAPI Contract
+
+- [ ] 1.1 Add `GET /monthend/payroll-month/employee` path to `src/main/resources/openapi/paths/monthend.yaml` — response is a `string` in `yyyy-MM` format, requires `EMPLOYEE` role
+- [ ] 1.2 Add `GET /monthend/payroll-month/project-lead` path to `src/main/resources/openapi/paths/monthend.yaml` — response is a `string` in `yyyy-MM` format, requires `PROJECT_LEAD` role
+- [ ] 1.3 Verify generated Java API interface `MonthEndApi` includes the two new methods after build (`mvn generate-sources` or `mvn quarkus:dev`)
+
+## 2. Application Inbound Ports
+
+- [ ] 2.1 Create `GetEmployeePayrollMonthUseCase` interface in `monthend/application/port/inbound/` — method returns `YearMonth`, takes `UserId actorId`
+- [ ] 2.2 Create `GetProjectLeadPayrollMonthUseCase` interface in `monthend/application/port/inbound/` — method returns `YearMonth`, no parameters needed
+
+## 3. Application Services
+
+- [ ] 3.1 Create `GetEmployeePayrollMonthService` in `monthend/application/` — if `findOpenEmployeeTasks(actorId, prevMonth)` is empty return current month, else return previous month
+- [ ] 3.2 Create `GetProjectLeadPayrollMonthService` in `monthend/application/` — return `YearMonth.now().minusMonths(1)`
+
+## 4. REST Adapter
+
+- [ ] 4.1 Add `GetEmployeePayrollMonthUseCase` and `GetProjectLeadPayrollMonthUseCase` to `MonthEndResource` constructor injection
+- [ ] 4.2 Implement the `getEmployeePayrollMonth()` method in `MonthEndResource` — delegate to use case, annotate `@MegaRolesAllowed(Role.EMPLOYEE)`, return the resolved `YearMonth` as a string
+- [ ] 4.3 Implement the `getProjectLeadPayrollMonth()` method in `MonthEndResource` — delegate to use case, annotate `@MegaRolesAllowed(Role.PROJECT_LEAD)`, return the resolved `YearMonth` as a string
+
+## 5. Tests
+
+- [ ] 5.1 Unit test `GetEmployeePayrollMonthService`: open tasks in prev month → returns prev month
+- [ ] 5.2 Unit test `GetEmployeePayrollMonthService`: no open tasks in prev month → returns current month
+- [ ] 5.3 Unit test `GetEmployeePayrollMonthService`: no tasks at all for prev month → returns current month
+- [ ] 5.4 Unit test `GetProjectLeadPayrollMonthService`: always returns previous month
+- [ ] 5.5 REST integration test: `GET /monthend/payroll-month/employee` — authenticated employee with open tasks returns prev month string
+- [ ] 5.6 REST integration test: `GET /monthend/payroll-month/employee` — authenticated employee with no open tasks returns current month string
+- [ ] 5.7 REST integration test: `GET /monthend/payroll-month/project-lead` — authenticated project lead returns prev month string
+- [ ] 5.8 REST integration test: `GET /monthend/payroll-month/project-lead` — non-project-lead actor receives 403
 
 ---
 layout: two-cols-header
