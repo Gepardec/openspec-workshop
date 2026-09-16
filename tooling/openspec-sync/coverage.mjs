@@ -106,7 +106,7 @@ export const coverage = {
   'change-meta.key:goal': skip('beschreibende Metadaten, ändern kein Verhalten'),
   'change-meta.key:affected_areas': skip('beschreibende Metadaten, ändern kein Verhalten'),
   'change-meta.key:initiative': skip(BETA),
-  'change-meta.key:retire_capabilities': skip('Sonderfall beim Archivieren, wenn ein REMOVED die letzte Requirement einer Capability nimmt — zu tief für einen Tag'),
+  'change-meta.key:retire_capabilities': mentioned(S2), // Notes der Delta-Specs-Folie: letztes REMOVED einer Capability
 
   // ----------------------------------------------------------- Workflows
   'workflow:propose': taught(S2),

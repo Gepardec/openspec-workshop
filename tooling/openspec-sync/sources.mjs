@@ -54,6 +54,10 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Vier Artefakte (proposal/specs/design/tasks); Pfeile sind Abhängigkeiten, keine Sperren; tasks baut auf specs UND design auf; design.md nur, wenn der Change es braucht ("create only if")' },
       { slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec status zeigt 4 Artefakte, tasks blocked by design; blocked ist ein Hinweis, keine Sperre' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'spec.md: Faustregel "Implementierung kann sich ändern, ohne sichtbares Verhalten zu ändern → nicht in die Spec"; jedes Requirement mit SHALL/MUST und mind. einem Scenario' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Delta-Specs: REMOVED mit Reason und Migration; RENAMED mit FROM:/TO:; Purpose nur für neue Capabilities' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'MODIFIED richtig schreiben: 4-Schritte-Workflow, ganzer Block, Überschrift unverändert; neue Anliegen ohne Verhaltensänderung → ADDED' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'tasks.md: jeder Task nennt seine Verifikation; klein genug für eine Session' },
     ],
   },
   { id: 'schema.tpl.proposal', tier: 1, kind: 'github-file', path: 'schemas/spec-driven/templates/proposal.md',
@@ -132,7 +136,11 @@ export const sources = [
   { id: 'docs.explore', tier: 2, kind: 'github-file', path: 'docs/explore.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'explore ist kein Pflichtschritt, Denkpartner vor den Artefakten' }] },
   { id: 'docs.writing-specs', tier: 2, kind: 'github-file', path: 'docs/writing-specs.md',
-    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Delta-Specs: drei Sektionen ADDED/MODIFIED/REMOVED; Szenarien brauchen exakt 4 Hashtags' }] },
+    backs: [
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Delta-Specs-Tabelle: ADDED angehängt, MODIFIED ersetzt, REMOVED entfernt; Purpose für neue Capability; retire_capabilities beim letzten REMOVED (Notes)' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Gute Requirements, gute Scenarios: ein Verhalten pro SHALL, beobachtbar, Randfälle, Titel nennt den Fall, Tester-ohne-Code-Test; KI anleiten (Notes)' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Ein Change, eine Absicht: in einem Satz beschreibbar, vier Warnsignale, Aufwand folgt dem Risiko' },
+    ] },
   { id: 'docs.installation', tier: 2, kind: 'github-file', path: 'docs/installation.md',
     backs: [
       { slide: 'slides/pages/04-cli-navigator.md', claim: 'npm install -g @fission-ai/openspec@latest' },

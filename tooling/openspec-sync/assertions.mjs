@@ -50,6 +50,21 @@ export const deckClaims = {
     slide: 'slides/pages/02-phases-documents.md',
     text: 'Notes Begriffe: validate --strict verlangt ein englisches SHALL/MUST je Requirement; ohne --strict nur Warnung',
   },
+  deltaOperations: {
+    value: ['ADDED', 'MODIFIED', 'REMOVED', 'RENAMED'],
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'Delta-Specs-Tabelle: ADDED, MODIFIED, REMOVED, RENAMED (dazu ## Purpose)',
+  },
+  modifiedKeepsScenarios: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'MODIFIED richtig schreiben: fehlende Scenarios fangen validate und archive ab',
+  },
+  purposeSeedsNewSpec: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'Delta-Specs-Tabelle: ## Purpose wird Purpose der neuen Haupt-Spec',
+  },
   commandsUsed: {
     value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new'],
     slide: 'slides/pages/03-setup-config.md, 04-cli-navigator.md, 05-cli-agent-bridge.md',
@@ -210,7 +225,72 @@ export const assertions = [
         const strict = ctx.run(['validate', 'probe', '--strict'], dir);
         if (lenient.code !== 0) return { status: 'mismatch', detail: `validate without --strict now rejects a SHOULD-only requirement:\n      ${lenient.out.trim()}` };
         if (strict.code === 0) return { status: 'mismatch', detail: 'validate --strict now accepts a requirement without SHALL/MUST' };
+        if (!/SHALL or MUST/.test(strict.out)) return { status: 'unresolved', detail: `validate --strict failed, but not for the missing keyword:\n      ${strict.out.trim()}` };
         return { status: 'ok', detail: 'SHOULD-only requirement: warning without --strict, failure with --strict' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'schema.delta-operations',
+    claim: deckClaims.deltaOperations,
+    async run(ctx) {
+      const specs = artifactBlocks(await ctx.gh('schemas/spec-driven/schema.yaml')).find((b) => b.id === 'specs');
+      if (!specs) return { status: 'unresolved', detail: 'no artifact with id "specs"' };
+      const section = specs.block.split(/Delta operations/)[1]?.split(/\n\s*\n/)[0];
+      if (!section) return { status: 'unresolved', detail: 'no "Delta operations" list in the specs instruction' };
+      const ops = [...section.matchAll(/\*\*([A-Z]+) Requirements\*\*/g)].map((m) => m[1]);
+      if (!ops.length) return { status: 'unresolved', detail: 'could not read operation names from the "Delta operations" list' };
+      return eqSet(ops, deckClaims.deltaOperations.value)
+        ? { status: 'ok', detail: fmt(ops) }
+        : { status: 'mismatch', detail: `schema lists ${fmt(ops)}, slide table shows ${fmt(deckClaims.deltaOperations.value)}` };
+    },
+  },
+  {
+    id: 'cli.modified-keeps-scenarios',
+    claim: deckClaims.modifiedKeepsScenarios,
+    async run(ctx) {
+      const main = '# probe Specification\n\n## Purpose\nExists only so the sync tooling can exercise archive behaviour.\n\n## Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe.\n\n#### Scenario: First call\n- **WHEN** the probe is called\n- **THEN** the system responds\n\n#### Scenario: Second call\n- **WHEN** the probe is called again\n- **THEN** the system responds again\n';
+      const delta = '## MODIFIED Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe quickly.\n\n#### Scenario: First call\n- **WHEN** the probe is called\n- **THEN** the system responds quickly\n';
+      const dir = makeProject(ctx, {
+        'openspec/specs/probe/spec.md': main,
+        'openspec/changes/probe-update/proposal.md': PROBE_PROPOSAL.replace('### New Capabilities', '### Modified Capabilities'),
+        'openspec/changes/probe-update/specs/probe/spec.md': delta,
+        'openspec/changes/probe-update/tasks.md': PROBE_TASKS,
+        'openspec/changes/probe-update/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const validate = ctx.run(['validate', 'probe-update', '--strict'], dir);
+        const archive = ctx.run(['archive', 'probe-update', '--yes'], dir);
+        const kept = fs.readFileSync(path.join(dir, 'openspec/specs/probe/spec.md'), 'utf8').includes('Second call');
+        if (validate.code === 0) return { status: 'mismatch', detail: 'validate --strict now accepts a MODIFIED block that drops a scenario of the main spec' };
+        if (!/Second call/.test(validate.out)) return { status: 'unresolved', detail: `validate --strict failed, but not over the dropped scenario:\n      ${validate.out.trim()}` };
+        if (archive.code === 0 || !kept) return { status: 'mismatch', detail: 'archive now applies a MODIFIED block that drops a scenario of the main spec' };
+        if (!/Second call/.test(archive.out)) return { status: 'unresolved', detail: `archive failed, but not over the dropped scenario:\n      ${archive.out.trim()}` };
+        return { status: 'ok', detail: 'validate --strict and archive both refuse a MODIFIED block that drops a scenario' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.purpose-seeds-new-spec',
+    claim: deckClaims.purposeSeedsNewSpec,
+    async run(ctx) {
+      const dir = makeProject(ctx, {
+        'openspec/changes/probe/proposal.md': PROBE_PROPOSAL,
+        'openspec/changes/probe/specs/probe/spec.md': PROBE_SPEC,
+        'openspec/changes/probe/tasks.md': PROBE_TASKS,
+        'openspec/changes/probe/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const archive = ctx.run(['archive', 'probe', '--yes'], dir);
+        if (archive.code !== 0) return { status: 'unresolved', detail: `archive of the probe change failed:\n      ${archive.out.trim()}` };
+        const spec = fs.readFileSync(path.join(dir, 'openspec/specs/probe/spec.md'), 'utf8');
+        return spec.includes('Exists only so the sync tooling can exercise archive behaviour.')
+          ? { status: 'ok', detail: 'the delta\'s ## Purpose became the Purpose of the new main spec' }
+          : { status: 'mismatch', detail: 'archive no longer carries a new capability\'s ## Purpose into the main spec' };
       } finally {
         dropProject(dir);
       }

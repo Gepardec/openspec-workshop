@@ -567,11 +567,21 @@ layout: default
 
 # spec.md – Das WAS
 
-- Beschreibt, was das System können soll, nicht wie es implementiert wird
-- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN)
-- Szenarien brauchen exakt 4 Hashtags – sonst Silent Failure
-- Normative Sprache: SHALL / MUST – kein „should" oder „may"
-- Jedes Szenario ist die direkte Vorlage für einen Akzeptanztest
+- Beschreibt Verhalten, das man von außen prüfen kann — nicht, wie es gebaut ist
+- **Faustregel:** Kann sich etwas ändern, ohne dass sich sichtbares Verhalten ändert? Dann gehört es nicht in die Spec.
+- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) — exakt 4 Hashtags, sonst Silent Failure
+- Jedes Requirement braucht ein SHALL/MUST und mindestens ein Scenario
+- Jedes Scenario ist die Vorlage für einen Akzeptanztest
+
+<!--
+Nicht in die Spec: Klassen- und Funktionsnamen, Library- oder Framework-Wahl,
+Implementierungsschritte. Das gehört in design.md oder tasks.md.
+
+Rein in die Spec: beobachtbares Verhalten, Eingaben, Ausgaben, Fehlerfälle,
+externe Rahmenbedingungen wie Security oder Kompatibilität.
+
+Quelle: specs-Instruction in schema.yaml, docs/concepts.md.
+-->
 
 ---
 layout: document
@@ -651,6 +661,46 @@ The system SHALL provide two role-specific payroll month endpoints — one for t
 #### Scenario: Non-project-lead cannot access the project-lead payroll month endpoint
 - **WHEN** an authenticated actor without the project-lead role requests `GET /monthend/payroll-month/project-lead`
 - **THEN** the API rejects the request as forbidden
+
+---
+layout: two-cols-header
+---
+
+# Gute Requirements, gute Scenarios
+
+::left::
+
+### Requirement
+
+- Ein Verhalten, ein SHALL — drei „und außerdem“ sind drei Requirements
+- Beobachtbar: „zeigt einen Fehler, wenn der Name fehlt“ statt „validiert Eingaben sinnvoll“
+
+::right::
+
+### Scenario
+
+- Prüft sein Requirement, statt es umzuformulieren
+- Deckt die Fälle ab, in denen Bugs wohnen: leer, abgelaufen, doppelt
+- Der Titel nennt den Fall: „Pflichtfelder fehlen“ statt „Test 2“
+
+::bottom::
+
+**Test:** Könnte jemand, der den Code nie gesehen hat, prüfen, ob es erfüllt ist?
+
+<!--
+Im Praxisbeispiel ist „No tasks have been generated yet for previous month"
+genau so ein Randfall-Scenario. „Pflichtfelder fehlen" steht wörtlich in der
+Zoo-Spec animal-create.
+
+Vor dem Approve fragen: Welchen Fall würde ich am wenigsten kaputt sehen
+wollen — und hat er ein Scenario?
+
+Die KI gut anleiten: Absicht UND Grenze nennen („Filter nach Tierart — keine
+neue API"), wichtige Fälle beim Namen nennen, dann nachschärfen. Das
+Artefakt ist Markdown, es darf auch von Hand geändert werden.
+
+Quelle: docs/writing-specs.md.
+-->
 
 ---
 layout: default
@@ -739,10 +789,17 @@ layout: default
 
 # tasks.md – Die TODO-Liste
 
-- Bricht die Umsetzung in konkrete, verifizierbare Schritte herunter
+- Bricht die Umsetzung in konkrete Schritte herunter, jeder klein genug für eine Session
+- **Jeder Task nennt, wie er verifiziert wird** — Test, Befehl oder beobachtbares Verhalten
 - Pflichtformat: `- [ ] X.Y Task` – andere Formate werden nicht getrackt
 - Tasks mit nummerierten Überschriften gruppieren
 - Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
+
+<!--
+Die Verifikationsregel steht in der tasks-Instruction von schema.yaml. Das
+Praxisbeispiel ist älter: die meisten seiner Tasks nennen noch keine
+Verifikation.
+-->
 
 ---
 layout: document
@@ -787,36 +844,92 @@ source: tasks.md
 - [ ] 5.8 REST integration test: `GET /monthend/payroll-month/project-lead` — non-project-lead actor receives 403
 
 ---
-layout: two-cols-header
+layout: default
 class: gepardec-text-sm
 ---
 
 # Delta-Specs
 
-Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
+Im Change steht **nicht die ganze Spec** — nur, was sich ändert.
 
-::left::
+| Sektion | Wofür | Beim Archivieren |
+|---|---|---|
+| `ADDED` | neues Verhalten | wird angehängt |
+| `MODIFIED` | geändertes Verhalten, als vollständiger Block | ersetzt das Requirement |
+| `REMOVED` | wegfallendes Verhalten, mit **Reason** und **Migration** | wird entfernt |
+| `RENAMED` | nur ein neuer Name: `FROM:` / `TO:` | wird umbenannt |
+| `Purpose` | Zweck einer **neuen** Capability | wird Purpose der Haupt-Spec |
 
-```md
-## ADDED Requirements
-### Requirement: System SHALL allow deleting an animal
-#### Scenario: Tierpfleger löscht ein freies Tier
-- **WHEN** ein Tier nicht in einem Gehege ist
-- **THEN** lässt sich das Tier löschen
+Überschriften: `## ADDED Requirements` … `## RENAMED Requirements`, dazu `## Purpose`.
 
-## MODIFIED Requirements
-### Requirement: …
+<!--
+Die Delta-Form macht parallele Changes an derselben Capability überhaupt erst
+möglich. Wie das im Team aussieht, kommt im Team-Kapitel.
 
-## REMOVED Requirements
-### Requirement: …
-```
+Reihenfolge beim Archivieren: RENAMED, REMOVED, MODIFIED, ADDED. Wird ein
+Requirement umbenannt und geändert, verweist MODIFIED auf den neuen Namen.
 
-::right::
+Purpose: nur für eine neue Capability. Bei einer bestehenden Spec ignoriert
+archive ihn — dort ändert man den Purpose direkt in openspec/specs/. Ohne
+Purpose schreibt archive einen TBD-Platzhalter, den validate --strict anmahnt.
+Die Praxisbeispiel-Spec der neuen Capability ist älter als diese Regel.
 
-- **Drei Sektionen** – ADDED, MODIFIED, REMOVED
-- Verhindert Konflikte, wenn mehrere Changes denselben Bereich berühren
-- Beim `archive` werden Deltas in die Haupt-Specs unter `openspec/specs/` eingearbeitet
-- `openspec/specs/` ist der abgenommene Stand, `openspec/changes/*/specs/` sind offene Vorschläge
+Nimmt ein REMOVED das letzte Requirement einer Capability, bricht archive ab —
+außer die .openspec.yaml des Change setzt retire_capabilities: true. Dann
+löscht archive die Spec-Datei.
+-->
+
+---
+layout: default
+---
+
+# MODIFIED richtig schreiben
+
+Ein MODIFIED-Block ersetzt das Requirement vollständig — was nicht drinsteht, geht beim Archivieren verloren.
+
+1. Requirement in `openspec/specs/<capability>/spec.md` suchen
+2. Den **ganzen** Block kopieren: vom `### Requirement:` bis zum letzten Scenario
+3. Unter `## MODIFIED Requirements` einfügen und anpassen — Überschrift unverändert
+
+Kommt nur Neues dazu und Bestehendes bleibt gleich: **ADDED**, nicht MODIFIED.
+
+Fehlende Scenarios fangen `validate` und `archive` ab — fehlenden Text nicht.
+
+<!--
+Praxisbeispiel: monthend-rest-api ist eine geänderte Capability, bekommt aber
+ein ADDED Requirement — es kommt nur ein neues Verhalten dazu.
+
+Der Vier-Schritte-Ablauf steht wörtlich in der specs-Instruction von
+schema.yaml („MODIFIED requirements workflow").
+
+Beim Review hilft `openspec show <change> --diff`: zeigt pro MODIFIED-Requirement
+nur, was sich tatsächlich ändert.
+-->
+
+---
+layout: default
+---
+
+# Ein Change, eine Absicht
+
+**Faustregel:** Lässt sich der Change in einem Satz beschreiben? Wenn nicht — teilen.
+
+- Der Scope im Proposal liest sich wie eine Liste unabhängiger Features
+- Das Review dauert einen Nachmittag — also macht es niemand gründlich
+- Zwei Leute könnten nicht daran arbeiten, ohne sich in die Quere zu kommen
+- Die Hälfte der Tasks ließe sich für sich allein ausliefern
+
+Umgekehrt braucht ein Tippfehler-Fix keine drei Requirements. Der Aufwand folgt dem Risiko.
+
+<!--
+Upstream: der häufigste Fehler beim Schreiben ist kein schlecht formuliertes
+Requirement, sondern ein Change, der eigentlich drei sind.
+
+Gute Namen machen openspec list lesbar: add-animal-filter statt feature-1.
+
+Quelle: docs/writing-specs.md „Right-size the change", docs/workflows.md
+„Keep Changes Focused".
+-->
 
 ---
 layout: two-cols-header
