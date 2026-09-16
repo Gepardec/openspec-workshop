@@ -16,16 +16,24 @@
  *                NOT a pass. Go look, then fix the extractor here.
  */
 
+import fs from 'node:fs';
+import path from 'node:path';
+
 export const deckClaims = {
   artifactIds: {
     value: ['proposal', 'specs', 'design', 'tasks'],
     slide: 'slides/pages/02-phases-documents.md',
-    text: 'Alle vier Artefakte sind Pflicht',
+    text: 'Die vier Artefakte proposal, specs, design, tasks',
   },
   tasksRequires: {
     value: ['specs', 'design'],
     slide: 'slides/pages/02-phases-documents.md',
-    text: 'tasks ist blockiert, bis specs und design vorliegen',
+    text: 'tasks baut auf specs und design auf',
+  },
+  designNotEnforced: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md, 04-cli-navigator.md',
+    text: 'Abhängigkeiten, keine Sperren: design.md entsteht nur, wenn der Change es braucht; validate und archive laufen ohne',
   },
   coreWorkflows: {
     value: ['propose', 'explore', 'apply', 'update', 'sync', 'archive'],
@@ -90,6 +98,30 @@ function artifactBlocks(schema) {
   });
 }
 
+/**
+ * A throwaway OpenSpec project for behavioural assertions. `files` maps paths
+ * relative to the project root to their content. Returns the directory; the
+ * caller removes it with `dropProject`.
+ */
+function makeProject(ctx, files = {}) {
+  const dir = ctx.sandbox();
+  const init = ctx.run(['init', '--tools', 'none', '--no-animation'], dir);
+  if (init.code !== 0) throw new Error(`openspec init failed in sandbox: ${init.out.trim().split('\n').pop()}`);
+  for (const [rel, content] of Object.entries(files)) {
+    const file = path.join(dir, rel);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, content);
+  }
+  return dir;
+}
+
+const dropProject = (dir) => fs.rmSync(dir, { recursive: true, force: true });
+
+// A minimal change that passes `validate --strict`: one new capability.
+const PROBE_PROPOSAL = '## Why\nThe probe needs one real capability to validate against.\n\n## What Changes\n- Add the probe capability\n\n## Capabilities\n\n### New Capabilities\n- `probe`: A capability that exists only to exercise the CLI\n\n## Impact\n- None\n';
+const PROBE_SPEC = '## Purpose\nExists only so the sync tooling can exercise archive behaviour.\n\n## ADDED Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe.\n\n#### Scenario: Probe is called\n- **WHEN** the probe is called\n- **THEN** the system responds\n';
+const PROBE_TASKS = '## 1. Probe\n\n- [x] 1.1 Add the probe and verify it responds\n';
+
 function rootCommands(help) {
   const after = help.split(/^Commands:\s*$/m)[1];
   if (!after) return null;
@@ -128,6 +160,34 @@ export const assertions = [
       return eqSet(req, deckClaims.tasksRequires.value)
         ? { status: 'ok', detail: `tasks requires ${fmt(req)}` }
         : { status: 'mismatch', detail: `tasks requires ${fmt(req)}, slide claims ${fmt(deckClaims.tasksRequires.value)}` };
+    },
+  },
+  {
+    id: 'cli.design-not-enforced',
+    claim: deckClaims.designNotEnforced,
+    async run(ctx) {
+      const blocks = artifactBlocks(await ctx.gh('schemas/spec-driven/schema.yaml'));
+      const design = blocks.find((b) => b.id === 'design');
+      if (!design) return { status: 'unresolved', detail: 'no artifact with id "design"' };
+      if (!/create only if/i.test(design.block)) {
+        return { status: 'mismatch', detail: 'the design instruction no longer marks design.md as conditional ("create only if")' };
+      }
+      // Proposal, spec and checked-off tasks, deliberately no design.md.
+      const dir = makeProject(ctx, {
+        'openspec/changes/probe/proposal.md': PROBE_PROPOSAL,
+        'openspec/changes/probe/specs/probe/spec.md': PROBE_SPEC,
+        'openspec/changes/probe/tasks.md': PROBE_TASKS,
+        'openspec/changes/probe/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const validate = ctx.run(['validate', 'probe', '--strict'], dir);
+        if (validate.code !== 0) return { status: 'mismatch', detail: `validate --strict now rejects a change without design.md:\n      ${validate.out.trim()}` };
+        const archive = ctx.run(['archive', 'probe', '--yes'], dir);
+        if (archive.code !== 0) return { status: 'mismatch', detail: `archive now refuses a change without design.md:\n      ${archive.out.trim()}` };
+        return { status: 'ok', detail: 'design is conditional in schema.yaml; validate --strict and archive pass without design.md' };
+      } finally {
+        dropProject(dir);
+      }
     },
   },
   {

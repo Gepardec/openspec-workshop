@@ -230,7 +230,7 @@ layout: default
 
 # opsx:propose
 
-Alle vier Artefakte entstehen in einem Schritt.
+Alle Artefakte entstehen in einem Schritt.
 
 ```sh
 /opsx:propose   # interaktiv, oder direkt: /opsx:propose add-filter
@@ -248,12 +248,23 @@ flowchart LR
 
 </div>
 
-Alle vier Artefakte sind Pflicht — tasks ist blockiert, bis specs und design vorliegen.
+Die Pfeile sind Abhängigkeiten, keine Sperren — `design.md` entsteht nur, wenn der Change es braucht.
 
-Einzige Ausnahme: `skip_specs: true` in der `.openspec.yaml` des Change — für reine Refactorings, Tooling oder Doku, wo sich kein Verhalten ändert.
+Kein geändertes Verhalten (Refactoring, Tooling, Doku)? `skip_specs: true` in der `.openspec.yaml` des Change — dann entstehen keine Specs.
 
 <!--
 Die folgenden Slides schauen auf jedes Dokument einzeln.
+
+Upstream nennt das „enablers, not gates". Die CLI prüft die Pfeile nicht:
+validate, apply und archive laufen auch ohne design.md.
+
+Wann design.md sich lohnt, steht in der design-Instruction von schema.yaml:
+Änderung über mehrere Module oder Services, neues Architekturmuster, neue
+externe Abhängigkeit oder größere Datenmodell-Änderung, Security, Performance
+oder Migration, Unklarheiten, die vor dem Coden entschieden werden sollten.
+
+Im Übungs-Repo schreibt propose trotzdem immer ein design.md: die Skills dort
+wurden noch mit OpenSpec 1.3.1 erzeugt.
 -->
 
 ---

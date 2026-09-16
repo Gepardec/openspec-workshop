@@ -73,7 +73,12 @@ Progress: 2/4 artifacts complete
 [-] tasks (blocked by: design)
 ```
 
-Alle vier Artefakte sind Pflicht. `tasks` ist blockiert, bis sowohl `specs` als auch `design` vorhanden sind.
+`blocked` ist ein Hinweis, keine Sperre: `tasks` baut auf `specs` und `design` auf.
+
+<!--
+Braucht ein Change kein design.md, bleibt status bei 3/4 — validate und
+archive stört das nicht.
+-->
 
 ---
 layout: default

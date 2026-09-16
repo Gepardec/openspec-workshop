@@ -52,8 +52,8 @@ export const sources = [
     kind: 'github-file',
     path: 'schemas/spec-driven/schema.yaml',
     backs: [
-      { slide: 'slides/pages/02-phases-documents.md', claim: 'Vier Artefakte (proposal/specs/design/tasks); tasks ist blockiert, bis specs UND design vorliegen' },
-      { slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec status zeigt 4 Artefakte, tasks blocked by design' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Vier Artefakte (proposal/specs/design/tasks); Pfeile sind Abhängigkeiten, keine Sperren; tasks baut auf specs UND design auf; design.md nur, wenn der Change es braucht ("create only if")' },
+      { slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec status zeigt 4 Artefakte, tasks blocked by design; blocked ist ein Hinweis, keine Sperre' },
     ],
   },
   { id: 'schema.tpl.proposal', tier: 1, kind: 'github-file', path: 'schemas/spec-driven/templates/proposal.md',
@@ -134,7 +134,7 @@ export const sources = [
 
   // Generated agent-facing text. The deck quotes these verbatim on slides.
   { id: 'skill.propose', tier: 2, kind: 'github-file', path: 'skills/openspec-propose/SKILL.md',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Auszug aus .claude/commands/opsx/propose.md: "Create the change directory -> openspec new change", "Get the artifact build order -> openspec status --change --json"' }] },
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'propose darf design.md überspringen, wenn dessen Instruction es als bedingt markiert ("enablers, not gates")' }, { slide: 'slides/pages/03-setup-config.md', claim: 'Auszug aus .claude/commands/opsx/propose.md: "Create the change directory -> openspec new change", "Get the artifact build order -> openspec status --change --json"' }] },
   { id: 'skill.apply', tier: 2, kind: 'github-file', path: 'skills/openspec-apply-change/SKILL.md',
     backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'opsx:apply führt den Loop Task für Task aus, bis alle [x] sind' }] },
   { id: 'skill.archive', tier: 2, kind: 'github-file', path: 'skills/openspec-archive-change/SKILL.md',

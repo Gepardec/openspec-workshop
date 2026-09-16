@@ -100,7 +100,7 @@ export const coverage = {
   'config.key:githubCopilot': skip('setzt `init`, wenn man den Copilot-Cloud-Agent wählt; reines Tool-Detail'),
 
   // ------------------------------------------- .openspec.yaml change metadata
-  'change-meta.key:skip_specs': taught(S2), // die Ausnahme zu "alle vier Artefakte sind Pflicht"
+  'change-meta.key:skip_specs': taught(S2), // propose-Folie: ohne Verhaltensänderung entstehen keine Specs
   'change-meta.key:schema': skip('schreibt die CLI selbst beim Anlegen des Change'),
   'change-meta.key:created': skip('schreibt die CLI selbst beim Anlegen des Change'),
   'change-meta.key:goal': skip('beschreibende Metadaten, ändern kein Verhalten'),

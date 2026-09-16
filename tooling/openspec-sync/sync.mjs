@@ -111,6 +111,26 @@ function makeCtx(version) {
     },
     issue: (n) => ghIssue(n),
     tree: () => ghTree(tag),
+    // Behaviour, not help text: run the pinned CLI inside a throwaway project.
+    // `sandbox()` returns a fresh directory under .cache/; the caller removes it.
+    run: (argv, cwd) => {
+      bin ??= ensureCli(version);
+      try {
+        const out = execFileSync(bin, argv, {
+          cwd,
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'pipe'],
+          env: { ...process.env, NO_COLOR: '1', FORCE_COLOR: '0', OPENSPEC_TELEMETRY: '0', CI: '1' },
+        });
+        return { code: 0, out };
+      } catch (e) {
+        return { code: e.status ?? 1, out: `${e.stdout ?? ''}${e.stderr ?? ''}` };
+      }
+    },
+    sandbox: () => {
+      fs.mkdirSync(CACHE, { recursive: true });
+      return fs.mkdtempSync(path.join(CACHE, 'sandbox-'));
+    },
   };
 }
 
