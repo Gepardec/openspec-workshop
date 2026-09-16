@@ -36,6 +36,10 @@ src: ./pages/05-cli-agent-bridge.md
 ---
 
 ---
+src: ./pages/06-team.md
+---
+
+---
 src: ./pages/08-hands-on.md
 ---
 

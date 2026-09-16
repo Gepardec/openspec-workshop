@@ -27,6 +27,7 @@ const S2 = 'slides/pages/02-phases-documents.md';
 const S3 = 'slides/pages/03-setup-config.md';
 const S4 = 'slides/pages/04-cli-navigator.md';
 const S5 = 'slides/pages/05-cli-agent-bridge.md';
+const S6 = 'slides/pages/06-team.md';
 const S8 = 'slides/pages/08-hands-on.md';
 const S9 = 'slides/pages/09-discussion.md';
 
@@ -138,7 +139,7 @@ export const coverage = {
   'docs.page:reviewing-changes.md': taught(S2), // = Folien "Review-Time" / "Worauf achte ich beim Review?"
   'docs.page:existing-projects.md': taught(S1), // = Folie "Wächst mit dem Code"
   'docs.page:editing-changes.md': taught(S2), // „Der Plan lebt“ + „Update oder neuer Change?“
-  'docs.page:team-workflow.md': mentioned(S8), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
+  'docs.page:team-workflow.md': taught(S6), // eigenes Kapitel; Archiv bewusst vor dem Merge statt danach
   'docs.page:multi-language.md': mentioned(S3), // `init --language`; die Frage "können die Specs deutsch sein?" kommt sicher
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),
   'docs.page:overview.md': taught(S1), // quadrants „Lohnt sich der Mehraufwand?“ + Statement zum Ein-Zeilen-Fix

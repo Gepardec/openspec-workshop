@@ -18,6 +18,11 @@ layout: default
   - ... dem Archivieren des Changes - `feat: archive change "<change-name>"`
 - Change final? → alles zwischen _"propose change"_ und _"archive change"_ squashen
 
+<!--
+Dieselben drei Commits wie im Team-Kapitel: archiviert wird nach dem Review,
+vor dem Merge.
+-->
+
 ---
 layout: default
 class: gepardec-text-lg

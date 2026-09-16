@@ -80,6 +80,11 @@ export const deckClaims = {
     slide: 'slides/pages/05-cli-agent-bridge.md',
     text: 'Was steckt in den Instructions?: schema.yaml (instruction + template), config.yaml (context + rules), Pfade zu Abhängigkeiten',
   },
+  lateArchiveOverwrites: {
+    value: true,
+    slide: 'slides/pages/06-team.md',
+    text: 'Archivieren vor dem Merge: wird erst nach dem Merge archiviert, kann der zweite Change den ersten still überschreiben',
+  },
   commandsUsed: {
     value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new'],
     slide: 'slides/pages/03-setup-config.md, 04-cli-navigator.md, 05-cli-agent-bridge.md',
@@ -91,6 +96,7 @@ export const deckClaims = {
       { argv: ['list'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['show'], flag: '--type', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['show'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
+      { argv: ['show'], flag: '--diff', slide: 'slides/pages/06-team.md' },
       { argv: ['status'], flag: '--change', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['status'], flag: '--json', slide: 'slides/pages/02-phases-documents.md' },
       { argv: ['validate'], flag: '--all', slide: 'slides/pages/03-setup-config.md' },
@@ -345,6 +351,38 @@ export const assertions = [
           return { status: 'mismatch', detail: 'context or rules from config.yaml no longer reach the tasks instructions' };
         }
         return { status: 'ok', detail: `instructions --json carries ${fmt(deckClaims.instructionsFields.value)}, context and rules from config.yaml` };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.late-archive-overwrites',
+    claim: deckClaims.lateArchiveOverwrites,
+    async run(ctx) {
+      // Two changes were written against the same main spec and modify the same
+      // requirement, keeping its scenario name. Archiving them one after the
+      // other is what "archive after merge" does on main.
+      const main = '# probe Specification\n\n## Purpose\nExists only so the sync tooling can exercise archive behaviour.\n\n## Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe.\n\n#### Scenario: Probe is called\n- **WHEN** the probe is called\n- **THEN** the system responds\n';
+      const modified = (how) => `## MODIFIED Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe ${how}.\n\n#### Scenario: Probe is called\n- **WHEN** the probe is called\n- **THEN** the system responds ${how}\n`;
+      const proposal = PROBE_PROPOSAL.replace('### New Capabilities', '### Modified Capabilities');
+      const change = (name, how) => ({
+        [`openspec/changes/${name}/proposal.md`]: proposal,
+        [`openspec/changes/${name}/specs/probe/spec.md`]: modified(how),
+        [`openspec/changes/${name}/tasks.md`]: PROBE_TASKS,
+        [`openspec/changes/${name}/.openspec.yaml`]: 'schema: spec-driven\n',
+      });
+      const dir = makeProject(ctx, { 'openspec/specs/probe/spec.md': main, ...change('first-change', 'quickly'), ...change('second-change', 'politely') });
+      try {
+        const first = ctx.run(['archive', 'first-change', '--yes'], dir);
+        if (first.code !== 0) return { status: 'unresolved', detail: `archiving the first change failed:\n      ${first.out.trim()}` };
+        const validate = ctx.run(['validate', 'second-change', '--strict'], dir);
+        const second = ctx.run(['archive', 'second-change', '--yes'], dir);
+        const spec = fs.readFileSync(path.join(dir, 'openspec/specs/probe/spec.md'), 'utf8');
+        const overwritten = second.code === 0 && validate.code === 0 && spec.includes('politely') && !spec.includes('quickly');
+        return overwritten
+          ? { status: 'ok', detail: 'the second archive replaced the first change\'s requirement without an error or warning exit' }
+          : { status: 'mismatch', detail: `OpenSpec now guards against it (validate exit ${validate.code}, archive exit ${second.code}) — the slide's warning may be obsolete:\n      ${second.out.trim()}` };
       } finally {
         dropProject(dir);
       }

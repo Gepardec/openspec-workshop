@@ -166,6 +166,13 @@ export const sources = [
     ] },
   { id: 'docs.editing-changes', tier: 2, kind: 'github-file', path: 'docs/editing-changes.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Der Plan lebt: Artefakte jederzeit editierbar (Datei oder KI); apply liest den aktuellen Stand und macht beim ersten offenen Task weiter; Code von Hand geändert → vor archive in die richtige Richtung abgleichen' }] },
+  { id: 'docs.team-workflow', tier: 2, kind: 'github-file', path: 'docs/team-workflow.md',
+    backs: [
+      { slide: 'slides/pages/06-team.md', claim: 'OpenSpec fasst git nicht an; Change = Branch = PR; openspec/ wird committet' },
+      { slide: 'slides/pages/06-team.md', claim: 'Review im PR: proposal → Delta → Code-Diff; Ansatz am Proposal diskutieren' },
+      { slide: 'slides/pages/06-team.md', claim: 'Archivieren: Upstream nennt „nach dem Merge“ (empfohlen) und „im PR“ — Deck empfiehlt bewusst im PR, nach dem Code-Review' },
+      { slide: 'slides/pages/06-team.md', claim: 'Parallel: verschiedene Changes kein Problem; ein Change ein Owner; Konflikte in openspec/specs/ sind ein Feature' },
+    ] },
   { id: 'docs.existing-projects', tier: 2, kind: 'github-file', path: 'docs/existing-projects.md',
     backs: [{ slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' }] },
 
