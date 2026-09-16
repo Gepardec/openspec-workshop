@@ -9,54 +9,37 @@ variant: ascii
 layout: default
 ---
 
-# openspec list
+# Changes und Specs finden
 
-Alle aktiven Changes auf einen Blick.
+Was ist in Arbeit — und was gilt bereits?
 
 ```sh
-$ openspec list
+$ openspec list                          # aktive Changes
+$ openspec list --specs                  # Haupt-Specs
+$ openspec show us-06-dashboard          # proposal.md eines Change
+$ openspec show animal-list --type spec  # eine Haupt-Spec
 ```
 
 ```
 Changes:
-  us-06-dashboard     ✓ Complete    18m ago
-  us-07-filter        2/4 artifacts  3m ago
+  us-07-filter        No tasks      just now
+  us-06-dashboard     ✓ Complete    just now
 ```
 
-Mit `--specs` werden stattdessen alle Haupt-Specs aufgelistet. JSON-Output mit `--json`.
+Mit `--json` maschinenlesbar — so fragen Skills die CLI ab.
+
+<!--
+show gibt bei einem Change genau den Inhalt von proposal.md aus: Why, What
+Changes, Capabilities, Impact. Die übrigen Artefakte liest man direkt.
+
+`--type spec` braucht es, sobald ein Change und eine Spec gleich heißen.
+-->
 
 ---
 layout: default
 ---
 
-# openspec show
-
-Den Proposal-Inhalt eines Change lesen.
-
-```sh
-$ openspec show us-06-dashboard
-```
-
-Gibt den Inhalt von `proposal.md` aus — Why, What Changes, Capabilities und Impact.
-
-```md
-## Why
-The app currently lands the user directly on the animal list...
-
-## What Changes
-- Add a new `/dashboard` route as the default landing page
-...
-```
-
-Mit `--type spec <name>` zeigt der Befehl den Inhalt einer Haupt-Spec.
-
----
-layout: default
----
-
-# openspec status
-
-Welche Artefakte sind vollständig — und was ist noch blockiert?
+# Wo steht ein Change?
 
 ```sh
 $ openspec status --change us-07-filter
@@ -65,30 +48,23 @@ $ openspec status --change us-07-filter
 ```
 Change: us-07-filter
 Schema: spec-driven
+Change root: …/openspec/changes/us-07-filter
 Progress: 2/4 artifacts complete
 
 [x] proposal
-[ ] design
 [x] specs
+[ ] design
 [-] tasks (blocked by: design)
 ```
 
-Alle vier Artefakte sind Pflicht. `tasks` ist blockiert, bis sowohl `specs` als auch `design` vorhanden sind.
+`blocked` ist ein Hinweis, keine Sperre: `tasks` baut auf `specs` und `design` auf.
 
----
-layout: default
-class: gepardec-text-lg
----
+`openspec view`: interaktives Dashboard aller Changes und Specs, ohne JSON.
 
-# openspec view
-
-Interaktives Terminal-Dashboard.
-
-```sh
-$ openspec view
-```
-
-Übersicht aller Changes und Specs im Projekt. Nur für den menschlichen Einsatz im Terminal — kein JSON-Output.
+<!--
+Braucht ein Change kein design.md, bleibt status bei 3/4 — validate und
+archive stört das nicht.
+-->
 
 ---
 layout: default

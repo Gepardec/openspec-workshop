@@ -125,8 +125,10 @@ layout: default
 
 # CLI vs. Slash-Command
 
-- **Slash-Command** = Playbook für den Agenten
-- **CLI** = State-Machine, die der Agent abfragt
+Die CLI ist der Motor, Slash-Commands und Skills sind das Lenkrad.
+
+- **CLI** = Motor und State-Machine: kennt Ordner, Abhängigkeiten, Delta-Merge — überall gleich
+- **Slash-Command / Skill** = Playbook für den Agenten, pro Tool im passenden Format
 
 Auszug aus `.claude/commands/opsx/propose.md`:
 
@@ -140,6 +142,14 @@ Auszug aus `.claude/commands/opsx/propose.md`:
 ```
 
 Der Agent ruft also durchgehend `openspec`-Befehle auf.
+
+<!--
+Motor und Lenkrad: das Bild stammt aus docs/how-commands-work.md. Der Motor ist
+bei jedem Tool derselbe, das Lenkrad sieht in Claude Code, Cursor oder Codex
+anders aus — openspec init schreibt für jedes gewählte Tool das passende.
+
+Deshalb funktioniert derselbe Workflow mit 30+ Tools.
+-->
 
 ---
 layout: default

@@ -16,16 +16,24 @@
  *                NOT a pass. Go look, then fix the extractor here.
  */
 
+import fs from 'node:fs';
+import path from 'node:path';
+
 export const deckClaims = {
   artifactIds: {
     value: ['proposal', 'specs', 'design', 'tasks'],
     slide: 'slides/pages/02-phases-documents.md',
-    text: 'Alle vier Artefakte sind Pflicht',
+    text: 'Die vier Artefakte proposal, specs, design, tasks',
   },
   tasksRequires: {
     value: ['specs', 'design'],
     slide: 'slides/pages/02-phases-documents.md',
-    text: 'tasks ist blockiert, bis specs und design vorliegen',
+    text: 'tasks baut auf specs und design auf',
+  },
+  designNotEnforced: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md, 04-cli-navigator.md',
+    text: 'Abhängigkeiten, keine Sperren: design.md entsteht nur, wenn der Change es braucht; validate und archive laufen ohne',
   },
   coreWorkflows: {
     value: ['propose', 'explore', 'apply', 'update', 'sync', 'archive'],
@@ -37,6 +45,41 @@ export const deckClaims = {
     slide: 'slides/pages/03-setup-config.md',
     text: 'Profil-Tabelle nennt die Profile "core" und "custom"',
   },
+  strictRequiresShall: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'Notes Begriffe: validate --strict verlangt ein englisches SHALL/MUST je Requirement; ohne --strict nur Warnung',
+  },
+  deltaOperations: {
+    value: ['ADDED', 'MODIFIED', 'REMOVED', 'RENAMED'],
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'Delta-Specs-Tabelle: ADDED, MODIFIED, REMOVED, RENAMED (dazu ## Purpose)',
+  },
+  modifiedKeepsScenarios: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'MODIFIED richtig schreiben: fehlende Scenarios fangen validate und archive ab',
+  },
+  purposeSeedsNewSpec: {
+    value: true,
+    slide: 'slides/pages/02-phases-documents.md',
+    text: 'Delta-Specs-Tabelle: ## Purpose wird Purpose der neuen Haupt-Spec',
+  },
+  schemaTasksExcerpt: {
+    value: [
+      '- Each task MUST be a checkbox: `- [ ] X.Y Task description`',
+      '- Tasks should be small enough to complete in one session',
+      '- Each task MUST state how to verify completion (a test, command,',
+      'observable behavior, or delivered artifact). …', // trailing " …" = the line continues upstream
+    ],
+    slide: 'slides/pages/05-cli-agent-bridge.md',
+    text: 'schema.yaml – der Styleguide: wörtlicher Auszug aus der tasks-Instruction',
+  },
+  instructionsFields: {
+    value: ['instruction', 'template', 'context', 'rules', 'dependencies'],
+    slide: 'slides/pages/05-cli-agent-bridge.md',
+    text: 'Was steckt in den Instructions?: schema.yaml (instruction + template), config.yaml (context + rules), Pfade zu Abhängigkeiten',
+  },
   commandsUsed: {
     value: ['init', 'list', 'show', 'status', 'view', 'validate', 'archive', 'instructions', 'config', 'completion', 'new'],
     slide: 'slides/pages/03-setup-config.md, 04-cli-navigator.md, 05-cli-agent-bridge.md',
@@ -47,7 +90,9 @@ export const deckClaims = {
       { argv: ['list'], flag: '--specs', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['list'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['show'], flag: '--type', slide: 'slides/pages/04-cli-navigator.md' },
+      { argv: ['show'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['status'], flag: '--change', slide: 'slides/pages/04-cli-navigator.md' },
+      { argv: ['status'], flag: '--json', slide: 'slides/pages/02-phases-documents.md' },
       { argv: ['validate'], flag: '--all', slide: 'slides/pages/03-setup-config.md' },
       { argv: ['validate'], flag: '--strict', slide: 'slides/pages/03-setup-config.md' },
       { argv: ['instructions'], flag: '--change', slide: 'slides/pages/05-cli-agent-bridge.md' },
@@ -90,6 +135,30 @@ function artifactBlocks(schema) {
   });
 }
 
+/**
+ * A throwaway OpenSpec project for behavioural assertions. `files` maps paths
+ * relative to the project root to their content. Returns the directory; the
+ * caller removes it with `dropProject`.
+ */
+function makeProject(ctx, files = {}) {
+  const dir = ctx.sandbox();
+  const init = ctx.run(['init', '--tools', 'none', '--no-animation'], dir);
+  if (init.code !== 0) throw new Error(`openspec init failed in sandbox: ${init.out.trim().split('\n').pop()}`);
+  for (const [rel, content] of Object.entries(files)) {
+    const file = path.join(dir, rel);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, content);
+  }
+  return dir;
+}
+
+const dropProject = (dir) => fs.rmSync(dir, { recursive: true, force: true });
+
+// A minimal change that passes `validate --strict`: one new capability.
+const PROBE_PROPOSAL = '## Why\nThe probe needs one real capability to validate against.\n\n## What Changes\n- Add the probe capability\n\n## Capabilities\n\n### New Capabilities\n- `probe`: A capability that exists only to exercise the CLI\n\n## Impact\n- None\n';
+const PROBE_SPEC = '## Purpose\nExists only so the sync tooling can exercise archive behaviour.\n\n## ADDED Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe.\n\n#### Scenario: Probe is called\n- **WHEN** the probe is called\n- **THEN** the system responds\n';
+const PROBE_TASKS = '## 1. Probe\n\n- [x] 1.1 Add the probe and verify it responds\n';
+
 function rootCommands(help) {
   const after = help.split(/^Commands:\s*$/m)[1];
   if (!after) return null;
@@ -128,6 +197,157 @@ export const assertions = [
       return eqSet(req, deckClaims.tasksRequires.value)
         ? { status: 'ok', detail: `tasks requires ${fmt(req)}` }
         : { status: 'mismatch', detail: `tasks requires ${fmt(req)}, slide claims ${fmt(deckClaims.tasksRequires.value)}` };
+    },
+  },
+  {
+    id: 'cli.design-not-enforced',
+    claim: deckClaims.designNotEnforced,
+    async run(ctx) {
+      const blocks = artifactBlocks(await ctx.gh('schemas/spec-driven/schema.yaml'));
+      const design = blocks.find((b) => b.id === 'design');
+      if (!design) return { status: 'unresolved', detail: 'no artifact with id "design"' };
+      if (!/create only if/i.test(design.block)) {
+        return { status: 'mismatch', detail: 'the design instruction no longer marks design.md as conditional ("create only if")' };
+      }
+      // Proposal, spec and checked-off tasks, deliberately no design.md.
+      const dir = makeProject(ctx, {
+        'openspec/changes/probe/proposal.md': PROBE_PROPOSAL,
+        'openspec/changes/probe/specs/probe/spec.md': PROBE_SPEC,
+        'openspec/changes/probe/tasks.md': PROBE_TASKS,
+        'openspec/changes/probe/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const validate = ctx.run(['validate', 'probe', '--strict'], dir);
+        if (validate.code !== 0) return { status: 'mismatch', detail: `validate --strict now rejects a change without design.md:\n      ${validate.out.trim()}` };
+        const archive = ctx.run(['archive', 'probe', '--yes'], dir);
+        if (archive.code !== 0) return { status: 'mismatch', detail: `archive now refuses a change without design.md:\n      ${archive.out.trim()}` };
+        return { status: 'ok', detail: 'design is conditional in schema.yaml; validate --strict and archive pass without design.md' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.strict-requires-shall',
+    claim: deckClaims.strictRequiresShall,
+    async run(ctx) {
+      const dir = makeProject(ctx, {
+        'openspec/changes/probe/proposal.md': PROBE_PROPOSAL,
+        'openspec/changes/probe/specs/probe/spec.md': PROBE_SPEC.replace('The system SHALL respond', 'The system should respond'),
+        'openspec/changes/probe/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const lenient = ctx.run(['validate', 'probe'], dir);
+        const strict = ctx.run(['validate', 'probe', '--strict'], dir);
+        if (lenient.code !== 0) return { status: 'mismatch', detail: `validate without --strict now rejects a SHOULD-only requirement:\n      ${lenient.out.trim()}` };
+        if (strict.code === 0) return { status: 'mismatch', detail: 'validate --strict now accepts a requirement without SHALL/MUST' };
+        if (!/SHALL or MUST/.test(strict.out)) return { status: 'unresolved', detail: `validate --strict failed, but not for the missing keyword:\n      ${strict.out.trim()}` };
+        return { status: 'ok', detail: 'SHOULD-only requirement: warning without --strict, failure with --strict' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'schema.delta-operations',
+    claim: deckClaims.deltaOperations,
+    async run(ctx) {
+      const specs = artifactBlocks(await ctx.gh('schemas/spec-driven/schema.yaml')).find((b) => b.id === 'specs');
+      if (!specs) return { status: 'unresolved', detail: 'no artifact with id "specs"' };
+      const section = specs.block.split(/Delta operations/)[1]?.split(/\n\s*\n/)[0];
+      if (!section) return { status: 'unresolved', detail: 'no "Delta operations" list in the specs instruction' };
+      const ops = [...section.matchAll(/\*\*([A-Z]+) Requirements\*\*/g)].map((m) => m[1]);
+      if (!ops.length) return { status: 'unresolved', detail: 'could not read operation names from the "Delta operations" list' };
+      return eqSet(ops, deckClaims.deltaOperations.value)
+        ? { status: 'ok', detail: fmt(ops) }
+        : { status: 'mismatch', detail: `schema lists ${fmt(ops)}, slide table shows ${fmt(deckClaims.deltaOperations.value)}` };
+    },
+  },
+  {
+    id: 'cli.modified-keeps-scenarios',
+    claim: deckClaims.modifiedKeepsScenarios,
+    async run(ctx) {
+      const main = '# probe Specification\n\n## Purpose\nExists only so the sync tooling can exercise archive behaviour.\n\n## Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe.\n\n#### Scenario: First call\n- **WHEN** the probe is called\n- **THEN** the system responds\n\n#### Scenario: Second call\n- **WHEN** the probe is called again\n- **THEN** the system responds again\n';
+      const delta = '## MODIFIED Requirements\n\n### Requirement: Probe responds\nThe system SHALL respond to the probe quickly.\n\n#### Scenario: First call\n- **WHEN** the probe is called\n- **THEN** the system responds quickly\n';
+      const dir = makeProject(ctx, {
+        'openspec/specs/probe/spec.md': main,
+        'openspec/changes/probe-update/proposal.md': PROBE_PROPOSAL.replace('### New Capabilities', '### Modified Capabilities'),
+        'openspec/changes/probe-update/specs/probe/spec.md': delta,
+        'openspec/changes/probe-update/tasks.md': PROBE_TASKS,
+        'openspec/changes/probe-update/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const validate = ctx.run(['validate', 'probe-update', '--strict'], dir);
+        const archive = ctx.run(['archive', 'probe-update', '--yes'], dir);
+        const kept = fs.readFileSync(path.join(dir, 'openspec/specs/probe/spec.md'), 'utf8').includes('Second call');
+        if (validate.code === 0) return { status: 'mismatch', detail: 'validate --strict now accepts a MODIFIED block that drops a scenario of the main spec' };
+        if (!/Second call/.test(validate.out)) return { status: 'unresolved', detail: `validate --strict failed, but not over the dropped scenario:\n      ${validate.out.trim()}` };
+        if (archive.code === 0 || !kept) return { status: 'mismatch', detail: 'archive now applies a MODIFIED block that drops a scenario of the main spec' };
+        if (!/Second call/.test(archive.out)) return { status: 'unresolved', detail: `archive failed, but not over the dropped scenario:\n      ${archive.out.trim()}` };
+        return { status: 'ok', detail: 'validate --strict and archive both refuse a MODIFIED block that drops a scenario' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'cli.purpose-seeds-new-spec',
+    claim: deckClaims.purposeSeedsNewSpec,
+    async run(ctx) {
+      const dir = makeProject(ctx, {
+        'openspec/changes/probe/proposal.md': PROBE_PROPOSAL,
+        'openspec/changes/probe/specs/probe/spec.md': PROBE_SPEC,
+        'openspec/changes/probe/tasks.md': PROBE_TASKS,
+        'openspec/changes/probe/.openspec.yaml': 'schema: spec-driven\n',
+      });
+      try {
+        const archive = ctx.run(['archive', 'probe', '--yes'], dir);
+        if (archive.code !== 0) return { status: 'unresolved', detail: `archive of the probe change failed:\n      ${archive.out.trim()}` };
+        const spec = fs.readFileSync(path.join(dir, 'openspec/specs/probe/spec.md'), 'utf8');
+        return spec.includes('Exists only so the sync tooling can exercise archive behaviour.')
+          ? { status: 'ok', detail: 'the delta\'s ## Purpose became the Purpose of the new main spec' }
+          : { status: 'mismatch', detail: 'archive no longer carries a new capability\'s ## Purpose into the main spec' };
+      } finally {
+        dropProject(dir);
+      }
+    },
+  },
+  {
+    id: 'schema.tasks-excerpt',
+    claim: deckClaims.schemaTasksExcerpt,
+    async run(ctx) {
+      const tasks = artifactBlocks(await ctx.gh('schemas/spec-driven/schema.yaml')).find((b) => b.id === 'tasks');
+      if (!tasks) return { status: 'unresolved', detail: 'no artifact with id "tasks"' };
+      const lines = tasks.block.split(/\r?\n/).map((l) => l.trim());
+      const quoted = (l) => (l.endsWith(' …') ? lines.some((x) => x.startsWith(l.slice(0, -2))) : lines.includes(l));
+      const missing = deckClaims.schemaTasksExcerpt.value.filter((l) => !quoted(l));
+      return missing.length === 0
+        ? { status: 'ok', detail: 'all quoted lines are verbatim in the tasks instruction' }
+        : { status: 'mismatch', detail: `no longer verbatim in schema.yaml:\n      - ${missing.join('\n      - ')}` };
+    },
+  },
+  {
+    id: 'cli.instructions-fields',
+    claim: deckClaims.instructionsFields,
+    async run(ctx) {
+      const dir = makeProject(ctx, {
+        'openspec/config.yaml': 'schema: spec-driven\ncontext: |\n  Probe context\nrules:\n  tasks:\n    - Probe rule\n',
+      });
+      try {
+        const created = ctx.run(['new', 'change', 'probe'], dir);
+        if (created.code !== 0) return { status: 'unresolved', detail: `could not create the probe change:\n      ${created.out.trim()}` };
+        const out = ctx.run(['instructions', 'tasks', '--change', 'probe', '--json'], dir);
+        let json;
+        try { json = JSON.parse(out.out); } catch { return { status: 'unresolved', detail: `instructions --json did not return JSON:\n      ${out.out.trim().slice(0, 300)}` }; }
+        const missing = deckClaims.instructionsFields.value.filter((k) => !(k in json));
+        if (missing.length) return { status: 'mismatch', detail: `instructions --json no longer has ${fmt(missing)}` };
+        if (!String(json.context).includes('Probe context') || !JSON.stringify(json.rules).includes('Probe rule')) {
+          return { status: 'mismatch', detail: 'context or rules from config.yaml no longer reach the tasks instructions' };
+        }
+        return { status: 'ok', detail: `instructions --json carries ${fmt(deckClaims.instructionsFields.value)}, context and rules from config.yaml` };
+      } finally {
+        dropProject(dir);
+      }
     },
   },
   {

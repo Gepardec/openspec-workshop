@@ -63,13 +63,13 @@ layout: quadrants
 
 ### Versionierung gratis
 
-Jede Spec-Änderung ist ein Commit.
+Jede Spec-Änderung ist ein Commit — mit Pull Request, Diff und Approval.
 
 ::two::
 
-### Reviewbar wie Code
+### In Griffweite des Agenten
 
-Pull Request, Diff, Approval.
+Der Agent liest die Spec direkt aus dem Repo — kein Copy-Paste aus dem Wiki.
 
 ::three::
 
@@ -109,3 +109,54 @@ OpenSpec ist nicht an einen KI-Agenten gekoppelt.
 - Skills + Slash-Commands werden tool-spezifisch generiert
 - Die Spec selbst ist plain Markdown – jeder Agent (und jeder Mensch) kann sie lesen
 - Projektkonventionen werden zentral in der OpenSpec-Konfiguration definiert
+
+---
+layout: quadrants
+---
+
+# Lohnt sich der Mehraufwand?
+
+::one::
+
+### Fehler früh abfangen
+
+Ein Missverständnis im Proposal zu korrigieren kostet nichts. Nach 400 Zeilen generiertem Code schon.
+
+::two::
+
+### Das Warum bleibt
+
+Sechs Monate später erklärt der archivierte Change, warum das System so funktioniert — dir und der nächsten Agenten-Session.
+
+::three::
+
+### Review ohne Chat-Archäologie
+
+Proposal lesen, Deltas überfliegen, Tasks prüfen. Ein Ordner, ein Change.
+
+::four::
+
+### Kein Big-Bang-Dokumentieren
+
+Deltas beschreiben nur die Änderung — auch in einer Anwendung mit 50.000 Zeilen.
+
+<!--
+OpenSpec kostet einen Schritt: erst ein kurzer Plan, dann Code. Diese Folie
+beantwortet die Frage, die skeptische Teams an dieser Stelle stellen.
+
+Quelle: docs/overview.md, „Why this is worth the small overhead".
+-->
+
+---
+layout: statement
+---
+
+# Für den Ein-Zeilen-Fix lohnt es sich nicht — überall, wo **Einigkeit zählt**, schon.
+
+<!--
+Upstream sagt das selbst: für einen wirklich trivialen Fix zahlt sich die
+Zeremonie nicht aus. Einigkeit zählt aber fast immer, sobald ein Agent
+selbstbewusst baut, was man ihm vage aufgetragen hat.
+
+Rückgriff in der Diskussion: „Wo stößt Spec-driven Development an seine Grenzen?"
+-->

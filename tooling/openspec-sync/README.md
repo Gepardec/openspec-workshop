@@ -78,6 +78,10 @@ which release the deck was last true for.
   `sources.mjs`. One line.
 - **New mechanically checkable claim** → add it to `deckClaims` and write an
   assertion. This is where the leverage is; prefer it over a tier-2 source.
+- **Claim about behaviour, not surface** ("archive works without design.md") →
+  build a throwaway project with `makeProject(ctx, files)` in `assertions.mjs`
+  and drive the pinned CLI through `ctx.run(argv, dir)`. Help text cannot prove
+  what a command accepts; running it can.
 - **Report says NEW under section 3** → add a verdict to `coverage.mjs`. If you
   decide to teach it, that usually also means a new source in `sources.mjs`.
 - **Report says GONE** → upstream removed something you had ruled on. Check the

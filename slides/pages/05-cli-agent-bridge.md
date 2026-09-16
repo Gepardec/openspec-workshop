@@ -41,12 +41,82 @@ layout: default
 
 ```mermaid {scale: 0.75}
 flowchart LR
-    T["Template\n(schema)"] --> IP
-    C["config.yaml\nKonventionen"] --> IP
+    S["schema.yaml\ninstruction + template"] --> IP
+    C["config.yaml\ncontext + rules"] --> IP
     A["Pfade zu\nAbhängigkeiten"] --> IP["instructions\nPrompt"]
 ```
 
 Der Agent liest die referenzierten Dateien selbst — `instructions` zeigt ihm nur, wo er schauen soll.
+
+<!--
+Die Felder heißen im JSON genau so: instruction, template, context, rules,
+dependencies. rules erscheinen nur für das Artefakt, für das sie in
+config.yaml stehen; context erscheint bei jedem.
+-->
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Wer bestimmt was?
+
+Vier Schichten, jede mit genau einer Aufgabe.
+
+| Schicht | Wo | Bestimmt |
+|---|---|---|
+| Lenkrad | Skill / Slash-Command | Vorgehen und Guardrails: welcher Befehl wann, wann nachfragen |
+| Motor | `openspec` CLI | Zustand, Reihenfolge der Artefakte, Delta-Merge |
+| Schema | `schema.yaml` + Templates | Form und Schreibregeln jedes Artefakts |
+| Projekt | `openspec/config.yaml` | Kontext und Regeln eures Teams |
+
+Eigene Regeln gehören in `config.yaml`. Eine eigene Artefakt-Form braucht ein eigenes Schema.
+
+<!--
+Die Regeln aus Kapitel 2 — Delta-Operationen, MODIFIED-Workflow, Verifikation
+pro Task, wann design.md sich lohnt — stammen nicht aus dem Skill, sondern aus
+der instruction des Schemas. Der Skill sagt nur, wann welches Artefakt dran ist.
+
+Ein eigenes Schema: openspec schema fork, siehe FAQ.
+-->
+
+---
+layout: default
+---
+
+# schema.yaml – der Styleguide
+
+Hier stehen die Schreibregeln aus Kapitel 2.
+
+```yaml {5-8|9-11}
+- id: tasks
+  template: tasks.md
+  instruction: |
+    …
+    - Each task MUST be a checkbox: `- [ ] X.Y Task description`
+    - Tasks should be small enough to complete in one session
+    - Each task MUST state how to verify completion (a test, command,
+      observable behavior, or delivered artifact). …
+  requires:
+    - specs
+    - design
+```
+
+`instruction`: wie der Agent schreibt · `template`: die Form · `requires`: die Reihenfolge
+
+<!--
+Auszug aus dem Standard-Schema spec-driven (schemas/spec-driven/schema.yaml).
+
+Zuerst markiert: die Schreibregeln, die auf der tasks.md-Folie standen.
+Nach dem Klick: die Abhängigkeit aus dem propose-Diagramm.
+
+Genauso steht in der specs-Instruction der MODIFIED-Workflow samt „Common
+pitfall", und in der design-Instruction, wann design.md sich lohnt und welche
+Open Questions erlaubt sind.
+
+Selbst nachlesen: openspec instructions tasks --change <change> --json, Feld
+instruction.
+-->
 
 ---
 layout: default

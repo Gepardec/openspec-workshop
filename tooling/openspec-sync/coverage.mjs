@@ -27,8 +27,8 @@ const S2 = 'slides/pages/02-phases-documents.md';
 const S3 = 'slides/pages/03-setup-config.md';
 const S4 = 'slides/pages/04-cli-navigator.md';
 const S5 = 'slides/pages/05-cli-agent-bridge.md';
-const S6 = 'slides/pages/06-hands-on.md';
-const S7 = 'slides/pages/07-discussion.md';
+const S8 = 'slides/pages/08-hands-on.md';
+const S9 = 'slides/pages/09-discussion.md';
 
 // Stores, references, working context and worksets ship together and their own
 // guide calls them beta: "command names, flags, file formats, and JSON output
@@ -49,7 +49,7 @@ export const coverage = {
   'cli.command:config': taught(S3),
   'cli.command:completion': taught(S4),
   'cli.command:new': taught(S2),
-  'cli.command:update': mentioned(S3), // frischt generierte Skills/Commands nach einem CLI-Upgrade auf
+  'cli.command:update': mentioned(S2), // Notes verify-Folie: nach `config profile` die Skills neu schreiben; dazu Profil-Folie S3
   'cli.command:change': skip('`change list` ist zugunsten von `openspec list` deprecated, `change show` dupliziert `show`'),
   'cli.command:spec': skip('liefert dieselben Daten wie `list --specs` und `show --type spec`, die die Folien zeigen'),
   'cli.command:schema': skip('von OpenSpec als [experimental] markiert; im Workshop gibt es nur spec-driven'),
@@ -100,13 +100,13 @@ export const coverage = {
   'config.key:githubCopilot': skip('setzt `init`, wenn man den Copilot-Cloud-Agent wählt; reines Tool-Detail'),
 
   // ------------------------------------------- .openspec.yaml change metadata
-  'change-meta.key:skip_specs': taught(S2), // die Ausnahme zu "alle vier Artefakte sind Pflicht"
+  'change-meta.key:skip_specs': taught(S2), // propose-Folie: ohne Verhaltensänderung entstehen keine Specs
   'change-meta.key:schema': skip('schreibt die CLI selbst beim Anlegen des Change'),
   'change-meta.key:created': skip('schreibt die CLI selbst beim Anlegen des Change'),
   'change-meta.key:goal': skip('beschreibende Metadaten, ändern kein Verhalten'),
   'change-meta.key:affected_areas': skip('beschreibende Metadaten, ändern kein Verhalten'),
   'change-meta.key:initiative': skip(BETA),
-  'change-meta.key:retire_capabilities': skip('Sonderfall beim Archivieren, wenn ein REMOVED die letzte Requirement einer Capability nimmt — zu tief für einen Tag'),
+  'change-meta.key:retire_capabilities': mentioned(S2), // Notes der Delta-Specs-Folie: letztes REMOVED einer Capability
 
   // ----------------------------------------------------------- Workflows
   'workflow:propose': taught(S2),
@@ -118,14 +118,14 @@ export const coverage = {
   'workflow:new': mentioned(S3),
   'workflow:continue': mentioned(S3),
   'workflow:ff': mentioned(S3),
-  'workflow:verify': mentioned(S3),
+  'workflow:verify': taught(S2), // Folie „opsx:verify – der Abgleich“
   'workflow:bulk-archive': mentioned(S3),
   'workflow:onboard': mentioned(S3),
 
   // -------------------------------------------------- Dokumentationsseiten
   'docs.page:agent-contract.md': taught(S5),
   'docs.page:cli.md': taught(S4),
-  'docs.page:concepts.md': taught(S1),
+  'docs.page:concepts.md': taught(S2), // „Was gilt — und was kommt“, dazu brownfield/Deltas in S1
   'docs.page:customization.md': taught(S3),
   'docs.page:explore.md': taught(S2),
   'docs.page:getting-started.md': taught(S3),
@@ -137,13 +137,13 @@ export const coverage = {
   'docs.page:how-commands-work.md': taught(S3), // = Folie "CLI vs. Slash-Command"
   'docs.page:reviewing-changes.md': taught(S2), // = Folien "Review-Time" / "Worauf achte ich beim Review?"
   'docs.page:existing-projects.md': taught(S1), // = Folie "Wächst mit dem Code"
-  'docs.page:editing-changes.md': mentioned(S2), // "neue Runde drehen" deckt den Kern, die Seite ist breiter
-  'docs.page:team-workflow.md': mentioned(S6), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
+  'docs.page:editing-changes.md': taught(S2), // „Der Plan lebt“ + „Update oder neuer Change?“
+  'docs.page:team-workflow.md': mentioned(S8), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
   'docs.page:multi-language.md': mentioned(S3), // `init --language`; die Frage "können die Specs deutsch sein?" kommt sicher
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),
-  'docs.page:overview.md': skip('Einstiegsseite; Inhalt steckt in concepts.md'),
+  'docs.page:overview.md': taught(S1), // quadrants „Lohnt sich der Mehraufwand?“ + Statement zum Ein-Zeilen-Fix
   'docs.page:community.md': skip('Links zu Discord/Contributing'),
-  'docs.page:glossary.md': skip('Begriffe werden im Vortrag ohnehin eingeführt'),
+  'docs.page:glossary.md': taught(S2), // Folie „Begriffe“: core nouns + inside a spec
   'docs.page:faq.md': skip('Fragen kommen im Workshop live'),
   'docs.page:troubleshooting.md': skip('Support-Material, kein Foliencontent'),
   'docs.page:commands.md': skip('Referenz aller Slash-Commands; die fünf relevanten haben eigene Folien, opsx.md ist getrackt'),
@@ -158,7 +158,7 @@ export const coverage = {
   'skill:openspec-explore': taught(S2),
   'skill:openspec-sync-specs': taught(S2),
   'skill:openspec-update-change': taught(S2), // benannt auf der Review-Time-Folie
-  'skill:openspec-verify-change': mentioned(S7),
+  'skill:openspec-verify-change': taught(S2), // was verify prüft und welche CLI-Aufrufe es nutzt
   'skill:openspec-new-change': mentioned(S3),
   'skill:openspec-continue-change': mentioned(S3),
   'skill:openspec-ff-change': mentioned(S3),

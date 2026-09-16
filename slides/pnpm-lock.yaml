@@ -4,13 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@gepardec/slidev-theme-gepardec': link:../../slidev-theme-gepardec
+
 importers:
 
   .:
     dependencies:
       '@gepardec/slidev-theme-gepardec':
-        specifier: ^2.1.0
-        version: 2.1.0(@devframes/hub@0.9.19(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.19(cac@7.0.0)(srvx@1.0.4)))(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(rolldown@1.2.8)(srvx@1.0.4)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.2)(jiti@2.7.0)(yaml@2.9.1))
+        specifier: link:../../slidev-theme-gepardec
+        version: link:../../slidev-theme-gepardec
       '@slidev/cli':
         specifier: ^52.19.1
         version: 52.19.1(@devframes/hub@0.9.19(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.19(cac@7.0.0)(srvx@1.0.4)))(@nuxt/kit@3.21.11)(@oxc-project/types@0.149.0)(@types/markdown-it@14.2.0)(@types/node@22.20.2)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.4)(vite@8.3.0(@types/node@22.20.2)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(hono@4.13.7)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.131.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.8)(srvx@1.0.4)
@@ -247,10 +250,6 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
-
-  '@gepardec/slidev-theme-gepardec@2.1.0':
-    resolution: {integrity: sha512-Pw1Xv8WsRWJcO/MvdAmRqjB2LOxxTa+flKRkkkHtc6YHE4k1NBlv/5arqPhZFErIWbatwXtJb7AKeKc3Szf6cg==}
-    engines: {node: '>=20.12.0', slidev: '>=0.49.0'}
 
   '@hono/node-server@1.19.17':
     resolution: {integrity: sha512-dSneS5qhiauZWGDCeK4o695Xd9nUNjviSZCMQrj10eetr8Uln1ucn6bbphOM6UynAMMtNIzZNSpL9vnASJwrPQ==}
@@ -3265,41 +3264,6 @@ snapshots:
       '@floating-ui/utils': 0.2.12
 
   '@floating-ui/utils@0.2.12': {}
-
-  '@gepardec/slidev-theme-gepardec@2.1.0(@devframes/hub@0.9.19(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.19(cac@7.0.0)(srvx@1.0.4)))(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(rolldown@1.2.8)(srvx@1.0.4)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.2)(jiti@2.7.0)(yaml@2.9.1))':
-    dependencies:
-      '@slidev/types': 52.19.1(@devframes/hub@0.9.19(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.19(cac@7.0.0)(srvx@1.0.4)))(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(rolldown@1.2.8)(srvx@1.0.4)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.2)(jiti@2.7.0)(yaml@2.9.1))
-    transitivePeerDependencies:
-      - '@devframes/hub'
-      - '@devframes/hub-ui'
-      - '@farmfe/core'
-      - '@modelcontextprotocol/client'
-      - '@modelcontextprotocol/server'
-      - '@nuxt/kit'
-      - '@pinia/colada'
-      - '@rspack/core'
-      - '@svgr/core'
-      - '@svgx/core'
-      - '@unocss/astro'
-      - '@unocss/postcss'
-      - '@unocss/webpack'
-      - '@vue/compiler-sfc'
-      - bun-types-no-globals
-      - cac
-      - crossws
-      - esbuild
-      - markdown-it-async
-      - ocache
-      - pinia
-      - rolldown
-      - rollup
-      - srvx
-      - supports-color
-      - svelte
-      - typescript
-      - unloader
-      - vite
-      - webpack
 
   '@hono/node-server@1.19.17(hono@4.13.7)':
     dependencies:
