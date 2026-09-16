@@ -192,6 +192,11 @@
       "hash": "7c067bebac7045752437e78a0cc4f0ba46b21648e97acc5229ac44a245e8c0c7",
       "tier": 2
     },
+    "skill.verify": {
+      "kind": "github-file",
+      "hash": "02a810d3fb265df77ec22891cef25f0510fe0f07b608d837ba361debced81840",
+      "tier": 2
+    },
     "skill.sync": {
       "kind": "github-file",
       "hash": "daf0e52b188a3010e1f494427eb6807fb61a68df653403759b2be54a3aa37e74",
@@ -202,9 +207,9 @@
       "hash": "9ee8f441710b821904e830879b6c9a1360ce0899d9536673ad1545387a9860e3",
       "tier": 4
     },
-    "skill.verify": {
+    "docs.editing-changes": {
       "kind": "github-file",
-      "hash": "02a810d3fb265df77ec22891cef25f0510fe0f07b608d837ba361debced81840",
+      "hash": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
       "tier": 2
     }
   }

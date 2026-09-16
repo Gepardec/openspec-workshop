@@ -1086,6 +1086,73 @@ Quelle: skills/openspec-verify-change/SKILL.md, docs/workflows.md „Verify".
 -->
 
 ---
+layout: default
+class: gepardec-text-sm
+---
+
+# Der Plan lebt
+
+Jedes Artefakt ist Markdown und jederzeit änderbar — es gibt keine gesperrte Planungsphase.
+
+| Situation | Was tun |
+|---|---|
+| Der Plan passt nicht, `apply` läuft noch nicht | `/opsx:update` — oder die Datei direkt ändern |
+| Während `apply` zeigt sich: der Ansatz trägt nicht | Artefakt ändern, weiter mit `/opsx:apply` — es liest den aktuellen Stand |
+| Jemand hat Code von Hand geändert | Vor `archive` abgleichen: stimmt der Code, die Delta-Spec nachziehen — stimmt die Spec, den Code |
+
+`tasks.md` darf sich ändern — `apply` macht beim ersten offenen Task weiter.
+
+<!--
+Warum vor archive abgleichen: beim Archivieren wird die Spec zur Wahrheit.
+Sie soll dann beschreiben, was der Code wirklich tut. /opsx:verify zeigt, wo
+beides auseinanderläuft.
+
+tasks.md ist eine lebende Checkliste: Tasks dürfen dazukommen, wegfallen oder
+umsortiert werden.
+
+Artefakte sind der lebende Plan, kein unterschriebener Vertrag. Der Agent
+arbeitet immer mit dem aktuellen Inhalt der Dateien.
+
+Quelle: docs/editing-changes.md.
+-->
+
+---
+layout: two-cols-header
+---
+
+# Update oder neuer Change?
+
+::left::
+
+### Update, wenn …
+
+- dieselbe Absicht besser umgesetzt wird
+- der Scope schrumpft — MVP zuerst
+- die Codebasis anders ist als gedacht
+
+::right::
+
+### Neuer Change, wenn …
+
+- sich die Absicht grundlegend ändert
+- der Scope zu anderer Arbeit wächst
+- der ursprüngliche Change für sich fertig werden kann
+
+::bottom::
+
+Abrechnungsmonat: die 14.-Regel doch behalten → **Update**. Projektleiter bekommen denselben Check wie Mitarbeiter → **neuer Change**.
+
+<!--
+Das zweite Beispiel steht schon im Design des Praxisbeispiels: unter Risks
+heißt es, die Projektleiter-Regel müsse vielleicht einmal denselben
+„smart-check" bekommen. Der Change ist ohne das fertig — also ein eigener.
+
+Scope schrumpft: Update, archivieren, und der Rest wird ein neuer Change.
+
+Quelle: docs/workflows.md „When to Update vs Start Fresh", docs/editing-changes.md.
+-->
+
+---
 layout: conversation
 session: "archive · mega-backend"
 ---

@@ -137,7 +137,7 @@ export const coverage = {
   'docs.page:how-commands-work.md': taught(S3), // = Folie "CLI vs. Slash-Command"
   'docs.page:reviewing-changes.md': taught(S2), // = Folien "Review-Time" / "Worauf achte ich beim Review?"
   'docs.page:existing-projects.md': taught(S1), // = Folie "Wächst mit dem Code"
-  'docs.page:editing-changes.md': mentioned(S2), // "neue Runde drehen" deckt den Kern, die Seite ist breiter
+  'docs.page:editing-changes.md': taught(S2), // „Der Plan lebt“ + „Update oder neuer Change?“
   'docs.page:team-workflow.md': mentioned(S8), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
   'docs.page:multi-language.md': mentioned(S3), // `init --language`; die Frage "können die Specs deutsch sein?" kommt sicher
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),

@@ -131,6 +131,7 @@ export const sources = [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Ablauf explore -> propose -> apply -> sync -> archive' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Aktionen, keine Phasen: Review <-> update, apply -> update bei Planänderung, verify optional; explore optional' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'verify blockiert archive nicht; nur im custom-Profil (config profile + update)' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Update oder neuer Change: gleiche Absicht / Scope schrumpft / Codebasis anders → Update; Absicht geändert / Scope zu anderer Arbeit / Original für sich fertig → neuer Change' },
     ] },
   { id: 'docs.opsx', tier: 2, kind: 'github-file', path: 'docs/opsx.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Die /opsx:* Slash-Commands und was sie tun' }] },
@@ -155,6 +156,8 @@ export const sources = [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Zwei Review-Momente: Plan nach propose, Code nach apply mit /opsx:verify; das erste spart am meisten und wird am häufigsten ausgelassen' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Review-Tabelle: Leitfrage pro Artefakt, Warnsignale (Scope gewachsen, Requirement ohne Scenario, Task ohne Requirement, …), „was fehlt?“' },
     ] },
+  { id: 'docs.editing-changes', tier: 2, kind: 'github-file', path: 'docs/editing-changes.md',
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Der Plan lebt: Artefakte jederzeit editierbar (Datei oder KI); apply liest den aktuellen Stand und macht beim ersten offenen Task weiter; Code von Hand geändert → vor archive in die richtige Richtung abgleichen' }] },
   { id: 'docs.existing-projects', tier: 2, kind: 'github-file', path: 'docs/existing-projects.md',
     backs: [{ slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' }] },
 
