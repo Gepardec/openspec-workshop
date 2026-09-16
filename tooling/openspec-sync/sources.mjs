@@ -112,6 +112,11 @@ export const sources = [
     ] },
   { id: 'docs.concepts', tier: 2, kind: 'github-file', path: 'docs/concepts.md',
     backs: [{ slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first; Deltas ADDED/MODIFIED/REMOVED; Archivieren arbeitet Deltas in Haupt-Specs ein' }] },
+  { id: 'docs.overview', tier: 2, kind: 'github-file', path: 'docs/overview.md',
+    backs: [
+      { slide: 'slides/pages/01-what-why.md', claim: 'Lohnt sich der Mehraufwand? Fehler früh abfangen (400 Zeilen), Das Warum bleibt (sechs Monate), Review ohne Chat-Archäologie, kein Big-Bang-Dokumentieren (50.000 Zeilen)' },
+      { slide: 'slides/pages/01-what-why.md', claim: 'Statement: beim trivialen Ein-Zeilen-Fix lohnt die Zeremonie nicht; überall, wo Einigkeit zählt, schon' },
+    ] },
   { id: 'docs.workflows', tier: 2, kind: 'github-file', path: 'docs/workflows.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Ablauf explore -> propose -> apply -> sync -> archive' }] },
   { id: 'docs.opsx', tier: 2, kind: 'github-file', path: 'docs/opsx.md',

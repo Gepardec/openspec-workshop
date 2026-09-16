@@ -141,7 +141,7 @@ export const coverage = {
   'docs.page:team-workflow.md': mentioned(S8), // Commit-Konventionen auf der Best-Practices-Folie, Teamfrage in der Diskussion
   'docs.page:multi-language.md': mentioned(S3), // `init --language`; die Frage "können die Specs deutsch sein?" kommt sicher
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),
-  'docs.page:overview.md': skip('Einstiegsseite; Inhalt steckt in concepts.md'),
+  'docs.page:overview.md': taught(S1), // quadrants „Lohnt sich der Mehraufwand?“ + Statement zum Ein-Zeilen-Fix
   'docs.page:community.md': skip('Links zu Discord/Contributing'),
   'docs.page:glossary.md': skip('Begriffe werden im Vortrag ohnehin eingeführt'),
   'docs.page:faq.md': skip('Fragen kommen im Workshop live'),

@@ -1,6 +1,6 @@
 {
   "openspec_version": "1.13.0",
-  "reconciled_at": "2026-09-15",
+  "reconciled_at": "2026-09-16",
   "sources": {
     "schema.spec-driven": {
       "kind": "github-file",
@@ -147,6 +147,21 @@
       "hash": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
       "tier": 2
     },
+    "docs.how-commands-work": {
+      "kind": "github-file",
+      "hash": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "tier": 2
+    },
+    "docs.reviewing-changes": {
+      "kind": "github-file",
+      "hash": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "tier": 2
+    },
+    "docs.existing-projects": {
+      "kind": "github-file",
+      "hash": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "tier": 2
+    },
     "skill.propose": {
       "kind": "github-file",
       "hash": "af5f5e5ebd0c8af4ee4498e1f7a3e196395030507e51adb52393e181f73a5c89",
@@ -177,19 +192,9 @@
       "hash": "9ee8f441710b821904e830879b6c9a1360ce0899d9536673ad1545387a9860e3",
       "tier": 4
     },
-    "docs.how-commands-work": {
+    "docs.overview": {
       "kind": "github-file",
-      "hash": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
-      "tier": 2
-    },
-    "docs.reviewing-changes": {
-      "kind": "github-file",
-      "hash": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
-      "tier": 2
-    },
-    "docs.existing-projects": {
-      "kind": "github-file",
-      "hash": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "hash": "d8ada6f4b9b95452df489553c886639dceac30f207d454cf48a280d15393c47e",
       "tier": 2
     }
   }
