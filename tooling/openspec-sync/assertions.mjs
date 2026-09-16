@@ -55,6 +55,7 @@ export const deckClaims = {
       { argv: ['list'], flag: '--specs', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['list'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['show'], flag: '--type', slide: 'slides/pages/04-cli-navigator.md' },
+      { argv: ['show'], flag: '--json', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['status'], flag: '--change', slide: 'slides/pages/04-cli-navigator.md' },
       { argv: ['validate'], flag: '--all', slide: 'slides/pages/03-setup-config.md' },
       { argv: ['validate'], flag: '--strict', slide: 'slides/pages/03-setup-config.md' },
