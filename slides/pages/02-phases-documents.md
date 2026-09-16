@@ -932,6 +932,32 @@ Quelle: docs/writing-specs.md „Right-size the change", docs/workflows.md
 -->
 
 ---
+layout: default
+---
+
+# Zwei Review-Momente
+
+Das erste Review spart am meisten — und wird am häufigsten ausgelassen.
+
+```text
+propose ──► PLAN REVIEWEN ──► apply ──► CODE REVIEWEN ──► archive
+            vor jeder Zeile Code        mit /opsx:verify
+```
+
+Den Plan lesen, solange er noch aus Worten besteht. Den Code prüfen, bevor er zur Wahrheit wird.
+
+<!--
+Ein Irrtum im Proposal kostet einen Absatz. Derselbe Irrtum nach apply kostet
+den Code, der darauf gebaut wurde.
+
+Nicht jeder Change braucht den vollen Durchgang: ein Tippfehler-Fix verdient
+zwanzig Sekunden, ein Change an Auth, Zahlungen oder Daten, die sich nicht
+wiederherstellen lassen, jede Frage auf den nächsten Folien.
+
+Quelle: docs/reviewing-changes.md.
+-->
+
+---
 layout: two-cols-header
 class: gepardec-text-sm
 ---
@@ -951,7 +977,7 @@ Die Artefakte sind fertig. Nun gilt es, sie gründlich in dieser Reihenfolge zu 
 
 <v-clicks>
 
-Abweichung bemerkt? Mit `/opsx:update` eine neue Runde drehen: „Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte."
+Abweichung bemerkt? Mit `/opsx:update` eine neue Runde drehen: „Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte." Oder die Datei direkt ändern — es ist Markdown.
 
 Dieses Spiel wird so lange gespielt, bis alle Artefakte genau das beschreiben, was die Anforderung ist.
 
@@ -959,30 +985,44 @@ Dieses Spiel wird so lange gespielt, bis alle Artefakte genau das beschreiben, w
 
 </v-clicks>
 
+<!--
+Wer früh aufhört, spart Zeit: stimmt das Proposal nicht, erst gar nicht
+weiterlesen, sondern das Proposal korrigieren.
+
+Open Questions: das Schema erlaubt nur solche, die weder Specs noch Ansatz
+noch Task-Zerlegung ändern würden. Alles andere muss vor tasks geklärt sein —
+die tasks-Instruction verlangt, solche Fragen vorher mit dem User zu klären.
+
+Im Übungs-Repo fehlt /opsx:update noch: die Skills dort stammen von
+OpenSpec 1.3.1. Direkt editieren funktioniert immer.
+-->
+
 ---
 layout: default
+class: gepardec-text-sm
 ---
 
 # Worauf achte ich beim Review?
 
-- Gibt es Open Questions?
-- Gibt es Widersprüche zwischen Artefakten?
-- Wurden Anforderungen erfunden bzw. falsche Entscheidungen getroffen?
-- Ist die formulierte Spec ein Delta zu einer bestehenden Spec oder eine neue?
-- Wird eine Lösung für ein Problem beschrieben, das eigentlich kein Problem ist? (z.B. Migration-Plan für ein Feature noch in Entwicklung)
+| Artefakt | Leitfrage | Warnsignale |
+|---|---|---|
+| `proposal.md` | Ist das das richtige Problem? | Scope ist gewachsen, löst ein anderes Problem, bleibt vage |
+| `spec.md` | Ist „fertig“ richtig definiert? | erfundene Anforderungen, Requirement ohne Scenario, neue Spec statt Delta zu einer bestehenden |
+| `design.md` | Trägt der Ansatz? | Open Questions, falsche Entscheidungen, Lösung für ein Problem, das keins ist |
+| `tasks.md` | Passt der Plan zu den Specs? | Task ohne Requirement, ein Riesen-Task, Arbeit außerhalb des Scopes |
 
----
-layout: default
-class: gepardec-text-lg
----
+Quer über alles: Gibt es Widersprüche zwischen Artefakten — und **was fehlt?**
 
-# Nach propose: apply und archive
+<!--
+„Was fehlt?" ist der wertvollste Fund: die KI schreibt treu auf, was man
+gesagt hat. Was man vergessen hat zu sagen, steht nirgends. Welcher Fall wäre
+am schlimmsten, wenn er kaputt ginge — und hat er ein Scenario?
 
-Die Artefakte sind fertig. Zwei Phasen schließen den Loop:
+Beispiel für eine Lösung ohne Problem: ein Migrationsplan für ein Feature,
+das noch gar nicht ausgeliefert ist.
 
-**apply** — Agent implementiert Task für Task, gesteuert über `opsx:apply`
-
-**archive** — Change abschließen und Delta-Specs einarbeiten
+Quelle: docs/reviewing-changes.md, ergänzt um eigene Erfahrung.
+-->
 
 ---
 layout: default
@@ -991,6 +1031,59 @@ layout: default
 # opsx:apply — Praxisbeispiel
 
 <img src="/screenshots/apply.png" class="w-full rounded-xl object-contain max-h-85" alt="opsx:apply in Aktion" />
+
+---
+layout: two-cols-header
+class: gepardec-text-sm
+---
+
+# opsx:verify – der Abgleich
+
+Nach `apply`, vor `archive`: Hat der Agent gebaut, was vereinbart war?
+
+::left::
+
+### Was es prüft
+
+- **Completeness** — Tasks erledigt, Requirements umgesetzt
+- **Correctness** — Umsetzung trifft Spec und Randfälle
+- **Coherence** — Design-Entscheidungen im Code
+
+::right::
+
+### Womit
+
+```text
+openspec status --change <name> --json
+openspec instructions apply --change <name> --json
+  → Artefakte lesen, Belege im Code suchen
+```
+
+Meldet **CRITICAL** · **WARNING** · **SUGGESTION** — blockiert aber nichts.
+
+::bottom::
+
+Ein Urteil des Modells, kein Testlauf: verify sucht Tests, führt sie aber nicht aus.
+
+<!--
+Auch sinnvoll, nachdem jemand Code von Hand geändert hat: verify zeigt, wo
+Code und Artefakte auseinanderlaufen — vor dem Archivieren abgleichen.
+
+verify gibt es nur im custom-Profil:
+  openspec config profile   (verify auswählen)
+  openspec update           (Skills und Commands neu schreiben)
+
+Die Skill-Anleitung verlangt Stichwortsuche und „reasonable inference", keine
+Gewissheit — im Zweifel lieber SUGGESTION als WARNING. Deshalb bleiben Tests
+und Linter das eigentliche Netz.
+
+CRITICAL: offene Tasks, nicht gefundene Requirements. WARNING: Abweichung von
+Spec oder Design, Scenario ohne Test. SUGGESTION: Muster-Abweichungen.
+
+Fehlt design.md, lässt verify die Coherence-Prüfung weg und sagt das.
+
+Quelle: skills/openspec-verify-change/SKILL.md, docs/workflows.md „Verify".
+-->
 
 ---
 layout: conversation
@@ -1085,4 +1178,4 @@ layout: default
 - Nach jeder Phase (außer Explore) neue Session starten - sauberes Kontext-Fenster!
 - Unklarheiten nach propose klären, bevor apply beginnt
 - Implementierungsfehler in derselben Session korrigieren - Spec anpassen, falls das Verhalten davon abweicht
-- Umfangreiche Aufgaben: Implementierung von einem anderen Agenten reviewen lassen (neue Session!)
+- Umfangreiche Aufgaben: Implementierung von einem anderen Agenten reviewen lassen (neue Session!), z. B. mit `/opsx:verify`

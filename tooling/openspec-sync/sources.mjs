@@ -130,6 +130,7 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Ablauf explore -> propose -> apply -> sync -> archive' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Aktionen, keine Phasen: Review <-> update, apply -> update bei Planänderung, verify optional; explore optional' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'verify blockiert archive nicht; nur im custom-Profil (config profile + update)' },
     ] },
   { id: 'docs.opsx', tier: 2, kind: 'github-file', path: 'docs/opsx.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Die /opsx:* Slash-Commands und was sie tun' }] },
@@ -149,7 +150,11 @@ export const sources = [
   { id: 'docs.how-commands-work', tier: 2, kind: 'github-file', path: 'docs/how-commands-work.md',
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'CLI vs. Slash-Command: openspec läuft im Terminal, /opsx im Agenten-Chat' }] },
   { id: 'docs.reviewing-changes', tier: 2, kind: 'github-file', path: 'docs/reviewing-changes.md',
-    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Review-Reihenfolge proposal → spec → design → tasks; worauf beim Review achten' }] },
+    backs: [
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Review-Reihenfolge proposal → spec → design → tasks; worauf beim Review achten' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Zwei Review-Momente: Plan nach propose, Code nach apply mit /opsx:verify; das erste spart am meisten und wird am häufigsten ausgelassen' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Review-Tabelle: Leitfrage pro Artefakt, Warnsignale (Scope gewachsen, Requirement ohne Scenario, Task ohne Requirement, …), „was fehlt?“' },
+    ] },
   { id: 'docs.existing-projects', tier: 2, kind: 'github-file', path: 'docs/existing-projects.md',
     backs: [{ slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' }] },
 
@@ -162,6 +167,8 @@ export const sources = [
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Der opsx:archive-Skill macht dasselbe wie die CLI, aber LLM-gesteuert (mkdir/mv/Spec-Vergleich von Hand)' }] },
   { id: 'skill.explore', tier: 2, kind: 'github-file', path: 'skills/openspec-explore/SKILL.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'explore = Frage-Antwort-Runden, noch kein Artefakt' }] },
+  { id: 'skill.verify', tier: 2, kind: 'github-file', path: 'skills/openspec-verify-change/SKILL.md',
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'verify: Completeness/Correctness/Coherence; ruft status --json und instructions apply --json; Stichwortsuche im Code; CRITICAL/WARNING/SUGGESTION; sucht Tests, führt sie nicht aus' }] },
   { id: 'skill.sync', tier: 2, kind: 'github-file', path: 'skills/openspec-sync-specs/SKILL.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'sync ist der Schritt, in dem aus einem Change dauerhaftes Wissen wird' }] },
 

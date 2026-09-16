@@ -49,7 +49,7 @@ export const coverage = {
   'cli.command:config': taught(S3),
   'cli.command:completion': taught(S4),
   'cli.command:new': taught(S2),
-  'cli.command:update': mentioned(S3), // frischt generierte Skills/Commands nach einem CLI-Upgrade auf
+  'cli.command:update': mentioned(S2), // Notes verify-Folie: nach `config profile` die Skills neu schreiben; dazu Profil-Folie S3
   'cli.command:change': skip('`change list` ist zugunsten von `openspec list` deprecated, `change show` dupliziert `show`'),
   'cli.command:spec': skip('liefert dieselben Daten wie `list --specs` und `show --type spec`, die die Folien zeigen'),
   'cli.command:schema': skip('von OpenSpec als [experimental] markiert; im Workshop gibt es nur spec-driven'),
@@ -118,7 +118,7 @@ export const coverage = {
   'workflow:new': mentioned(S3),
   'workflow:continue': mentioned(S3),
   'workflow:ff': mentioned(S3),
-  'workflow:verify': mentioned(S3),
+  'workflow:verify': taught(S2), // Folie „opsx:verify – der Abgleich“
   'workflow:bulk-archive': mentioned(S3),
   'workflow:onboard': mentioned(S3),
 
@@ -158,7 +158,7 @@ export const coverage = {
   'skill:openspec-explore': taught(S2),
   'skill:openspec-sync-specs': taught(S2),
   'skill:openspec-update-change': taught(S2), // benannt auf der Review-Time-Folie
-  'skill:openspec-verify-change': mentioned(S9),
+  'skill:openspec-verify-change': taught(S2), // was verify prüft und welche CLI-Aufrufe es nutzt
   'skill:openspec-new-change': mentioned(S3),
   'skill:openspec-continue-change': mentioned(S3),
   'skill:openspec-ff-change': mentioned(S3),

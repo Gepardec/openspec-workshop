@@ -201,6 +201,11 @@
       "kind": "github-issue",
       "hash": "9ee8f441710b821904e830879b6c9a1360ce0899d9536673ad1545387a9860e3",
       "tier": 4
+    },
+    "skill.verify": {
+      "kind": "github-file",
+      "hash": "02a810d3fb265df77ec22891cef25f0510fe0f07b608d837ba361debced81840",
+      "tier": 2
     }
   }
 }
