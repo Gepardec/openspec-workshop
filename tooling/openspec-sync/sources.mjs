@@ -121,7 +121,7 @@ export const sources = [
     ] },
   { id: 'docs.concepts', tier: 2, kind: 'github-file', path: 'docs/concepts.md',
     backs: [
-      { slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first; Deltas ADDED/MODIFIED/REMOVED; Archivieren arbeitet Deltas in Haupt-Specs ein' },
+      { slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first; ein Change beschreibt nur die Änderung; abgeschlossen fließt sie in die Specs ein (Delta-Operationen erst in Kapitel 2)' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Was gilt — und was kommt: specs/ = Wahrheit, changes/ = Vorschläge; archive arbeitet Deltas ein und legt den Change vollständig und datiert ins Archiv' },
     ] },
   { id: 'docs.overview', tier: 2, kind: 'github-file', path: 'docs/overview.md',
@@ -130,10 +130,10 @@ export const sources = [
       { slide: 'slides/pages/01-what-why.md', claim: 'Statement: beim trivialen Ein-Zeilen-Fix lohnt die Zeremonie meist nicht; überall, wo Einigkeit zählt, schon' },
     ] },
   { id: 'docs.glossary', tier: 2, kind: 'github-file', path: 'docs/glossary.md',
-    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Begriffe: Spec, Haupt-Specs (source of truth), Change, Artefakt, Delta-Spec, Capability; Requirement (Was, nicht Wie), Scenario (prüfbar), RFC-2119-Stufen' }] },
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Begriffe beim ersten Gebrauch: specs/ + Change (Was gilt — und was kommt), Capability (proposal.md), Requirement + SHALL/MUST/SHOULD/MAY + Scenario (spec.md), Delta-Spec (Delta-Specs)' }] },
   { id: 'docs.workflows', tier: 2, kind: 'github-file', path: 'docs/workflows.md',
     backs: [
-      { slide: 'slides/pages/02-phases-documents.md', claim: 'Ablauf explore -> propose -> apply -> sync -> archive' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Aktionen, keine Phasen: propose schreibt proposal (Warum), specs (Was), design (Wie), tasks (To-do); sync fehlt im Diagramm, weil archive es anbietet (Notes)' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Aktionen, keine Phasen: Review <-> update, apply -> update bei Planänderung, verify optional; explore optional; Code-Review vor archive ist Deck-Empfehlung, nicht upstream' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'verify blockiert archive nicht; nur im custom-Profil (config profile + update)' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Update oder neuer Change: gleiche Absicht / Scope schrumpft / Codebasis anders → Update; Absicht geändert / Scope zu anderer Arbeit / Original für sich fertig → neuer Change' },
@@ -183,7 +183,7 @@ export const sources = [
   { id: 'docs.multi-language', tier: 2, kind: 'github-file', path: 'docs/multi-language.md',
     backs: [{ slide: 'slides/pages/07-faq.md', claim: 'Specs auf Deutsch: context mit Sprach-Anweisung; init --language; Strukturüberschriften und SHALL/MUST bleiben englisch' }] },
   { id: 'docs.stores-user-guide', tier: 2, kind: 'github-file', path: 'docs/stores-beta/user-guide.md',
-    backs: [{ slide: 'slides/pages/07-faq.md', claim: 'Mehrere Repos: Stores = Planung in eigenem Repo, auf das Code-Repos verweisen; Beta, Befehle und Formate können sich ändern' }] },
+    backs: [{ slide: 'slides/pages/07-faq.md', claim: 'Frontend & Backend — wie?: getrennte Repos je ein openspec/; Zielbild Stores = Planung in eigenem Repo, auf das Code-Repos verweisen; nicht stable, Befehle und Formate können sich ändern (Notes)' }] },
   { id: 'docs.existing-projects', tier: 2, kind: 'github-file', path: 'docs/existing-projects.md',
     backs: [
       { slide: 'slides/pages/01-what-why.md', claim: 'brownfield-first: Specs wachsen Change für Change, kein Big-Bang-Dokumentieren' },

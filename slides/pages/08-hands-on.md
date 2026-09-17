@@ -5,6 +5,11 @@ variant: ascii
 
 # Hands-on Übungen
 
+<!--
+Frage-Pause, bevor alle selbst loslegen: Was ist noch offen?
+Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+-->
+
 ---
 layout: default
 ---
