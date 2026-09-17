@@ -60,6 +60,8 @@ Progress: 2/4 artifacts complete
 [x] specs
 [ ] design
 [-] tasks (blocked by: design)
+
+Next: openspec instructions design --change "us-07-filter" --json
 ```
 
 `blocked` ist ein Hinweis, keine Sperre: `tasks` baut auf `specs` und `design` auf.
@@ -69,6 +71,8 @@ Progress: 2/4 artifacts complete
 <!--
 Braucht ein Change kein design.md, bleibt status bei 3/4 — validate und
 archive stört das nicht.
+
+Seit 1.13.1 nennt status in der letzten Zeile den nächsten Befehl.
 -->
 
 ---

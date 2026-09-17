@@ -136,10 +136,10 @@ Die CLI ist der Motor, Slash-Commands und Skills sind das Lenkrad.
 Auszug aus `.claude/commands/opsx/propose.md`:
 
 ```text
-2. Create the change directory
+4. Create the change directory
    → openspec new change "<name>"
 
-3. Get the artifact build order
+5. Get the artifact build order
    → openspec status --change "<name>" --json
    Parse the JSON to get applyRequires and artifacts ...
 ```
@@ -235,6 +235,12 @@ $ openspec validate --all --strict
 - `--strict` für CI, normal lokal
 
 **Faustregel:** rotes `validate` ⇒ kein `apply`.
+
+<!--
+Seit 1.13.1 meldet validate mehr stille Fehler: ein Requirement unter einer
+falschen Überschrift (Warnung), Delta-Requirements außerhalb von spec.md,
+FROM:/TO:-Zeilen ohne Partner, ein Scenario ohne Inhalt (jeweils Fehler).
+-->
 
 ---
 layout: default

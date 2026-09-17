@@ -224,7 +224,7 @@ Kein Pflichtschritt — ein Denkpartner, bevor Artefakte entstehen.
 
 ### Was passiert dabei?
 
-Fragen stellen, Annahmen aufdecken, Ansätze abwägen — **noch kein Artefakt**.
+Fragen stellen, Annahmen aufdecken, Ansätze abwägen — **kein Code**, Artefakte nur auf Wunsch.
 
 ::bottom::
 
@@ -912,7 +912,7 @@ layout: default
 
 - Bricht die Umsetzung in konkrete Schritte herunter, jeder klein genug für eine Session
 - **Jeder Task nennt, wie er verifiziert wird** — Test, Befehl oder beobachtbares Verhalten
-- Pflichtformat: `- [ ] X.Y Task` – andere Formate werden nicht getrackt
+- Pflichtformat: `- [ ] X.Y Task` – nur `[x]` zählt als erledigt, Zeilen ohne Checkbox werden nicht getrackt
 - Tasks mit nummerierten Überschriften gruppieren
 - Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
 
