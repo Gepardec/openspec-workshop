@@ -11,21 +11,31 @@ layout: default
 
 # Ein Change, ein Branch, ein PR
 
-OpenSpec fasst git nicht an — ein Change passt in den Ablauf, den ihr schon habt.
+Plan und Code im selben Branch, gemeinsam reviewt — OpenSpec fasst git nicht an.
 
-```text
-git switch -c add-animal-filter
-/opsx:propose add-animal-filter   → Plan reviewen          → commit
-/opsx:apply                       → Code und Artefakte     → commit
-Pull Request                      → Review: Proposal, Delta, Code
-Reviewer gibt frei, pingt Dev an
-/opsx:archive                     → Delta wandert in specs/ → commit
-merge
+<div class="flex justify-center">
+
+```mermaid {scale: 0.75}
+%%{init: {'sequence': {'mirrorActors': false, 'messageMargin': 8, 'boxMargin': 4, 'height': 36, 'actorMargin': 40}}}%%
+sequenceDiagram
+    participant Rev as Reviewer
+    participant Dev
+    participant Branch as Feature-Branch
+    participant Main as main
+    Dev->>Branch: git switch -c add-animal-filter
+    Dev->>Branch: /opsx:propose → Plan-Review → commit
+    Dev->>Branch: /opsx:apply → commit
+    Dev->>Rev: Pull Request
+    Rev-->>Dev: Proposal → Delta → Code: Freigabe
+    Dev->>Branch: openspec archive → commit
+    Branch->>Main: merge
 ```
 
-Plan und Code liegen im selben Branch — und werden gemeinsam reviewt.
+</div>
 
 <!--
+Ein Change passt in den Ablauf, den ihr schon habt.
+
 OpenSpec liest und schreibt nur Markdown unter openspec/. Im Projekt-Repo
 committet, branched, pusht und merged es nie. Alles hier ist Konvention, kein
 Zwang.
@@ -34,6 +44,9 @@ openspec/ wird committet wie Quellcode: Haupt-Specs, aktive Changes, Archiv.
 
 Die Commits entsprechen der Konvention aus den Übungen; vor dem Merge darf
 alles zu einem Commit gesquasht werden.
+
+Archiviert wird mit openspec archive, nicht mit /opsx:archive — warum, steht
+in Kapitel 3.
 
 Quelle: docs/team-workflow.md.
 -->
@@ -121,7 +134,7 @@ Durchgespielt mit OpenSpec 1.13.0, Archiv jeweils im PR:
 
 git vergleicht Zeilen, nicht Requirements.
 
-Wie man so einen Konflikt auflöst, steht in den häufigen Fragen.
+Wie man so einen Konflikt auflöst, steht im FAQ.
 
 Wird ein Change zu groß für einen Owner, ist das meist ein Zeichen, dass er
 geteilt werden sollte — siehe „Ein Change, eine Absicht".

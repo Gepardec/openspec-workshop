@@ -134,7 +134,7 @@ export const sources = [
   { id: 'docs.workflows', tier: 2, kind: 'github-file', path: 'docs/workflows.md',
     backs: [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Ablauf explore -> propose -> apply -> sync -> archive' },
-      { slide: 'slides/pages/02-phases-documents.md', claim: 'Aktionen, keine Phasen: Review <-> update, apply -> update bei Planänderung, verify optional; explore optional' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'Aktionen, keine Phasen: Review <-> update, apply -> update bei Planänderung, verify optional; explore optional; Code-Review vor archive ist Deck-Empfehlung, nicht upstream' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'verify blockiert archive nicht; nur im custom-Profil (config profile + update)' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Update oder neuer Change: gleiche Absicht / Scope schrumpft / Codebasis anders → Update; Absicht geändert / Scope zu anderer Arbeit / Original für sich fertig → neuer Change' },
     ] },
@@ -208,5 +208,5 @@ export const sources = [
   // ---------------------------------------------------------------- tier 4
   // Expectation lives in assertions.mjs (deckClaims.issue863State) — single source of truth.
   { id: 'issue.863', tier: 4, kind: 'github-issue', number: 863,
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: '#863 ist geschlossen; der Skill erledigt Vergleich und mv trotzdem selbst' }] },
+    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: '#863 als „not planned“ geschlossen und nach Discussion #1574 verschoben; der Skill erledigt Vergleich und mv trotzdem selbst; Empfehlung: immer openspec archive' }] },
 ];

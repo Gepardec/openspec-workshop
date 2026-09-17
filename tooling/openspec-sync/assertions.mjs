@@ -137,7 +137,7 @@ export const deckClaims = {
   issue863State: {
     value: 'closed',
     slide: 'slides/pages/03-setup-config.md',
-    text: '#863 ist geschlossen, das beschriebene Verhalten besteht aber fort',
+    text: '#863 ist geschlossen (nach Discussion #1574 verschoben), das beschriebene Verhalten besteht aber fort',
   },
 };
 

@@ -101,14 +101,12 @@ Die eine Datei, die zählt — zwei Dinge, die jedes Team früh definiert.
 
 ```yaml
 schema: spec-driven         # welcher Workflow gilt
-
 context: |                  # erscheint bei Erstellung JEDES Artefakts
   ## Tech Stack
   - Quarkus 3.35 + Hibernate Panache + PostgreSQL
   - Angular 21, zoneless, NgRx Signal Store
   ## Konventionen
   - Nur RestAssured-Tests, keine Unit-Tests
-  - Sheriff-Modulgrenzen, kein domain→domain Import
 ```
 
 - **`context`** = was der Agent immer wissen muss (Tech-Stack, Konventionen)
@@ -171,7 +169,7 @@ layout: default
 
 # Das Problem: opsx:archive per LLM
 
-Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteuert.
+Der `opsx:archive`-Skill macht dasselbe – aber LLM-gesteuert.
 
 ```text
 1. Run openspec status and confirm all tasks complete
@@ -180,10 +178,22 @@ Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteue
 4. mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
 ```
 
-Das Issue dazu ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)) ist seit August 2026 geschlossen — der Skill vergleicht und verschiebt aber weiterhin selbst.
+Das Issue dazu ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)) ist nicht gelöst, sondern in eine [Diskussion](https://github.com/Fission-AI/OpenSpec/discussions/1574) verschoben — der Skill vergleicht und verschiebt weiterhin selbst.
+
+**Empfehlung:** immer `openspec archive` statt `/opsx:archive`.
 
 <!--
-Erwähnen, dass der Grund am Nachmittag noch ersichtlich werden wird.
+#863 wurde im August 2026 als „not planned" geschlossen und dabei nach
+Discussion #1574 verschoben. Geschlossen heißt hier also nicht behoben.
+
+Früher sprach noch etwas für den Agenten: Delta-Specs einer neuen Capability
+hatten keinen Purpose, und openspec archive schrieb nur einen
+TBD-Platzhalter. Das ist erledigt:
+- seit 1.7.0 übernimmt archive den ## Purpose der Delta-Spec, und die
+  specs-Instruction, das Template und der sync-Skill verlangen ihn — CLI und
+  Agent erzeugen dieselbe Haupt-Spec
+- seit 1.11.0 meldet openspec validate einen ungeschriebenen Purpose
+  (Warnung, mit --strict ein Fehler)
 -->
 
 ---
@@ -227,16 +237,21 @@ layout: default
 
 # Profile: core vs. custom
 
-OpenSpec kennt genau zwei Workflow-Profile.
+OpenSpec kennt genau zwei Workflow-Profile — **core** ist der Default.
 
 | Profil | Slash-Commands |
 |---|---|
-| **core** (default) | `propose` · `explore` · `apply` · `update` · `sync` · `archive` |
-| **custom** | frei wählbar — auch `new` · `continue` · `ff` · `verify` · `bulk-archive` · `onboard` |
+| **core** | `propose` · `explore` · `apply` · `update` · `sync` · `archive` |
+| **custom** | frei wählbar, auch `new` · `continue` · `ff` · `verify` · `bulk-archive` · `onboard` |
 
 ```sh
 $ openspec config profile        # interaktiv zusammenstellen
 $ openspec config profile core   # zurück auf core (einziges Preset)
 ```
 
-Für den Workshop reicht **core**. `custom` ist für Teams, die einzelne Schritte getrennt steuern wollen.
+Für den Workshop reicht **core**.
+
+<!--
+custom ist für Teams, die einzelne Schritte getrennt steuern wollen: frei
+zusammengestellt aus allen zwölf Workflows.
+-->

@@ -168,7 +168,7 @@ Kein fester Phasenablauf — die Pfeile zeigen, was als Nächstes sinnvoll ist.
 
 <div class="flex justify-center">
 
-```mermaid {scale: 0.8}
+```mermaid {scale: 0.66}
 flowchart LR
     E["explore"] -.-> P["propose"]
     P --> R{"Review"}
@@ -177,20 +177,26 @@ flowchart LR
     R -->|passt| A["apply"]
     A -->|Plan ändert sich| U
     A -.-> V["verify"]
-    V -.->|nachbessern| A
-    A --> AR["archive"]
-    V -.-> AR
+    V -.-> CR{"Code-Review"}
+    A --> CR
+    CR -->|nachbessern| A
+    CR -->|passt| AR["archive"]
 ```
 
 </div>
 
-Gestrichelt: optional. Stimmt der Plan nicht, wird er angepasst — nicht umgangen.
+Gestrichelt: optional. Stimmt der Plan nicht, wird er angepasst — nicht umgangen.<br>
+`verify` prüft maschinell und ersetzt kein menschliches Code-Review.
 
 <!--
 Upstream: „fluid not rigid", „iterative not waterfall" (docs/concepts.md).
 Außer apply — das braucht eine tasks.md — sperrt kein Schritt einen anderen.
 Der Preis dafür ist Disziplin: nichts zwingt einen Change, fokussiert zu
 bleiben.
+
+Zwei Review-Gates: den Plan vor apply, den gebauten Code vor archive.
+verify ist die optionale, maschinelle Vorprüfung — das Code-Review durch
+einen Menschen empfehlen wir trotzdem immer.
 
 verify gibt es nur im custom-Profil, dazu mehr nach apply. sync ist hier
 weggelassen: archive bietet es ohnehin an.
@@ -231,45 +237,41 @@ Das Szenario entstammt einer Anwendung, die ich mit diesem Ansatz modernisiert h
 
 ---
 layout: two-cols-header
-class: gepardec-text-sm
 ---
 
 # opsx:explore – der Pionier
 
-`explore` ist kein Pflichtschritt. Es ist ein Denkpartner, bevor Artefakte entstehen.
+Kein Pflichtschritt — ein Denkpartner, bevor Artefakte entstehen.
 
 ::left::
 
 ### Wann lohnt es sich?
 
-- Anforderung ist vage: _"Irgendwie sollen Nutzer Tiere filtern können"_
-- Domäne ist neu: du weißt noch nicht, wie viele Capabilities das betrifft
-- Du kennst die Codebasis noch nicht gut und möchtest sie erkunden
-- Du willst Edge Cases durchdenken, bevor sie in der Spec landen
-- Du das Problem kennst, aber keine Lösung beschreiben kannst
-- Du verschiedene Lösungsansätze gegenüberstellen möchtest.
+- Anforderung ist vage
+- Problem klar, Lösung offen
+- Codebasis oder Domäne unbekannt
+- Edge Cases vor der Spec durchdenken
 
 ::right::
 
 ### Was passiert dabei?
 
-Ein Gesprächs-Loop mit dem Agenten: Fragen stellen, Annahmen aufdecken, Szenarien durchspielen – aber **noch kein `propose`, noch kein Artefakt**.
-
-<v-click>
-
-```text
-/opsx:explore  →  Frage-Antwort-Runden
-               →  "Bereit für propose"
-```
-
-</v-click>
+Fragen stellen, Annahmen aufdecken, Ansätze abwägen — **noch kein Artefakt**.
 
 ::bottom::
 
-**Wann überspringen?** Wenn die Anforderung klar ist – einfach direkt mit `/opsx:propose` starten.
+Anforderung ist klar? Direkt mit `/opsx:propose` starten.
 
 <!--
-Faustregel: je ungenauer der Task, umso mehr lohnt es sich
+Faustregel: je ungenauer der Task, umso mehr lohnt es sich.
+
+Weitere Anlässe:
+- Anforderung wie „Irgendwie sollen Nutzer Tiere filtern können"
+- Unklar, wie viele Capabilities der Change berührt
+- Mehrere Lösungsansätze gegenüberstellen
+
+Der Agent schlägt von sich aus vor, wann es Zeit für propose ist — auf der
+nächsten Folie mit „Ready to propose?".
 -->
 
 ---
@@ -339,13 +341,18 @@ openTasks(actor, prevMonth).isEmpty()
 project lead → always prevMonth
 ```
 
-Ready to propose?
+<span v-mark="{ at: 8, type: 'box', class: 'text-[var(--gepardec-yellow)]' }">Ready to propose?</span>
 
 </ChatTurn>
 
 <!--
 Die echte explore-Session zu genau dem Change, der auf den nächsten Folien
 zerlegt wird. Eine Stunde Gespräch, hier auf acht Turns gekürzt.
+
+Begriffe aus der Domäne: Ein Monthend-Task hat ein „subject" — wem der Task
+gehört — und einen „actor" — wer mit dem Task zu tun hat. „Tasks, bei denen
+der actor das subject ist" heißt also: die eigenen Tasks des angemeldeten
+Mitarbeiters.
 
 Zwei Dinge zeigen, mehr nicht:
 
@@ -506,6 +513,10 @@ All artifacts complete!
 </ChatTurn>
 
 <!--
+Wir sind noch in derselben Session wie bei explore: der Agent hat das ganze
+Gespräch im Kontext, deshalb reicht ein knappes „Yes, write up the proposal".
+Erst nach propose beginnt eine neue Session (siehe Best practices).
+
 Der "aha"-Moment: proposal, spec, design und tasks entstehen in einem Rutsch.
 
 Wichtig für Kapitel 5: zwischen jedem Write steht ein openspec-Aufruf. Der
@@ -572,9 +583,13 @@ layout: default
 - **Faustregel:** Kann sich etwas ändern, ohne dass sich sichtbares Verhalten ändert? Dann gehört es nicht in die Spec.
 - Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) — exakt 4 Hashtags, sonst wird das Scenario nicht erkannt
 - Jedes Requirement braucht ein SHALL/MUST und mindestens ein Scenario
-- Jedes Scenario ist die Vorlage für einen Akzeptanztest
+- Scenarios sind die Vorlage für automatisierte Tests — vom Unit- bis zum Akzeptanztest
 
 <!--
+Die Tests entstehen auf Basis der Spec, nicht des Codes. Im Praxisbeispiel
+leitet tasks.md aus denselben Scenarios Unit-Tests für die Services und
+REST-Integrationstests ab.
+
 Nicht in die Spec: Klassen- und Funktionsnamen, Library- oder Framework-Wahl,
 Implementierungsschritte. Das gehört in design.md oder tasks.md.
 
@@ -582,6 +597,76 @@ Rein in die Spec: beobachtbares Verhalten, Eingaben, Ausgaben, Fehlerfälle,
 externe Rahmenbedingungen wie Security oder Kompatibilität.
 
 Quelle: specs-Instruction in schema.yaml, docs/concepts.md.
+-->
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Delta-Specs
+
+Im Change steht **nicht die ganze Spec** — nur, was sich ändert.
+
+| Sektion | Wofür | Beim Archivieren |
+|---|---|---|
+| `ADDED` | neues Verhalten | wird angehängt |
+| `MODIFIED` | geändertes Verhalten, als vollständiger Block | ersetzt das Requirement |
+| `REMOVED` | wegfallendes Verhalten, mit **Reason** und **Migration** | wird entfernt |
+| `RENAMED` | nur ein neuer Name: `FROM:` / `TO:` | wird umbenannt |
+| `Purpose` | Zweck einer **neuen** Capability | wird Purpose der Haupt-Spec |
+
+Überschriften: `## ADDED Requirements` … `## RENAMED Requirements`, dazu `## Purpose`.
+
+<!--
+Die Delta-Form macht parallele Changes an derselben Capability überhaupt erst
+möglich. Wie das im Team aussieht, kommt im Team-Kapitel.
+
+Reihenfolge beim Archivieren: RENAMED, REMOVED, MODIFIED, ADDED. Wird ein
+Requirement umbenannt und geändert, verweist MODIFIED auf den neuen Namen.
+
+Purpose: nur für eine neue Capability. Bei einer bestehenden Spec ignoriert
+archive ihn — dort ändert man den Purpose direkt in openspec/specs/. Ohne
+Purpose schreibt archive einen TBD-Platzhalter, den validate --strict anmahnt.
+Die Praxisbeispiel-Spec der neuen Capability ist älter als diese Regel.
+
+Nimmt ein REMOVED das letzte Requirement einer Capability, bricht archive ab —
+außer die .openspec.yaml des Change setzt retire_capabilities: true. Dann
+löscht archive die Spec-Datei.
+-->
+
+---
+layout: default
+---
+
+# MODIFIED richtig schreiben
+
+MODIFIED ersetzt das ganze Requirement — was fehlt, geht verloren.
+
+1. Requirement in `openspec/specs/<capability>/spec.md` suchen
+2. Den **ganzen** Block kopieren: vom `### Requirement:` bis zum letzten Scenario
+3. Unter `## MODIFIED Requirements` einfügen und anpassen — Überschrift unverändert
+
+Kommt nur Neues dazu und Bestehendes bleibt gleich: **ADDED**, nicht MODIFIED.
+
+Fehlende Scenarios fangen `validate` und `archive` ab — fehlenden Text nicht.
+
+> `propose` macht das von selbst — die Schritte helfen beim Prüfen und Nachholen.
+
+<!--
+Kein Grund zur Sorge: diese Schritte bekommt der Agent bei propose als
+Instruction mit, dort geht normalerweise nichts schief. Die Folie ist fürs
+Review — und für den Fall, dass jemand einen MODIFIED-Block von Hand schreibt.
+
+Gleich im Praxisbeispiel: monthend-rest-api ist eine geänderte Capability,
+bekommt aber ein ADDED Requirement — es kommt nur ein neues Verhalten dazu.
+
+Der Ablauf steht in der specs-Instruction von schema.yaml („MODIFIED
+requirements workflow") — dort als vier Schritte; der vierte, Überschrift
+exakt gleich lassen, steckt hier in Schritt 3.
+
+Beim Review hilft `openspec show <change> --diff`: zeigt pro MODIFIED-Requirement
+nur, was sich tatsächlich ändert.
 -->
 
 ---
@@ -846,84 +931,27 @@ source: tasks.md
 
 ---
 layout: default
-class: gepardec-text-sm
----
-
-# Delta-Specs
-
-Im Change steht **nicht die ganze Spec** — nur, was sich ändert.
-
-| Sektion | Wofür | Beim Archivieren |
-|---|---|---|
-| `ADDED` | neues Verhalten | wird angehängt |
-| `MODIFIED` | geändertes Verhalten, als vollständiger Block | ersetzt das Requirement |
-| `REMOVED` | wegfallendes Verhalten, mit **Reason** und **Migration** | wird entfernt |
-| `RENAMED` | nur ein neuer Name: `FROM:` / `TO:` | wird umbenannt |
-| `Purpose` | Zweck einer **neuen** Capability | wird Purpose der Haupt-Spec |
-
-Überschriften: `## ADDED Requirements` … `## RENAMED Requirements`, dazu `## Purpose`.
-
-<!--
-Die Delta-Form macht parallele Changes an derselben Capability überhaupt erst
-möglich. Wie das im Team aussieht, kommt im Team-Kapitel.
-
-Reihenfolge beim Archivieren: RENAMED, REMOVED, MODIFIED, ADDED. Wird ein
-Requirement umbenannt und geändert, verweist MODIFIED auf den neuen Namen.
-
-Purpose: nur für eine neue Capability. Bei einer bestehenden Spec ignoriert
-archive ihn — dort ändert man den Purpose direkt in openspec/specs/. Ohne
-Purpose schreibt archive einen TBD-Platzhalter, den validate --strict anmahnt.
-Die Praxisbeispiel-Spec der neuen Capability ist älter als diese Regel.
-
-Nimmt ein REMOVED das letzte Requirement einer Capability, bricht archive ab —
-außer die .openspec.yaml des Change setzt retire_capabilities: true. Dann
-löscht archive die Spec-Datei.
--->
-
----
-layout: default
----
-
-# MODIFIED richtig schreiben
-
-Ein MODIFIED-Block ersetzt das Requirement vollständig — was nicht drinsteht, geht beim Archivieren verloren.
-
-1. Requirement in `openspec/specs/<capability>/spec.md` suchen
-2. Den **ganzen** Block kopieren: vom `### Requirement:` bis zum letzten Scenario
-3. Unter `## MODIFIED Requirements` einfügen und anpassen — Überschrift unverändert
-
-Kommt nur Neues dazu und Bestehendes bleibt gleich: **ADDED**, nicht MODIFIED.
-
-Fehlende Scenarios fangen `validate` und `archive` ab — fehlenden Text nicht.
-
-<!--
-Praxisbeispiel: monthend-rest-api ist eine geänderte Capability, bekommt aber
-ein ADDED Requirement — es kommt nur ein neues Verhalten dazu.
-
-Der Ablauf steht in der specs-Instruction von schema.yaml („MODIFIED
-requirements workflow") — dort als vier Schritte; der vierte, Überschrift
-exakt gleich lassen, steckt hier in Schritt 3.
-
-Beim Review hilft `openspec show <change> --diff`: zeigt pro MODIFIED-Requirement
-nur, was sich tatsächlich ändert.
--->
-
----
-layout: default
 ---
 
 # Ein Change, eine Absicht
 
-**Faustregel:** Lässt sich der Change in einem Satz beschreiben? Wenn nicht — teilen.
+**Faustregel:** Lässt sich die Absicht in einem Satz beschreiben? Wenn nicht — teilen.
 
 - Der Scope im Proposal liest sich wie eine Liste unabhängiger Features
 - Das Review dauert einen Nachmittag — also macht es niemand gründlich
 - Zwei Leute könnten nicht daran arbeiten, ohne sich in die Quere zu kommen
 - Die Hälfte der Tasks ließe sich für sich allein ausliefern
 
-Umgekehrt braucht ein Tippfehler-Fix keine drei Requirements. Der Aufwand folgt dem Risiko.
+Ein Satz heißt nicht wenig Code: Ein komplexer Ablauf über mehrere Module bleibt **ein** Change, solange er eine Absicht verfolgt.
 
 <!--
+Es ist eine Faustregel, kein Limit. Was aus Scrum und Kanban bewährt ist —
+Tickets klein schneiden —, sollte man sich mit OpenSpec nicht abgewöhnen: ein
+Ticket, ein Change ist ein guter Startpunkt.
+
+Umgekehrt braucht ein Tippfehler-Fix keine drei Requirements. Der Aufwand
+folgt dem Risiko.
+
 Upstream: der häufigste Fehler beim Schreiben ist kein schlecht formuliertes
 Requirement, sondern ein Change, der eigentlich drei sind.
 
@@ -943,7 +971,7 @@ Das erste Review spart am meisten — und wird am häufigsten ausgelassen.
 
 ```text
 propose ──► PLAN REVIEWEN ──► apply ──► CODE REVIEWEN ──► archive
-            vor jeder Zeile Code        mit /opsx:verify
+            vor jeder Zeile Code        Mensch + optional /opsx:verify
 ```
 
 Den Plan lesen, solange er noch aus Worten besteht. Den Code prüfen, bevor er zur Wahrheit wird.
