@@ -58,7 +58,7 @@ layout: default
 class: gepardec-text-lg
 ---
 
-# Übung 3.a – Change archivieren (CLI)
+# Übung 3 – Change archivieren
 
 `exercises/03_archive_change/README.md`
 
@@ -66,18 +66,16 @@ Der Change `us-06-dashboard` ist fertig implementiert. Archiviert ihn mit OpenSp
 
 Was fällt euch sonst noch auf?
 
----
-layout: default
-class: gepardec-text-lg
----
+<!--
+Archiviert wird mit openspec archive, nicht mit /opsx:archive (Kapitel 3).
 
-# Übung 3.b – Change archivieren (Agentic)
-
-Archive-Befehl erzeugt keinen Purpose-Text.
-
-Wir archivieren den Change `us-06-dashboard` gemeinsam mithilfe eines Agenten.
-
-`git reset HEAD --hard`
+Erwartete Beobachtung: specs/dashboard/spec.md bekommt als Purpose den
+Platzhalter „TBD - created by archiving change us-06-dashboard", und
+openspec validate --strict meldet ihn. Grund: die Delta-Spec stammt aus
+OpenSpec 1.3.1 und hat noch keinen ## Purpose. Ein aktuelles propose schreibt
+ihn direkt in die Delta-Spec — hier also den Purpose von Hand in der
+Haupt-Spec nachtragen.
+-->
 
 ---
 layout: default

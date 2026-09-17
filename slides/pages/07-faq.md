@@ -2,7 +2,7 @@
 layout: section
 ---
 
-# Häufige Fragen
+# FAQ
 
 ---
 layout: agenda
@@ -19,10 +19,6 @@ layout: agenda
 - Welches Modell?
 - Specs auf Deutsch?
 - Eigener Prozess
-
-<div class="mt-6">
-  <Countdown :minutes="15" />
-</div>
 
 <!--
 Die Gruppe wählt per Nummer, was drankommt — der Rest steht im Repo zum

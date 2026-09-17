@@ -37,6 +37,15 @@ export default defineMermaidSetup(() => ({
     clusterBkg: '#0a0a0a',
     clusterBorder: '#3a3a3a',
 
+    // Sequenzdiagramme: Nachrichten gelb wie die Kanten, Lebenslinien
+    // gedimmt, damit sie nicht durch die Nachrichtentexte schneiden
+    actorBkg: '#111111',
+    actorBorder: '#8a8a8a',
+    actorTextColor: '#ffffff',
+    actorLineColor: '#3a3a3a',
+    signalColor: '#FFC800',
+    signalTextColor: '#d6d6d6',
+
     fontFamily: "'Barlow Semi Condensed', system-ui, sans-serif",
     fontSize: '16px',
   },

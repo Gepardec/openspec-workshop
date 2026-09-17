@@ -40,12 +40,12 @@ layout: agenda
 # Agenda
 
 - Was ist Spec-driven?
-- Phasen & Dokumente
+- Phasen & Artefakte
 - Setup & Konfiguration
 - CLI als Datei-Navigator
 - CLI als Agent-Bridge
 - OpenSpec im Team
-- Häufige Fragen
+- FAQ
 - Hands-on Übungen
 - Diskussion & Wrap-up
 
