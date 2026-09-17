@@ -96,15 +96,17 @@ layout: default
 
 Hier stehen die Schreibregeln aus Kapitel 2.
 
-```yaml {5-8|9-11}
+```yaml {5-10|11-13}
 - id: tasks
   template: tasks.md
   instruction: |
     …
-    - Each task MUST be a checkbox: `- [ ] X.Y Task description`
+    - Each tracked task MUST be a checkbox: `- [ ] X.Y Task description`
     - Tasks should be small enough to complete in one session
     - Each task MUST state how to verify completion (a test, command,
       observable behavior, or delivered artifact). …
+    - Each task group MUST land the tests and documentation its own work
+      calls for. Do NOT collect testing or documentation into a final group …
   requires:
     - specs
     - design

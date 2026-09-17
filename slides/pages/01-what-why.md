@@ -105,7 +105,7 @@ layout: default
 
 OpenSpec ist nicht an einen KI-Agenten gekoppelt.
 
-- Claude Code, Codex, Copilot, OpenCode … 30+ Tools werden bei `init` verdrahtet
+- Claude Code, Codex, Copilot, OpenCode … rund 50 Tools werden bei `init` verdrahtet
 - Skills + Slash-Commands werden tool-spezifisch generiert
 - Die Spec selbst ist plain Markdown – jeder Agent (und jeder Mensch) kann sie lesen
 - Projektkonventionen werden zentral in der OpenSpec-Konfiguration definiert

@@ -23,7 +23,7 @@ $ openspec init
 
 Interaktiv: OpenSpec fragt nach den AI-Tools, die in diesem Projekt benutzt werden – und verdrahtet sie automatisch.
 
-- Claude Code, Codex, Copilot, OpenCode, ... 30+ Optionen
+- Claude Code, Codex, Copilot, OpenCode, ... rund 50 Optionen
 - Mehrfachauswahl möglich – ein Projekt, mehrere Agenten
 - Erneut ausführbar: nachträglich Tools hinzufügen oder updaten
 
@@ -36,14 +36,14 @@ layout: default
 ````md magic-move {lines: true}
 ```text
 openspec/
-├── config.yaml          ← Projekt-Kontext und Konventionen
+├── config.yaml          ← Workflow und Constraints für Artefakte
 ├── specs/               ← die Wahrheit (leer beim Start)
 └── changes/             ← aktive Vorschläge
 ```
 
 ```text
 openspec/
-├── config.yaml          ← Projekt-Kontext und Konventionen
+├── config.yaml          ← Workflow und Constraints für Artefakte
 ├── specs/               ← die Wahrheit (leer beim Start)
 └── changes/             ← aktive Vorschläge
 
@@ -80,46 +80,67 @@ Pro Agent eigene Skills. Commands nur dort, wo das Tool sie unterstützt.
 layout: default
 ---
 
-# CLAUDE.md zeigt auf OpenSpec
+# config.yaml
 
-Wenn ihr eine `CLAUDE.md`, `AGENTS.md` oder ähnliches im Repo habt – **nicht duplizieren**.
+Steuert den Workflow — und gibt jedem Artefakt die Constraints mit.
 
-```md
-<!-- CLAUDE.md -->
-# Projekt-Konventionen
-
-Projekt-Kontext, Tech-Stack und Konventionen liegen in
-`openspec/config.yaml` – immer dort nachsehen.
+```yaml
+schema: spec-driven         # welcher Workflow gilt
+context: |                  # erscheint bei Erstellung JEDES Artefakts
+  Nur RestAssured-Tests (@QuarkusTest), keine Unit-Tests.
+  Jeder sichtbare Text in Deutsch und Englisch.
+  Bestehende REST-Endpunkte ändern sich nicht inkompatibel.
 ```
 
-- `openspec/config.yaml` bleibt **Single Source of Truth**
-- Der Agent liest CLAUDE.md/AGENTS.md ohnehin automatisch beim Start
-- Keine Drift zwischen zwei Kopien derselben Konventionen
+- **`context`** = Constraints, die der Agent **nicht aus dem Code ablesen** kann
+- Optional pro Artefakt-Typ: **`rules`** – z.B. "Proposals enthalten immer einen Rollback-Plan"
+- Optional pro Operation: **`operations`** – z.B. für `apply`: "Fokussierte Tests vor der vollen Suite"
+
+<!--
+Kein Tech-Stack im context: Quarkus-Version, Angular, Panache stehen in
+pom.xml und package.json, der Agent findet sie selbst. Seit 1.14.0 sagt das
+auch der Kommentar, den openspec init in die config.yaml schreibt: „Keep
+general project documentation and discoverable codebase facts out."
+
+Kann config.yaml automatisiert aktualisiert werden?
+-->
 
 ---
 layout: default
 ---
 
-# config.yaml
+# AGENTS.md und config.yaml — wer weiß was?
 
-Die eine Datei, die zählt — zwei Dinge, die jedes Team früh definiert.
+Zwei Dateien, zwei Leser. Jede Aussage hat genau **einen** Ort.
 
-```yaml
-schema: spec-driven         # welcher Workflow gilt
-context: |                  # erscheint bei Erstellung JEDES Artefakts
-  ## Tech Stack
-  - Quarkus 3.35 + Hibernate Panache + PostgreSQL
-  - Angular 21, zoneless, NgRx Signal Store
-  ## Konventionen
-  - Nur RestAssured-Tests, keine Unit-Tests
-```
+| | `AGENTS.md` | `context` in `config.yaml` |
+|---|---|---|
+| **Wer liest** | jede Agent-Session, beim Start | OpenSpec, bei jedem Artefakt |
+| **Was rein gehört** | Projekt-Doku: Layout, Tech-Stack, Befehle, Konventionen | Constraints für Specs, Design und Tasks |
+| **Beispiel** | „Angular-Befehle über `ng`, nicht `pnpm`" | „Nur RestAssured-Tests, keine Unit-Tests" |
 
-- **`context`** = was der Agent immer wissen muss (Tech-Stack, Konventionen)
-- Optional pro Artefakt-Typ: **`rules`** – z.B. "Proposals enthalten immer einen Rollback-Plan"
-- Optional pro Operation: **`operations`** – z.B. für `apply`: "Fokussierte Tests vor der vollen Suite"
+**Faustregel:** Findet der Agent es im Code, in `pom.xml` oder `package.json`? Dann gehört es nicht in `context`.
 
 <!--
-Kann config.yaml automatisiert aktualisiert werden?
+context landet in jeder Artefakt-Instruction — jede Zeile dort kostet bei
+jedem Artefakt Tokens. Und abgeschriebene Fakten veralten: die
+Quarkus-Version in config.yaml stimmt nach dem nächsten Upgrade nicht mehr,
+die in pom.xml schon.
+
+Bis 1.13 empfahl der init-Kommentar das Gegenteil („Add your tech stack,
+conventions, style guides, domain knowledge"). Deshalb steckt im Übungs-Repo
+noch der ganze Tech-Stack in config.yaml, und CLAUDE.md/AGENTS.md verweisen
+darauf. Das funktioniert — es ist nur nicht mehr die Empfehlung.
+
+Konventionen, die für den Code gelten, gehören in AGENTS.md: der Agent
+braucht sie bei apply genauso wie beim Schreiben der Artefakte. In context
+nur, was die Artefakte selbst prägt.
+
+Warum AGENTS.md: der tool-neutrale Standard, den Codex, Copilot, OpenCode
+und andere lesen. Claude Code liest AGENTS.md seit v2.1.277 direkt — eine
+CLAUDE.md braucht es dafür nicht mehr. Achtung: gibt es beide, liest Claude
+Code standardmäßig nur CLAUDE.md. Beide zusammen per /config, „Project
+instructions" = claude-md-and-agents-md.
 -->
 
 ---
@@ -136,10 +157,10 @@ Die CLI ist der Motor, Slash-Commands und Skills sind das Lenkrad.
 Auszug aus `.claude/commands/opsx/propose.md`:
 
 ```text
-2. Create the change directory
+4. Create the change directory
    → openspec new change "<name>"
 
-3. Get the artifact build order
+5. Get the artifact build order
    → openspec status --change "<name>" --json
    Parse the JSON to get applyRequires and artifacts ...
 ```
@@ -151,7 +172,7 @@ Motor und Lenkrad: das Bild stammt aus docs/how-commands-work.md. Der Motor ist
 bei jedem Tool derselbe, das Lenkrad sieht in Claude Code, Cursor oder Codex
 anders aus — openspec init schreibt für jedes gewählte Tool das passende.
 
-Deshalb funktioniert derselbe Workflow mit 30+ Tools.
+Deshalb funktioniert derselbe Workflow mit rund 50 Tools.
 -->
 
 ---
@@ -177,7 +198,7 @@ layout: default
 Der `opsx:archive`-Skill macht dasselbe – aber LLM-gesteuert.
 
 ```text
-1. Run openspec status and confirm all tasks complete
+1. Run openspec list --json and check the task counts
 2. Compare each delta spec with its main spec ...  ← KI tut das manuell
 3. mkdir -p openspec/changes/archive               ← KI tut das manuell
 4. mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
@@ -198,6 +219,10 @@ TBD-Platzhalter. Das ist erledigt:
   specs-Instruction, das Template und der sync-Skill verlangen ihn — CLI und
   Agent erzeugen dieselbe Haupt-Spec
 - seit 1.11.0 meldet openspec validate einen ungeschriebenen Purpose
+
+Seit 1.14.0 bricht der Skill ab, wenn der Spec-Sync scheitert (#2018), statt
+den Change trotzdem zu archivieren. Sicherer — aber weiterhin LLM-gesteuert,
+die Empfehlung bleibt.
   (Warnung, mit --strict ein Fehler)
 -->
 
@@ -235,6 +260,15 @@ $ openspec validate --all --strict
 - `--strict` für CI, normal lokal
 
 **Faustregel:** rotes `validate` ⇒ kein `apply`.
+
+<!--
+Seit 1.13.1 meldet validate mehr stille Fehler: ein Requirement unter einer
+falschen Überschrift (Warnung), Delta-Requirements außerhalb von spec.md,
+FROM:/TO:-Zeilen ohne Partner, ein Scenario ohne Inhalt (jeweils Fehler).
+
+Seit 1.14.1 ist eine Requirement-Beschreibung über 500 Zeichen eine Warnung.
+Mit --strict scheitert die CI daran.
+-->
 
 ---
 layout: default

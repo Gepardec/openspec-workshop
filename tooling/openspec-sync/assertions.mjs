@@ -67,10 +67,12 @@ export const deckClaims = {
   },
   schemaTasksExcerpt: {
     value: [
-      '- Each task MUST be a checkbox: `- [ ] X.Y Task description`',
+      '- Each tracked task MUST be a checkbox: `- [ ] X.Y Task description`',
       '- Tasks should be small enough to complete in one session',
       '- Each task MUST state how to verify completion (a test, command,',
       'observable behavior, or delivered artifact). …', // trailing " …" = the line continues upstream
+      '- Each task group MUST land the tests and documentation its own work',
+      'calls for. Do NOT collect testing or documentation into a final group …',
     ],
     slide: 'slides/pages/05-cli-agent-bridge.md',
     text: 'schema.yaml – der Styleguide: wörtlicher Auszug aus der tasks-Instruction',

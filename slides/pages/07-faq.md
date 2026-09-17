@@ -65,7 +65,7 @@ layout: default
 
 Erst `config.yaml` füllen, dann Change für Change durch den Loop.
 
-- `context`: Ziel, Tech-Stack, Konventionen — bevor der erste Change entsteht
+- Bevor der erste Change entsteht: Ziel, Tech-Stack, Konventionen in `AGENTS.md` — in `context` nur die Constraints für die Artefakte
 - Zwei Wege: alle Changes vorab ausformulieren und nacheinander anwenden — oder jeden Change einzeln durch den ganzen Loop
 - **Meine Empfehlung:** einzeln. Was der erste Change lehrt, ändert sonst Specs, die schon geschrieben sind — und es ist weniger auf einmal zu lesen.
 

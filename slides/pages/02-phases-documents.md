@@ -224,7 +224,7 @@ Kein Pflichtschritt — ein Denkpartner, bevor Artefakte entstehen.
 
 ### Was passiert dabei?
 
-Fragen stellen, Annahmen aufdecken, Ansätze abwägen — **noch kein Artefakt**.
+Fragen stellen, Annahmen aufdecken, Ansätze abwägen — **kein Code**, Artefakte nur auf Wunsch.
 
 ::bottom::
 
@@ -504,6 +504,15 @@ layout: default
 - Capabilities: „Vertrag" zur spec.md – pro Capability eine Spec-Datei
 - Breaking Changes immer explizit als BREAKING markieren
 
+<!--
+Capabilities nach dauerhaftem Verhalten benennen (`user-auth`), nicht nach
+der Arbeit dieses Change (`add-login-endpoint`). Die Capability überlebt den
+Change und sammelt später weitere Requirements — also eine zusammenhängende
+Grenze wählen, aber keinen Sammeltopf.
+
+Quelle: proposal-Instruction und Template in schema.yaml (seit 1.14.0).
+-->
+
 ---
 layout: document
 source: proposal.md
@@ -560,6 +569,12 @@ REST-Integrationstests ab.
 
 Nicht in die Spec: Klassen- und Funktionsnamen, Library- oder Framework-Wahl,
 Implementierungsschritte. Das gehört in design.md oder tasks.md.
+
+Ein Verhalten pro Requirement: Beispiele und Randfälle in die Scenarios.
+Ab 500 Zeichen Beschreibung (Text zwischen Überschrift und erstem Scenario)
+gibt openspec validate eine Warnung; mit --strict ist es ein Fehler, und seit
+1.14.1 gilt das auch für ADDED-Requirements im Change. Unter MODIFIED den
+bestehenden Block trotzdem nie kürzen oder aufteilen.
 
 Rein in die Spec: beobachtbares Verhalten, Eingaben, Ausgaben, Fehlerfälle,
 externe Rahmenbedingungen wie Security oder Kompatibilität.
@@ -894,8 +909,8 @@ selbstverständlich von Bounded Contexts und Ports — woher kennt er die?
 Die rules-Zeile steht so in der config.yaml von mega-backend (rules → specs).
 Die Hexagon-Regeln selbst hält MEGA in CLAUDE.md/AGENTS.md und einem
 Architektur-Skill — das funktioniert auch, der Agent liest beides beim Start.
-Unsere Empfehlung aus dem Setup-Kapitel bleibt: config.yaml als Single Source
-of Truth, CLAUDE.md verweist darauf.
+Das passt zur Empfehlung aus dem Setup-Kapitel: Projekt-Doku und
+Konventionen in AGENTS.md, in context nur Constraints für die Artefakte.
 
 Durchgesetzt wird in MEGA mit ArchUnit (HexagonalArchitectureTest): domain
 hängt weder von application noch von adapter ab, application nicht von
@@ -912,14 +927,21 @@ layout: default
 
 - Bricht die Umsetzung in konkrete Schritte herunter, jeder klein genug für eine Session
 - **Jeder Task nennt, wie er verifiziert wird** — Test, Befehl oder beobachtbares Verhalten
-- Pflichtformat: `- [ ] X.Y Task` – andere Formate werden nicht getrackt
-- Tasks mit nummerierten Überschriften gruppieren
+- Pflichtformat: `- [ ] X.Y Task` – nur `[x]` zählt als erledigt, Zeilen ohne Checkbox werden nicht getrackt
+- Tasks mit nummerierten Überschriften gruppieren — **jede Gruppe bringt ihre eigenen Tests und Doku mit**, keine Sammelgruppe „Tests" am Ende
 - Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
 
 <!--
 Die Verifikationsregel steht in der tasks-Instruction von schema.yaml. Das
 Praxisbeispiel ist älter: die meisten seiner Tasks nennen noch keine
-Verifikation.
+Verifikation. Auch seine Gruppe 5 „Tests" verstößt seit 1.13.2 gegen die
+Instruction: die Unit-Tests gehören in Gruppe 3, die REST-Tests in Gruppe 4.
+Warum: testet erst die letzte Gruppe, was die erste gebaut hat, schlagen die
+Fehler durch alle Gruppen dazwischen zurück.
+
+Seit 1.14.1: Schritte, die erst nach archive gehen, stehen als normale
+Bullets in einem optionalen ## Workflow follow-up am Ende. Sie werden nicht
+getrackt und blockieren nicht, dass alle Tasks erledigt sind.
 -->
 
 ---

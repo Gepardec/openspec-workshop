@@ -21,6 +21,7 @@ Was ist in Arbeit — und was gilt bereits?
 ```sh
 $ openspec list                          # aktive Changes
 $ openspec list --specs                  # Haupt-Specs
+$ openspec list --archived               # abgeschlossene Changes
 $ openspec show us-06-dashboard          # proposal.md eines Change
 $ openspec show animal-list --type spec  # eine Haupt-Spec
 ```
@@ -60,15 +61,19 @@ Progress: 2/4 artifacts complete
 [x] specs
 [ ] design
 [-] tasks (blocked by: design)
+
+Next: openspec instructions design --change "us-07-filter" --json
 ```
 
 `blocked` ist ein Hinweis, keine Sperre: `tasks` baut auf `specs` und `design` auf.
 
-`openspec view`: interaktives Dashboard aller Changes und Specs, ohne JSON.
+`openspec view`: interaktives Dashboard der aktiven Changes und aller Specs, ohne JSON.
 
 <!--
 Braucht ein Change kein design.md, bleibt status bei 3/4 — validate und
 archive stört das nicht.
+
+Seit 1.13.1 nennt status in der letzten Zeile den nächsten Befehl.
 -->
 
 ---

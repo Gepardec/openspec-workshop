@@ -57,6 +57,7 @@ export const coverage = {
   'cli.command:doctor': skip(BETA),
   'cli.command:context': skip(BETA),
   'cli.command:workset': skip(BETA),
+  'cli.command:version': skip('Update-Check und Installationsart — Wartung, ändert nichts an dem, was Teilnehmende im Workflow tun'),
   'cli.command:feedback': skip('Feedback an die Maintainer, kein Inhalt für Teilnehmer'),
   'cli.command:templates': skip('Debug-Hilfe für Schema-Autoren; die FAQ zeigt nur fork und validate'),
   'cli.command:schemas': skip('listet verfügbare Schemas; die FAQ zeigt nur fork und validate'),

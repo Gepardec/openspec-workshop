@@ -54,15 +54,15 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Vier Artefakte (proposal/specs/design/tasks); Pfeile sind Abhängigkeiten, keine Sperren; tasks baut auf specs UND design auf; design.md nur, wenn der Change es braucht ("create only if")' },
       { slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec status zeigt 4 Artefakte, tasks blocked by design; blocked ist ein Hinweis, keine Sperre' },
-      { slide: 'slides/pages/02-phases-documents.md', claim: 'spec.md: Faustregel "Implementierung kann sich ändern, ohne sichtbares Verhalten zu ändern → nicht in die Spec"; jedes Requirement mit SHALL/MUST und mind. einem Scenario' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'spec.md: Faustregel "Implementierung kann sich ändern, ohne sichtbares Verhalten zu ändern → nicht in die Spec"; jedes Requirement mit SHALL/MUST und mind. einem Scenario; Notes: ein Verhalten pro Requirement, validate-Warnung ab 500 Zeichen Beschreibung (mit --strict Fehler, auch für ADDED)' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Delta-Specs: REMOVED mit Reason und Migration; RENAMED mit FROM:/TO:; Purpose nur für neue Capabilities' },
       { slide: 'slides/pages/02-phases-documents.md', claim: 'MODIFIED richtig schreiben: 4-Schritte-Workflow, ganzer Block, Überschrift unverändert; neue Anliegen ohne Verhaltensänderung → ADDED' },
-      { slide: 'slides/pages/02-phases-documents.md', claim: 'tasks.md: jeder Task nennt seine Verifikation; klein genug für eine Session' },
+      { slide: 'slides/pages/02-phases-documents.md', claim: 'tasks.md: jeder Task nennt seine Verifikation; klein genug für eine Session; jede Gruppe bringt eigene Tests und Doku mit, keine Sammelgruppe am Ende' },
       { slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'schema.yaml – der Styleguide: Auszug der tasks-Instruction (wörtlich), template, requires [specs, design]' },
     ],
   },
   { id: 'schema.tpl.proposal', tier: 1, kind: 'github-file', path: 'schemas/spec-driven/templates/proposal.md',
-    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'proposal.md hat vier Abschnitte: Why, What Changes, Capabilities, Impact' }] },
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'proposal.md hat vier Abschnitte: Why, What Changes, Capabilities, Impact; Notes: Capabilities nach dauerhaftem Verhalten benennen, nicht nach der Arbeit' }] },
   { id: 'schema.tpl.spec', tier: 1, kind: 'github-file', path: 'schemas/spec-driven/templates/spec.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: '### Requirement -> #### Scenario (WHEN/THEN), exakt 4 Hashtags, SHALL/MUST' }] },
   { id: 'schema.tpl.design', tier: 1, kind: 'github-file', path: 'schemas/spec-driven/templates/design.md',
@@ -73,6 +73,13 @@ export const sources = [
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Profil-Tabelle, Zeile core = propose/explore/apply/update/sync/archive' }] },
   { id: 'src.global-config', tier: 1, kind: 'github-file', path: 'src/core/global-config.ts',
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Profil-Tabelle nennt genau zwei Profile: core und custom' }] },
+  // The comment `init` writes into config.yaml — upstream's own advice on what belongs in `context`.
+  { id: 'src.config-prompts', tier: 1, kind: 'github-file', path: 'src/core/config-prompts.ts',
+    backs: [
+      { slide: 'slides/pages/03-setup-config.md', claim: 'config.yaml: context = Constraints, die der Agent nicht aus dem Code ablesen kann; kein Tech-Stack' },
+      { slide: 'slides/pages/03-setup-config.md', claim: 'AGENTS.md und config.yaml — wer weiß was?: Projekt-Doku in AGENTS.md, in context nur Constraints für die Artefakte' },
+      { slide: 'slides/pages/07-faq.md', claim: 'Neues Projekt: Tech-Stack und Konventionen in AGENTS.md, in context nur Constraints' },
+    ] },
 
   // CLI surface — one entry per command the deck actually types on a slide.
   { id: 'cli.root', tier: 1, kind: 'cli-help', argv: [],
@@ -80,7 +87,7 @@ export const sources = [
   { id: 'cli.init', tier: 1, kind: 'cli-help', argv: ['init'],
     backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'openspec init ist interaktiv, fragt nach AI-Tools, ist erneut ausführbar' }] },
   { id: 'cli.list', tier: 1, kind: 'cli-help', argv: ['list'],
-    backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec list; --specs listet Haupt-Specs; --json; Beispielausgabe "No tasks" / "✓ Complete"' }] },
+    backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec list; --specs listet Haupt-Specs; --archived listet abgeschlossene Changes; --json; Beispielausgabe "No tasks" / "✓ Complete"' }] },
   { id: 'cli.show', tier: 1, kind: 'cli-help', argv: ['show'],
     backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec show <change> gibt proposal.md aus; --type spec <name> zeigt eine Haupt-Spec; --json maschinenlesbar' }] },
   { id: 'cli.status', tier: 1, kind: 'cli-help', argv: ['status'],
@@ -116,8 +123,8 @@ export const sources = [
     ] },
   { id: 'docs.supported-tools', tier: 2, kind: 'github-file', path: 'docs/supported-tools.md',
     backs: [
-      { slide: 'slides/pages/01-what-why.md', claim: '30+ Tools werden bei init verdrahtet; Skills + Slash-Commands tool-spezifisch generiert' },
-      { slide: 'slides/pages/03-setup-config.md', claim: 'Claude Code, Codex, Copilot, OpenCode, ... 30+ Optionen, Mehrfachauswahl' },
+      { slide: 'slides/pages/01-what-why.md', claim: 'rund 50 Tools werden bei init verdrahtet; Skills + Slash-Commands tool-spezifisch generiert' },
+      { slide: 'slides/pages/03-setup-config.md', claim: 'Claude Code, Codex, Copilot, OpenCode, ... rund 50 Optionen, Mehrfachauswahl' },
     ] },
   { id: 'docs.concepts', tier: 2, kind: 'github-file', path: 'docs/concepts.md',
     backs: [
@@ -197,7 +204,7 @@ export const sources = [
   { id: 'skill.apply', tier: 2, kind: 'github-file', path: 'skills/openspec-apply-change/SKILL.md',
     backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'opsx:apply führt den Loop Task für Task aus, bis alle [x] sind' }] },
   { id: 'skill.archive', tier: 2, kind: 'github-file', path: 'skills/openspec-archive-change/SKILL.md',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Der opsx:archive-Skill macht dasselbe wie die CLI, aber LLM-gesteuert (mkdir/mv/Spec-Vergleich von Hand)' }] },
+    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Der opsx:archive-Skill macht dasselbe wie die CLI, aber LLM-gesteuert (Task-Zählung über list --json, mkdir/mv/Spec-Vergleich von Hand); bricht seit 1.14.0 bei gescheitertem Sync ab' }] },
   { id: 'skill.explore', tier: 2, kind: 'github-file', path: 'skills/openspec-explore/SKILL.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'explore = Frage-Antwort-Runden, noch kein Artefakt' }] },
   { id: 'skill.verify', tier: 2, kind: 'github-file', path: 'skills/openspec-verify-change/SKILL.md',
