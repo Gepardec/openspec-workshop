@@ -37,14 +37,3 @@ beantworten jetzt „Der Plan lebt" und „Update oder neuer Change?" in Kapitel
 Grenzen: Rückgriff auf das Statement am Ende von Kapitel 1 — beim
 Ein-Zeilen-Fix lohnt die Zeremonie nicht.
 -->
-
----
-layout: contact
-name: Oliver Tod
-role: Senior Software Engineer
-email: oliver.tod@gepardec.com
-phone: +43 664 538 7077
-photo: /contact.jpg
----
-
-# Fragen?

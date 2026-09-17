@@ -3,7 +3,7 @@ layout: section
 variant: ascii
 ---
 
-# Phasen & Dokumente
+# Phasen & Artefakte
 
 ---
 layout: default

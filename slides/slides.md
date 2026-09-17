@@ -18,11 +18,18 @@ layout: cover
 
 Oliver Tod
 
-Wien, TT.MM.JJJJ
+Land Salzburg, 17.09.2026
 
 ---
-src: ./pages/00-warmup.md
+layout: agenda
 ---
+
+# Agenda
+
+- Was ist Spec-driven?
+- Phasen & Artefakte
+- OpenSpec im Team
+- FAQ
 
 ---
 src: ./pages/01-what-why.md
@@ -30,18 +37,6 @@ src: ./pages/01-what-why.md
 
 ---
 src: ./pages/02-phases-documents.md
----
-
----
-src: ./pages/03-setup-config.md
----
-
----
-src: ./pages/04-cli-navigator.md
----
-
----
-src: ./pages/05-cli-agent-bridge.md
 ---
 
 ---
@@ -53,9 +48,12 @@ src: ./pages/07-faq.md
 ---
 
 ---
-src: ./pages/08-hands-on.md
+layout: contact
+name: Oliver Tod
+role: Senior Software Engineer
+email: oliver.tod@gepardec.com
+phone: +43 664 538 7077
+photo: /contact.jpg
 ---
 
----
-src: ./pages/09-discussion.md
----
+# Danke!
