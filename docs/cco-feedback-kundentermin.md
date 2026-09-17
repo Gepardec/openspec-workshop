@@ -9,7 +9,7 @@
 ## Schon im Deck
 
 - **Frage-Pausen** vor jedem Kapitel und einmal mitten in Kapitel 2 (nach den Artefakten, vor dem Review) — als Notiz für mich, nicht als eigene Folie
-- **Need-to-know:** die Begriffsfolie ist aufgelöst, jeder Begriff kommt dort, wo er zum ersten Mal gebraucht wird. Die Ablaufgrafik erklärt die vier Artefakte mit je einem Wort (Warum · Was · Wie · To-do)
+- **Need-to-know:** Kapitel 1 kommt ohne OpenSpec-Begriffe aus. „Phasen & Artefakte“ beginnt mit einer kompakten Begriffsfolie, bevor die Begriffe ständig fallen. Welche Artefakte es gibt, erklärt die Ablaufgrafik mit je einem Wort (Warum · Was · Wie · To-do)
 - **design.md** mit Beispielen für typische Entscheidungen
 - **Architekturvorgaben** als eigene Folie: wo sie stehen (`config.yaml`, `design.md`) und wer sie durchsetzt (ArchUnit, ESLint …)
 - **Sicherheitsnetz:** ArchUnit, ESLint, SonarQube/SonarLint, Prettier, Tests — als Harness-Thema, nicht als OpenSpec-Feature

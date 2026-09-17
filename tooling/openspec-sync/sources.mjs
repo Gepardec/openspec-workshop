@@ -130,7 +130,7 @@ export const sources = [
       { slide: 'slides/pages/01-what-why.md', claim: 'Statement: beim trivialen Ein-Zeilen-Fix lohnt die Zeremonie meist nicht; überall, wo Einigkeit zählt, schon' },
     ] },
   { id: 'docs.glossary', tier: 2, kind: 'github-file', path: 'docs/glossary.md',
-    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Begriffe beim ersten Gebrauch: specs/ + Change (Was gilt — und was kommt), Capability (proposal.md), Requirement + SHALL/MUST/SHOULD/MAY + Scenario (spec.md), Delta-Spec (Delta-Specs)' }] },
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'Begriffe am Anfang von Kapitel 2: Spec, Haupt-Specs (source of truth), Change, Artefakt, Delta-Spec, Capability; Requirement (Was, nicht Wie), Scenario (prüfbar), RFC-2119-Stufen; Sync (Deltas übernehmen), Archivieren (abschließen + Archiv)' }] },
   { id: 'docs.workflows', tier: 2, kind: 'github-file', path: 'docs/workflows.md',
     backs: [
       { slide: 'slides/pages/02-phases-documents.md', claim: 'Aktionen, keine Phasen: propose schreibt proposal (Warum), specs (Was), design (Wie), tasks (To-do); sync fehlt im Diagramm, weil archive es anbietet (Notes)' },

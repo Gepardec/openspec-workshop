@@ -11,6 +11,58 @@ Dann wirklich warten — rund zehn Sekunden Stille aushalten.
 -->
 
 ---
+layout: two-cols-header
+class: gepardec-text-sm
+---
+
+# Begriffe
+
+::left::
+
+### Die Kernbegriffe
+
+- **Spec** — wie sich ein Teil des Systems verhält
+- **Haupt-Specs** — `specs/`, der abgenommene Stand
+- **Change** — eine Arbeitseinheit, ein Ordner in `changes/`
+- **Artefakt** — ein Dokument im Change
+- **Delta-Spec** — nur, was sich an einer Spec ändert
+- **Capability** — eine Fähigkeit mit eigener Spec
+
+::right::
+
+### In einer Spec
+
+- **Requirement** — ein Verhalten, das das System haben muss: das *Was*, nicht das *Wie*
+- **Scenario** — ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN
+
+### Vom Change zur Spec
+
+- **Sync** — Delta-Specs in die Haupt-Specs übernehmen
+- **Archivieren** — Change abschließen, Ordner ins Archiv
+
+<!--
+Einmal kurz alle Begriffe, die ab jetzt ständig fallen — nur einen Satz pro
+Begriff, nicht vertiefen. Welche Artefakte es gibt und wozu, zeigt gleich das
+Ablauf-Diagramm; jedes kommt dann einzeln dran.
+
+Upstream-Glossar, Abschnitte „The core nouns", „Inside a spec" und „The
+lifecycle".
+
+Artefakte im Standard-Schema: proposal, Delta-Specs, design, tasks.
+
+Capability im Zoo-Projekt: animal-list, animal-profile, … — je ein Ordner
+unter specs/. Domänen gruppieren Capabilities, wenn ein Projekt wächst:
+specs/identity/user-auth/. Das Zoo-Projekt ist flach organisiert.
+
+SHALL/MUST: `openspec validate --strict` verlangt in jedem Requirement ein
+englisches SHALL oder MUST. Nur SHOULD — oder ein deutsches SOLL — fällt durch,
+ohne --strict gibt es eine Warnung.
+
+Sync macht archive meist mit — einzeln braucht man es nur bei lang laufenden
+Changes.
+-->
+
+---
 layout: default
 ---
 
@@ -28,7 +80,7 @@ openspec/
         ├── proposal.md
         ├── design.md
         ├── tasks.md
-        └── specs/dashboard/spec.md ← nur die Änderung
+        └── specs/dashboard/spec.md ← Delta-Spec
 ```
 
 ```text
@@ -37,7 +89,7 @@ openspec/
 │   ├── animal-create/spec.md
 │   ├── …
 │   ├── animal-profile/spec.md
-│   └── dashboard/spec.md           ← aus dem Change
+│   └── dashboard/spec.md           ← aus dem Delta
 └── changes/
     └── archive/
         └── YYYY-MM-DD-us-06-dashboard/
@@ -52,7 +104,7 @@ openspec/
 </div>
 <div v-click="1" class="[grid-area:1/1]">
 
-`archive` arbeitet die Änderungen in `specs/` ein und legt den Change vollständig ins Archiv. Die Specs beschreiben jetzt den **neuen** Stand.
+`archive` arbeitet die Deltas in `specs/` ein und legt den Change vollständig ins Archiv. Die Specs beschreiben jetzt den **neuen** Stand.
 
 </div>
 </div>
@@ -449,16 +501,8 @@ layout: default
 
 - Welches Problem wird gelöst – und warum jetzt?
 - Vier Abschnitte: Why, What Changes, Capabilities, Impact
-- **Capability** — eine Fähigkeit des Systems, z. B. `payroll-month`: der „Vertrag" zur spec.md, pro Capability eine Spec-Datei
+- Capabilities: „Vertrag" zur spec.md – pro Capability eine Spec-Datei
 - Breaking Changes immer explizit als BREAKING markieren
-
-<!--
-Capability im Zoo-Projekt: animal-list, animal-profile, … — je ein Ordner
-unter specs/. Domänen gruppieren Capabilities, wenn ein Projekt wächst:
-specs/identity/user-auth/. Das Zoo-Projekt ist flach organisiert.
-
-Quelle: Upstream-Glossar, „The core nouns".
--->
 
 ---
 layout: document
@@ -499,23 +543,17 @@ When the frontend loads, it needs to know which payroll month to display before 
 
 ---
 layout: default
-class: gepardec-text-sm
 ---
 
 # spec.md – Das WAS
 
 - Beschreibt Verhalten, das man von außen prüfen kann — nicht, wie es gebaut ist
 - **Faustregel:** Kann sich etwas ändern, ohne dass sich sichtbares Verhalten ändert? Dann gehört es nicht in die Spec.
-- **Requirement** — ein Verhalten, das das System haben muss: verbindlich mit SHALL oder MUST, SHOULD und MAY schwächen ab
-- **Scenario** — ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN; mindestens eines pro Requirement
-- Struktur: `### Requirement` → `#### Scenario` — exakt 4 Hashtags, sonst wird das Scenario nicht erkannt
+- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) — exakt 4 Hashtags, sonst wird das Scenario nicht erkannt
+- Jedes Requirement braucht ein SHALL/MUST und mindestens ein Scenario
 - Scenarios sind die Vorlage für automatisierte Tests — vom Unit- bis zum Akzeptanztest
 
 <!--
-SHALL/MUST folgen RFC 2119. `openspec validate --strict` verlangt in jedem
-Requirement ein englisches SHALL oder MUST. Nur SHOULD — oder ein deutsches
-SOLL — fällt durch, ohne --strict gibt es eine Warnung.
-
 Die Tests entstehen auf Basis der Spec, nicht des Codes. Im Praxisbeispiel
 leitet tasks.md aus denselben Scenarios Unit-Tests für die Services und
 REST-Integrationstests ab.

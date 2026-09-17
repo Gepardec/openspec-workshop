@@ -48,7 +48,7 @@ export const deckClaims = {
   strictRequiresShall: {
     value: true,
     slide: 'slides/pages/02-phases-documents.md',
-    text: 'Notes spec.md: validate --strict verlangt ein englisches SHALL/MUST je Requirement; ohne --strict nur Warnung',
+    text: 'Notes Begriffe: validate --strict verlangt ein englisches SHALL/MUST je Requirement; ohne --strict nur Warnung',
   },
   deltaOperations: {
     value: ['ADDED', 'MODIFIED', 'REMOVED', 'RENAMED'],
