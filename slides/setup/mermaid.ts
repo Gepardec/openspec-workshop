@@ -3,9 +3,19 @@ import { defineMermaidSetup } from '@slidev/types'
 /**
  * Mermaid in Brand-Farben — zentral, damit kein Diagramm eigene `style`-Zeilen
  * mitschleppt. Schwarzer Grund, graue Knotenrahmen, gelbe Kanten.
+ *
+ * `look`, `layout` und `flowchart` explizit: Mermaid 12 (ab Slidev 53) nimmt
+ * sonst `neo` (Schlagschatten), `elk` (eckige Kanten, breiteres Layout) und
+ * 120px Mindestbreite je Knoten — die Diagramme laufen dann über den Slide.
  */
 export default defineMermaidSetup(() => ({
   theme: 'base',
+  look: 'classic',
+  layout: 'dagre',
+  flowchart: {
+    minNodeWidth: 0,
+    wrappingWidth: 200,
+  },
   themeVariables: {
     darkMode: true,
     background: '#000000',

@@ -9,12 +9,7 @@
   },
   "dependencies": {
     "@gepardec/slidev-theme-gepardec": "^2.1.0",
-    "@slidev/cli": "^52.19.1",
-    "vue": "^3.5.42"
-  },
-  "devDependencies": {
-    "@slidev/types": "^52.19.1",
-    "playwright-chromium": "^1.63.0",
-    "unocss": "^66.10.2"
+    "@slidev/cli": "^53.0.0",
+    "vue": "^3.5.33"
   }
 }
