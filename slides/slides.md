@@ -59,3 +59,14 @@ src: ./pages/08-hands-on.md
 ---
 src: ./pages/09-discussion.md
 ---
+
+---
+layout: contact
+name: Oliver Tod
+role: Senior Software Engineer
+email: oliver.tod@gepardec.com
+phone: +43 664 538 7077
+photo: /contact.jpg
+---
+
+# Danke!
