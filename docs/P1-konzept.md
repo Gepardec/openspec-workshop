@@ -24,6 +24,10 @@ der hängt an A und B. Übung 5 und 6 sind bereits nachgezogen.
 Bewusst direkt vor den Hands-on-Teil: die Teilnehmer nehmen die Review-Checkliste
 in die Nachmittagsübungen mit.
 
+> **Teilweise vorgezogen (2026-09-17):** Kapitel 2 hat jetzt „Architekturvorgaben“,
+> „Das Sicherheitsnetz“ (entspricht Slide 6, Konvention vs. Regel) und „Wo braucht es
+> den Menschen?“. Beim Umsetzen dieses Blocks darauf aufbauen, nicht doppeln.
+
 **Kernbotschaft:** Die Spec sagt dem Agenten, *was* zu bauen ist. Sie hindert ihn nicht
 daran, es auf eine Art zu bauen, die dein Team nicht will. Dafür braucht es drei Netze,
 und zwei davon prüfen ohne dich.
