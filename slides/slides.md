@@ -1,7 +1,16 @@
 ---
 theme: '@gepardec/slidev-theme-gepardec'
 title: OpenSpec Workshop
+info: |
+  ## OpenSpec Workshop
+  Spec-driven Development mit OpenSpec
+
+  Learn more at [gepardec.com](https://www.gepardec.com/leistungen/spec-driven-development-mit-openspec/)
+drawings:
+  persist: false
 transition: slide-left
+comark: true
+duration: 510min
 layout: cover
 ---
 

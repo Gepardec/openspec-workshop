@@ -1,8 +1,0 @@
-/* Deck-lokale Ergänzungen zum Theme. Nur was das Theme bewusst offen lässt. */
-
-/* Lange Zeilen in den Artefakt-Snippets umbrechen statt abschneiden.
-   Aktiviert per `class: wrap-code` im Frontmatter der betroffenen Folien. */
-.wrap-code .slidev-code code {
-  white-space: pre-wrap;
-  word-break: break-word;
-}
