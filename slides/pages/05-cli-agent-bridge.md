@@ -4,6 +4,11 @@ layout: section
 
 # Die CLI als Agent-Bridge
 
+<!--
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „CLI als Datei-Navigator“ offen?
+Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+-->
+
 ---
 layout: default
 class: gepardec-text-lg

@@ -4,6 +4,11 @@ layout: section
 
 # Setup & Konfiguration
 
+<!--
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Phasen & Artefakte“ offen?
+Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+-->
+
 ---
 layout: default
 ---

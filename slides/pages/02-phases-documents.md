@@ -5,6 +5,63 @@ variant: ascii
 
 # Phasen & Artefakte
 
+<!--
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Was ist Spec-driven?“ offen?
+Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+-->
+
+---
+layout: two-cols-header
+class: gepardec-text-sm
+---
+
+# Begriffe
+
+::left::
+
+### Die Kernbegriffe
+
+- **Spec** — wie sich ein Teil des Systems verhält
+- **Haupt-Specs** — `specs/`, der abgenommene Stand
+- **Change** — eine Arbeitseinheit, ein Ordner in `changes/`
+- **Artefakt** — ein Dokument im Change
+- **Delta-Spec** — nur, was sich an einer Spec ändert
+- **Capability** — eine Fähigkeit mit eigener Spec
+
+::right::
+
+### In einer Spec
+
+- **Requirement** — ein Verhalten, das das System haben muss: das *Was*, nicht das *Wie*
+- **Scenario** — ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN
+
+### Vom Change zur Spec
+
+- **Sync** — Delta-Specs in die Haupt-Specs übernehmen
+- **Archivieren** — Change abschließen, Ordner ins Archiv
+
+<!--
+Einmal kurz alle Begriffe, die ab jetzt ständig fallen — nur einen Satz pro
+Begriff, nicht vertiefen. Welche Artefakte es gibt und wozu, zeigt gleich das
+Ablauf-Diagramm; jedes kommt dann einzeln dran.
+
+Upstream-Glossar, Abschnitte „The core nouns", „Inside a spec" und „The
+lifecycle".
+
+Artefakte im Standard-Schema: proposal, Delta-Specs, design, tasks.
+
+Capability im Zoo-Projekt: animal-list, animal-profile, … — je ein Ordner
+unter specs/. Domänen gruppieren Capabilities, wenn ein Projekt wächst:
+specs/identity/user-auth/. Das Zoo-Projekt ist flach organisiert.
+
+SHALL/MUST: `openspec validate --strict` verlangt in jedem Requirement ein
+englisches SHALL oder MUST. Nur SHOULD — oder ein deutsches SOLL — fällt durch,
+ohne --strict gibt es eine Warnung.
+
+Sync macht archive meist mit — einzeln braucht man es nur bei lang laufenden
+Changes.
+-->
+
 ---
 layout: default
 ---
@@ -63,103 +120,8 @@ Genau dieser Change ist Übung 3 am Nachmittag.
 -->
 
 ---
-layout: two-cols-header
+layout: default
 class: gepardec-text-sm
----
-
-# Begriffe
-
-::left::
-
-### Die Kernbegriffe
-
-- **Spec** — wie sich ein Teil des Systems verhält
-- **Haupt-Specs** — `specs/`, der abgenommene Stand
-- **Change** — eine Arbeitseinheit, ein Ordner in `changes/`
-- **Artefakt** — ein Dokument im Change
-- **Delta-Spec** — nur, was sich an einer Spec ändert
-- **Capability** — eine Fähigkeit mit eigener Spec
-
-::right::
-
-### In einer Spec
-
-- **Requirement** — ein Verhalten, das das System haben muss: das *Was*, nicht das *Wie*
-- **Scenario** — ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN
-- **SHALL / MUST** — verbindlich; SHOULD und MAY schwächen ab (RFC 2119)
-
-<!--
-Upstream-Glossar, Abschnitte „The core nouns" und „Inside a spec".
-
-Artefakte im Standard-Schema: proposal, Delta-Specs, design, tasks.
-
-Capability im Zoo-Projekt: animal-list, animal-profile, … — je ein Ordner
-unter specs/. Domänen gruppieren Capabilities, wenn ein Projekt wächst:
-specs/identity/user-auth/. Das Zoo-Projekt ist flach organisiert.
-
-SHALL/MUST: `openspec validate --strict` verlangt in jedem Requirement ein
-englisches SHALL oder MUST. Nur SHOULD — oder ein deutsches SOLL — fällt durch,
-ohne --strict gibt es eine Warnung.
--->
-
----
-layout: default
----
-
-# Ablauf
-
-<div class="mt-14 grid grid-cols-5 gap-4 items-start">
-  <div v-click>
-    <div class="flex items-baseline gap-2">
-      <span class="font-mono text-xl text-[var(--gepardec-yellow)]">explore</span>
-    </div>
-    <div class="mt-3 text-sm opacity-70 leading-snug">Anforderungen zerlegen, Domäne erkunden</div>
-  </div>
-  <div v-click>
-    <div class="flex items-baseline gap-2">
-      <span class="text-xl opacity-30">&rarr;</span>
-      <span class="font-mono text-xl text-[var(--gepardec-yellow)]">propose</span>
-    </div>
-    <div class="mt-3 text-sm opacity-70 leading-snug pl-6">Change ausformulieren: proposal, spec, design, tasks</div>
-  </div>
-  <div v-click>
-    <div class="flex items-baseline gap-2">
-      <span class="text-xl opacity-30">&rarr;</span>
-      <span class="font-mono text-xl text-[var(--gepardec-yellow)]">apply</span>
-    </div>
-    <div class="mt-3 text-sm opacity-70 leading-snug pl-6">Tasks abarbeiten, implementieren</div>
-  </div>
-  <div v-click>
-    <div class="flex items-baseline gap-2">
-      <span class="text-xl opacity-30">&rarr;</span>
-      <span class="font-mono text-xl text-[var(--gepardec-yellow)]">sync</span>
-    </div>
-    <div class="mt-3 text-sm opacity-70 leading-snug pl-6">Deltas in die Haupt-Specs übernehmen</div>
-  </div>
-  <div v-click>
-    <div class="flex items-baseline gap-2">
-      <span class="text-xl opacity-30">&rarr;</span>
-      <span class="font-mono text-xl text-[var(--gepardec-yellow)]">archive</span>
-    </div>
-    <div class="mt-3 text-sm opacity-70 leading-snug pl-6">Change abschließen und ablegen</div>
-  </div>
-</div>
-
-<div v-click class="mt-16">
-
-> Zwischen `propose` und `apply` steht das Review. Nach `archive` beginnt der nächste Change wieder bei `explore`.
-
-</div>
-
-<!--
-Es gibt auch noch weitere Workflows, die nur das custom-Profil installiert. Außer verify (kommt nach apply) nicht näher drauf eingehen, kann nachgelesen werden.
-
-sync sieht nach nichts aus, ist aber der Schritt, in dem aus einem Change
-dauerhaftes Wissen wird.
--->
-
----
-layout: default
 ---
 
 # Aktionen, keine Phasen
@@ -185,10 +147,15 @@ flowchart LR
 
 </div>
 
+`propose` schreibt: **proposal** – Warum · **specs** – Was · **design** – Wie · **tasks** – To-do
+
 Gestrichelt: optional. Stimmt der Plan nicht, wird er angepasst — nicht umgangen.<br>
 `verify` prüft maschinell und ersetzt kein menschliches Code-Review.
 
 <!--
+Die Artefakte hier nur mit einem Wort — jedes kommt einzeln dran, sobald es im
+Praxisbeispiel entsteht.
+
 Upstream: „fluid not rigid", „iterative not waterfall" (docs/concepts.md).
 Außer apply — das braucht eine tasks.md — sperrt kein Schritt einen anderen.
 Der Preis dafür ist Disziplin: nichts zwingt einen Change, fokussiert zu
@@ -199,7 +166,8 @@ verify ist die optionale, maschinelle Vorprüfung — das Code-Review durch
 einen Menschen empfehlen wir trotzdem immer.
 
 verify gibt es nur im custom-Profil, dazu mehr nach apply. sync ist hier
-weggelassen: archive bietet es ohnehin an.
+weggelassen: archive bietet es ohnehin an. sync sieht nach nichts aus, ist
+aber der Schritt, in dem aus einem Change dauerhaftes Wissen wird.
 
 Quelle: docs/workflows.md, „Workflow at a Glance".
 -->
@@ -789,16 +757,48 @@ Quelle: docs/writing-specs.md.
 -->
 
 ---
-layout: default
+layout: two-cols-header
+class: gepardec-text-sm
 ---
 
 # design.md – Das WIE
 
-- Architektur und technische Entscheidungen – keine Implementierungsanleitung
-- Klare Abgrenzung von Zielen und Nicht-Zielen
-- Jede Entscheidung mit Begründung und verworfenen Alternativen – warum X statt Y?
+Architektur und technische Entscheidungen — keine Implementierungsanleitung.
+
+::left::
+
+### Was hineingehört
+
+- Ziele und Nicht-Ziele
+- Jede Entscheidung mit Begründung und verworfenen Alternativen — warum X statt Y?
 - Risiken im Format `[Risk]` → Mitigation
-- „Open Questions" – vor Implementierung klären
+- „Open Questions" — vor der Implementierung klären
+
+::right::
+
+### Typische Entscheidungen
+
+- In welches Modul gehört die neue Logik?
+- Ein Use Case pro Rolle — oder einer mit Parameter?
+- Eine Regel aus dem Altcode übernehmen oder streichen?
+- Vorhandene Schnittstelle nutzen oder eine neue bauen?
+
+::bottom::
+
+Nicht jeder Change braucht eins — erst ab mehreren Modulen, neuen Abhängigkeiten oder Migrationen.
+
+<!--
+Alle vier Beispiele rechts stammen aus dem Praxisbeispiel auf der nächsten
+Folie: monthend statt worktime, zwei Use Cases, die 14.-Regel fällt weg,
+findOpenEmployeeTasks reicht — kein neuer Port.
+
+Weitere typische Fälle: neue Library oder Eigenbau, neue Tabelle oder Spalte,
+synchron oder über ein Event, Client generieren oder von Hand schreiben.
+
+Wann design.md sich lohnt, steht in der design-Instruction von schema.yaml:
+mehrere Module oder Services, neues Architekturmuster, neue externe
+Abhängigkeit, größere Datenmodell-Änderung, Security, Performance, Migration.
+-->
 
 ---
 layout: document
@@ -868,6 +868,41 @@ The frontend calls a payroll-month endpoint on initial page load to anchor subse
 - **Project-lead rule is static** → Always returning previous month may need revision if business rules change (e.g. a project-lead gets the same smart-check as employees). The separate use case provides the right seam for this without touching the employee path.
 
 - **Legacy and hexagon endpoints coexist** → Both `GET /worker/payrollMonth` (legacy) and `GET /monthend/payroll-month/employee` will exist simultaneously until the legacy is decommissioned. This is intentional and not a risk — the frontend migrates when ready.
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Architekturvorgaben
+
+Woher kennt der Agent Hexagon und Bounded Contexts? Aus Vorgaben, die er lesen kann.
+
+| Wo | Gilt für | Beispiel |
+|---|---|---|
+| `context` in config.yaml | jedes Artefakt | „Hexagonal: `domain` hängt von keiner anderen Schicht ab“ |
+| `rules` in config.yaml | einen Artefakt-Typ | „Spec-Ordner heißen `<bounded-context>-<purpose>`“ |
+| `design.md` | genau diesen Change | „payroll-month gehört in `monthend`“ |
+| ArchUnit, ESLint … | jeden Build | Verstoß gegen die Schichten → roter Build |
+
+> Eine Vorgabe im Text ist eine Bitte. Ein Werkzeug, das den Build rot macht, ist eine Regel.
+
+<!--
+Die Frage kommt nach der Design-Folie fast immer: der Agent schreibt
+selbstverständlich von Bounded Contexts und Ports — woher kennt er die?
+
+Die rules-Zeile steht so in der config.yaml von mega-backend (rules → specs).
+Die Hexagon-Regeln selbst hält MEGA in CLAUDE.md/AGENTS.md und einem
+Architektur-Skill — das funktioniert auch, der Agent liest beides beim Start.
+Unsere Empfehlung aus dem Setup-Kapitel bleibt: config.yaml als Single Source
+of Truth, CLAUDE.md verweist darauf.
+
+Durchgesetzt wird in MEGA mit ArchUnit (HexagonalArchitectureTest): domain
+hängt weder von application noch von adapter ab, application nicht von
+adapter. Die Werkzeuge im Detail nach apply.
+
+context und rules technisch: Kapitel „Setup & Konfiguration".
+-->
 
 ---
 layout: default
@@ -977,6 +1012,9 @@ propose ──► PLAN REVIEWEN ──► apply ──► CODE REVIEWEN ──�
 Den Plan lesen, solange er noch aus Worten besteht. Den Code prüfen, bevor er zur Wahrheit wird.
 
 <!--
+Frage-Pause: die vier Artefakte sind durch, jetzt geht es ums Review. Was ist
+bis hierher offen? Dann wirklich warten.
+
 Ein Irrtum im Proposal kostet einen Absatz. Derselbe Irrtum nach apply kostet
 den Code, der darauf gebaut wurde.
 
@@ -1063,6 +1101,44 @@ layout: default
 <img src="/screenshots/apply.png" class="w-full rounded-xl object-contain max-h-85" alt="opsx:apply in Aktion" />
 
 ---
+layout: default
+class: gepardec-text-sm
+---
+
+# Das Sicherheitsnetz
+
+Deterministisch: jeder Change wird gleich geprüft — egal, wer ihn geschrieben hat.
+
+| Werkzeug | Fängt |
+|---|---|
+| **ArchUnit** | Architekturverstöße im Java-Code: Schichten, Abhängigkeiten, Namensregeln |
+| **ESLint** | Frontend-Regeln und — mit Sheriff — Modulgrenzen |
+| **SonarQube · SonarLint** | Bugs, Code Smells, Security Hotspots, Testabdeckung |
+| **Prettier** | Formatierung — kein Thema mehr im Review |
+| **Tests** | Verhalten, das von den Scenarios abweicht |
+
+Kein OpenSpec-Feature, sondern **Harness**: Der Agent sieht rot, bessert nach, prüft erneut.
+
+<!--
+Harness: alles rund um das Modell — Werkzeuge, Regeln, Tests, Hooks. OpenSpec
+sagt, was gebaut wird. Das Netz prüft, ob es sauber gebaut ist.
+
+Verbindung zu tasks.md: jeder Task nennt, wie er verifiziert wird. Das Netz
+macht diese Verifikation ausführbar.
+
+ArchUnit in MEGA, HexagonalArchitectureTest:
+  noClasses().that().resideInAPackage("..hexagon..domain..")
+      .should().dependOnClassesThat().resideInAPackage("..hexagon..adapter..")
+
+Im Zoo-Projekt: ESLint mit angular-eslint und Sheriff, Prettier,
+RestAssured-Tests — alles in der config.yaml beschrieben.
+
+Je früher das Netz greift, desto billiger: im Editor (SonarLint, ESLint), im
+Build (ArchUnit, Tests), in der CI (SonarQube). SonarLint heißt inzwischen
+„SonarQube for IDE".
+-->
+
+---
 layout: two-cols-header
 class: gepardec-text-sm
 ---
@@ -1113,6 +1189,46 @@ Spec oder Design, Scenario ohne Test. SUGGESTION: Muster-Abweichungen.
 Fehlt design.md, überspringt verify den Abgleich mit dem Design und sagt das.
 
 Quelle: skills/openspec-verify-change/SKILL.md, docs/workflows.md „Verify".
+-->
+
+---
+layout: two-cols-header
+---
+
+# Wo braucht es den Menschen?
+
+::left::
+
+### Heute
+
+- `explore`: Fragen beantworten, entscheiden
+- Plan-Review nach `propose`
+- Code-Review nach `apply` — `verify` hilft, ersetzt es aber nicht
+
+::right::
+
+### Mit ausgereifter Harness
+
+- `explore` und Plan-Review bleiben beim Menschen
+- Code-Review automatisiert: `verify` und Sicherheitsnetz im Feedback-Loop, bis nichts mehr offen ist
+
+::bottom::
+
+Voraussetzung: Tests, Linter und Architekturregeln fangen verlässlich, was heute ein Reviewer fängt.
+
+<!--
+Die Frage kommt regelmäßig: An welchen Stellen muss ich selbst ran?
+
+Beim Plan wird entschieden, was gebaut wird — dagegen kann keine Maschine
+prüfen. Dieses Review bleibt beim Menschen.
+
+Beim Code sieht es anders aus. verify allein ist ein Urteil des Modells: es
+sucht Tests, führt sie aber nicht aus. Erst zusammen mit dem Sicherheitsnetz,
+das Tests und Regeln wirklich ausführt, kann ein automatisiertes Review mit
+Feedback-Loop das menschliche Code-Review ablösen.
+
+Das ist ein Ausblick, keine Empfehlung für morgen: das Vertrauen in die Harness
+wächst mit jedem Change, in dem sie etwas gefangen hat.
 -->
 
 ---
@@ -1268,11 +1384,54 @@ Export nicht vergessen: --with-clicks.
 
 ---
 layout: default
+class: gepardec-text-sm
+---
+
+# Was kostet ein Change?
+
+Ein echter MEGA-Change mit Opus 5: generierte API-Clients im Frontend — 31 Tasks, vier Delta-Specs, rund 1.000 neue Zeilen.
+
+| Session | Tokens | davon aus dem Cache | Kosten |
+|---|--:|--:|--:|
+| `explore` + `propose` | 15,0 Mio. | 98 % | 12 USD |
+| `apply` | 39,5 Mio. | 99 % | 26 USD |
+| `archive` | 1,4 Mio. | 94 % | 2 USD |
+| **Gesamt** | **56 Mio.** | | **40 USD** |
+
+Tokens sind billig, Kontext ist teuer: 70 % der Kosten entstehen, weil jeder Schritt den Kontext erneut liest.
+
+<!--
+Gerechnet mit den Listenpreisen der Anthropic-API für Opus 5: 5 USD pro
+Million Input-Tokens, 25 USD Output, Cache schreiben (1 h) 10 USD, Cache lesen
+0,50 USD. Summiert über alle API-Requests der drei Claude-Code-Sessions,
+Stand September 2026.
+
+Aufschlüsselung: 230.000 Output-Tokens kosten 6 USD, 55 Mio. Cache-Tokens
+lesen 28 USD, Cache schreiben 6 USD.
+
+Die 1.000 Zeilen zählen ohne den generierten Client, Lockfile und OpenAPI-Snapshot.
+
+Mit einem Abo (Pro, Max, Team) zahlt man nicht pro Token — die Zahl ist dann
+der API-Gegenwert.
+
+Zeit: explore + propose rund 75 Minuten, apply rund 70 Minuten inklusive
+manuellem Test, archive eine Viertelstunde. Am selben Tag gemergt.
+
+Warum nicht der Abrechnungsmonat? Der lief im April noch mit Sonnet 4.6, und
+die vollständigen Transkripte gibt es nicht mehr. Der orval-Change ist
+vergleichbar groß und durchläuft dieselben Phasen.
+
+Daraus folgt die erste Best Practice auf der nächsten Folie: neue Session pro
+Phase hält den Kontext klein — und damit die Kosten.
+-->
+
+---
+layout: default
 ---
 
 # Best practices
 
-- Nach jeder Phase (außer Explore) neue Session starten - sauberes Kontext-Fenster!
+- Nach jeder Phase (außer Explore) neue Session starten — sauberes Kontext-Fenster, geringere Kosten
 - Unklarheiten nach propose klären, bevor apply beginnt
 - Implementierungsfehler in derselben Session korrigieren - Spec anpassen, falls das Verhalten davon abweicht
 - Umfangreiche Aufgaben: Implementierung von einem anderen Agenten reviewen lassen (neue Session!), z. B. mit `/opsx:verify`

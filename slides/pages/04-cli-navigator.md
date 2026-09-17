@@ -5,6 +5,11 @@ variant: ascii
 
 # Die CLI als Datei-Navigator
 
+<!--
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Setup & Konfiguration“ offen?
+Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+-->
+
 ---
 layout: default
 ---

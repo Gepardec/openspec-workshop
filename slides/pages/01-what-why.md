@@ -24,9 +24,9 @@ layout: default
 Ein **Workflow-Layer**, der im Repo neben dem Code lebt.
 
 - Changes werden vorgeschlagen, nicht einfach gebaut
-- Jeder Change trägt seinen vollständigen Kontext: proposal, specs, design, tasks
-- Volle Kontrolle über jedes Artefakt
-- Keine Implementierung, bevor die Artefakte aus *deiner* Sicht vollständig sind
+- Jeder Change trägt seinen vollständigen Kontext — vom Warum bis zur Aufgabenliste
+- Volle Kontrolle über jedes Dokument
+- Keine Implementierung, bevor der Plan aus *deiner* Sicht vollständig ist
 - Die CLI macht diesen Kontext navigierbar – für Menschen *und* KI-Agenten
 
 ---
@@ -91,9 +91,9 @@ layout: default
 
 OpenSpec ist **brownfield-first** – designed für Code, der bereits existiert.
 
-- Neue Changes beschreiben Deltas: `ADDED` · `MODIFIED` · `REMOVED`
-- Beim Archivieren werden Deltas in die Haupt-Specs eingearbeitet
-- Die Spec-Sammlung wächst organisch mit jedem gemergten Change
+- Ein Change beschreibt nur, was sich ändert — nicht das ganze System
+- Ist der Change abgeschlossen, fließt die Änderung in die Specs ein
+- Die Spec-Sammlung wächst organisch mit jedem abgeschlossenen Change
 
 > Selbstverständlich kann man aber auch auf der grünen Wiese starten 😉
 
@@ -132,13 +132,13 @@ Sechs Monate später erklärt der archivierte Change, warum das System so funkti
 
 ### Review ohne Chat-Archäologie
 
-Proposal lesen, Deltas überfliegen, Tasks prüfen. Ein Ordner, ein Change.
+Plan lesen, Änderungen an den Specs überfliegen, Aufgaben prüfen. Ein Ordner, ein Change.
 
 ::four::
 
 ### Kein Big-Bang-Dokumentieren
 
-Deltas beschreiben nur die Änderung — auch in einer Anwendung mit 50.000 Zeilen.
+Ein Change beschreibt nur die Änderung — auch in einer Anwendung mit 50.000 Zeilen.
 
 <!--
 OpenSpec kostet einen Schritt: erst ein kurzer Plan, dann Code. Diese Folie

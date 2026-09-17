@@ -143,7 +143,7 @@ export const coverage = {
   'docs.page:README.md': skip('Inhaltsverzeichnis der Doku'),
   'docs.page:overview.md': taught(S1), // quadrants „Lohnt sich der Mehraufwand?“ + Statement zum Ein-Zeilen-Fix
   'docs.page:community.md': skip('Links zu Discord/Contributing'),
-  'docs.page:glossary.md': taught(S2), // Folie „Begriffe“: core nouns + inside a spec
+  'docs.page:glossary.md': taught(S2), // Folie „Begriffe“: core nouns + inside a spec + lifecycle (sync, archive)
   'docs.page:faq.md': taught(S7), // eigenes FAQ-Kapitel; Modell- und Sprachfrage decken sich mit Upstream
   'docs.page:troubleshooting.md': skip('Support-Material, kein Foliencontent'),
   'docs.page:commands.md': skip('Referenz aller Slash-Commands; die fünf relevanten haben eigene Folien, opsx.md ist getrackt'),

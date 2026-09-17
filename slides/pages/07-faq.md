@@ -4,16 +4,22 @@ layout: section
 
 # FAQ
 
+<!--
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „OpenSpec im Team“ offen?
+Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+-->
+
 ---
 layout: agenda
 ---
 
 # Was wollt ihr wissen?
 
+- Ab welcher Größe?
 - Neues Projekt
 - Bestandsprojekt
 - Monorepo
-- Mehrere Repos
+- Frontend & Backend
 - Refactoring
 - Merge-Konflikte
 - Welches Modell?
@@ -25,7 +31,30 @@ Die Gruppe wählt per Nummer, was drankommt — der Rest steht im Repo zum
 Nachlesen. Richtwert: 15 Minuten für den ganzen Block.
 
 Jede Antwort hat eine eigene Folie, in dieser Reihenfolge:
-1–4 Einführen, 5–7 Arbeiten, 8–9 Anpassen.
+1–5 Einführen, 6–8 Arbeiten, 9–10 Anpassen.
+-->
+
+---
+layout: default
+---
+
+# Ab welcher Größe lohnt es sich?
+
+Nicht die Größe der Codebasis entscheidet — der einzelne Change.
+
+- **Lohnt sich:** Anforderung unklar, mehrere Module betroffen, ein Fehler wäre teuer
+- **Lohnt sich kaum:** Tippfehler, Ein-Zeilen-Fix, Umbenennung
+- Die Codebasis darf beliebig groß sein: Specs entstehen nur für das, was ein Change berührt
+- Je größer die Codebasis, desto weniger davon passt in den Kontext des Agenten — und desto mehr hilft ihm eine Spec
+
+<!--
+Die Frage kommt meist als „ab wie vielen Zeilen?". Die ehrliche Antwort: keine
+Zeilenzahl. Ein vager Satz zu einem kleinen Service braucht OpenSpec eher als
+ein präzise beschriebener Fix in einem Monolithen.
+
+Rückgriff auf Kapitel 1: „Kein Big-Bang-Dokumentieren" und das Statement zum
+Ein-Zeilen-Fix. Kosten eines mittleren Change: rund 40 USD, siehe
+„Was kostet ein Change?".
 -->
 
 ---
@@ -104,15 +133,27 @@ muss nicht vorab stehen.
 layout: default
 ---
 
-# Mehrere Repos — geht das?
+# Frontend & Backend — wie?
 
-Ja. Jedes Repo hat sein eigenes `openspec/` — das bleibt der Normalfall.
+Wo der Code liegt, bestimmt, wo der Change liegt.
 
-- Betrifft ein Change nur einen Service, lebt er im Repo dieses Service
-- Plant ihr über Repos hinweg — ein Feature, drei Services —, gibt es **Stores**: die Planung liegt in einem eigenen Repo, auf das Code-Repos verweisen
-- Stores sind noch nicht stable: Befehle und Dateiformate können sich zwischen Releases ändern. Darum zeigen wir sie heute nicht.
+- **Ein Repo:** ein Change deckt Frontend und Backend ab — wie im Zoo-Projekt
+- **Getrennte Repos:** jedes mit eigenem `openspec/`, ein Change pro Repo — so arbeitet MEGA heute
+- Die Naht ist der API-Vertrag: das MEGA-Frontend generiert seinen Client aus der OpenAPI des Backends
+- **Zielbild: Stores** — die Planung liegt in einem eigenen Repo, auf das die Code-Repos verweisen. Noch nicht stable, darum heute nicht gezeigt.
 
 <!--
+MEGA: mega-backend und mega-frontend-v2 haben je ein eigenes openspec/. Das
+Backend ist spec-first, die REST-Schicht wird aus der openapi.yaml generiert.
+Das Frontend holt sich seit dem Change generate-api-clients-with-orval einen
+Snapshot davon und generiert Client und Modelle mit orval — Abweichungen
+zwischen beiden werden zum Compile-Fehler.
+
+Stores sind noch nicht stable: Befehle und Dateiformate können sich zwischen
+Releases ändern. Sie sind das Zielbild für MEGA: ein Feature, eine Planung, zwei Code-Repos.
+Wir probieren sie dort als Nächstes aus — sobald sie stable sind, gibt es
+hier Erfahrung aus erster Hand statt nur der Doku.
+
 Quelle: docs/stores-beta/user-guide.md, docs/team-workflow.md „When planning
 outgrows one repo". Der Guide nennt sich selbst Beta.
 -->
