@@ -10,7 +10,7 @@ drawings:
   persist: false
 transition: slide-left
 comark: true
-duration: 510min
+duration: 180min
 layout: cover
 ---
 
@@ -18,7 +18,7 @@ layout: cover
 
 Oliver Tod
 
-Wien, TT.MM.JJJJ
+ÖGK-N, 23.09.2026
 
 ---
 src: ./pages/00-warmup.md
@@ -33,31 +33,11 @@ src: ./pages/02-phases-documents.md
 ---
 
 ---
-src: ./pages/03-setup-config.md
----
-
----
-src: ./pages/04-cli-navigator.md
----
-
----
-src: ./pages/05-cli-agent-bridge.md
----
-
----
 src: ./pages/06-team.md
 ---
 
 ---
 src: ./pages/07-faq.md
----
-
----
-src: ./pages/08-hands-on.md
----
-
----
-src: ./pages/09-discussion.md
 ---
 
 ---

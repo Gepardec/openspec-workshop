@@ -1113,7 +1113,7 @@ Deterministisch: jeder Change wird gleich geprüft — egal, wer ihn geschrieben
 |---|---|
 | **ArchUnit** | Architekturverstöße im Java-Code: Schichten, Abhängigkeiten, Namensregeln |
 | **ESLint** | Frontend-Regeln und — mit Sheriff — Modulgrenzen |
-| **SonarQube · SonarLint** | Bugs, Code Smells, Security Hotspots, Testabdeckung |
+| **SonarQube/SonarLint** | Bugs, Code Smells, Security Hotspots, Testabdeckung |
 | **Prettier** | Formatierung — kein Thema mehr im Review |
 | **Tests** | Verhalten, das von den Scenarios abweicht |
 
@@ -1397,8 +1397,6 @@ Ein echter MEGA-Change mit Opus 5: generierte API-Clients im Frontend — 31 Tas
 | `apply` | 39,5 Mio. | 99 % | 26 USD |
 | `archive` | 1,4 Mio. | 94 % | 2 USD |
 | **Gesamt** | **56 Mio.** | | **40 USD** |
-
-Tokens sind billig, Kontext ist teuer: 70 % der Kosten entstehen, weil jeder Schritt den Kontext erneut liest.
 
 <!--
 Gerechnet mit den Listenpreisen der Anthropic-API für Opus 5: 5 USD pro
