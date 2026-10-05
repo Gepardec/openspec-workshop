@@ -1,6 +1,6 @@
 ---
 name: gepardec-slidev-authoring
-description: "Author Slidev decks with the Gepardec theme — its ten layouts, their slots and props, the rules the corporate master enforces, and a script that drafts a `conversation` slide from a real Claude Code session transcript. Use this skill whenever the user is writing, editing, reviewing or debugging a Slidev deck that uses slidev-theme-gepardec (any deck whose headmatter names `@gepardec/slidev-theme-gepardec`), whenever they mention a Gepardec slide or a cover, agenda, quadrants, section, statement, contact or conversation layout, and whenever they want to turn an AI or agent session into slides — even if they never name the theme."
+description: "Author Slidev decks with the Gepardec theme — its eleven layouts, their slots and props, the rules the corporate master enforces, and a script that drafts a `conversation` slide from a real Claude Code session transcript. Use this skill whenever the user is writing, editing, reviewing or debugging a Slidev deck that uses slidev-theme-gepardec (any deck whose headmatter names `@gepardec/slidev-theme-gepardec`), whenever they mention a Gepardec slide or a cover, agenda, quadrants, section, statement, contact, conversation or document layout, whenever they want to turn an AI or agent session into slides, and whenever they want a long markdown document — a design doc, an ADR, a spec — shown on a slide, even if they never name the theme."
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
@@ -72,6 +72,7 @@ layout to hold ordinary bullets is how decks stop looking like one deck.
 | One line that lands | `statement` |
 | Closing slide with a person | `contact` |
 | An agent session, turn by turn | `conversation` |
+| A long markdown document, section by section | `document` |
 
 Close a deck with `contact`, or with `statement` when there is no person to put
 on it.
@@ -120,7 +121,7 @@ characteristic failure and it is invisible in the markdown.
 
 ```bash
 npx slidev deck.md
-npx slidev export deck.md --with-clicks   # any deck with a conversation slide
+npx slidev export deck.md --with-clicks   # any deck with a conversation or document slide
 ```
 
 Use the deck repo's own scripts where it has them. Export of any format needs

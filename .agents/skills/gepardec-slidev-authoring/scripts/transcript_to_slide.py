@@ -469,7 +469,7 @@ def main() -> None:
     p_scaf.add_argument("--pick", required=True, help="turn numbers, e.g. 1,4,7-9")
     p_scaf.add_argument("--headline", default="Session walkthrough")
     p_scaf.add_argument("--session-label", help="the `session:` prop (default: session title)")
-    p_scaf.add_argument("--who", help="cap on user turns, e.g. Oliver")
+    p_scaf.add_argument("--who", help="cap on user turns, e.g. Max")
     p_scaf.add_argument("--max-chars", type=int, default=240)
     p_scaf.add_argument("--max-lines", type=int, default=4, help="lines kept from tool output")
     p_scaf.add_argument("-o", "--output", help="write here instead of stdout")

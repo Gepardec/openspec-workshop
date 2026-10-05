@@ -296,7 +296,7 @@ I would actually change this rule a little bit. The month should be considered "
 
 <ChatTurn role="user" who="Oliver" v-click>
 
-I agree, Option B makes more sense indeed. let's drop the "14th gate" :D
+I agree, Option B makes more sense indeed. let's drop the "14th gate" &#58;D
 
 </ChatTurn>
 

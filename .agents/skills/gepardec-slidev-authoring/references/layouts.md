@@ -11,6 +11,7 @@ own source or demo decks are at hand while you are writing a deck.
 - [cover](#cover) · [section](#section) · [agenda](#agenda) · [default](#default)
 - [quadrants](#quadrants) · [two-cols](#two-cols) · [two-cols-header](#two-cols-header)
 - [statement](#statement) · [contact](#contact) · [conversation](#conversation)
+- [document](#document)
 - [What the theme will not do](#what-the-theme-will-not-do)
 
 ## The headline rule
@@ -23,6 +24,7 @@ How that heading is rendered differs, and this is the part people get wrong:
 | Layout | The first heading becomes |
 |---|---|
 | `default` `agenda` `quadrants` `contact` `conversation` | Content headline — uppercase, 3.445rem, weight 400 |
+| `document` | The document's name, small, in the status line above the stage |
 | `cover` | *Titel* — far larger, uppercase |
 | `section` | *Titel*, centred vertically |
 | `statement` | A sentence, upright, white, **bold runs go yellow** |
@@ -366,6 +368,141 @@ they read the current turn and skim the two above it.
 
 ---
 
+## document
+
+A long markdown document, one section at a time. An index rail down the left
+carries the document's own table of contents; the stage on the right shows the
+section the rail points at, at reading size. Each click steps to the next one.
+
+Paste the document into `::doc::` as it stands. The layout partitions it at the
+headings it finds, so the document is its own outline — there is no second copy
+of the structure to keep in step with it.
+
+````md
+---
+layout: document
+source: design.md — orders/split-fulfilment
+---
+
+# Design review
+
+::doc::
+
+## Context
+
+Fulfilment resolves in a single transaction against one warehouse. Split
+shipments were modelled in the schema but never reached the service layer.
+
+## Decisions
+
+### Split at the line, not at the order
+
+A line is the smallest unit the warehouse can reserve, and checkout already
+renders per-line dates.
+
+### One reservation call per warehouse
+
+The warehouse API rate-limits per call, not per item.
+
+## Risks / Trade-offs
+
+- **Two shipments, one invoice** — finance reconciles against the order.
+````
+
+There is no headline over the stage. The heading before `::doc::` is still the
+slide's heading, and Slidev still takes the slide's title from it, but it is set
+in the small caption face on the status line's top row, followed by `source`,
+with the step count through the whole document at the right.
+It never changes while the document is stepped through, so it does not get the
+height of a content headline on every section. Leave it out and the status line
+carries `source` alone. Anything else written before `::doc::` runs on in that
+same single line, so keep it to the heading. Once the rail has folded, a
+second row appears under it: the `//` eyebrow — the heading the stage's title
+sits under — with the count among that heading's children at its right. Beside
+the rail there is no second row, because the rail already lights that entry. An
+eyebrow too long for one line wraps, and the row keeps the height of the
+longest one on every click, so the stage never moves.
+
+**Props**
+
+- `source` — the caption in the status line, after the heading: a filename, a
+  change id, a date. It is a label and nothing more. The layout reads no file,
+  so a path written here just prints as text.
+- `depth` — how deep the document is cut into steps. The default `3` gives every
+  `###` a step of its own and a rail entry to match. `2` stops at `##`, and
+  `###` headings then render as sub-headings inside their section. `4` steps
+  through `####` as well, which is what a spec file of `#### Scenario` blocks
+  wants — the `####` gets a step but no rail row, because a rail listing every
+  scenario would be the document again rather than an index of it.
+- `rail` — force the index rail on or off. Leave it out: the layout measures the
+  document and folds the rail away by itself when a section needs the width or
+  the rail outgrows its column.
+  `rail: true` insists on keeping it even where that crops, `rail: false`
+  always folds it.
+
+**How the document is cut up**
+
+- `##` opens a numbered rail entry. `###` opens a child of the entry above
+  it, listed in the rail only while that entry is the current one — so
+  the rail shows the whole document's shape and the detail of the part being
+  read, and never more rows than fit the column.
+- A heading with no body of its own — a `##` followed straight by a `###`, or a
+  `###` followed straight by a `####` — shares a click with that first child. A
+  click that puts up a heading and nothing else is a click spent on something
+  the rail has already said.
+- Every step has exactly one title on the stage: the heading that opens it.
+  A `##` with a body of its own is its section's title; a bodiless `##` gives
+  the title to the `###` it leads into, and under `depth: 4` a bodiless `###`
+  gives it to its first `####`. The headings above the title are the rail's to
+  show — or, once the rail has folded, the `//` eyebrow's, with the counter
+  beside it saying how many siblings that heading has (under `depth: 4`, how
+  many scenarios are left in the requirement).
+- A document's own `#` title is not a section. It is set at section-title size
+  and, like anything else before the first `##`, rides with the first section
+  instead of taking a click of its own.
+- Headings below `depth` are never boundaries; they render inside their
+  section. At the default `depth: 3` that means `####` and below.
+
+**The four things that bite**
+
+1. **Whatever will not fit folds the rail away rather than cropping.** The
+   layout lays out every step once the slide is on screen and the fonts have
+   landed; if any section overruns the stage, or the rail overruns its column
+   with that step's entry unfolded, the index rail folds for the whole document
+   and the stage takes the full slide width — worth about 40% more measure. The decision is taken once, never per click, so the rail cannot blink
+   in and out while you present, and the status line keeps carrying the section name
+   and the step count either way. Nothing about the click count moves.
+
+   A section that still will not fit at full width runs off the bottom edge. The
+   number of clicks is fixed when the slide mounts — a count that moved as the
+   web fonts landed would renumber the slide under you — so there is no second
+   click to carry the rest. In dev the layout warns in the console and outlines
+   the section in red. The fix is one the document can express itself: give the
+   long part a heading one level deeper and raise `depth` to match, and it
+   becomes a section of its own.
+2. **Pacing belongs to the layout here.** Unlike `conversation`, this layout
+   registers the clicks itself, one per section. Do not put `v-click` inside
+   `::doc::` — two things counting clicks on one slide will not agree on the
+   total.
+3. **Export with `--with-clicks`.** Each section is its own PDF page. Without
+   the flag the PDF gets one page per slide, showing the last section only.
+4. **The stage sets its own body size**, a step below the slide's, because a
+   document section is read rather than declaimed. `gepardec-text-sm` on the
+   slide changes nothing, and neither does a `<div class="gepardec-text-sm">`
+   inside `::doc::` — the stage is already at that step, and a wrapper around
+   headings hides them from the layout, which only cuts at headings it finds at
+   the top level of the document. A section too long for the stage wants a
+   heading of its own, not a smaller face.
+
+Rail entries wrap rather than being cut, so two headings that open with the
+same words — `Requirement: Payroll month is…` twice — still read as two entries.
+The cost is height: a document with many headings, or long ones, can outgrow the
+column, and then the rail folds away as above. Five to seven `##` sections with
+their children is the range where it stays. A document past that wants
+`depth: 2`, or two slides, if the index matters to the talk.
+
+---
+
 ## Code and prose
 
 - Fenced blocks use the theme's Shiki setup and keep Slidev's own compact
@@ -376,7 +513,12 @@ they read the current turn and skim the two above it.
   runs the length of the highlighted line and merges into the block's yellow
   left edge.
 - Magic-move keeps a single border through the animation.
+- ` ```mermaid ` blocks come out in brand colours — grey node borders, yellow
+  edges and sequence messages, Barlow labels. Write no `style` or `classDef`
+  lines for colour; the theme sets them once for every diagram.
 - `inline code` is JetBrains Mono; links are yellow with a dim underline.
+- Task lists (`- [ ]`, `- [x]`) take a yellow box in place of the `//` marker;
+  done items fill it and dim to grey, so the open ones are what the eye finds.
 - Blockquotes get a yellow left bar — the theme draws no bordered content boxes
   anywhere, so a blockquote is how you set a line apart.
 

@@ -7,5 +7,3 @@ allowBuilds:
   playwright-chromium: true
 minimumReleaseAgeExclude:
   - '@gepardec/slidev-theme-gepardec'
-overrides:
-  '@gepardec/slidev-theme-gepardec': link:../../slidev-theme-gepardec
