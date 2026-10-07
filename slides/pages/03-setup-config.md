@@ -5,7 +5,7 @@ layout: section
 # Setup & Konfiguration
 
 <!--
-Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Phasen & Artefakte“ offen?
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Workflow & Artefakte“ offen?
 Dann wirklich warten – rund zehn Sekunden Stille aushalten.
 -->
 
@@ -219,11 +219,11 @@ TBD-Platzhalter. Das ist erledigt:
   specs-Instruction, das Template und der sync-Skill verlangen ihn – CLI und
   Agent erzeugen dieselbe Haupt-Spec
 - seit 1.11.0 meldet openspec validate einen ungeschriebenen Purpose
+  (Warnung, mit --strict ein Fehler)
 
 Seit 1.14.0 bricht der Skill ab, wenn der Spec-Sync scheitert (#2018), statt
 den Change trotzdem zu archivieren. Sicherer – aber weiterhin LLM-gesteuert,
 die Empfehlung bleibt.
-  (Warnung, mit --strict ein Fehler)
 -->
 
 ---

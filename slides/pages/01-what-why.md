@@ -16,20 +16,6 @@ layout: default
 - Kontextfenster sind begrenzt
 
 ---
-layout: default
----
-
-# Was ist OpenSpec?
-
-Ein **Workflow-Layer**, der im Repo neben dem Code lebt.
-
-- Erst vorschlagen, dann bauen
-- Jeder Change trägt seinen vollständigen Kontext – vom Warum bis zur Aufgabenliste
-- Volle Kontrolle über jedes Dokument
-- Keine Implementierung, bevor der Plan aus *eurer* Sicht vollständig ist
-- Die CLI macht diesen Kontext navigierbar – für Menschen *und* KI-Agenten
-
----
 layout: two-cols-header
 ---
 
@@ -42,7 +28,6 @@ Müssen KI-Agenten raten, halluzinieren sie.
 ### Ohne Spec
 
 - Der Agent erfindet Anforderungen, Constraints, Edge Cases
-- Das Besprochene lebt nur im Chat-Fenster
 - Jede Session beginnt bei null
 
 ::right::
@@ -82,6 +67,20 @@ Kein „*welche Version meinst du?*“
 ### Synchron mit dem Branch
 
 Die Spec eines Features lebt im Feature-Branch.
+
+---
+layout: default
+---
+
+# Was ist OpenSpec?
+
+Ein **Workflow-Layer**, der im Repo neben dem Code lebt.
+
+- Erst vorschlagen, dann bauen
+- Jeder Change trägt seinen vollständigen Kontext – vom Warum bis zur Aufgabenliste
+- Volle Kontrolle über jedes Dokument
+- Keine Implementierung, bevor der Plan aus *eurer* Sicht vollständig ist
+- Die CLI macht diesen Kontext navigierbar – für Menschen *und* KI-Agenten
 
 ---
 layout: default
@@ -138,7 +137,7 @@ Plan lesen, Änderungen an den Specs überfliegen, Tasks prüfen. Ein Ordner, ei
 
 ### Kein Big-Bang-Dokumentieren
 
-Ein Change beschreibt nur die Änderung – auch in einer Anwendung mit 50.000 Zeilen.
+Kein Vorab-Dokumentieren des Bestands – ihr startet mit dem nächsten Change, auch in einer Anwendung mit 50.000 Zeilen.
 
 <!--
 OpenSpec kostet einen Schritt: erst ein kurzer Plan, dann Code. Die Folie

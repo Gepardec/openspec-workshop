@@ -27,7 +27,7 @@ layout: agenda
 # Agenda
 
 - Was ist Spec-driven?
-- Phasen & Artefakte
+- Workflow & Artefakte
 - Setup & Konfiguration
 - CLI als Datei-Navigator
 - CLI als Agent-Bridge

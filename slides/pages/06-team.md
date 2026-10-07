@@ -96,7 +96,7 @@ Nach dem Code-Review archiviert, wer den PR gebaut hat – erst dann folgt der M
 Archiviert ihr erst nach dem Merge, kann der zweite Change den ersten **still überschreiben**.
 
 <!--
-Durchgespielt mit OpenSpec 1.13.0: zwei Branches ändern per MODIFIED dasselbe
+Durchgespielt mit OpenSpec 1.14.1: zwei Branches ändern per MODIFIED dasselbe
 Requirement.
 - Archiv im PR, dieselben Zeilen geändert: git meldet beim zweiten Merge einen
   Konflikt in openspec/specs/animal-list/spec.md.
@@ -128,12 +128,12 @@ layout: default
 Ein Konflikt dort ist ein Feature: zwei Changes sind sich uneinig, wie sich das System verhalten soll.
 
 <!--
-Durchgespielt mit OpenSpec 1.13.0, Archiv jeweils im PR:
+Durchgespielt mit OpenSpec 1.14.1, Archiv jeweils im PR:
 - ADDED + ADDED an derselben Spec: Konflikt (beide hängen ans Ende an)
 - MODIFIED + MODIFIED an denselben Zeilen: Konflikt
 - MODIFIED + MODIFIED an verschiedenen Zeilen desselben Requirements: sauberer
   Merge – die Spec kann sich danach widersprechen
-- MODIFIED + ADDED: sauberer Merge, außer das geänderte Requirement steht am
+- MODIFIED + ADDED: sauberer Merge, außer die Änderung reicht bis ans
   Ende der Spec
 - MODIFIED an verschiedenen Requirements: sauberer Merge
 

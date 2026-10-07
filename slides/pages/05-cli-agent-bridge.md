@@ -28,7 +28,7 @@ layout: default
 
 # openspec instructions
 
-Liefert dem Agenten die Anweisungen für ein Artefakt – Template, Projekt-Kontext, Inhalte der Abhängigkeiten.
+Liefert dem Agenten die Anweisungen für ein Artefakt – Template, Projekt-Kontext, Pfade der Abhängigkeiten.
 
 ```sh
 $ openspec instructions <artifact> --change us-06-dashboard
@@ -136,8 +136,8 @@ layout: default
 
 ```mermaid
 flowchart LR
-    INS["openspec\ninstructions apply"] --> READ["KI liest\nKontext"]
-    READ --> IMPL["KI implementiert\nTask"]
+    INS["openspec\ninstructions apply"] --> READ["Agent liest\nKontext"]
+    READ --> IMPL["Agent implementiert\nTask"]
     IMPL --> CHECK{"Alle Tasks\nfertig?"}
     CHECK -->|nein| INS
     CHECK -->|ja| DONE["Du reviewst\nden Diff"]
@@ -145,7 +145,7 @@ flowchart LR
 
 `opsx:apply` ist der Skill, der diesen Loop ausführt – Task für Task, bis alle auf `[x]` stehen.
 
-Die CLI steuert den Loop. Der Agent erledigt die Arbeit. Du reviewst den Diff.
+Die CLI liefert die Anweisungen. Der Agent erledigt die Arbeit. Du reviewst den Diff.
 
 ---
 layout: default

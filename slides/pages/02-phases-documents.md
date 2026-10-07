@@ -3,7 +3,7 @@ layout: section
 variant: ascii
 ---
 
-# Phasen & Artefakte
+# Workflow & Artefakte
 
 <!--
 Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Was ist Spec-driven?“ offen?
@@ -194,10 +194,10 @@ Immer Abrechnungsmonat (= Vormonat) – Überblick über den abzuschließenden M
 
 ::bottom::
 
-Wir begleiten diesen Change von `explore` bis `archive`.
+Ein echter Change aus unserem internen Produkt – wir begleiten ihn von `explore` bis `archive`.
 
 <!--
-Das Szenario stammt aus einer Anwendung, die ich mit diesem Ansatz modernisiert habe.
+Das Szenario stammt aus unserem internen Produkt, an dem wir OpenSpec erprobt haben.
 
 „Mitarbeiter“ und „Projektleiter“ sind hier Rollennamen des Systems
 (employee, project-lead), keine Personenbezeichnungen.
@@ -244,7 +244,7 @@ nächsten Folie mit „Ready to propose?“.
 
 ---
 layout: conversation
-session: "explore · mega-backend"
+session: "explore · backend"
 ---
 
 # opsx:explore – Praxisbeispiel
@@ -381,7 +381,7 @@ stammen noch aus OpenSpec 1.3.1.
 
 ---
 layout: conversation
-session: "propose · mega-backend"
+session: "propose · backend"
 ---
 
 # opsx:propose – Praxisbeispiel
@@ -906,13 +906,13 @@ Woher kennt der Agent Hexagon und Bounded Contexts? Aus Vorgaben, die er lesen k
 Die Frage kommt nach der Design-Folie fast immer: Der Agent schreibt
 selbstverständlich von Bounded Contexts und Ports – woher kennt er die?
 
-Die rules-Zeile steht so in der config.yaml von mega-backend (rules → specs).
-Die Hexagon-Regeln selbst hält MEGA in CLAUDE.md/AGENTS.md und einem
+Die rules-Zeile steht so in der config.yaml unseres internen Produkts (rules → specs).
+Die Hexagon-Regeln selbst stehen dort in CLAUDE.md/AGENTS.md und einem
 Architektur-Skill – das funktioniert auch, der Agent liest beides beim Start.
 Das passt zur Empfehlung aus dem Setup-Kapitel: Projekt-Doku und
 Konventionen in AGENTS.md, in context nur Constraints für die Artefakte.
 
-MEGA setzt das mit ArchUnit durch (HexagonalArchitectureTest): domain
+Das Produkt setzt das mit ArchUnit durch (HexagonalArchitectureTest): domain
 hängt weder von application noch von adapter ab, application nicht von
 adapter. Die Werkzeuge im Detail nach apply.
 
@@ -1034,9 +1034,6 @@ propose ──► PLAN REVIEWEN ──► apply ──► CODE REVIEWEN ──�
 Den Plan lesen, solange er noch aus Worten besteht. Den Code prüfen, bevor er zur Wahrheit wird.
 
 <!--
-Frage-Pause: Die vier Artefakte sind durch, jetzt geht es ums Review. Was ist
-bis hierher offen? Dann wirklich warten.
-
 Ein Irrtum im Proposal kostet einen Absatz. Derselbe Irrtum nach apply kostet
 den Code, der darauf aufbaut.
 
@@ -1148,7 +1145,7 @@ sagt, was gebaut wird. Das Netz prüft, ob es sauber gebaut ist.
 Verbindung zu tasks.md: Jeder Task nennt, wie er verifiziert wird. Das Netz
 macht diese Verifikation ausführbar.
 
-ArchUnit in MEGA, HexagonalArchitectureTest:
+ArchUnit in unserem internen Produkt, HexagonalArchitectureTest:
   noClasses().that().resideInAPackage("..hexagon..domain..")
       .should().dependOnClassesThat().resideInAPackage("..hexagon..adapter..")
 
@@ -1322,7 +1319,7 @@ Quelle: docs/workflows.md „When to Update vs Start Fresh“, docs/editing-chan
 
 ---
 layout: conversation
-session: "archive · mega-backend"
+session: "archive · backend"
 ---
 
 # opsx:archive – Praxisbeispiel
@@ -1411,7 +1408,7 @@ class: gepardec-text-sm
 
 # Was kostet ein Change?
 
-Ein echter MEGA-Change mit Opus 5: generierte API-Clients im Frontend – 31 Tasks, vier Delta-Specs, rund 1.000 neue Zeilen.
+Ein echter Change aus unserem internen Produkt, gebaut mit Opus 5: generierte API-Clients im Frontend – 31 Tasks, vier Delta-Specs, rund 1.000 neue Zeilen.
 
 | Session | Tokens | davon aus dem Cache | Kosten |
 |---|--:|--:|--:|
@@ -1441,10 +1438,10 @@ manuellem Test, archive eine Viertelstunde. Am selben Tag gemergt.
 
 Warum nicht der Abrechnungsmonat? Der lief im April noch mit Sonnet 4.6, und
 die vollständigen Transkripte gibt es nicht mehr. Der orval-Change ist
-vergleichbar groß und durchläuft dieselben Phasen.
+vergleichbar groß und durchläuft dieselben Schritte.
 
 Daraus folgt die erste Best Practice auf der nächsten Folie: Eine neue Session pro
-Phase hält den Kontext klein – und damit die Kosten.
+Schritt hält den Kontext klein – und damit die Kosten.
 -->
 
 ---
@@ -1453,7 +1450,15 @@ layout: default
 
 # Best Practices
 
-- Nach jeder Phase (außer Explore) neue Session starten – sauberes Kontext-Fenster, geringere Kosten
+- Nach jedem Schritt (außer explore) neue Session starten – sauberes Kontext-Fenster, geringere Kosten
 - Unklarheiten nach propose klären, bevor apply beginnt
 - Implementierungsfehler in derselben Session korrigieren – Spec anpassen, falls das Verhalten davon abweicht
-- Umfangreiche Aufgaben: Implementierung von einem anderen Agenten reviewen lassen (neue Session!), z. B. mit `/opsx:verify`
+- Code nach apply selbst reviewen – bei umfangreichen Changes vorher `/opsx:verify` in einer neuen Session als maschinelle Vorprüfung
+
+<!--
+Das Code-Review bleibt beim Menschen, verify sortiert nur vor – siehe „Wo
+braucht es den Menschen?“.
+
+Übergang: Wie OpenSpec in ein Projekt kommt und was es dort anlegt, zeigt das
+nächste Kapitel.
+-->

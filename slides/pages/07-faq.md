@@ -121,7 +121,7 @@ openspec/specs/
 Der Capability-Pfad ist dann `billing/invoice-create` – so steht er auch im Proposal.
 
 <!--
-Durchgespielt mit OpenSpec 1.13.0: ein Delta unter
+Durchgespielt mit OpenSpec 1.14.1: ein Delta unter
 specs/billing/invoice-create/spec.md validiert, archiviert und erscheint in
 openspec list --specs als billing/invoice-create.
 
@@ -138,19 +138,19 @@ layout: default
 Wo der Code liegt, bestimmt, wo der Change liegt.
 
 - **Ein Repo:** ein Change deckt Frontend und Backend ab – wie im Zoo-Projekt
-- **Getrennte Repos:** jedes mit eigenem `openspec/`, ein Change pro Repo – so arbeitet MEGA heute
-- Die Naht ist der API-Vertrag: das MEGA-Frontend generiert seinen Client aus der OpenAPI des Backends
+- **Getrennte Repos:** jedes mit eigenem `openspec/`, ein Change pro Repo – so arbeitet unser internes Produkt heute
+- Die Naht ist der API-Vertrag: dort generiert das Frontend seinen Client aus der OpenAPI des Backends
 - **Zielbild: Stores** – die Planung liegt in einem eigenen Repo, auf das die Code-Repos verweisen. Noch nicht stable, darum heute nicht gezeigt.
 
 <!--
-MEGA: mega-backend und mega-frontend-v2 haben je ein eigenes openspec/. Das
+Unser internes Produkt: Backend und Frontend haben je ein eigenes openspec/. Das
 Backend ist spec-first, die REST-Schicht wird aus der openapi.yaml generiert.
 Das Frontend holt sich seit dem Change generate-api-clients-with-orval einen
 Snapshot davon und generiert Client und Modelle mit orval – Abweichungen
 zwischen beiden werden zum Compile-Fehler.
 
 Stores sind noch nicht stable: Befehle und Dateiformate können sich zwischen
-Releases ändern. Sie sind das Zielbild für MEGA: ein Feature, eine Planung, zwei Code-Repos.
+Releases ändern. Sie sind das Zielbild für unser internes Produkt: ein Feature, eine Planung, zwei Code-Repos.
 Wir probieren sie dort als Nächstes aus – sobald sie stable sind, gibt es
 hier Erfahrung aus erster Hand statt nur der Doku.
 
@@ -284,7 +284,7 @@ schema: my-workflow
 Die Schema-Befehle sind als experimental markiert. Reicht eine zusätzliche Regel, genügt `rules` in `config.yaml`.
 
 <!--
-Durchgespielt mit OpenSpec 1.13.0: ein zusätzliches Artefakt „adr“ mit
+Durchgespielt mit OpenSpec 1.14.1: ein zusätzliches Artefakt „adr“ mit
 Template und requires: [design], tasks hängt zusätzlich von adr ab.
 schema validate meldet es als gültig, openspec status zeigt es in der
 Reihenfolge, openspec instructions adr liefert instruction und template.
