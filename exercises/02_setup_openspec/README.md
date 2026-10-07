@@ -12,7 +12,7 @@ cp -R exercises/02_setup_openspec/openspec .
 
 ## Ziel
 
-Erkundet das Setup — Changes, Specs und `config.yaml`. Die `config.yaml` ist jetzt mit vollständigem Projektkontext befüllt: Tech-Stack, Konventionen und Domain-Wissen, das OpenSpec bei der Generierung von Artefakten nutzt.
+Erkundet das Setup — Changes, Specs und `config.yaml`. Der `context` in `config.yaml` enthält jetzt die Constraints, die OpenSpec jedem Artefakt mitgibt, z. B. welche Tests ein Change braucht. Tech-Stack, Befehle und Code-Konventionen stehen dagegen in `AGENTS.md` – die liest jede Agent-Session ohnehin.
 
 Hilfreiche Befehle:
 

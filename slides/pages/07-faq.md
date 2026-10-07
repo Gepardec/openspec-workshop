@@ -63,7 +63,7 @@ layout: default
 
 # Neues Projekt – wie anfangen?
 
-Erst `config.yaml` füllen, dann Change für Change durch den Loop.
+Erst `AGENTS.md` und `config.yaml` füllen, dann Change für Change durch den Loop.
 
 - Bevor der erste Change entsteht: Ziel, Tech-Stack, Konventionen in `AGENTS.md` – in `context` nur die Constraints für die Artefakte
 - Zwei Wege: alle Changes vorab ausformulieren und nacheinander anwenden – oder jeden Change einzeln durch den ganzen Loop

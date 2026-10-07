@@ -107,7 +107,7 @@ Kein Lock-in auf einen KI-Agenten.
 - `init` verdrahtet rund 50 Tools: Claude Code, Codex, Copilot, OpenCode …
 - OpenSpec generiert Skills + Slash-Commands pro Tool
 - Die Spec selbst ist plain Markdown – jeder Agent (und jeder Mensch) kann sie lesen
-- Projektkonventionen definiert ihr zentral in der OpenSpec-Konfiguration
+- Projektkonventionen stehen tool-neutral in `AGENTS.md`, Constraints für die Artefakte in der OpenSpec-Konfiguration
 
 ---
 layout: quadrants

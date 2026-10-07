@@ -128,8 +128,9 @@ Quarkus-Version in config.yaml stimmt nach dem nächsten Upgrade nicht mehr,
 die in pom.xml schon.
 
 Bis 1.13 empfahl der init-Kommentar das Gegenteil („Add your tech stack,
-conventions, style guides, domain knowledge"). Deshalb steckt im Übungs-Repo
-noch der ganze Tech-Stack in config.yaml, und AGENTS.md verweist darauf. Funktioniert – ist aber nicht mehr die Empfehlung.
+conventions, style guides, domain knowledge"). Das Übungs-Repo folgt der neuen
+Empfehlung: Projekt-Doku in AGENTS.md, im context der config.yaml aus Übung 2
+nur die Constraints für die Artefakte.
 
 Konventionen, die für den Code gelten, gehören in AGENTS.md: Der Agent
 braucht sie bei apply genauso wie beim Schreiben der Artefakte. In context
