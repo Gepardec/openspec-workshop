@@ -14,7 +14,7 @@
     - name: Install needed packages
       tags: execute
       become: true
-      ansible.builtin.command: sudo dnf install -y unzip chromium git time bc gedit net-tools pip xorg-x11-xauth java-25-openjdk-devel.x86_64 maven node python3-setuptools
+      ansible.builtin.command: sudo dnf install -y unzip chromium git time bc gedit net-tools pip xorg-x11-xauth java-25-openjdk-devel.x86_64 maven node python3-setuptools libatomic
 
     - name: Install python dependencies
       tags: execute
@@ -220,6 +220,10 @@
     - name: Install VS Code extensions
       tags: execute
       ansible.builtin.command: code --install-extension {{ item }} --force
+      register: extension_install
+      until: extension_install.rc == 0
+      retries: 5
+      delay: 15
       with_items:
         - angular.ng-template
         - openai.chatgpt
