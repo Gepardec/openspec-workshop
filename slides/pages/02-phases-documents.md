@@ -946,7 +946,7 @@ sie nicht, und sie blockieren nicht, dass alle Tasks erledigt sind.
 
 ---
 layout: document
-source: tasks.md
+source: tasks.md · erstellt vor OpenSpec 1.13.2
 ---
 
 # Tasks – Praxisbeispiel
@@ -985,6 +985,15 @@ source: tasks.md
 - [ ] 5.6 REST integration test: `GET /monthend/payroll-month/employee` — authenticated employee with no open tasks returns current month string
 - [ ] 5.7 REST integration test: `GET /monthend/payroll-month/project-lead` — authenticated project lead returns prev month string
 - [ ] 5.8 REST integration test: `GET /monthend/payroll-month/project-lead` — non-project-lead actor receives 403
+
+<!--
+Bei Gruppe 5 „Tests“ aufhören und den Widerspruch zur vorigen Folie
+auflösen: Das Beispiel ist mit einer älteren Version entstanden. Seit 1.13.2
+verlangt die tasks-Instruction, dass jede Gruppe ihre eigenen Tests
+mitbringt – heute stünden 5.1–5.4 in Gruppe 3 und 5.5–5.8 in Gruppe 4.
+Gleiches Muster wie bei den Verifikationsangaben: Die Regel ist neuer als
+das Beispiel.
+-->
 
 ---
 layout: default
@@ -1395,7 +1404,7 @@ Der wichtige Turn ist der vierte: Bevor irgendetwas in specs/ wandert, fragt
 das Werkzeug nach. sync läuft nicht automatisch – beim Zusammenführen der
 Deltas ändert sich die dauerhafte Spezifikation.
 
-Kontrast zu Kapitel 3 aufmachen: Derselbe Ablauf ginge auch deterministisch
+Kontrast zu Kapitel 4 aufmachen: Derselbe Ablauf ginge auch deterministisch
 mit `openspec archive` – hier macht ihn ein Agent Schritt für Schritt nach.
 
 Export nicht vergessen: --with-clicks.

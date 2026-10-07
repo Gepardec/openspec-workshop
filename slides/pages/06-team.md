@@ -51,7 +51,7 @@ Die Commits folgen der Konvention aus den Übungen; vor dem Merge dürft ihr
 alles zu einem Commit squashen.
 
 Archivieren mit openspec archive, nicht mit /opsx:archive – warum, steht in
-Kapitel 3.
+Kapitel 4.
 
 Quelle: docs/team-workflow.md.
 -->

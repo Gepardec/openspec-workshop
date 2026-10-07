@@ -81,7 +81,7 @@ Der Change `us-06-dashboard` ist fertig implementiert. Archiviert ihn mit OpenSp
 Was fällt euch sonst noch auf?
 
 <!--
-Archivieren mit openspec archive, nicht mit /opsx:archive (Kapitel 3).
+Archivieren mit openspec archive, nicht mit /opsx:archive (Kapitel 4).
 
 Erwartete Beobachtungen: Die CLI zeigt vor dem Bestätigen, welche Specs sie
 anlegt (dashboard: create). Danach gibt es specs/dashboard/spec.md – mit dem

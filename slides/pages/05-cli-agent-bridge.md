@@ -79,7 +79,7 @@ Eigene Regeln gehören in `config.yaml`. Eine eigene Artefakt-Form braucht ein e
 
 <!--
 Bei /opsx:archive und /opsx:sync mergt der Agent selbst – deterministisch
-mergt die CLI nur bei openspec archive (siehe Kapitel 3).
+mergt die CLI nur bei openspec archive (siehe Kapitel 4).
 
 Die Regeln aus Kapitel 2 – Delta-Operationen, MODIFIED-Workflow, Verifikation
 pro Task, wann design.md sich lohnt – stammen nicht aus dem Skill, sondern aus

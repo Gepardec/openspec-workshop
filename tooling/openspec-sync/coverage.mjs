@@ -43,8 +43,8 @@ export const coverage = {
   'cli.command:show': taught(S4),
   'cli.command:status': taught(S4),
   'cli.command:view': taught(S4),
-  'cli.command:validate': taught(S3),
-  'cli.command:archive': taught(S3),
+  'cli.command:validate': taught(S4),
+  'cli.command:archive': taught(S4),
   'cli.command:instructions': taught(S5),
   'cli.command:config': taught(S3),
   'cli.command:completion': taught(S4),
@@ -155,7 +155,7 @@ export const coverage = {
   // ----------------------------------------------------------------- Skills
   'skill:openspec-propose': taught(S3),
   'skill:openspec-apply-change': taught(S5),
-  'skill:openspec-archive-change': taught(S3),
+  'skill:openspec-archive-change': taught(S4),
   'skill:openspec-explore': taught(S2),
   'skill:openspec-sync-specs': taught(S2),
   'skill:openspec-update-change': taught(S2), // benannt auf der Review-Time-Folie
