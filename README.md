@@ -1,5 +1,9 @@
 # OpenSpec Workshop
 
+> **CLI-Quiz:** https://docs.google.com/forms/d/e/1FAIpQLSf3liDyLSzmo1eE-5hVfGQ4gySCTiHg-mCbhx6FGZCNXAwXRA/viewform
+>
+> Beantwortet die Fragen mit der openspec CLI auf diesem Branch. Danach zurück mit `git switch main`.
+
 This repository contains all materials for a one-day hands-on workshop about using OpenSpec with AI coding agents.
 
 The goal of the workshop is to help participants move from ad-hoc prompting to a more structured, spec-driven way of working with AI. Instead of relying on chat history as the source of truth, participants learn how to use OpenSpec artifacts to describe intent, scope, behavior, design decisions, and implementation tasks before asking an agent to change code.
