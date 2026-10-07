@@ -47,11 +47,11 @@ openspec/
 ├── specs/               ← die Wahrheit (leer beim Start)
 └── changes/             ← aktive Vorschläge
 
-.claude/skills/                    ← Skills (primär, pro Agent)
+.agents/skills/                    ← Skills für Codex (pro Agent)
 ├── openspec-propose/SKILL.md
 ├── openspec-apply-change/SKILL.md
 └── openspec-archive-change/SKILL.md
-.claude/commands/opsx/             ← Slash-Commands (wo unterstützt)
+.claude/commands/opsx/             ← Slash-Commands, z. B. Claude Code
 ├── propose.md
 ├── apply.md
 └── archive.md
@@ -66,7 +66,7 @@ Tool-unabhängig. Lebt im Repo, gehört in `git`.
 
 <div v-click="1" class="gepardec-text-sm mt-3">
 
-Pro Agent eigene Skills. Commands nur dort, wo das Tool sie unterstützt.
+Pro Agent eigene Skills. Commands nur, wo das Tool sie kennt – Codex ruft Skills per `$` auf.
 
 </div>
 
@@ -102,7 +102,9 @@ pom.xml und package.json – der Agent findet sie selbst. Seit 1.14.0 sagt das
 auch der Kommentar, den openspec init in die config.yaml schreibt: „Keep
 general project documentation and discoverable codebase facts out."
 
-Kann config.yaml automatisiert aktualisiert werden?
+Automatisch aktualisiert wird die config.yaml nicht: openspec init legt sie
+nur an, wenn sie fehlt, openspec update fasst sie nicht an. Ihr pflegt sie
+von Hand, wie AGENTS.md.
 -->
 
 ---
@@ -155,7 +157,7 @@ Die CLI ist der Motor, Slash-Commands und Skills sind das Lenkrad.
 - **CLI** = Motor und State-Machine: kennt Ordner, Abhängigkeiten, Delta-Merge – überall gleich
 - **Slash-Command / Skill** = Playbook für den Agenten, pro Tool im passenden Format
 
-Auszug aus `.claude/commands/opsx/propose.md`:
+Auszug aus `.agents/skills/openspec-propose/SKILL.md`:
 
 ```text
 4. Create the change directory

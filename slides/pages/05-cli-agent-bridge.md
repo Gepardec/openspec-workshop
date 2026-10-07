@@ -167,7 +167,28 @@ openspec instructions apply --change us-06-dashboard
 ```
 
 <!--
-Vergleichen: alle Tasks erledigt vs. alle Tasks offen
+Codestand: workshop/quiz, derselbe Branch wie in der Quiz-Runde. Dort liegen
+drei Changes in drei Zuständen nebeneinander.
 
-Validate: Wann wird eine violation geworfen??
+instructions apply im Vergleich:
+- us-06-dashboard (16/16): „All tracked tasks are complete. Review or verify
+  the change as appropriate before archiving.“
+- remove-animal-notes (0/14): alle Tasks offen, Instruction „work through
+  pending tasks, mark complete as you go“.
+- us-07-feeding-times (kein design, keine tasks): „⚠️ Blocked – Missing
+  artifacts: tasks“, dazu der Hinweis, welche Artefakte fehlen.
+Der project context aus der config.yaml kommt in allen drei Fällen mit.
+
+Danach openspec validate us-07-feeding-times: ERROR, weil die Requirement
+„Feeding time per animal is unique“ kein Scenario hat. Exit-Code 1.
+
+Wann validate fehlschlägt:
+- ERROR, immer: Requirement ohne Scenario oder ohne Text, Change ohne
+  Delta, dieselbe Requirement doppelt bzw. in ADDED und REMOVED zugleich,
+  RENAMED ohne passendes FROM/TO.
+- WARNING, nur mit --strict ein Fehler: kein SHALL/MUST im Requirement-Text,
+  Requirement länger als 500 Zeichen, Requirement außerhalb einer
+  Delta-Sektion, uneindeutige Task-Nummerierung.
+validate prüft das Format der vorhandenen Dateien, nicht die Vollständigkeit:
+Dass us-07 keine tasks.md hat, meldet nur status bzw. instructions apply.
 -->
