@@ -157,6 +157,4 @@ layout: statement
 Upstream sagt das selbst: für einen wirklich trivialen Fix zahlt sich die
 Zeremonie womöglich nicht aus. Einigkeit zählt aber fast immer, sobald ein Agent
 selbstbewusst baut, was man ihm vage aufgetragen hat.
-
-Rückgriff in der Diskussion: „Wo stößt Spec-driven Development an seine Grenzen?"
 -->
