@@ -13,6 +13,13 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
     },
+    "gepardec-slidev-authoring": {
+      "source": "Gepardec/slidev-theme-gepardec",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "skills/gepardec-slidev-authoring/SKILL.md",
+      "computedHash": "0c2ad8e70a9e3bc529f1884e9a314bb561691ec8ccb15e0cf022bd890957f478"
+    },
     "slidev": {
       "source": "slidevjs/slidev",
       "sourceType": "github",

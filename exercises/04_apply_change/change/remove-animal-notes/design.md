@@ -8,7 +8,7 @@ The `notes` field was added to the animal entity as part of the initial animal p
 - Remove `notes` from the `Animal` entity and all JSON contracts
 - Remove the notes input from the create and edit forms
 - Remove the notes display from the profile view
-- Update all RestAssured tests to stop asserting on `notes`
+- Update all RestAssured tests to stop asserting on `notes` and assert that responses no longer contain it
 
 **Non-Goals:**
 - Introducing any replacement for free-text notes (a structured tracking feature is a separate ADD change)
@@ -42,4 +42,4 @@ The `notes` field was added to the animal entity as part of the initial animal p
 3. Remove `notes` from the Angular `Animal` interface/type
 4. Remove the notes form control from create and edit forms
 5. Remove the notes display from the profile component
-6. Update RestAssured tests to remove all `notes` assertions and payload inclusions
+6. Update RestAssured tests to remove all `notes` assertions and payload inclusions (including the raw insert in `DashboardResourceTest`), and assert its absence

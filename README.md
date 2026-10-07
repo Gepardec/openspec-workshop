@@ -6,15 +6,13 @@ The goal of the workshop is to help participants move from ad-hoc prompting to a
 
 This repo is designed as a single source of truth for the workshop. It includes the agenda, slides, exercises, examples, checklists, setup instructions, and a playground codebase where participants can experiment with OpenSpec using the AI agent of their choice.
 
-The repository is pre-configured to work with every agentic tool that supports the `.agents` directory. In addition, it includes explicit setup support for the following tools:
+The repository is pre-configured with `openspec init` for the following tools; agent instructions live in `AGENTS.md`, which all of them read:
 
 - Claude Code
 - Codex
-- Cursor
 - GitHub Copilot
-- Junie
-- OpenCode
-- Antigravity
+
+Other tools can be added any time with `openspec init` (see Exercise 1).
 
 By the end of the workshop, participants should be able to:
 

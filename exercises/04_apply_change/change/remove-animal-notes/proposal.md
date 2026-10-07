@@ -24,6 +24,6 @@ _(none)_
 
 ## Impact
 
-- **Backend**: Drop the `notes` column from the `Animal` entity and database migration; remove the field from all DTOs/JSON serialisation
+- **Backend**: Drop the `notes` column from the `Animal` entity and database migration; the entity is serialised directly, so the field disappears from all JSON bodies
 - **Frontend**: Remove the `notes` form control from the create and edit forms; remove the `notes` display section from the profile component; update the animal model/type to omit the field
 - **Tests**: Update RestAssured tests for `POST /animals`, `PUT /animals/{id}`, and `GET /animals/{id}` to no longer include or assert on `notes`

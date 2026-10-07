@@ -1,113 +1,348 @@
 ---
 layout: section
+variant: ascii
 ---
 
-# Phasen & Dokumente
-
----
-
-# Ablauf
-
-<div class="flex items-center justify-between mt-12 gap-1">
-  <div v-click="1" class="flex-1 border border-white/30 rounded-xl p-5 text-center">
-    <div class="font-bold text-base mb-2 text-white">explore</div>
-    <div class="text-xs text-white/60">Anforderungen zerlegen, Domäne erkunden</div>
-  </div>
-
-  <div v-click="2" class="text-white/40 text-2xl flex-shrink-0 px-1">→</div>
-
-  <div v-click="2" class="flex-1 border border-white/30 rounded-xl p-5 text-center">
-    <div class="font-bold text-base mb-2 text-white">propose</div>
-    <div class="text-xs text-white/60">Change ausformulieren (proposal, spec, design, tasks)</div>
-  </div>
-
-  <div v-click="3" class="text-white/40 text-2xl flex-shrink-0 px-1">→</div>
-
-  <div v-click="3" class="flex-1 border border-white/30 rounded-xl p-5 text-center">
-    <div class="font-bold text-base mb-2 text-white">apply</div>
-    <div class="text-xs text-white/60">implementieren</div>
-  </div>
-
-  <div v-click="4" class="text-white/40 text-2xl flex-shrink-0 px-1">→</div>
-
-  <div v-click="4" class="flex-1 border border-white/30 rounded-xl p-5 text-center">
-    <div class="font-bold text-base mb-2 text-white">sync</div>
-    <div class="text-xs text-white/60">in main-specs synchronisieren</div>
-  </div>
-
-  <div v-click="5" class="text-white/40 text-2xl flex-shrink-0 px-1">→</div>
-
-  <div v-click="5" class="flex-1 border border-white/30 rounded-xl p-5 text-center">
-    <div class="font-bold text-base mb-2 text-white">archive</div>
-    <div class="text-xs text-white/60">archivieren</div>
-  </div>
-</div>
+# Workflow & Artefakte
 
 <!--
-Es gibt auch noch das extend profile. nicht näher drauf eingehen, kann nachgelesen werden.
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Was ist Spec-driven?“ offen?
+Dann wirklich warten – rund zehn Sekunden Stille aushalten.
 -->
 
 ---
+layout: two-cols-header
+class: gepardec-text-sm
+---
 
-# Szenario: Abfrage Abrechnungsmonat
+# Begriffe
 
-Neues Feature im Zoo-Management-System — zwei Sichten auf denselben Datensatz:
+::left::
 
-<div class="grid grid-cols-2 gap-6 mt-6">
-  <div class="border border-white/30 rounded-xl p-5">
-    <div class="font-bold text-sm mb-3 text-blue-300">Mitarbeiter</div>
-    <div class="text-xs text-white/70">Laufender Monat — sind alle Tasks des Abrechnungsmonats (= Vormonat) bereits erledigt?</div>
-  </div>
-  <div class="border border-white/30 rounded-xl p-5">
-    <div class="font-bold text-sm mb-3 text-green-300">Projektleiter</div>
-    <div class="text-xs text-white/70">Immer Abrechnungsmonat (= Vormonat) — Überblick über den abzuschließenden Monat</div>
-  </div>
+### Die Kernbegriffe
+
+- **Spec** – wie sich ein Teil des Systems verhält
+- **Haupt-Specs** – `specs/`, der abgenommene Stand
+- **Change** – eine Arbeitseinheit, ein Ordner in `changes/`
+- **Artefakt** – ein Dokument im Change
+- **Delta-Spec** – nur, was sich an einer Spec ändert
+- **Capability** – eine Fähigkeit mit eigener Spec
+
+::right::
+
+### In einer Spec
+
+- **Requirement** – ein Verhalten, das das System haben muss: das *Was*, nicht das *Wie*
+- **Scenario** – ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN
+
+### Vom Change zur Spec
+
+- **Sync** – Delta-Specs in die Haupt-Specs übernehmen
+- **Archivieren** – Change abschließen, Ordner ins Archiv
+
+<!--
+Alle Begriffe, die ab jetzt ständig fallen, einmal kurz – ein Satz pro
+Begriff, nicht vertiefen. Welche Artefakte es gibt und wozu, zeigt gleich das
+Ablauf-Diagramm; danach kommt jedes einzeln dran.
+
+Upstream-Glossar, Abschnitte „The core nouns“, „Inside a spec“ und „The
+lifecycle“.
+
+Artefakte im Standard-Schema: proposal, Delta-Specs, design, tasks.
+
+Capability im Zoo-Projekt: animal-list, animal-profile, … – je ein Ordner
+unter specs/. Domänen gruppieren Capabilities, wenn ein Projekt wächst:
+specs/identity/user-auth/. Das Zoo-Projekt ist flach organisiert.
+
+SHALL/MUST: `openspec validate --strict` verlangt in jedem Requirement ein
+englisches SHALL oder MUST. Nur SHOULD – oder ein deutsches SOLL – fällt durch;
+ohne --strict gibt es eine Warnung.
+
+Sync erledigt archive meist mit – einzeln nötig nur bei lang laufenden
+Changes.
+-->
+
+---
+layout: default
+---
+
+# Was gilt – und was kommt
+
+````md magic-move {lines: true}
+```text
+openspec/
+├── specs/                          ← was gilt
+│   ├── animal-create/spec.md
+│   ├── …
+│   └── animal-profile/spec.md
+└── changes/                        ← was vorgeschlagen ist
+    └── us-06-dashboard/
+        ├── proposal.md
+        ├── design.md
+        ├── tasks.md
+        └── specs/dashboard/spec.md ← Delta-Spec
+```
+
+```text
+openspec/
+├── specs/                          ← was gilt
+│   ├── animal-create/spec.md
+│   ├── …
+│   ├── animal-profile/spec.md
+│   └── dashboard/spec.md           ← aus dem Delta
+└── changes/
+    └── archive/
+        └── YYYY-MM-DD-us-06-dashboard/
+```
+````
+
+<div class="grid mt-3">
+<div v-click.hide="1" class="[grid-area:1/1]">
+
+`specs/` beschreibt, wie das System **heute** funktioniert. Jeder Change ist ein eigener Ordner mit allem, was dazugehört.
+
+</div>
+<div v-click="1" class="[grid-area:1/1]">
+
+`archive` arbeitet die Deltas in `specs/` ein und legt den Change vollständig ins Archiv. Die Specs beschreiben jetzt den **neuen** Stand.
+
+</div>
 </div>
 
-<div class="mt-10 text-center text-white/50 text-sm">
-  Wir begleiten diesen Change von <code>explore</code> bis <code>archive</code>
+<!--
+Das ganze Modell auf einer Folie: zwei Ordner. specs/ ist die Wahrheit,
+changes/ sind Vorschläge. Archivieren macht aus einem Vorschlag Wahrheit.
+
+Weil Changes getrennte Ordner sind, laufen mehrere parallel, ohne sich zu
+stören – erst beim Archivieren treffen sie auf specs/.
+
+Genau dieser Change ist Übung 3 am Nachmittag.
+-->
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Aktionen, keine Phasen
+
+Kein fester Phasenablauf – die Pfeile zeigen, was als Nächstes sinnvoll ist.
+
+<div class="flex justify-center">
+
+```mermaid {scale: 0.66}
+flowchart LR
+    E["explore"] -.-> P["propose"]
+    P --> R{"Review"}
+    R -->|anpassen| U["update"]
+    U --> R
+    R -->|passt| A["apply"]
+    A -->|Plan ändert sich| U
+    A -.-> V["verify"]
+    V -.-> CR{"Code-Review"}
+    A --> CR
+    CR -->|nachbessern| A
+    CR -->|passt| AR["archive"]
+```
+
 </div>
 
+`propose` schreibt: **proposal** – Warum · **specs** – Was · **design** – Wie · **tasks** – To-do
+
+Gestrichelt: optional. Stimmt der Plan nicht: anpassen, nicht umgehen.<br>
+`verify` prüft maschinell und ersetzt kein menschliches Code-Review.
+
+<!--
+Die Artefakte hier nur mit einem Wort – jedes kommt einzeln dran, sobald es im
+Praxisbeispiel entsteht.
+
+Upstream: „fluid not rigid“, „iterative not waterfall“ (docs/concepts.md).
+Außer apply – das braucht eine tasks.md – sperrt kein Schritt einen anderen.
+Der Preis dafür ist Disziplin: Nichts zwingt einen Change, fokussiert zu
+bleiben.
+
+Zwei Review-Gates: den Plan vor apply, den gebauten Code vor archive.
+verify ist die optionale, maschinelle Vorprüfung – das Code-Review durch
+einen Menschen empfehlen wir trotzdem immer.
+
+verify gibt es nur im custom-Profil, mehr dazu nach apply. sync fehlt hier
+bewusst: archive bietet es ohnehin an. sync wirkt unscheinbar, ist aber der
+Schritt, in dem aus einem Change dauerhaftes Wissen wird.
+
+Quelle: docs/workflows.md, „Workflow at a Glance“.
+-->
+
+---
+layout: two-cols-header
 ---
 
-# `opsx:explore` – der optionale Vorschritt
+# Szenario: Abrechnungsmonat
 
-`explore` ist kein Pflichtschritt. Es ist ein Denkpartner, bevor Artefakte entstehen.
+Zwei Sichten auf denselben Datensatz.
 
-**Wann lohnt es sich?**
+::left::
 
-- Anforderung ist vage: _"Irgendwie sollen Nutzer Tiere filtern können"_
-- Domäne ist neu: du weißt noch nicht, wie viele Capabilities das betrifft
-- Scope ist unklar: Feature oder mehrere Changes?
-- Du willst Edge Cases durchdenken, bevor sie in der Spec landen
+### Mitarbeiter
 
-<v-click>
+Laufender Monat – sind alle Tasks des Abrechnungsmonats (= Vormonat) bereits erledigt?
 
-**Was passiert dabei?**
+::right::
 
-Ein Gesprächs-Loop mit dem Agenten: Fragen stellen, Annahmen aufdecken, Szenarien durchspielen – aber **noch kein `propose`, noch kein Artefakt**.
+### Projektleiter
 
+Immer Abrechnungsmonat (= Vormonat) – Überblick über den abzuschließenden Monat
+
+::bottom::
+
+Ein echter Change aus unserem internen Produkt – wir begleiten ihn von `explore` bis `archive`.
+
+<!--
+Das Szenario stammt aus unserem internen Produkt, an dem wir OpenSpec erprobt haben.
+
+„Mitarbeiter“ und „Projektleiter“ sind hier Rollennamen des Systems
+(employee, project-lead), keine Personenbezeichnungen.
+-->
+
+---
+layout: two-cols-header
+---
+
+# opsx:explore – der Pionier
+
+Kein Pflichtschritt – ein Denkpartner, bevor Artefakte entstehen.
+
+::left::
+
+### Wann lohnt es sich?
+
+- Anforderung ist vage
+- Problem klar, Lösung offen
+- Codebasis oder Domäne unbekannt
+- Edge Cases vor der Spec durchdenken
+
+::right::
+
+### Was passiert dabei?
+
+Fragen stellen, Annahmen aufdecken, Ansätze abwägen – **kein Code**, Artefakte nur auf Wunsch.
+
+::bottom::
+
+Anforderung ist klar? Direkt mit `/opsx:propose` starten.
+
+<!--
+Faustregel: Je ungenauer der Task, desto mehr lohnt es sich.
+
+Weitere Anlässe:
+- Anforderung wie „Irgendwie sollen Nutzer Tiere filtern können“
+- Unklar, wie viele Capabilities der Change berührt
+- Mehrere Lösungsansätze gegenüberstellen
+
+Der Agent schlägt selbst vor, wann es Zeit für propose ist – auf der
+nächsten Folie mit „Ready to propose?“.
+-->
+
+---
+layout: conversation
+session: "explore · backend"
+---
+
+# opsx:explore – Praxisbeispiel
+
+::turns::
+
+<ChatTurn role="user" who="Oliver">
+
+`/opsx:explore` — in the legacy backend there is a `PayrollMonthProvider`: custom logic deciding which payroll month the frontend shows on load. Move this concept into the hexagon. There must be a distinct payrollMonth endpoint for employees and project-leads.
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+Three options: **worktime** owns it, **monthend** owns it, or a new cross-cutting context. The logic depends on monthend task state — but the consumer is the worktime view. What's your intuition?
+
+</ChatTurn>
+
+<ChatTurn role="user" who="Oliver" v-click>
+
+It's just a matter of when which endpoint is called. The first request goes to `monthend/payrollMonth/<role>`, then status-overview and worktime in parallel.
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+That framing makes the answer clear: payrollMonth belongs in **monthend** — no cross-context coupling. The employee rule hinges on one question: when does the previous month count as *completed*? The legacy answers it like this:
+
+```text
+completed(prevMonth) := today > 14th
+  AND all ControlTimes tasks DONE
+
+completed → current month, else → prev month
 ```
-/opsx:explore   →   Frage-Antwort-Runden   →   "Jetzt sind wir bereit für propose"
+
+</ChatTurn>
+
+<ChatTurn role="user" who="Oliver" v-click>
+
+I would actually change this rule a little bit. The month should be considered "completed" when all tasks where the actor is the subject are DONE.
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+`findOpenEmployeeTasks(actorId, prevMonth)` already exists — no new port needed. One thing to settle: the legacy also gated on `today > 14th`. **(A)** keep the gate, **(B)** drop it. What was the intent behind the 14th?
+
+</ChatTurn>
+
+<ChatTurn role="user" who="Oliver" v-click>
+
+I agree, Option B makes more sense indeed. let's drop the "14th gate" &#58;D
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+```text
+openTasks(actor, prevMonth).isEmpty()
+  → currentMonth    else → prevMonth
+
+project lead → always prevMonth
 ```
 
-</v-click>
+<span v-mark="{ at: 8, type: 'box', class: 'text-[var(--gepardec-yellow)]' }">Ready to propose?</span>
 
-<v-click>
+</ChatTurn>
 
-**Wann überspringen?** Wenn die Anforderung klar ist – einfach direkt mit `/opsx:propose` starten.
+<!--
+Die echte explore-Session zu genau dem Change, den die nächsten Folien
+zerlegen. Eine Stunde Gespräch, hier auf acht Turns gekürzt.
 
-</v-click>
+Domänenbegriffe: Ein Monthend-Task hat ein „subject“ – wem der Task
+gehört – und einen „actor“ – wer mit dem Task zu tun hat. „Tasks, bei denen
+der actor das subject ist" heißt also: die eigenen Tasks der angemeldeten
+Person.
+
+Zwei Dinge zeigen, mehr nicht:
+
+Erstens: Der Agent fragt, statt zu bauen. Drei Optionen für den Kontext – und
+die Entscheidung kommt nicht aus dem Modell, sondern aus meinem Satz darüber,
+wie das Frontend seine Requests tatsächlich absetzt.
+
+Zweitens: die 14.-des-Monats-Regel. Der Agent kennt sie aus dem Altcode, kann
+sie aber nicht begründen – also fragt er nach. Genau diese Frage stellt im
+normalen Sprint niemand, und deshalb steht so eine Regel nach zehn Jahren
+immer noch drin.
+
+Export nicht vergessen: --with-clicks.
+-->
 
 ---
-
-# `opsx:explore` — Praxisbeispiel
-
-<iframe src="/chats/explore.html" class="w-full h-99 rounded-xl border-0" title="explore Konversation" />
-
+layout: default
 ---
 
-# `opsx:propose` – alle vier Artefakte in einem Schritt
+# opsx:propose
+
+Alle Artefakte entstehen in einem Schritt.
 
 ```sh
 /opsx:propose   # interaktiv, oder direkt: /opsx:propose add-filter
@@ -116,206 +351,1114 @@ Ein Gesprächs-Loop mit dem Agenten: Fragen stellen, Annahmen aufdecken, Szenari
 <div class="flex justify-center">
 
 ```mermaid
-flowchart TD
+flowchart LR
     proposal --> specs
     proposal --> design
     specs --> tasks
     design --> tasks
-
-    style proposal fill:#1e40af,stroke:#3b82f6,color:#eff6ff
-    style specs   fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
-    style tasks   fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
-    style design  fill:#1e293b,stroke:#94a3b8,color:#f1f5f9
 ```
 
 </div>
 
-Alle vier Artefakte sind Pflicht — tasks ist blockiert, bis specs und design vorliegen
+Die Pfeile sind Abhängigkeiten, keine Sperren – `design.md` entsteht nur, wenn der Change es braucht.
+
+Kein geändertes Verhalten (Refactoring, Tooling, Doku)? `skip_specs: true` in der `.openspec.yaml` des Change – dann entstehen keine Specs.
 
 <!--
-Die folgenden Slides schauen auf jedes Dokument einzeln.
+Die nächsten Folien nehmen sich jedes Dokument einzeln vor.
+
+Upstream nennt das „enablers, not gates“. Die CLI erzwingt nur, dass apply
+eine tasks.md hat: validate, apply und archive laufen auch ohne design.md.
+
+Wann sich design.md lohnt, steht in der design-Instruction von schema.yaml:
+Änderung über mehrere Module oder Services, neues Architekturmuster, neue
+externe Abhängigkeit oder größere Datenmodell-Änderung, Security, Performance
+oder Migration, Unklarheiten, die vor dem Coden entschieden werden sollten.
+
+Die Skills im Übungs-Repo stammen von OpenSpec 1.14.1: propose liest die
+design-Instruction und lässt design.md weg, wenn der Change sie nicht braucht.
 -->
 
 ---
-
-# `opsx:propose` — Praxisbeispiel
-
-<iframe src="/chats/propose.html" class="w-full h-99 rounded-xl border-0" title="propose Konversation" />
-
-<!--
-Zeige hier, wie der Agent alle vier Artefakte in einem Schritt erzeugt hat —
-der "aha"-Moment, wenn proposal, spec, design und tasks in einem Rutsch entstehen.
--->
-
+layout: conversation
+session: "propose · backend"
 ---
 
-# `proposal.md` – Das WARUM
+# opsx:propose – Praxisbeispiel
 
-- Welches Problem wird gelöst – und warum jetzt?
-- Vier Abschnitte: Why, What Changes, Capabilities, Impact
-- Capabilities: „Vertrag" zur spec.md – pro Capability eine Spec-Datei
-- Breaking Changes immer explizit als BREAKING markieren
+::turns::
 
----
+<ChatTurn role="user" who="Oliver">
 
-# `proposal.md` — Praxisbeispiel
+Yes, write up the proposal `/opsx:propose`
 
-<<< @/public/artifacts/add-payroll-month-endpoints/proposal.md md {maxHeight:'400px'}
+</ChatTurn>
 
-<style>
-.slidev-code code { white-space: pre-wrap; word-break: break-word; }
-</style>
+<ChatTurn role="tool" meta="openspec new change" v-click>
 
----
+```
+✔ Created change 'add-payroll-month-endpoints'
+  (schema: spec-driven)
+```
 
-# `spec.md` – Das WAS
+</ChatTurn>
 
-- Beschreibt, was das System können soll, nicht wie es implementiert wird
-- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN)
-- Szenarien brauchen exakt 4 Hashtags – sonst Silent Failure
-- Normative Sprache: SHALL / MUST – kein „should" oder „may"
-- Jedes Szenario ist die direkte Vorlage für einen Akzeptanztest
+<ChatTurn role="tool" meta="openspec status --json" v-click>
 
----
+```json
+{ "artifacts": [
+  { "id": "proposal", "status": "ready" },
+  { "id": "design",   "status": "blocked",
+    "missingDeps": ["proposal"] },
+```
 
-# `spec.md` — Praxisbeispiel
+</ChatTurn>
 
-<div class="grid grid-cols-2 gap-3">
-  <div>
-    <div class="text-xs text-white/40 mb-1 font-mono">specs/payroll-month/spec.md</div>
+<ChatTurn role="tool" meta="openspec instructions proposal --json" v-click>
 
-<<< @/public/artifacts/add-payroll-month-endpoints/specs/payroll-month/spec.md md {maxHeight:'400px'}
+```json
+{ "artifactId": "proposal",
+  "schemaName": "spec-driven",
+  "outputPath": "proposal.md",
+  "instruction": "Create the proposal document
+     that establishes WHY this change is needed…" }
+```
 
-  </div>
-  <div>
-    <div class="text-xs text-white/40 mb-1 font-mono">specs/monthend-rest-api/spec.md</div>
+</ChatTurn>
 
-<<< @/public/artifacts/add-payroll-month-endpoints/specs/monthend-rest-api/spec.md md {maxHeight:'400px'}
-
-  </div>
-</div>
-
-<style>
-.slidev-code code { white-space: pre-wrap; word-break: break-word; }
-</style>
-
----
-
-# `design.md` – Das WIE
-
-- Architektur und technische Entscheidungen – keine Implementierungsanleitung
-- Klare Abgrenzung von Zielen und Nicht-Zielen
-- Jede Entscheidung mit Begründung und verworfenen Alternativen – warum X statt Y?
-- Risiken im Format `[Risk]` → Mitigation
-- „Open Questions" – vor Implementierung klären
-
----
-
-# `design.md` — Praxisbeispiel
-
-<<< @/public/artifacts/add-payroll-month-endpoints/design.md md {maxHeight:'400px'}
-
-<style>
-.slidev-code code { white-space: pre-wrap; word-break: break-word; }
-</style>
-
----
-
-# `tasks.md` – Die TODO-Liste
-
-- Bricht die Umsetzung in konkrete, verifizierbare Schritte herunter
-- Pflichtformat: `- [ ] X.Y Task` – andere Formate werden nicht getrackt
-- Tasks mit nummerierten Überschriften gruppieren
-- Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
-
----
-
-# `tasks.md` — Praxisbeispiel
-
-<<< @/public/artifacts/add-payroll-month-endpoints/tasks.md md {maxHeight:'400px'}
-
-<style>
-.slidev-code code { white-space: pre-wrap; word-break: break-word; }
-</style>
-
----
-
-# Delta-Specs: das brownfield-Konzept
-
-Im `changes/`-Ordner steht **nicht die ganze Spec** – nur was sich ändert.
+<ChatTurn role="tool" meta="Write — proposal.md" v-click>
 
 ```md
-## ADDED Requirements
-### Requirement: System SHALL allow deleting an animal
-#### Scenario: Tierpfleger löscht ein freies Tier
-- **WHEN** ein Tier nicht in einem Gehege ist
-- **THEN** lässt sich das Tier löschen
+## Why
 
-## MODIFIED Requirements
-### Requirement: …
-
-## REMOVED Requirements
-### Requirement: …
+When the frontend loads, it needs to know which
+payroll month to display before fetching any data…
 ```
 
-- **Drei Sektionen** – ADDED, MODIFIED, REMOVED
-- Verhindert Konflikte, wenn mehrere Changes denselben Bereich berühren
-- Beim `archive` werden Deltas in die Haupt-Specs unter `openspec/specs/` eingearbeitet
-- Bis dahin gilt: `openspec/specs/` ist der abgenommene Stand, `openspec/changes/*/specs/` sind offene Vorschläge
+</ChatTurn>
 
+<ChatTurn role="agent" v-click>
+
+Now I'll create `design.md` and both spec files.
+
+</ChatTurn>
+
+<ChatTurn role="tool" meta="Write × 3" v-click>
+
+```
+design.md
+specs/payroll-month/spec.md
+specs/monthend-rest-api/spec.md
+```
+
+</ChatTurn>
+
+<ChatTurn role="tool" meta="Write — tasks.md" v-click>
+
+```md
+## 1. OpenAPI Contract
+
+- [ ] 1.1 Add `GET /monthend/payroll-month/employee`
+      to openapi/paths/monthend.yaml…
+```
+
+</ChatTurn>
+
+<ChatTurn role="tool" meta="openspec status" v-click>
+
+```
+Progress: 4/4 artifacts complete
+[x] proposal  [x] design  [x] specs  [x] tasks
+All artifacts complete!
+```
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+`design.md` — 5 decisions, including why the 14th gate is dropped. `specs/` — 3 resolution rules plus 5 REST scenarios. `tasks.md` — 16 tasks. Run `/opsx:apply` when you're ready to implement.
+
+</ChatTurn>
+
+<!--
+Noch dieselbe Session wie bei explore: Der Agent hat das ganze Gespräch im
+Kontext, deshalb reicht ein knappes „Yes, write up the proposal“.
+Erst nach propose beginnt eine neue Session (siehe Best Practices).
+
+Der Aha-Moment: proposal, spec, design und tasks entstehen in einem Rutsch.
+
+Wichtig für Kapitel 5: Zwischen jedem Write steht ein openspec-Aufruf. Der
+Agent fragt die CLI, was als Nächstes dran ist – er entscheidet es nicht selbst.
+
+Export nicht vergessen: --with-clicks.
+-->
+
+---
+layout: default
+---
+
+# proposal.md – Das WARUM
+
+- Welches Problem löst der Change – und warum jetzt?
+- Vier Abschnitte: Why, What Changes, Capabilities, Impact
+- Capabilities: „Vertrag“ zur spec.md – pro Capability eine Spec-Datei
+- Breaking Changes immer explizit als BREAKING markieren
+
+<!--
+Capabilities nach dauerhaftem Verhalten benennen (`user-auth`), nicht nach
+der Arbeit dieses Change (`add-login-endpoint`). Die Capability überlebt den
+Change und sammelt später weitere Requirements – also eine zusammenhängende
+Grenze wählen, aber keinen Sammeltopf.
+
+Quelle: proposal-Instruction und Template in schema.yaml (seit 1.14.0).
+-->
+
+---
+layout: document
+source: proposal.md
+depth: 2
+---
+
+# Proposal – Praxisbeispiel
+
+::doc::
+
+## Why
+
+When the frontend loads, it needs to know which payroll month to display before fetching any data — this month is not always the current calendar month. The legacy backend has a `PayrollMonthProvider` concept for this, but it lives in the REST layer and has never been migrated to the hexagon. Without it, the hexagon's monthend and worktime endpoints cannot be used as the primary data source on initial page load.
+
+## What Changes
+
+- Add `GET /monthend/payroll-month/employee` endpoint — resolves the active payroll month for the authenticated employee based on their open monthend tasks
+- Add `GET /monthend/payroll-month/project-lead` endpoint — resolves the active payroll month for the authenticated project lead (always previous month)
+- Add `GetEmployeePayrollMonthUseCase` and `GetProjectLeadPayrollMonthUseCase` to the `monthend` application layer
+- Add corresponding service implementations in the `monthend` application layer
+
+## Capabilities
+
+### New Capabilities
+- `payroll-month`: Rules for resolving the active payroll month per actor role, and the REST endpoints that expose it
+
+### Modified Capabilities
+- `monthend-rest-api`: Two new endpoints added to the monthend REST surface
+
+## Impact
+
+- New endpoints in `com.gepardec.mega.hexagon.monthend`
+- New use cases and services in `monthend.application` and `monthend.application.port.inbound`
+- `MonthEndTaskRepository` (existing outbound port) used as-is — no new ports needed
+- No changes to the legacy backend
+- Frontend can replace the legacy `GET /worker/payrollMonth` call with `GET /monthend/payroll-month/employee`, and use the new project-lead endpoint as a new capability
+
+---
+layout: default
+---
+
+# spec.md – Das WAS
+
+- Beschreibt von außen prüfbares Verhalten – nicht, wie es gebaut ist
+- **Faustregel:** Kann sich etwas ändern, ohne dass sich sichtbares Verhalten ändert? Dann gehört es nicht in die Spec.
+- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) – exakt 4 Hashtags, sonst erkennt OpenSpec das Scenario nicht
+- Jedes Requirement braucht ein SHALL/MUST und mindestens ein Scenario
+- Scenarios sind die Vorlage für automatisierte Tests – vom Unit- bis zum Akzeptanztest
+
+<!--
+Die Tests entstehen aus der Spec, nicht aus dem Code. Im Praxisbeispiel
+leitet tasks.md aus denselben Scenarios Unit-Tests für die Services und
+REST-Integrationstests ab.
+
+Nicht in die Spec: Klassen- und Funktionsnamen, Library- oder Framework-Wahl,
+Implementierungsschritte. Das gehört in design.md oder tasks.md.
+
+Ein Verhalten pro Requirement: Beispiele und Randfälle in die Scenarios.
+Ab 500 Zeichen Beschreibung (Text zwischen Überschrift und erstem Scenario)
+warnt openspec validate; mit --strict ist es ein Fehler, und seit
+1.14.1 gilt das auch für ADDED-Requirements im Change. Unter MODIFIED den
+bestehenden Block trotzdem nie kürzen oder aufteilen.
+
+Rein in die Spec: beobachtbares Verhalten, Eingaben, Ausgaben, Fehlerfälle,
+externe Rahmenbedingungen wie Security oder Kompatibilität.
+
+Quelle: specs-Instruction in schema.yaml, docs/concepts.md.
+-->
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Delta-Specs
+
+Im Change steht **nicht die ganze Spec** – nur, was sich ändert.
+
+| Sektion | Wofür | Beim Archivieren |
+|---|---|---|
+| `ADDED` | neues Verhalten | wird angehängt |
+| `MODIFIED` | geändertes Verhalten, als vollständiger Block | ersetzt das Requirement |
+| `REMOVED` | wegfallendes Verhalten, mit **Reason** und **Migration** | wird entfernt |
+| `RENAMED` | nur ein neuer Name: `FROM:` / `TO:` | wird umbenannt |
+| `Purpose` | Zweck einer **neuen** Capability | wird Purpose der Haupt-Spec |
+
+Überschriften: `## ADDED Requirements` … `## RENAMED Requirements`, dazu `## Purpose`.
+
+<!--
+Erst die Delta-Form macht parallele Changes an derselben Capability möglich.
+Wie das im Team aussieht, zeigt das Team-Kapitel.
+
+Reihenfolge beim Archivieren: RENAMED, REMOVED, MODIFIED, ADDED. Wird ein
+Requirement umbenannt und geändert, verweist MODIFIED auf den neuen Namen.
+
+Purpose: nur für eine neue Capability. Bei einer bestehenden Spec ignoriert
+archive ihn – dort den Purpose direkt in openspec/specs/ ändern. Ohne
+Purpose schreibt archive einen TBD-Platzhalter, den validate --strict anmahnt.
+Die Praxisbeispiel-Spec der neuen Capability ist älter als diese Regel.
+
+Nimmt ein REMOVED das letzte Requirement einer Capability, bricht archive ab –
+außer die .openspec.yaml des Change setzt retire_capabilities: true. Dann
+löscht archive die Spec-Datei.
+-->
+
+---
+layout: default
+---
+
+# MODIFIED richtig schreiben
+
+MODIFIED ersetzt das ganze Requirement – was fehlt, geht verloren.
+
+1. Requirement in `openspec/specs/<capability>/spec.md` suchen
+2. Den **ganzen** Block kopieren: vom `### Requirement:` bis zum letzten Scenario
+3. Unter `## MODIFIED Requirements` einfügen und anpassen – Überschrift unverändert
+
+Kommt nur Neues dazu und Bestehendes bleibt gleich: **ADDED**, nicht MODIFIED.
+
+Fehlende Scenarios fangen `validate` und `archive` ab – fehlenden Text nicht.
+
+> `propose` macht das von selbst – die Schritte helfen beim Prüfen und Nachholen.
+
+<!--
+Kein Grund zur Sorge: Der Agent bekommt diese Schritte bei propose als
+Instruction mit, dort geht normalerweise nichts schief. Die Folie ist fürs
+Review – und für den Fall, dass jemand einen MODIFIED-Block von Hand schreibt.
+
+Gleich im Praxisbeispiel: monthend-rest-api ist eine geänderte Capability,
+bekommt aber ein ADDED Requirement – es kommt nur ein neues Verhalten dazu.
+
+Der Ablauf steht in der specs-Instruction von schema.yaml („MODIFIED
+requirements workflow") – dort in vier Schritten; der vierte, Überschrift
+exakt gleich lassen, steckt hier in Schritt 3.
+
+Fürs Review: `openspec show <change> --diff` zeigt pro MODIFIED-Requirement
+nur, was sich tatsächlich ändert.
+-->
+
+---
+layout: document
+source: specs/payroll-month/spec.md
+depth: 4
+---
+
+# Spec – Neue Capability
+
+::doc::
+
+## ADDED Requirements
+
+### Requirement: Employee payroll month resolves based on open monthend tasks
+The system SHALL resolve the active payroll month for an authenticated employee by inspecting their open monthend tasks for the previous calendar month. If no open tasks exist for the previous month (including the case where no tasks have been generated yet), the system SHALL return the current calendar month. Otherwise, the system SHALL return the previous calendar month.
+
+#### Scenario: Employee has open tasks in previous month
+- **WHEN** the authenticated employee has one or more open monthend tasks where they are the subject for the previous calendar month
+- **THEN** the resolved payroll month is the previous calendar month
+
+#### Scenario: Employee has no open tasks in previous month
+- **WHEN** the authenticated employee has no open monthend tasks where they are the subject for the previous calendar month
+- **THEN** the resolved payroll month is the current calendar month
+
+#### Scenario: No tasks have been generated yet for previous month
+- **WHEN** no monthend tasks exist at all for the previous calendar month for the authenticated employee
+- **THEN** the resolved payroll month is the current calendar month
+
+### Requirement: Project-lead payroll month always resolves to previous month
+The system SHALL resolve the active payroll month for an authenticated project lead as the previous calendar month, unconditionally. No task state is consulted.
+
+#### Scenario: Project lead requests their payroll month
+- **WHEN** an authenticated project lead requests the payroll month
+- **THEN** the resolved payroll month is the previous calendar month regardless of any task state
+
+### Requirement: Payroll month resolution does not apply a calendar-day gate
+The system SHALL NOT apply any day-of-month threshold when resolving the payroll month. The resolution SHALL depend only on task completion state (for employees) or be unconditional (for project leads).
+
+#### Scenario: Employee completes all tasks before the 14th
+- **WHEN** the authenticated employee has no open tasks for the previous month and today is before the 14th of the current month
+- **THEN** the resolved payroll month is still the current calendar month
+
+---
+layout: document
+source: specs/monthend-rest-api/spec.md
+depth: 4
+---
+
+# Spec – Geänderte Capability
+
+::doc::
+
+## ADDED Requirements
+
+### Requirement: Payroll month is available via role-suffixed endpoints
+The system SHALL provide two role-specific payroll month endpoints — one for the employee view and one for the project-lead view — so that actors holding both roles can independently request either resolved month. `GET /monthend/payroll-month/employee` SHALL return the resolved payroll month for the authenticated employee. `GET /monthend/payroll-month/project-lead` SHALL return the resolved payroll month for the authenticated project lead.
+
+#### Scenario: Employee retrieves their payroll month
+- **WHEN** an authenticated employee requests `GET /monthend/payroll-month/employee`
+- **THEN** the API returns the resolved payroll month as a `YearMonth` string in `yyyy-MM` format
+- **THEN** the response reflects the payroll month resolution rule defined in the `payroll-month` capability
+
+#### Scenario: Project lead retrieves their payroll month
+- **WHEN** an authenticated project lead requests `GET /monthend/payroll-month/project-lead`
+- **THEN** the API returns the resolved payroll month as a `YearMonth` string in `yyyy-MM` format
+- **THEN** the resolved month is the previous calendar month
+
+#### Scenario: Project lead retrieves employee payroll month for their own employee view
+- **WHEN** an authenticated project lead requests `GET /monthend/payroll-month/employee`
+- **THEN** the API applies the employee rule to the authenticated lead as the subject actor
+- **THEN** the response may differ from the result of `GET /monthend/payroll-month/project-lead`
+
+#### Scenario: Unauthenticated caller cannot access payroll month endpoints
+- **WHEN** an unauthenticated caller requests either payroll month endpoint
+- **THEN** the API rejects the request as unauthorized
+
+#### Scenario: Non-project-lead cannot access the project-lead payroll month endpoint
+- **WHEN** an authenticated actor without the project-lead role requests `GET /monthend/payroll-month/project-lead`
+- **THEN** the API rejects the request as forbidden
+
+---
+layout: two-cols-header
+---
+
+# Gute Requirements, gute Scenarios
+
+::left::
+
+### Requirement
+
+- Ein Verhalten, ein SHALL – drei „und außerdem“ sind drei Requirements
+- Beobachtbar: „zeigt einen Fehler, wenn der Name fehlt“ statt „validiert Eingaben sinnvoll“
+
+::right::
+
+### Scenario
+
+- Prüft sein Requirement, statt es umzuformulieren
+- Deckt die Fälle ab, in denen Bugs wohnen: leer, abgelaufen, doppelt
+- Der Titel nennt den Fall: „Pflichtfelder fehlen“ statt „Test 2“
+
+::bottom::
+
+**Test:** Könnte jemand, der den Code nie gesehen hat, prüfen, ob es erfüllt ist?
+
+<!--
+Im Praxisbeispiel ist „No tasks have been generated yet for previous month“
+genau so ein Randfall-Scenario. In der Zoo-Spec animal-create heißt das
+Scenario „Required fields missing“.
+
+Vor dem Approve fragen: Welchen Fall will ich am wenigsten kaputt sehen –
+und hat er ein Scenario?
+
+Die KI gut anleiten: Absicht UND Grenze nennen („Filter nach Tierart – keine
+neue API"), wichtige Fälle beim Namen nennen, dann nachschärfen. Das
+Artefakt ist Markdown – Handarbeit ist erlaubt.
+
+Quelle: docs/writing-specs.md.
+-->
+
+---
+layout: two-cols-header
+class: gepardec-text-sm
+---
+
+# design.md – Das WIE
+
+Architektur und technische Entscheidungen – keine Implementierungsanleitung.
+
+::left::
+
+### Was hineingehört
+
+- Ziele und Nicht-Ziele
+- Jede Entscheidung mit Begründung und verworfenen Alternativen – warum X statt Y?
+- Risiken im Format `[Risk]` → Mitigation
+- „Open Questions“ – vor der Implementierung klären
+
+::right::
+
+### Typische Entscheidungen
+
+- In welches Modul gehört die neue Logik?
+- Ein Use Case pro Rolle – oder einer mit Parameter?
+- Eine Regel aus dem Altcode übernehmen oder streichen?
+- Vorhandene Schnittstelle nutzen oder eine neue bauen?
+
+::bottom::
+
+Nicht jeder Change braucht eins – erst ab mehreren Modulen, neuen Abhängigkeiten oder Migrationen.
+
+<!--
+Alle vier Beispiele rechts stammen aus dem Praxisbeispiel auf der nächsten
+Folie: monthend statt worktime, zwei Use Cases, die 14.-Regel fällt weg,
+findOpenEmployeeTasks reicht – kein neuer Port.
+
+Weitere typische Fälle: neue Library oder Eigenbau, neue Tabelle oder Spalte,
+synchron oder über ein Event, Client generieren oder von Hand schreiben.
+
+Wann sich design.md lohnt, steht in der design-Instruction von schema.yaml:
+mehrere Module oder Services, neues Architekturmuster, neue externe
+Abhängigkeit, größere Datenmodell-Änderung, Security, Performance, Migration.
+-->
+
+---
+layout: document
+source: design.md
+---
+
+# Design – Praxisbeispiel
+
+::doc::
+
+## Context
+
+The legacy backend resolves the "active payroll month" via a `PayrollMonthProvider` in the REST layer — a CDI-qualified bean injected into resource implementations. Two variants exist: one for employees (stateful check against step entries) and one for management/project-leads (always previous month). Neither has been migrated to the hexagon.
+
+The frontend calls a payroll-month endpoint on initial page load to anchor subsequent data fetches (monthend status overview, worktime). Without this in the hexagon, the frontend must continue to rely on the legacy backend for this bootstrapping step.
+
+## Goals / Non-Goals
+
+**Goals:**
+- Add `GET /monthend/payroll-month/employee` and `GET /monthend/payroll-month/project-lead` to the hexagon
+- Place all logic in the `monthend` bounded context (application layer)
+- Reuse the existing `MonthEndTaskRepository.findOpenEmployeeTasks` port without modification
+
+**Non-Goals:**
+- Migrating or touching the legacy `PayrollMonthProvider` — it stays as-is until the legacy is decommissioned
+- Adding payroll month resolution to the `worktime` context
+- Introducing any new outbound port
+
+## Decisions
+
+### Decision: payroll-month endpoints belong in the `monthend` context
+
+**Rationale**: The employee rule depends directly on monthend task state (`findOpenEmployeeTasks`). Placing it in `monthend` requires no cross-BC dependency. Placing it in `worktime` would require `worktime` to reach into `monthend` state via a new outbound port, violating the BC boundary.
+
+**Alternative considered**: `shared` context — rejected because the concept is not truly cross-cutting; only the frontend treats it as a bootstrapping step, not something multiple BCs need.
+
+### Decision: Two separate use cases — `GetEmployeePayrollMonthUseCase` and `GetProjectLeadPayrollMonthUseCase`
+
+**Rationale**: The rules are different in kind, not just parameterisation. The employee rule queries repository state; the project-lead rule is a pure date computation. Separate use cases keep each testable in isolation and leave a clear seam to evolve the project-lead rule independently in future.
+
+**Alternative considered**: Single use case with a role parameter — rejected because it merges two distinct policies into one place, complicating future changes to either rule.
+
+### Decision: Drop the legacy "14th of month" gate
+
+**Rationale**: The gate was a conservative buffer — "don't advance to the current month until we're halfway through it." The new rule is simpler and more correct: the month advances the moment the actor has no open tasks, regardless of calendar date. There is no business requirement for the gate in the hexagon.
+
+### Decision: Empty task list (no tasks generated yet) resolves to current month
+
+**Rationale**: `findOpenEmployeeTasks` returns an empty list both when all tasks are done and when no tasks exist yet. Treating both as "move forward" is consistent with the rule's intent: nothing is blocking the actor. This edge case only arises in the first month of use.
+
+### Decision: `MonthEndTaskRepository.findOpenEmployeeTasks` is sufficient — no new port
+
+**Rationale**: The existing query returns tasks that are open for a given employee and month. An empty result means all employee-owned tasks for that month are done. No new query or port is needed.
+
+### Decision: Endpoints are added to `MonthEndResource` as two new methods
+
+**Rationale**: Consistent with the existing pattern in `MonthEndResource`, which already hosts both employee and project-lead endpoints with per-method role guards. Dedicated sub-resources would add class overhead for two simple read methods.
+
+### Decision: Response is a plain `YearMonth` string (e.g. `"2026-03"`)
+
+**Rationale**: The only information the frontend needs is the resolved month. A wrapper object adds no value. Consistent with the worktime endpoints that accept `YearMonth` as a string path/query param.
+
+## Risks / Trade-offs
+
+- **Empty-task-list ambiguity** → The "no tasks yet" and "all tasks done" states are indistinguishable at the repository level and both resolve to current month. This is an accepted simplification; it only affects the first calendar month of use and the behaviour is reasonable in both cases.
+
+- **Project-lead rule is static** → Always returning previous month may need revision if business rules change (e.g. a project-lead gets the same smart-check as employees). The separate use case provides the right seam for this without touching the employee path.
+
+- **Legacy and hexagon endpoints coexist** → Both `GET /worker/payrollMonth` (legacy) and `GET /monthend/payroll-month/employee` will exist simultaneously until the legacy is decommissioned. This is intentional and not a risk — the frontend migrates when ready.
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Architekturvorgaben
+
+Woher kennt der Agent Hexagon und Bounded Contexts? Aus Vorgaben, die er lesen kann.
+
+| Wo | Gilt für | Beispiel |
+|---|---|---|
+| `context` in config.yaml | jedes Artefakt | „Hexagonal: `domain` hängt von keiner anderen Schicht ab“ |
+| `rules` in config.yaml | einen Artefakt-Typ | „Spec-Ordner heißen `<bounded-context>-<purpose>`“ |
+| `design.md` | genau diesen Change | „payroll-month gehört in `monthend`“ |
+| ArchUnit, ESLint … | jeden Build | Verstoß gegen die Schichten → roter Build |
+
+> Eine Vorgabe im Text ist eine Bitte. Ein Werkzeug, das den Build rot macht, ist eine Regel.
+
+<!--
+Die Frage kommt nach der Design-Folie fast immer: Der Agent schreibt
+selbstverständlich von Bounded Contexts und Ports – woher kennt er die?
+
+Die rules-Zeile steht so in der config.yaml unseres internen Produkts (rules → specs).
+Die Hexagon-Regeln selbst stehen dort in CLAUDE.md/AGENTS.md und einem
+Architektur-Skill – das funktioniert auch, der Agent liest beides beim Start.
+Das passt zur Empfehlung aus dem Setup-Kapitel: Projekt-Doku und
+Konventionen in AGENTS.md, in context nur Constraints für die Artefakte.
+
+Das Produkt setzt das mit ArchUnit durch (HexagonalArchitectureTest): domain
+hängt weder von application noch von adapter ab, application nicht von
+adapter. Die Werkzeuge im Detail nach apply.
+
+context und rules technisch: Kapitel „Setup & Konfiguration“.
+-->
+
+---
+layout: default
+---
+
+# tasks.md – Die TODO-Liste
+
+- Bricht die Umsetzung in konkrete Schritte herunter, jeder klein genug für eine Session
+- **Jeder Task nennt, wie er verifiziert wird** – Test, Befehl oder beobachtbares Verhalten
+- Pflichtformat: `- [ ] X.Y Task` – nur `[x]` zählt als erledigt, Zeilen ohne Checkbox bleiben ungetrackt
+- Tasks mit nummerierten Überschriften gruppieren – **jede Gruppe bringt ihre eigenen Tests und Doku mit**, keine Sammelgruppe „Tests“ am Ende
+- Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
+
+<!--
+Die Verifikationsregel steht in der tasks-Instruction von schema.yaml. Das
+Praxisbeispiel ist älter: Die meisten seiner Tasks nennen noch keine
+Verifikation. Auch seine Gruppe 5 „Tests“ verstößt seit 1.13.2 gegen die
+Instruction: Die Unit-Tests gehören in Gruppe 3, die REST-Tests in Gruppe 4.
+Warum: Testet erst die letzte Gruppe, was die erste gebaut hat, schlagen die
+Fehler durch alle Gruppen dazwischen zurück.
+
+Seit 1.14.1: Schritte, die erst nach archive gehen, stehen als normale
+Bullets in einem optionalen ## Workflow follow-up am Ende. OpenSpec trackt
+sie nicht, und sie blockieren nicht, dass alle Tasks erledigt sind.
+-->
+
+---
+layout: document
+source: tasks.md
+---
+
+# Tasks – Praxisbeispiel
+
+::doc::
+
+## 1. OpenAPI Contract
+
+- [ ] 1.1 Add `GET /monthend/payroll-month/employee` path to `src/main/resources/openapi/paths/monthend.yaml` — response is a `string` in `yyyy-MM` format, requires `EMPLOYEE` role
+- [ ] 1.2 Add `GET /monthend/payroll-month/project-lead` path to `src/main/resources/openapi/paths/monthend.yaml` — response is a `string` in `yyyy-MM` format, requires `PROJECT_LEAD` role
+- [ ] 1.3 Verify generated Java API interface `MonthEndApi` includes the two new methods after build (`mvn generate-sources` or `mvn quarkus:dev`)
+
+## 2. Application Inbound Ports
+
+- [ ] 2.1 Create `GetEmployeePayrollMonthUseCase` interface in `monthend/application/port/inbound/` — method returns `YearMonth`, takes `UserId actorId`
+- [ ] 2.2 Create `GetProjectLeadPayrollMonthUseCase` interface in `monthend/application/port/inbound/` — method returns `YearMonth`, no parameters needed
+
+## 3. Application Services
+
+- [ ] 3.1 Create `GetEmployeePayrollMonthService` in `monthend/application/` — if `findOpenEmployeeTasks(actorId, prevMonth)` is empty return current month, else return previous month
+- [ ] 3.2 Create `GetProjectLeadPayrollMonthService` in `monthend/application/` — return `YearMonth.now().minusMonths(1)`
+
+## 4. REST Adapter
+
+- [ ] 4.1 Add `GetEmployeePayrollMonthUseCase` and `GetProjectLeadPayrollMonthUseCase` to `MonthEndResource` constructor injection
+- [ ] 4.2 Implement the `getEmployeePayrollMonth()` method in `MonthEndResource` — delegate to use case, annotate `@MegaRolesAllowed(Role.EMPLOYEE)`, return the resolved `YearMonth` as a string
+- [ ] 4.3 Implement the `getProjectLeadPayrollMonth()` method in `MonthEndResource` — delegate to use case, annotate `@MegaRolesAllowed(Role.PROJECT_LEAD)`, return the resolved `YearMonth` as a string
+
+## 5. Tests
+
+- [ ] 5.1 Unit test `GetEmployeePayrollMonthService`: open tasks in prev month → returns prev month
+- [ ] 5.2 Unit test `GetEmployeePayrollMonthService`: no open tasks in prev month → returns current month
+- [ ] 5.3 Unit test `GetEmployeePayrollMonthService`: no tasks at all for prev month → returns current month
+- [ ] 5.4 Unit test `GetProjectLeadPayrollMonthService`: always returns previous month
+- [ ] 5.5 REST integration test: `GET /monthend/payroll-month/employee` — authenticated employee with open tasks returns prev month string
+- [ ] 5.6 REST integration test: `GET /monthend/payroll-month/employee` — authenticated employee with no open tasks returns current month string
+- [ ] 5.7 REST integration test: `GET /monthend/payroll-month/project-lead` — authenticated project lead returns prev month string
+- [ ] 5.8 REST integration test: `GET /monthend/payroll-month/project-lead` — non-project-lead actor receives 403
+
+---
+layout: default
+---
+
+# Ein Change, eine Absicht
+
+**Faustregel:** Lässt sich die Absicht in einem Satz beschreiben? Wenn nicht – teilen.
+
+- Der Scope im Proposal liest sich wie eine Liste unabhängiger Features
+- Das Review dauert einen Nachmittag – also macht es niemand gründlich
+- Zwei Personen kämen sich bei der Arbeit daran in die Quere
+- Die Hälfte der Tasks ließe sich für sich allein ausliefern
+
+Ein Satz heißt nicht wenig Code: Ein komplexer Ablauf über mehrere Module bleibt **ein** Change, solange er eine Absicht verfolgt.
+
+<!--
+Faustregel, kein Limit. Tickets klein schneiden, wie in Scrum und Kanban
+bewährt, bleibt auch mit OpenSpec richtig: Ein Ticket, ein Change ist ein
+guter Startpunkt.
+
+Umgekehrt braucht ein Tippfehler-Fix keine drei Requirements. Der Aufwand
+folgt dem Risiko.
+
+Upstream: Der häufigste Fehler beim Schreiben ist kein schlecht formuliertes
+Requirement, sondern ein Change, der eigentlich drei sind.
+
+Gute Namen machen openspec list lesbar: add-animal-filter statt feature-1.
+
+Quelle: docs/writing-specs.md „Right-size the change“, docs/workflows.md
+„Keep Changes Focused“.
+-->
+
+---
+layout: default
+---
+
+# Zwei Review-Momente
+
+Das erste Review spart am meisten – und wird am häufigsten ausgelassen.
+
+```text
+propose ──► PLAN REVIEWEN ──► apply ──► CODE REVIEWEN ──► archive
+            vor jeder Zeile Code        Mensch + optional /opsx:verify
+```
+
+Den Plan lesen, solange er noch aus Worten besteht. Den Code prüfen, bevor er zur Wahrheit wird.
+
+<!--
+Ein Irrtum im Proposal kostet einen Absatz. Derselbe Irrtum nach apply kostet
+den Code, der darauf aufbaut.
+
+Nicht jeder Change braucht den vollen Durchgang: Ein Tippfehler-Fix verdient
+zwanzig Sekunden, ein Change an Auth, Zahlungen oder Daten, die sich nicht
+wiederherstellen lassen, jede Frage auf den nächsten Folien.
+
+Quelle: docs/reviewing-changes.md.
+-->
+
+---
+layout: two-cols-header
+class: gepardec-text-sm
 ---
 
 # Review-Time
 
-Die Artefakte sind fertig. Nun gilt es, die Artefakte gründlich in dieser Reihenfolge zu lesen:
+Die Artefakte sind fertig. Lest sie gründlich, in dieser Reihenfolge:
+
+::left::
 
 1. `proposal.md`
-2. `spec.md` (1 - n)
+2. `spec.md` (1 – n)
 3. `design.md`
 4. `tasks.md`
 
-<span v-click>Abweichung bemerkt? Neue Runde drehen: "Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte."</span>
+::right::
 
-<span v-click>Dieses Spiel wird so lange gespielt, bis alle Artefakte genau das beschreiben, was die Anforderung ist.</span>
+<v-clicks>
 
-<span v-click>WICHTIG: Keine **Open Questions** in der `design.md`!</span>
+Abweichung bemerkt? Mit `/opsx:update` eine neue Runde drehen: „Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte.“ Oder die Datei direkt ändern – es ist Markdown.
 
+Das wiederholt ihr, bis alle Artefakte genau die Anforderung beschreiben.
+
+**WICHTIG: Keine Open Questions in der `design.md`!**
+
+</v-clicks>
+
+<!--
+Früh aufhören spart Zeit: Stimmt das Proposal nicht, gar nicht erst
+weiterlesen, sondern das Proposal korrigieren.
+
+Open Questions: Das Schema erlaubt nur solche, die weder Specs noch Ansatz
+noch Task-Zerlegung ändern würden. Alles andere muss vor tasks geklärt sein –
+die tasks-Instruction verlangt, solche Fragen vorher mit dem User zu klären.
+
+/opsx:update gehört zum core-Profil und ist im Übungs-Repo dabei. Direkt
+editieren funktioniert trotzdem immer.
+-->
+
+---
+layout: default
+class: gepardec-text-sm
 ---
 
 # Worauf achte ich beim Review?
 
-- Ist die formulierte Spec ein Delta zu einer bestehenden Spec oder eine neue?
-- Gibt es Open Questions?
-- Wird eine Lösung für ein Problem beschrieben, das eigentlich kein Problem ist? (z.B. Migration-Plan für ein Feature noch in Entwicklung)
-- Gibt es Widersprüche zwischen Artefakten?
+| Artefakt | Leitfrage | Warnsignale |
+|---|---|---|
+| `proposal.md` | Ist das das richtige Problem? | Scope ist gewachsen, löst ein anderes Problem, bleibt vage |
+| `spec.md` | Ist „fertig“ richtig definiert? | erfundene Anforderungen, Requirement ohne Scenario, neue Spec statt Delta zu einer bestehenden |
+| `design.md` | Trägt der Ansatz? | Open Questions, falsche Entscheidungen, Lösung für ein Problem, das keins ist |
+| `tasks.md` | Passt der Plan zu den Specs? | Task ohne Requirement, ein Riesen-Task, Arbeit außerhalb des Scopes |
+
+Quer über alles: Gibt es Widersprüche zwischen Artefakten – und **was fehlt?**
+
+<!--
+„Was fehlt?“ ist der wertvollste Fund: Die KI schreibt treu auf, was ihr
+gesagt habt. Was ihr vergessen habt, steht nirgends. Welcher Fall wäre am
+schlimmsten, wenn er kaputtginge – und hat er ein Scenario?
+
+Beispiel für eine Lösung ohne Problem: ein Migrationsplan für ein Feature,
+das noch gar nicht ausgeliefert ist.
+
+Quelle: docs/reviewing-changes.md, ergänzt um eigene Erfahrung.
+-->
 
 ---
-
-# Nach propose: apply und archive
-
-Die Artefakte sind fertig. Zwei Phasen schließen den Loop:
-
-**apply** — Agent implementiert Task für Task, gesteuert über `opsx:apply`
-
-**archive** — Change abschließen und Delta-Specs einarbeiten
-
+layout: default
 ---
 
-# `opsx:apply` — Praxisbeispiel
+# opsx:apply – Praxisbeispiel
 
-<img src="../public/screenshots/apply.png" class="w-full rounded-xl object-contain max-h-99" alt="opsx:apply in Aktion" />
-
----
-
-# `opsx:archive` — Praxisbeispiel
-
-<iframe src="/chats/archive.html" class="w-full h-99 rounded-xl border-0" title="archive Konversation" />
+<img src="/screenshots/apply.png" class="w-full rounded-xl object-contain max-h-85" alt="opsx:apply in Aktion" />
 
 ---
+layout: default
+class: gepardec-text-sm
+---
 
-# Best practices
+# Das Sicherheitsnetz
 
-- Nach jeder Phase (außer Explore) neue Session starten - sauberes Kontext-Fenster!
+Deterministisch: Jeder Change durchläuft dieselben Prüfungen – egal, wer ihn geschrieben hat.
+
+| Werkzeug | Fängt |
+|---|---|
+| **ArchUnit** | Architekturverstöße im Java-Code: Schichten, Abhängigkeiten, Namensregeln |
+| **ESLint** | Frontend-Regeln und – mit Sheriff – Modulgrenzen |
+| **SonarQube · SonarLint** | Bugs, Code Smells, Security Hotspots, Testabdeckung |
+| **Prettier** | Formatierung – kein Thema mehr im Review |
+| **Tests** | Verhalten, das von den Scenarios abweicht |
+
+Kein OpenSpec-Feature, sondern **Harness**: Der Agent sieht rot, bessert nach, prüft erneut.
+
+<!--
+Harness: alles rund um das Modell – Werkzeuge, Regeln, Tests, Hooks. OpenSpec
+sagt, was gebaut wird. Das Netz prüft, ob es sauber gebaut ist.
+
+Verbindung zu tasks.md: Jeder Task nennt, wie er verifiziert wird. Das Netz
+macht diese Verifikation ausführbar.
+
+ArchUnit in unserem internen Produkt, HexagonalArchitectureTest:
+  noClasses().that().resideInAPackage("..hexagon..domain..")
+      .should().dependOnClassesThat().resideInAPackage("..hexagon..adapter..")
+
+Im Zoo-Projekt: ESLint mit angular-eslint und Sheriff, Prettier,
+RestAssured-Tests – alles in der config.yaml beschrieben.
+
+Je früher das Netz greift, desto billiger: im Editor (SonarLint, ESLint), im
+Build (ArchUnit, Tests), in der CI (SonarQube). SonarLint heißt inzwischen
+„SonarQube for IDE“.
+-->
+
+---
+layout: two-cols-header
+class: gepardec-text-sm
+---
+
+# opsx:verify – der Abgleich
+
+Nach `apply`, vor `archive`: Hat der Agent gebaut, was vereinbart war?
+
+::left::
+
+### Was es prüft
+
+- **Completeness** – Tasks erledigt, Requirements umgesetzt
+- **Correctness** – Umsetzung trifft Spec und Randfälle
+- **Coherence** – Design-Entscheidungen im Code
+
+::right::
+
+### Womit
+
+```text
+openspec status --change <name> --json
+openspec instructions apply --change <name> --json
+  → Artefakte lesen, Belege im Code suchen
+```
+
+Meldet **CRITICAL** · **WARNING** · **SUGGESTION** – blockiert aber nichts.
+
+::bottom::
+
+Ein Urteil des Modells, kein Testlauf: verify sucht Tests, führt sie aber nicht aus.
+
+<!--
+Auch sinnvoll, nachdem jemand Code von Hand geändert hat: verify zeigt, wo
+Code und Artefakte auseinanderlaufen – vor dem Archivieren abgleichen.
+
+verify gibt es nur im custom-Profil:
+  openspec config profile   (verify auswählen)
+  openspec update           (Skills und Commands neu schreiben)
+
+Die Skill-Anleitung verlangt Stichwortsuche und „reasonable inference“, keine
+Gewissheit – im Zweifel lieber SUGGESTION als WARNING. Deshalb bleiben Tests
+und Linter das eigentliche Netz.
+
+CRITICAL: offene Tasks, nicht gefundene Requirements. WARNING: Abweichung von
+Spec oder Design, Scenario ohne Test. SUGGESTION: Muster-Abweichungen.
+
+Fehlt design.md, überspringt verify den Abgleich mit dem Design und sagt das.
+
+Quelle: skills/openspec-verify-change/SKILL.md, docs/workflows.md „Verify“.
+-->
+
+---
+layout: two-cols-header
+---
+
+# Wo braucht es den Menschen?
+
+::left::
+
+### Heute
+
+- `explore`: Fragen beantworten, entscheiden
+- Plan-Review nach `propose`
+- Code-Review nach `apply` – `verify` hilft, ersetzt es aber nicht
+
+::right::
+
+### Mit ausgereifter Harness
+
+- `explore` und Plan-Review bleiben beim Menschen
+- Code-Review automatisiert: `verify` und Sicherheitsnetz im Feedback-Loop, bis nichts mehr offen ist
+
+::bottom::
+
+Voraussetzung: Tests, Linter und Architekturregeln fangen verlässlich, was heute Reviewer:innen fangen.
+
+<!--
+Die Frage kommt regelmäßig: An welchen Stellen muss ich selbst ran?
+
+Beim Plan fällt die Entscheidung, was gebaut wird – dagegen kann keine
+Maschine prüfen. Dieses Review bleibt beim Menschen.
+
+Beim Code sieht es anders aus. verify allein ist ein Urteil des Modells: Es
+sucht Tests, führt sie aber nicht aus. Erst zusammen mit dem Sicherheitsnetz,
+das Tests und Regeln wirklich ausführt, kann ein automatisiertes Review mit
+Feedback-Loop das menschliche Code-Review ablösen.
+
+Ein Ausblick, keine Empfehlung für morgen: Das Vertrauen in die Harness
+wächst mit jedem Change, in dem sie etwas gefangen hat.
+-->
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Der Plan lebt
+
+Jedes Artefakt ist Markdown und jederzeit änderbar – eine gesperrte Planungsphase gibt es nicht.
+
+| Situation | Was tun |
+|---|---|
+| Der Plan passt nicht, `apply` läuft noch nicht | `/opsx:update` – oder die Datei direkt ändern |
+| Während `apply` zeigt sich: der Ansatz trägt nicht | Artefakt ändern, weiter mit `/opsx:apply` – es liest den aktuellen Stand |
+| Jemand hat Code von Hand geändert | Vor `archive` abgleichen: stimmt der Code, die Delta-Spec nachziehen – stimmt die Spec, den Code |
+
+`tasks.md` darf sich ändern – `apply` macht beim ersten offenen Task weiter.
+
+<!--
+Warum vor archive abgleichen: Beim Archivieren wird die Spec zur Wahrheit.
+Sie soll dann beschreiben, was der Code wirklich tut. /opsx:verify zeigt, wo
+beides auseinanderläuft.
+
+tasks.md ist eine lebende Checkliste: Tasks dürfen dazukommen, wegfallen oder
+umsortiert werden.
+
+Artefakte sind der lebende Plan, kein unterschriebener Vertrag. Der Agent
+arbeitet immer mit dem aktuellen Inhalt der Dateien.
+
+Quelle: docs/editing-changes.md.
+-->
+
+---
+layout: two-cols-header
+---
+
+# Update oder neuer Change?
+
+::left::
+
+### Update, wenn …
+
+- dieselbe Absicht besser umgesetzt wird
+- der Scope schrumpft – MVP zuerst
+- die Codebasis anders ist als gedacht
+
+::right::
+
+### Neuer Change, wenn …
+
+- sich die Absicht grundlegend ändert
+- der Scope zu anderer Arbeit wächst
+- der ursprüngliche Change für sich fertig werden kann
+
+::bottom::
+
+Abrechnungsmonat: die 14.-Regel doch behalten → **Update**. Projektleiter bekommen denselben Check wie Mitarbeiter → **neuer Change**.
+
+<!--
+Das zweite Beispiel steht schon im Design des Praxisbeispiels: Unter Risks
+heißt es, die Projektleiter-Regel müsse vielleicht einmal denselben
+„smart-check“ bekommen. Der Change ist ohne das fertig – also ein eigener.
+
+Scope schrumpft: Update, archivieren – der Rest wird ein neuer Change.
+
+Quelle: docs/workflows.md „When to Update vs Start Fresh“, docs/editing-changes.md.
+-->
+
+---
+layout: conversation
+session: "archive · backend"
+---
+
+# opsx:archive – Praxisbeispiel
+
+::turns::
+
+<ChatTurn role="user" who="Oliver">
+
+`/opsx:archive add-payroll-month-endpoints`
+
+</ChatTurn>
+
+<ChatTurn role="tool" meta="grep — tasks.md" v-click>
+
+```
+open tasks:       0
+completed tasks:  18
+```
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+All 18 tasks are complete, all artifacts are done. Two delta specs need assessment.
+
+```
+payroll-month      no main spec → new file
+monthend-rest-api  exists       → +1 requirement
+```
+
+</ChatTurn>
+
+<ChatTurn role="tool" meta="AskUserQuestion" v-click>
+
+```
+Delta specs exist for this change.
+How would you like to proceed?
+→ Sync now
+```
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+Syncing delta specs via subagent…
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+Sync complete. Now performing the archive.
+
+</ChatTurn>
+
+<ChatTurn role="tool" meta="mv" v-click>
+
+```
+changes/add-payroll-month-endpoints
+  → changes/archive/
+    2026-04-22-add-payroll-month-endpoints
+```
+
+</ChatTurn>
+
+<ChatTurn role="agent" v-click>
+
+**Archive Complete** — specs synced to main specs. All artifacts complete. All tasks complete.
+
+</ChatTurn>
+
+<!--
+Der wichtige Turn ist der vierte: Bevor irgendetwas in specs/ wandert, fragt
+das Werkzeug nach. sync läuft nicht automatisch – beim Zusammenführen der
+Deltas ändert sich die dauerhafte Spezifikation.
+
+Kontrast zu Kapitel 3 aufmachen: Derselbe Ablauf ginge auch deterministisch
+mit `openspec archive` – hier macht ihn ein Agent Schritt für Schritt nach.
+
+Export nicht vergessen: --with-clicks.
+-->
+
+---
+layout: default
+class: gepardec-text-sm
+---
+
+# Was kostet ein Change?
+
+Ein echter Change aus unserem internen Produkt, gebaut mit Opus 5: generierte API-Clients im Frontend – 31 Tasks, vier Delta-Specs, rund 1.000 neue Zeilen.
+
+| Session | Tokens | davon aus dem Cache | Kosten |
+|---|--:|--:|--:|
+| `explore` + `propose` | 15,0 Mio. | 98 % | 12 USD |
+| `apply` | 39,5 Mio. | 99 % | 26 USD |
+| `archive` | 1,4 Mio. | 94 % | 2 USD |
+| **Gesamt** | **56 Mio.** | | **40 USD** |
+
+Tokens sind billig, Kontext ist teuer: 70 % der Kosten entstehen, weil jeder Schritt den Kontext erneut liest.
+
+<!--
+Gerechnet mit den Listenpreisen der Anthropic-API für Opus 5: 5 USD pro
+Million Input-Tokens, 25 USD Output, Cache schreiben (1 h) 10 USD, Cache lesen
+0,50 USD. Summiert über alle API-Requests der drei Claude-Code-Sessions,
+Stand September 2026.
+
+Aufschlüsselung: 230.000 Output-Tokens kosten 6 USD, 55 Mio. Cache-Tokens
+lesen 28 USD, Cache schreiben 6 USD.
+
+Die 1.000 Zeilen zählen ohne den generierten Client, Lockfile und OpenAPI-Snapshot.
+
+Mit einem Abo (Pro, Max, Team) zahlt ihr nicht pro Token – die Zahl ist dann
+der API-Gegenwert.
+
+Zeit: explore + propose rund 75 Minuten, apply rund 70 Minuten inklusive
+manuellem Test, archive eine Viertelstunde. Am selben Tag gemergt.
+
+Warum nicht der Abrechnungsmonat? Der lief im April noch mit Sonnet 4.6, und
+die vollständigen Transkripte gibt es nicht mehr. Der orval-Change ist
+vergleichbar groß und durchläuft dieselben Schritte.
+
+Daraus folgt die erste Best Practice auf der nächsten Folie: Eine neue Session pro
+Schritt hält den Kontext klein – und damit die Kosten.
+-->
+
+---
+layout: default
+---
+
+# Best Practices
+
+- Nach jedem Schritt (außer explore) neue Session starten – sauberes Kontext-Fenster, geringere Kosten
 - Unklarheiten nach propose klären, bevor apply beginnt
-- Implementierungsfehler in derselben Session korrigieren - Spec anpassen, falls das Verhalten davon abweicht
-- Umfangreiche Aufgaben: Implementierung von einem anderen Agenten reviewen lassen (neue Session!)
+- Implementierungsfehler in derselben Session korrigieren – Spec anpassen, falls das Verhalten davon abweicht
+- Code nach apply selbst reviewen – bei umfangreichen Changes vorher `/opsx:verify` in einer neuen Session als maschinelle Vorprüfung
+
+<!--
+Das Code-Review bleibt beim Menschen, verify sortiert nur vor – siehe „Wo
+braucht es den Menschen?“.
+
+Übergang: Wie OpenSpec in ein Projekt kommt und was es dort anlegt, zeigt das
+nächste Kapitel.
+-->

@@ -4,130 +4,183 @@ layout: section
 
 # Setup & Konfiguration
 
-Wie OpenSpec ins Projekt kommt — und was du danach drehen kannst.
+<!--
+Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Workflow & Artefakte“ offen?
+Dann wirklich warten – rund zehn Sekunden Stille aushalten.
+-->
 
 ---
+layout: default
+---
 
-# `openspec init`
+# openspec init
 
-Ein Befehl, der das Projekt OpenSpec-fähig macht.
+Ein Befehl macht euer Projekt OpenSpec-fähig.
 
 ```sh
 $ openspec init
 ```
 
-Interaktiv: OpenSpec fragt nach den AI-Tools, die in diesem Projekt benutzt werden – und verdrahtet sie automatisch.
+Interaktiv: OpenSpec fragt, welche AI-Tools ihr im Projekt nutzt – und verdrahtet sie automatisch.
 
-- Claude Code, Codex, Copilot, OpenCode, ... 30+ Optionen
+- Claude Code, Codex, Copilot, OpenCode, … – rund 50 Optionen
 - Mehrfachauswahl möglich – ein Projekt, mehrere Agenten
 - Erneut ausführbar: nachträglich Tools hinzufügen oder updaten
 
 ---
+layout: default
+---
 
 # Was wird angelegt?
-
-Zuerst die tool-unabhängige Schicht – dann pro ausgewähltem Agent.
 
 ````md magic-move {lines: true}
 ```text
 openspec/
-├── config.yaml          ← Projekt-Kontext und Konventionen
+├── config.yaml          ← Workflow und Constraints für Artefakte
 ├── specs/               ← die Wahrheit (leer beim Start)
 └── changes/             ← aktive Vorschläge
 ```
 
 ```text
 openspec/
-├── config.yaml          ← Projekt-Kontext und Konventionen
+├── config.yaml          ← Workflow und Constraints für Artefakte
 ├── specs/               ← die Wahrheit (leer beim Start)
 └── changes/             ← aktive Vorschläge
 
-.claude/skills/                          ← Skills (primär, pro Agent)
+.claude/skills/                    ← Skills (primär, pro Agent)
 ├── openspec-propose/SKILL.md
 ├── openspec-apply-change/SKILL.md
 └── openspec-archive-change/SKILL.md
-
-.claude/commands/opsx/                   ← Slash-Commands (wo unterstützt)
+.claude/commands/opsx/             ← Slash-Commands (wo unterstützt)
 ├── propose.md
 ├── apply.md
 └── archive.md
 ```
 ````
 
-<div v-click.hide="1" class="text-sm text-white/60 mt-3">
-Tool-unabhängig. Lebt im Repo, gehört in <code>git</code>.
+<div v-click.hide="1" class="gepardec-text-sm mt-3">
+
+Tool-unabhängig. Lebt im Repo, gehört in `git`.
+
 </div>
 
-<div v-click="1" class="text-sm text-white/60 mt-3">
-Pro ausgewähltem Agent eigene Skills. Commands/Workflows nur dort, wo das Tool sie unterstützt (Claude Code, Cursor, Copilot, …).
+<div v-click="1" class="gepardec-text-sm mt-3">
+
+Pro Agent eigene Skills. Commands nur dort, wo das Tool sie unterstützt.
+
 </div>
 
-<div v-click="2" class="text-sm text-amber-400/80 mt-2">
-<code>AGENTS.md</code> / <code>CLAUDE.md</code> werden bewusst nicht angelegt — wenn vorhanden, bleiben sie unverändert.
+<div v-click="2" class="gepardec-text-sm mt-2">
+
+**`AGENTS.md` / `CLAUDE.md`** werden nicht angelegt – vorhandene bleiben unverändert.
+
 </div>
 
 ---
-
-# Tipp: CLAUDE.md / AGENTS.md auf OpenSpec verweisen
-
-Wenn ihr eine `CLAUDE.md`, `AGENTS.md` oder ähnliches im Repo habt – **nicht duplizieren**.
-
-```md
-<!-- CLAUDE.md -->
-# Projekt-Konventionen
-
-Projekt-Kontext, Tech-Stack und Konventionen liegen in
-`openspec/config.yaml` – immer dort nachsehen.
-```
-
-- `openspec/config.yaml` bleibt **Single Source of Truth**
-- Der Agent liest CLAUDE.md/AGENTS.md ohnehin automatisch beim Start
-- Keine Drift zwischen zwei Kopien derselben Konventionen
-
+layout: default
 ---
 
-# `config.yaml` – die eine Datei, die zählt
+# config.yaml
 
-Zwei Dinge, die jedes Team früh definiert:
+Steuert den Workflow – und gibt jedem Artefakt die Constraints mit.
 
 ```yaml
 schema: spec-driven         # welcher Workflow gilt
-
-context: |                  # erscheint in JEDEM Artefakt
-  ## Tech Stack
-  - Quarkus 3.35 + Hibernate Panache + PostgreSQL
-  - Angular 21, zoneless, NgRx Signal Store
-  ## Konventionen
-  - Nur RestAssured-Tests, keine Unit-Tests
-  - Sheriff-Modulgrenzen, kein domain→domain Import
+context: |                  # erscheint bei Erstellung JEDES Artefakts
+  Nur RestAssured-Tests (@QuarkusTest), keine Unit-Tests.
+  Jeder sichtbare Text in Deutsch und Englisch.
+  Bestehende REST-Endpunkte ändern sich nicht inkompatibel.
 ```
 
-- **`context`** = was der Agent immer wissen muss (Tech-Stack, Konventionen)
+- **`context`** = Constraints, die der Agent **nicht aus dem Code ablesen** kann
 - Optional pro Artefakt-Typ: **`rules`** – z.B. "Proposals enthalten immer einen Rollback-Plan"
+- Optional pro Operation: **`operations`** – z.B. für `apply`: "Fokussierte Tests vor der vollen Suite"
+
+<!--
+Kein Tech-Stack im context: Quarkus-Version, Angular, Panache stehen in
+pom.xml und package.json – der Agent findet sie selbst. Seit 1.14.0 sagt das
+auch der Kommentar, den openspec init in die config.yaml schreibt: „Keep
+general project documentation and discoverable codebase facts out."
+
+Kann config.yaml automatisiert aktualisiert werden?
+-->
 
 ---
+layout: default
+---
 
-# CLI vs. Slash-Command — wer macht was?
+# AGENTS.md und config.yaml – wer weiß was?
 
-**Slash-Command** = Playbook für den Agenten
-**CLI** = State-Machine, die der Agent abfragt
+Zwei Dateien, zwei Leser. Jede Aussage hat genau **einen** Ort.
+
+| | `AGENTS.md` | `context` in `config.yaml` |
+|---|---|---|
+| **Wer liest** | jede Agent-Session, beim Start | OpenSpec, bei jedem Artefakt |
+| **Was hineingehört** | Projekt-Doku: Layout, Tech-Stack, Befehle, Konventionen | Constraints für Specs, Design und Tasks |
+| **Beispiel** | „Angular-Befehle über `ng`, nicht `pnpm`“ | „Nur RestAssured-Tests, keine Unit-Tests“ |
+
+**Faustregel:** Findet der Agent es im Code, in `pom.xml` oder `package.json`? Dann gehört es nicht in `context`.
+
+<!--
+context landet in jeder Artefakt-Instruction – jede Zeile dort kostet bei
+jedem Artefakt Tokens. Und abgeschriebene Fakten veralten: Die
+Quarkus-Version in config.yaml stimmt nach dem nächsten Upgrade nicht mehr,
+die in pom.xml schon.
+
+Bis 1.13 empfahl der init-Kommentar das Gegenteil („Add your tech stack,
+conventions, style guides, domain knowledge"). Das Übungs-Repo folgt der neuen
+Empfehlung: Projekt-Doku in AGENTS.md, im context der config.yaml aus Übung 2
+nur die Constraints für die Artefakte.
+
+Konventionen, die für den Code gelten, gehören in AGENTS.md: Der Agent
+braucht sie bei apply genauso wie beim Schreiben der Artefakte. In context
+nur, was die Artefakte selbst prägt.
+
+Warum AGENTS.md: Es ist der tool-neutrale Standard, den Codex, Copilot, OpenCode
+und andere lesen. Claude Code liest AGENTS.md seit v2.1.277 direkt – eine
+CLAUDE.md braucht es dafür nicht mehr. Achtung: Gibt es beide, liest Claude
+Code standardmäßig nur CLAUDE.md. Beide zusammen per /config, „Project
+instructions" = claude-md-and-agents-md. Das Übungs-Repo hat deshalb nur
+AGENTS.md.
+-->
+
+---
+layout: default
+---
+
+# CLI vs. Slash-Command
+
+Die CLI ist der Motor, Slash-Commands und Skills sind das Lenkrad.
+
+- **CLI** = Motor und State-Machine: kennt Ordner, Abhängigkeiten, Delta-Merge – überall gleich
+- **Slash-Command / Skill** = Playbook für den Agenten, pro Tool im passenden Format
 
 Auszug aus `.claude/commands/opsx/propose.md`:
 
 ```text
-2. Create the change directory
+4. Create the change directory
    → openspec new change "<name>"
 
-3. Get the artifact build order
+5. Get the artifact build order
    → openspec status --change "<name>" --json
    Parse the JSON to get applyRequires and artifacts ...
 ```
 
-Der Agent ruft also durchgehend `openspec`-Befehle auf.
+Der Agent ruft durchgehend `openspec`-Befehle auf.
+
+<!--
+Das Bild „Motor und Lenkrad“ stammt aus docs/how-commands-work.md. Der Motor ist
+bei jedem Tool derselbe, das Lenkrad sieht in Claude Code, Cursor oder Codex
+anders aus – openspec init schreibt für jedes gewählte Tool das passende.
+
+Deshalb funktioniert derselbe Workflow mit rund 50 Tools.
+-->
 
 ---
+layout: default
+---
 
-# Ausnahme: `archive` braucht keinen Agenten
+# archive braucht keinen Agenten
 
 `openspec archive` ist ein deterministischer CLI-Befehl – kein LLM nötig.
 
@@ -137,26 +190,50 @@ $ openspec archive us-05-delete-animal
 
 Was er tut: Delta-Specs in die Haupt-Specs mergen, Change-Verzeichnis aufräumen, History-Eintrag schreiben.
 
-<v-click>
+---
+layout: default
+---
 
-**Das Problem:** Der mitgelieferte `opsx:archive`-Skill macht genau dasselbe – aber LLM-gesteuert.
+# Das Problem: opsx:archive per LLM
+
+Der `opsx:archive`-Skill macht dasselbe – aber LLM-gesteuert.
 
 ```text
-1. Run openspec status and confirm all tasks complete
+1. Run openspec list --json and check the task counts
 2. Compare each delta spec with its main spec ...  ← KI tut das manuell
 3. mkdir -p openspec/changes/archive               ← KI tut das manuell
 4. mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
 ```
 
-Ein offenes Issue ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)).
+Das Issue dazu ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)) ist nicht gelöst, sondern in eine [Diskussion](https://github.com/Fission-AI/OpenSpec/discussions/1574) verschoben – der Skill vergleicht und verschiebt weiterhin selbst.
 
-</v-click>
+**Empfehlung:** immer `openspec archive` statt `/opsx:archive`.
+
+<!--
+#863 wurde im August 2026 als „not planned“ geschlossen und dabei nach
+Discussion #1574 verschoben. Geschlossen heißt hier nicht behoben.
+
+Früher sprach noch etwas für den Agenten: Delta-Specs einer neuen Capability
+hatten keinen Purpose, und openspec archive schrieb nur einen
+TBD-Platzhalter. Das ist erledigt:
+- seit 1.7.0 übernimmt archive den ## Purpose der Delta-Spec, und die
+  specs-Instruction, das Template und der sync-Skill verlangen ihn – CLI und
+  Agent erzeugen dieselbe Haupt-Spec
+- seit 1.11.0 meldet openspec validate einen ungeschriebenen Purpose
+  (Warnung, mit --strict ein Fehler)
+
+Seit 1.14.0 bricht der Skill ab, wenn der Spec-Sync scheitert (#2018), statt
+den Change trotzdem zu archivieren. Sicherer – aber weiterhin LLM-gesteuert,
+die Empfehlung bleibt.
+-->
 
 ---
+layout: default
+---
 
-# Faustregel: Skills rufen die CLI auf, sie denken nicht selbst
+# Faustregel
 
-Hat die CLI einen Befehl dafür → Skill ruft ihn auf, erledigt die Arbeit nicht selbst.
+Hat die CLI einen Befehl dafür → der Skill ruft ihn auf, statt selbst zu arbeiten.
 
 ```sh
 # gut
@@ -167,10 +244,12 @@ openspec archive <change>
 ```
 
 ---
+layout: default
+---
 
-# `openspec validate` – das Qualitätsgate
+# openspec validate
 
-Findet Silent Failures, bevor der Agent damit weiterarbeitet.
+Das Qualitätsgate: findet Silent Failures, bevor der Agent damit weiterarbeitet.
 
 ```sh
 $ openspec validate --all --strict
@@ -183,19 +262,36 @@ $ openspec validate --all --strict
 
 **Faustregel:** rotes `validate` ⇒ kein `apply`.
 
+<!--
+Seit 1.13.1 meldet validate mehr stille Fehler: ein Requirement unter einer
+falschen Überschrift (Warnung), Delta-Requirements außerhalb von spec.md,
+FROM:/TO:-Zeilen ohne Partner, ein Scenario ohne Inhalt (jeweils Fehler).
+
+Seit 1.14.1 ist eine Requirement-Beschreibung über 500 Zeichen eine Warnung.
+Mit --strict scheitert die CI daran.
+-->
+
+---
+layout: default
 ---
 
-# Profile: core vs. expanded
+# Profile: core vs. custom
 
-OpenSpec liefert mehrere Workflow-Profile.
+OpenSpec kennt genau zwei Workflow-Profile – **core** ist der Default.
 
 | Profil | Slash-Commands |
 |---|---|
-| **core** (default) | `propose` · `apply` · `sync` · `archive` · `explore` |
-| **expanded** | + `new` · `continue` · `ff` · `verify` · `bulk-archive` … |
+| **core** | `propose` · `explore` · `apply` · `update` · `sync` · `archive` |
+| **custom** | frei wählbar, auch `new` · `continue` · `ff` · `verify` · `bulk-archive` · `onboard` |
 
 ```sh
-$ openspec config profile        # interaktiv wechseln
+$ openspec config profile        # interaktiv zusammenstellen
+$ openspec config profile core   # zurück auf core (einziges Preset)
 ```
 
-Für den Workshop reicht **core**. Expanded ist für Teams und komplexere Workflows gedacht.
+Für den Workshop reicht **core**.
+
+<!--
+custom ist für Teams, die einzelne Schritte getrennt steuern wollen: frei
+zusammengestellt aus allen zwölf Workflows.
+-->
