@@ -37,6 +37,10 @@
       "title": "No animals registered"
     },
     "eyebrow": "Animal inventory",
+    "filter": {
+      "label": "Filter by species",
+      "reset": "Reset filter"
+    },
     "loading": "Loading animals",
     "title": "Animal list"
   },

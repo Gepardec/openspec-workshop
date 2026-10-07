@@ -23,6 +23,13 @@ h1 {
   font: var(--mat-sys-headline-medium);
 }
 
+.animal-filter {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .animal-table {
   overflow: hidden;
   width: 100%;

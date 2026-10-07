@@ -15,7 +15,27 @@
   }
 
   @if (animalStore.entities().length > 0) {
-    <table class="animal-table" mat-table [dataSource]="animalStore.entities()">
+    <div class="animal-filter">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>{{ 'animalList.filter.label' | transloco }}</mat-label>
+        <mat-select
+          [value]="selectedSpecies()"
+          (selectionChange)="selectedSpecies.set($event.value)"
+        >
+          @for (species of speciesOptions(); track species) {
+            <mat-option [value]="species">{{ species }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      @if (selectedSpecies() !== null) {
+        <button mat-stroked-button type="button" (click)="selectedSpecies.set(null)">
+          <mat-icon aria-hidden="true">close</mat-icon>
+          {{ 'animalList.filter.reset' | transloco }}
+        </button>
+      }
+    </div>
+
+    <table class="animal-table" mat-table [dataSource]="filteredAnimals()">
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell>{{ 'animalList.columns.name' | transloco }}</th>
         <td *matCellDef="let animal" mat-cell>{{ animal.name }}</td>

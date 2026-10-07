@@ -37,6 +37,10 @@
       "title": "Keine Tiere registriert"
     },
     "eyebrow": "Tierbestand",
+    "filter": {
+      "label": "Nach Art filtern",
+      "reset": "Filter zurücksetzen"
+    },
     "loading": "Tiere werden geladen",
     "title": "Tierliste"
   },
