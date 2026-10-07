@@ -5,11 +5,11 @@ Provides the ability to edit an existing animal's details. Includes a REST API e
 ## Requirements
 
 ### Requirement: Update animal via REST API
-The system SHALL expose a `PUT /animals/{id}` endpoint that accepts a JSON body with `name`, `species`, `age`, `enclosure`, and `notes` fields, persists the changes to the identified animal, and returns the updated record.
+The system SHALL expose a `PUT /animals/{id}` endpoint that accepts a JSON body with `name`, `species`, `age`, and `enclosure` fields, persists the changes to the identified animal, and returns the updated record. The `notes` field SHALL NOT be accepted or returned.
 
 #### Scenario: Valid update submitted
 - **WHEN** a client sends `PUT /animals/{id}` with a valid JSON body containing `name` and `species`
-- **THEN** the response status is `200 OK` and the body is a JSON object with the updated animal data
+- **THEN** the response status is `200 OK` and the body is a JSON object with the updated animal data — without a `notes` field
 
 #### Scenario: Required fields missing
 - **WHEN** a client sends `PUT /animals/{id}` with a JSON body that omits `name` or `species`
@@ -20,11 +20,11 @@ The system SHALL expose a `PUT /animals/{id}` endpoint that accepts a JSON body 
 - **THEN** the response status is `404 Not Found`
 
 ### Requirement: Animal edit form in the UI
-The system SHALL provide an Angular route at `/animals/:id/edit` that renders a form pre-populated with the existing animal data, allowing a zoo manager to update the fields (`name`, `species`, `age`, `enclosure`, `notes`) and submit the changes.
+The system SHALL provide an Angular route at `/animals/:id/edit` that renders a form pre-populated with the existing animal data, allowing a zoo manager to update the fields (`name`, `species`, `age`, `enclosure`) and submit the changes. The form SHALL NOT include a notes input.
 
 #### Scenario: Navigating to the edit form
 - **WHEN** a zoo manager navigates to `/animals/:id/edit`
-- **THEN** the page displays a form with all fields pre-populated with the animal's current values
+- **THEN** the page displays a form with `name`, `species`, `age`, and `enclosure` pre-populated — with no notes field
 
 #### Scenario: Submitting a valid form
 - **WHEN** a zoo manager modifies one or more fields and submits the form
