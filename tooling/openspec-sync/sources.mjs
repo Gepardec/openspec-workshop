@@ -77,7 +77,7 @@ export const sources = [
   { id: 'src.config-prompts', tier: 1, kind: 'github-file', path: 'src/core/config-prompts.ts',
     backs: [
       { slide: 'slides/pages/03-setup-config.md', claim: 'config.yaml: context = Constraints, die der Agent nicht aus dem Code ablesen kann; kein Tech-Stack' },
-      { slide: 'slides/pages/03-setup-config.md', claim: 'AGENTS.md und config.yaml — wer weiß was?: Projekt-Doku in AGENTS.md, in context nur Constraints für die Artefakte' },
+      { slide: 'slides/pages/03-setup-config.md', claim: 'AGENTS.md vs. config.yaml: Projekt-Doku in AGENTS.md, in context nur Constraints für die Artefakte' },
       { slide: 'slides/pages/07-faq.md', claim: 'Neues Projekt: Tech-Stack und Konventionen in AGENTS.md, in context nur Constraints' },
     ] },
 
@@ -95,9 +95,9 @@ export const sources = [
   { id: 'cli.view', tier: 1, kind: 'cli-help', argv: ['view'],
     backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec view ist interaktiv, kein JSON-Output' }] },
   { id: 'cli.validate', tier: 1, kind: 'cli-help', argv: ['validate'],
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'openspec validate --all --strict; --strict für CI' }] },
+    backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec validate --all --strict; --strict für CI' }] },
   { id: 'cli.archive', tier: 1, kind: 'cli-help', argv: ['archive'],
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'openspec archive <change> ist deterministisch, merged Deltas, räumt auf, schreibt History' }] },
+    backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: 'openspec archive <change> ist deterministisch, merged Deltas, räumt auf, schreibt History' }] },
   { id: 'cli.instructions', tier: 1, kind: 'cli-help', argv: ['instructions'],
     backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Gültige Argumente: proposal · specs · design · tasks, dazu apply und archive' }] },
   { id: 'cli.config', tier: 1, kind: 'cli-help', argv: ['config'],
@@ -114,7 +114,7 @@ export const sources = [
   { id: 'docs.agent-contract', tier: 2, kind: 'github-file', path: 'docs/agent-contract.md',
     backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'Instructions = schema.yaml (instruction + template) + config.yaml (context + rules) + Pfade zu Abhängigkeiten; Agent liest referenzierte Dateien selbst' }] },
   { id: 'docs.getting-started', tier: 2, kind: 'github-file', path: 'docs/getting-started.md',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Was init anlegt: openspec/{config.yaml,specs,changes} + .claude/skills + .claude/commands/opsx; AGENTS.md/CLAUDE.md werden NICHT angelegt' }] },
+    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Was init anlegt: openspec/{config.yaml,specs,changes} + .agents/skills (Codex) + .claude/commands/opsx (Slash-Commands, z. B. Claude Code); Codex ruft Skills per $ auf; AGENTS.md/CLAUDE.md werden NICHT angelegt' }] },
   { id: 'docs.customization', tier: 2, kind: 'github-file', path: 'docs/customization.md',
     backs: [
       { slide: 'slides/pages/03-setup-config.md', claim: 'config.yaml: schema + context; optional rules pro Artefakt-Typ' },
@@ -125,6 +125,7 @@ export const sources = [
     backs: [
       { slide: 'slides/pages/01-what-why.md', claim: 'rund 50 Tools werden bei init verdrahtet; Skills + Slash-Commands tool-spezifisch generiert' },
       { slide: 'slides/pages/03-setup-config.md', claim: 'Claude Code, Codex, Copilot, OpenCode, ... rund 50 Optionen, Mehrfachauswahl' },
+      { slide: 'slides/pages/08-hands-on.md', claim: 'Codex hat keine Slash-Commands, Skills liegen in .agents/skills/ und werden mit $openspec-propose, $openspec-apply-change, $openspec-explore aufgerufen' },
     ] },
   { id: 'docs.concepts', tier: 2, kind: 'github-file', path: 'docs/concepts.md',
     backs: [
@@ -200,11 +201,11 @@ export const sources = [
 
   // Generated agent-facing text. The deck quotes these verbatim on slides.
   { id: 'skill.propose', tier: 2, kind: 'github-file', path: 'skills/openspec-propose/SKILL.md',
-    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'propose darf design.md überspringen, wenn dessen Instruction es als bedingt markiert ("enablers, not gates")' }, { slide: 'slides/pages/03-setup-config.md', claim: 'Auszug aus .claude/commands/opsx/propose.md: "Create the change directory -> openspec new change", "Get the artifact build order -> openspec status --change --json"' }] },
+    backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'propose darf design.md überspringen, wenn dessen Instruction es als bedingt markiert ("enablers, not gates")' }, { slide: 'slides/pages/03-setup-config.md', claim: 'Auszug aus .agents/skills/openspec-propose/SKILL.md: "Create the change directory -> openspec new change", "Get the artifact build order -> openspec status --change --json"' }] },
   { id: 'skill.apply', tier: 2, kind: 'github-file', path: 'skills/openspec-apply-change/SKILL.md',
     backs: [{ slide: 'slides/pages/05-cli-agent-bridge.md', claim: 'opsx:apply führt den Loop Task für Task aus, bis alle [x] sind' }] },
   { id: 'skill.archive', tier: 2, kind: 'github-file', path: 'skills/openspec-archive-change/SKILL.md',
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: 'Der opsx:archive-Skill macht dasselbe wie die CLI, aber LLM-gesteuert (Task-Zählung über list --json, mkdir/mv/Spec-Vergleich von Hand); bricht seit 1.14.0 bei gescheitertem Sync ab' }] },
+    backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: 'Der opsx:archive-Skill macht dasselbe wie die CLI, aber LLM-gesteuert (Task-Zählung über list --json, mkdir/mv/Spec-Vergleich von Hand); bricht seit 1.14.0 bei gescheitertem Sync ab' }] },
   { id: 'skill.explore', tier: 2, kind: 'github-file', path: 'skills/openspec-explore/SKILL.md',
     backs: [{ slide: 'slides/pages/02-phases-documents.md', claim: 'explore = Frage-Antwort-Runden, noch kein Artefakt' }] },
   { id: 'skill.verify', tier: 2, kind: 'github-file', path: 'skills/openspec-verify-change/SKILL.md',
@@ -215,5 +216,5 @@ export const sources = [
   // ---------------------------------------------------------------- tier 4
   // Expectation lives in assertions.mjs (deckClaims.issue863State) — single source of truth.
   { id: 'issue.863', tier: 4, kind: 'github-issue', number: 863,
-    backs: [{ slide: 'slides/pages/03-setup-config.md', claim: '#863 als „not planned“ geschlossen und nach Discussion #1574 verschoben; der Skill erledigt Vergleich und mv trotzdem selbst; Empfehlung: immer openspec archive' }] },
+    backs: [{ slide: 'slides/pages/04-cli-navigator.md', claim: '#863 als „not planned“ geschlossen und nach Discussion #1574 verschoben; der Skill erledigt Vergleich und mv trotzdem selbst; Empfehlung: immer openspec archive' }] },
 ];

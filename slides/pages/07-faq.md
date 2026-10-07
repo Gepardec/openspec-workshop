@@ -1,5 +1,6 @@
 ---
 layout: section
+variant: ascii
 ---
 
 # FAQ

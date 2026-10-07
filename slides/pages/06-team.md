@@ -1,12 +1,11 @@
 ---
 layout: section
-variant: ascii
 ---
 
 # OpenSpec im Team
 
 <!--
-Frage-Pause, bevor das Kapitel beginnt: Was ist zu „CLI als Agent-Bridge“ offen?
+Frage-Pause, bevor das Kapitel beginnt: Was ist aus den Übungen offen?
 Dann wirklich warten – rund zehn Sekunden Stille aushalten.
 -->
 
@@ -51,7 +50,7 @@ Die Commits folgen der Konvention aus den Übungen; vor dem Merge dürft ihr
 alles zu einem Commit squashen.
 
 Archivieren mit openspec archive, nicht mit /opsx:archive – warum, steht in
-Kapitel 3.
+Kapitel 4.
 
 Quelle: docs/team-workflow.md.
 -->

@@ -26,7 +26,7 @@ git rm -rq openspec '.*/skills/openspec-*' .agents/skills/.openspec-target .clau
 
 Die anderen Skills (z. B. `frontend-design`) bleiben erhalten.
 
-Führt danach `openspec init` im Repo-Root aus und wählt die AI-Assistenten aus, mit denen ihr arbeitet (mehrere möglich; das Repo war für Codex, Claude Code und GitHub Copilot eingerichtet). Die Frage nach dem Copilot Cloud Agent könnt ihr mit Nein beantworten. Schaut euch mit `git status` an, was angelegt wurde – wählt ihr dieselben drei Tools, entsteht exakt der Stand von vorher.
+Führt danach `openspec init` im Repo-Root aus und wählt **Codex** aus – damit arbeitet ihr heute. Weitere Tools sind möglich; das Repo war für Codex, Claude Code und GitHub Copilot eingerichtet. Die Frage nach dem Copilot Cloud Agent könnt ihr mit Nein beantworten. Schaut euch mit `git status` an, was angelegt wurde – wählt ihr dieselben drei Tools, entsteht exakt der Stand von vorher.
 
 ## Erfolgskriterium
 

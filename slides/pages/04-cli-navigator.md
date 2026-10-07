@@ -80,6 +80,34 @@ Seit 1.13.1 nennt status in der letzten Zeile den nächsten Befehl.
 layout: default
 ---
 
+# openspec validate
+
+Das Qualitätsgate: findet Silent Failures, bevor der Agent damit weiterarbeitet.
+
+```sh
+$ openspec validate --all --strict
+```
+
+- Prüft alle Changes und Specs auf Strukturfehler
+- Falsche Hash-Tiefe (`### Scenario` statt `#### Scenario`) → Fail
+- Fehlende Sektionen, kaputte Querverweise → Fail
+- `--strict` für CI, normal lokal
+
+**Faustregel:** rotes `validate` ⇒ kein `apply`.
+
+<!--
+Seit 1.13.1 meldet validate mehr stille Fehler: ein Requirement unter einer
+falschen Überschrift (Warnung), Delta-Requirements außerhalb von spec.md,
+FROM:/TO:-Zeilen ohne Partner, ein Scenario ohne Inhalt (jeweils Fehler).
+
+Seit 1.14.1 ist eine Requirement-Beschreibung über 500 Zeichen eine Warnung.
+Mit --strict scheitert die CI daran.
+-->
+
+---
+layout: default
+---
+
 # Hands-on: Quiz-Runde
 
 <div class="grid grid-cols-[1fr_auto] gap-10 items-start">
@@ -124,3 +152,70 @@ Das Google-Form erzeugt docs/quiz/create-form.gs, siehe docs/quiz/README.md.
 Die Befehle decken alle 10 Fragen ab; --diff kennen die Teilnehmer bis hier
 noch nicht (braucht Q5).
 -->
+
+---
+layout: default
+---
+
+# archive braucht keinen Agenten
+
+`openspec archive` ist ein deterministischer CLI-Befehl – kein LLM nötig.
+
+```sh
+$ openspec archive us-05-delete-animal
+```
+
+Was er tut: Delta-Specs in die Haupt-Specs mergen, Change-Verzeichnis aufräumen, History-Eintrag schreiben.
+
+---
+layout: default
+---
+
+# Das Problem: opsx:archive per LLM
+
+Der `opsx:archive`-Skill macht dasselbe – aber LLM-gesteuert.
+
+```text
+1. Run openspec list --json and check the task counts
+2. Compare each delta spec with its main spec ...  ← KI tut das manuell
+3. mkdir -p openspec/changes/archive               ← KI tut das manuell
+4. mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
+```
+
+Das Issue dazu ([#863](https://github.com/Fission-AI/OpenSpec/issues/863)) ist nicht gelöst, sondern in eine [Diskussion](https://github.com/Fission-AI/OpenSpec/discussions/1574) verschoben – der Skill vergleicht und verschiebt weiterhin selbst.
+
+**Empfehlung:** immer `openspec archive` statt `/opsx:archive`.
+
+<!--
+#863 wurde im August 2026 als „not planned“ geschlossen und dabei nach
+Discussion #1574 verschoben. Geschlossen heißt hier nicht behoben.
+
+Früher sprach noch etwas für den Agenten: Delta-Specs einer neuen Capability
+hatten keinen Purpose, und openspec archive schrieb nur einen
+TBD-Platzhalter. Das ist erledigt:
+- seit 1.7.0 übernimmt archive den ## Purpose der Delta-Spec, und die
+  specs-Instruction, das Template und der sync-Skill verlangen ihn – CLI und
+  Agent erzeugen dieselbe Haupt-Spec
+- seit 1.11.0 meldet openspec validate einen ungeschriebenen Purpose
+  (Warnung, mit --strict ein Fehler)
+
+Seit 1.14.0 bricht der Skill ab, wenn der Spec-Sync scheitert (#2018), statt
+den Change trotzdem zu archivieren. Sicherer – aber weiterhin LLM-gesteuert,
+die Empfehlung bleibt.
+-->
+
+---
+layout: default
+---
+
+# Faustregel
+
+Hat die CLI einen Befehl dafür → der Skill ruft ihn auf, statt selbst zu arbeiten.
+
+```sh
+# gut
+openspec archive <change>
+
+# schlecht
+# KI vergleicht Specs manuell, verschiebt Verzeichnisse, schreibt History selbst
+```

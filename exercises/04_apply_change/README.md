@@ -13,7 +13,7 @@ cp -R exercises/04_apply_change/change/remove-animal-notes openspec/changes/
 Den Change vollständig implementieren und archivieren:
 
 1. Lest Proposal, Design, Specs und Tasks (`openspec show remove-animal-notes`, `openspec status --change remove-animal-notes`).
-2. Lasst euren AI-Assistenten den Change anwenden (`/opsx:apply remove-animal-notes` bzw. der Skill `openspec-apply-change`).
+2. Lasst euren AI-Assistenten den Change anwenden (in Codex: `$openspec-apply-change remove-animal-notes`).
 3. Prüft das Ergebnis selbst: Code-Review, Tests (`./mvnw test` in `app/zoo-management`), Build und Lint im Frontend (`ng build` und `ng lint` in `app/zoo-management/src/main/webui`) und ein Blick in die App.
 4. Archiviert mit der CLI: `openspec archive remove-animal-notes`.
 

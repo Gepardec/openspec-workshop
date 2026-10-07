@@ -33,15 +33,17 @@ layout: agenda
 - Setup & Konfiguration
 - CLI als Datei-Navigator
 - CLI als Agent-Bridge
+- Hands-on Übungen
 - OpenSpec im Team
 - FAQ
-- Hands-on Übungen
 
 <!--
 Keine Uhrzeiten auf der Folie – der Tag verschiebt sich ohnehin.
 
 Pausen: spätestens nach 1,5 Stunden eine einlegen, Mittagspause nach Block 4.
-Am Nachmittag flexibel nach Fortschritt der Hands-on-Übungen.
+Am Nachmittag flexibel nach Fortschritt der Hands-on-Übungen. Team und FAQ
+kommen nach den Übungen; die FAQ ist der Puffer – Fragen nach verbleibender
+Zeit auswählen.
 
 Blöcke 4 und 5 haben je einen praktischen Teil: Quiz-Runde nach dem
 Datei-Navigator, Live-Demo nach der Agent-Bridge.
@@ -91,6 +93,10 @@ src: ./pages/05-cli-agent-bridge.md
 ---
 
 ---
+src: ./pages/08-hands-on.md
+---
+
+---
 src: ./pages/06-team.md
 ---
 
@@ -99,8 +105,27 @@ src: ./pages/07-faq.md
 ---
 
 ---
-src: ./pages/08-hands-on.md
+layout: default
+class: gepardec-text-lg
 ---
+
+# Und morgen?
+
+Startet euren ersten echten Change – in eurem eigenen Repo:
+
+1. `openspec init` und die `config.yaml` mit dem füllen, was der Agent nicht aus dem Code liest
+2. Eine kleine, echte Anforderung mit `/opsx:explore` schärfen
+3. Propose, Plan-Review, Apply, Code-Review, `openspec archive`
+
+Ihr wollt OpenSpec im ganzen Team einführen? Wir begleiten euch dabei – meldet euch bei **Christoph Kofler**: christoph.kofler@gepardec.com
+
+<!--
+Der konkrete nächste Schritt ist der Punkt dieser Folie: kein Pilotprojekt,
+sondern ein Change in der eigenen Codebase, am besten diese Woche.
+
+Wir arbeiten an einem Angebot, Teams bei der Einführung von OpenSpec zu
+begleiten und zu befähigen. Ansprechpartner dafür ist Christoph Kofler.
+-->
 
 ---
 layout: contact
