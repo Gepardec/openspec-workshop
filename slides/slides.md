@@ -1,5 +1,7 @@
 ---
 theme: '@gepardec/slidev-theme-gepardec'
+addons:
+  - slidev-addon-qrcode
 title: OpenSpec Workshop
 info: |
   ## OpenSpec Workshop

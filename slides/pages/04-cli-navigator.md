@@ -82,19 +82,45 @@ layout: default
 
 # Hands-on: Quiz-Runde
 
-Beantwortet die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit der openspec CLI.
+<div class="grid grid-cols-[1fr_auto] gap-10 items-start">
+<div>
 
-1. `main`-Branch auschecken
-2. `npm install -g @fission-ai/openspec@latest`
-3. (optional) `openspec completion install` für Shell-Autocompletion
+Beantwortet die [Quiz-Fragen](https://docs.google.com/forms/d/e/1FAIpQLSf3liDyLSzmo1eE-5hVfGQ4gySCTiHg-mCbhx6FGZCNXAwXRA/viewform) mit der openspec CLI.
+
+1. `git fetch && git switch workshop/quiz` – danach zurück mit `git switch main`
+2. (optional) Autocompletion: `openspec completion install`
 
 ```sh
-openspec list                           # alle aktiven Changes
-openspec show <change>                  # Proposal-Inhalt eines Change bzw. einer Spec
-openspec status --change <change>       # welche Artefakte sind vorhanden?
-openspec view                           # Dashboard
+openspec list [--archived]          # aktive bzw. archivierte Changes
+openspec view                       # Dashboard
+openspec show <change> [--diff]     # Proposal, mit --diff die Delta-Specs
+openspec status --change <change>   # welche Artefakte fertig sind
+openspec validate --all --strict    # Specs und Changes prüfen
 ```
 
+Alle Optionen: `openspec <befehl> --help`
+
+</div>
+<div class="flex flex-col items-center gap-2 text-sm">
+
+<QRCode
+  :width="220"
+  :height="220"
+  type="svg"
+  data="https://docs.google.com/forms/d/e/1FAIpQLSf3liDyLSzmo1eE-5hVfGQ4gySCTiHg-mCbhx6FGZCNXAwXRA/viewform"
+  :margin="12"
+  :dotsOptions="{ color: '#000000' }"
+  :backgroundOptions="{ color: '#ffffff' }"
+/>
+
+Am Laptop: Link in der `README.md`<br>von `workshop/quiz`
+
+</div>
+</div>
+
 <!--
-Frage 1: Change ist nicht aktiv, sondern completed. AUSBESSERN!
+Fragen und Antwortschlüssel: docs/quiz/cli.md (liegt nicht auf workshop/quiz).
+Das Google-Form erzeugt docs/quiz/create-form.gs, siehe docs/quiz/README.md.
+Die Befehle decken alle 10 Fragen ab; --diff kennen die Teilnehmer bis hier
+noch nicht (braucht Q5).
 -->
