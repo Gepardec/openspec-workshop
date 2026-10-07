@@ -1,0 +1,47 @@
+<section class="enclosure-overview">
+  <header>
+    <p class="enclosure-overview__eyebrow">{{ 'enclosureOverview.eyebrow' | transloco }}</p>
+    <h1>{{ 'enclosureOverview.title' | transloco }}</h1>
+  </header>
+
+  @if (enclosureStore.loading()) {
+    <mat-progress-bar
+      mode="indeterminate"
+      [attr.aria-label]="'enclosureOverview.loading' | transloco"
+    />
+  } @else if (enclosureStore.error(); as errorMessage) {
+    <div class="enclosure-empty">
+      <mat-icon aria-hidden="true">error</mat-icon>
+      <h2>{{ 'enclosureOverview.error.title' | transloco }}</h2>
+      <p>{{ errorMessage }}</p>
+    </div>
+  } @else if (enclosureStore.enclosures().length > 0) {
+    <mat-accordion multi>
+      @for (enclosure of enclosureStore.enclosures(); track enclosure.name) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ enclosure.name }}</mat-panel-title>
+            <mat-panel-description>
+              {{ 'enclosureOverview.animalCount' | transloco: { count: enclosure.animalCount } }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-nav-list>
+            @for (animal of enclosure.animals; track animal.id) {
+              <a mat-list-item [routerLink]="['/animals', animal.id]">
+                <span matListItemTitle>{{ animal.name }}</span>
+                <span matListItemLine>{{ animal.species }}</span>
+              </a>
+            }
+          </mat-nav-list>
+        </mat-expansion-panel>
+      }
+    </mat-accordion>
+  } @else {
+    <div class="enclosure-empty">
+      <mat-icon aria-hidden="true">fence</mat-icon>
+      <h2>{{ 'enclosureOverview.empty.title' | transloco }}</h2>
+      <p>{{ 'enclosureOverview.empty.description' | transloco }}</p>
+    </div>
+  }
+</section>

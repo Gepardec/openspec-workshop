@@ -14,6 +14,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'enclosures',
+    loadComponent: () =>
+      import('@gpdc-zoo/enclosures/feature/enclosure-overview/enclosure-overview').then(
+        (module) => module.EnclosureOverviewComponent,
+      ),
+  },
+  {
     path: 'animals',
     children: [
       {

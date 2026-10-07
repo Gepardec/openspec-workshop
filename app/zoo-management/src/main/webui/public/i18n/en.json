@@ -2,6 +2,7 @@
   "app": {
     "animals": "Animals",
     "dashboard": "Dashboard",
+    "enclosures": "Enclosures",
     "navigation": "Main navigation",
     "title": "Zoo Management"
   },
@@ -25,6 +26,19 @@
       "subtitle": "Animal spotlight"
     },
     "title": "Dashboard"
+  },
+  "enclosureOverview": {
+    "animalCount": "Animals: {{count}}",
+    "empty": {
+      "description": "Enclosures appear here as soon as animals are assigned to one.",
+      "title": "No enclosures yet"
+    },
+    "error": {
+      "title": "Enclosures could not be loaded"
+    },
+    "eyebrow": "Overview",
+    "loading": "Loading enclosures",
+    "title": "Enclosure overview"
   },
   "animalList": {
     "addAnimal": "Add animal",
