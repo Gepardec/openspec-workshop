@@ -129,8 +129,7 @@ die in pom.xml schon.
 
 Bis 1.13 empfahl der init-Kommentar das Gegenteil („Add your tech stack,
 conventions, style guides, domain knowledge"). Deshalb steckt im Übungs-Repo
-noch der ganze Tech-Stack in config.yaml, und CLAUDE.md/AGENTS.md verweisen
-darauf. Funktioniert – ist aber nicht mehr die Empfehlung.
+noch der ganze Tech-Stack in config.yaml, und AGENTS.md verweist darauf. Funktioniert – ist aber nicht mehr die Empfehlung.
 
 Konventionen, die für den Code gelten, gehören in AGENTS.md: Der Agent
 braucht sie bei apply genauso wie beim Schreiben der Artefakte. In context
@@ -140,7 +139,8 @@ Warum AGENTS.md: Es ist der tool-neutrale Standard, den Codex, Copilot, OpenCode
 und andere lesen. Claude Code liest AGENTS.md seit v2.1.277 direkt – eine
 CLAUDE.md braucht es dafür nicht mehr. Achtung: Gibt es beide, liest Claude
 Code standardmäßig nur CLAUDE.md. Beide zusammen per /config, „Project
-instructions" = claude-md-and-agents-md.
+instructions" = claude-md-and-agents-md. Das Übungs-Repo hat deshalb nur
+AGENTS.md.
 -->
 
 ---

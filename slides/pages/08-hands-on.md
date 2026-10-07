@@ -55,7 +55,8 @@ class: gepardec-text-lg
 Kopiert das vorkonfigurierte `openspec/`-Verzeichnis in euer Repo-Root. Ab jetzt arbeitet ihr auf dem vollständigen Workshop-Stand – inkl. aller Changes und Specs.
 
 <!--
-CLI-Befehl zum Kopieren funktioniert nicht!
+Kopierbefehl ohne Slash am Quellpfad: cp -R exercises/02_setup_openspec/openspec .
+Mit Slash kopiert macOS (BSD cp) nur den Inhalt ins Repo-Root.
 -->
 
 ---
@@ -74,12 +75,11 @@ Was fällt euch sonst noch auf?
 <!--
 Archivieren mit openspec archive, nicht mit /opsx:archive (Kapitel 3).
 
-Erwartete Beobachtung: specs/dashboard/spec.md bekommt als Purpose den
-Platzhalter „TBD - created by archiving change us-06-dashboard“, und
-openspec validate --strict meldet ihn. Grund: Die Delta-Spec stammt aus
-OpenSpec 1.3.1 und hat noch keinen ## Purpose. Ein aktuelles propose schreibt
-ihn direkt in die Delta-Spec – hier also den Purpose von Hand in der
-Haupt-Spec nachtragen.
+Erwartete Beobachtungen: Die CLI zeigt vor dem Bestätigen, welche Specs sie
+anlegt (dashboard: create). Danach gibt es specs/dashboard/spec.md – mit dem
+## Purpose aus der Delta-Spec, nicht mit einem TBD-Platzhalter. Der Change
+liegt mit dem heutigen Datum unter changes/archive/, die anderen fünf tragen
+ihr eigenes Archivdatum.
 -->
 
 ---

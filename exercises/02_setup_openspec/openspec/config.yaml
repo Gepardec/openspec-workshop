@@ -15,7 +15,7 @@ context: |
 
   ### Backend
   - Quarkus 3.35.2 (quarkus-rest + quarkus-rest-jackson for JAX-RS/JSON)
-  - Hibernate ORM with Panache, PostgreSQL (quarkus-jdbc-postgresql)
+  - Hibernate ORM with Panache, H2 (quarkus-jdbc-h2), schema `drop-and-create`, seed data in `import.sql`
   - Quarkus Quinoa 2.8.1 — bundles the Angular build output and serves it from the Quarkus server
   - Testing: quarkus-junit, RestAssured, AssertJ
 

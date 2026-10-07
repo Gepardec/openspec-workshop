@@ -375,8 +375,8 @@ Wann sich design.md lohnt, steht in der design-Instruction von schema.yaml:
 externe Abhängigkeit oder größere Datenmodell-Änderung, Security, Performance
 oder Migration, Unklarheiten, die vor dem Coden entschieden werden sollten.
 
-Im Übungs-Repo schreibt propose trotzdem immer ein design.md: Die Skills dort
-stammen noch aus OpenSpec 1.3.1.
+Die Skills im Übungs-Repo stammen von OpenSpec 1.14.1: propose liest die
+design-Instruction und lässt design.md weg, wenn der Change sie nicht braucht.
 -->
 
 ---
@@ -1080,8 +1080,8 @@ Open Questions: Das Schema erlaubt nur solche, die weder Specs noch Ansatz
 noch Task-Zerlegung ändern würden. Alles andere muss vor tasks geklärt sein –
 die tasks-Instruction verlangt, solche Fragen vorher mit dem User zu klären.
 
-Im Übungs-Repo fehlt /opsx:update noch: Die Skills dort stammen von
-OpenSpec 1.3.1. Direkt editieren funktioniert immer.
+/opsx:update gehört zum core-Profil und ist im Übungs-Repo dabei. Direkt
+editieren funktioniert trotzdem immer.
 -->
 
 ---

@@ -1,3 +1,7 @@
+## Purpose
+
+Give zoo managers a welcoming entry point to the app: a dashboard that spotlights one featured animal with its key stats and a fun fact, and links to the full animal profile.
+
 ## ADDED Requirements
 
 ### Requirement: Dashboard displays spotlight animal
