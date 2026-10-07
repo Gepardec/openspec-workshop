@@ -59,10 +59,6 @@
         "label": "Name",
         "placeholder": "Enter animal name"
       },
-      "notes": {
-        "label": "Notes",
-        "placeholder": "Optional notes for keepers"
-      },
       "species": {
         "label": "Species",
         "placeholder": "Enter species"
@@ -93,10 +89,6 @@
         "label": "Name",
         "placeholder": "Enter animal name"
       },
-      "notes": {
-        "label": "Notes",
-        "placeholder": "Optional notes for keepers"
-      },
       "species": {
         "label": "Species",
         "placeholder": "Enter species"
@@ -126,8 +118,7 @@
       "name": "Name",
       "species": "Species",
       "age": "Age",
-      "enclosure": "Enclosure",
-      "notes": "Notes"
+      "enclosure": "Enclosure"
     },
     "notFound": {
       "title": "Animal not found",

@@ -15,7 +15,6 @@ public class Animal extends PanacheEntity {
     public String species;
     public Integer age;
     public String enclosure;
-    public String notes;
     @Column(name = "fun_fact")
     public String funFact;
 }

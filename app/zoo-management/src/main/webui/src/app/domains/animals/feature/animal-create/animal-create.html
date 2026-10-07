@@ -48,16 +48,6 @@
       />
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'animalCreate.fields.notes.label' | transloco }}</mat-label>
-      <textarea
-        matInput
-        rows="4"
-        [formField]="animalCreateForm.notes"
-        [placeholder]="'animalCreate.fields.notes.placeholder' | transloco"
-      ></textarea>
-    </mat-form-field>
-
     <div class="animal-create__actions">
       <button mat-stroked-button type="button" [routerLink]="['/animals']">
         {{ 'animalCreate.actions.cancel' | transloco }}

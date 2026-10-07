@@ -23,16 +23,15 @@ class DashboardResourceTest {
     void seedSpotlightAnimal() {
         entityManager.createQuery("delete from Animal").executeUpdate();
         entityManager.createNativeQuery("""
-                        insert into animals (id, name, species, age, enclosure, notes, fun_fact)
-                        values (?1, ?2, ?3, ?4, ?5, ?6, ?7)
+                        insert into animals (id, name, species, age, enclosure, fun_fact)
+                        values (?1, ?2, ?3, ?4, ?5, ?6)
                         """)
                 .setParameter(1, SPOTLIGHT_ID)
                 .setParameter(2, "Blitz")
                 .setParameter(3, "Gepard")
                 .setParameter(4, 4)
                 .setParameter(5, "Raubkatzen-Areal")
-                .setParameter(6, "Reagiert gut auf Enrichment-Training.")
-                .setParameter(7, "Kann in wenigen Sekunden von 0 auf 100 km/h sprinten.")
+                .setParameter(6, "Kann in wenigen Sekunden von 0 auf 100 km/h sprinten.")
                 .executeUpdate();
     }
 

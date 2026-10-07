@@ -59,10 +59,6 @@
         "label": "Name",
         "placeholder": "Tiername eingeben"
       },
-      "notes": {
-        "label": "Notizen",
-        "placeholder": "Optionale Hinweise für Pfleger"
-      },
       "species": {
         "label": "Art",
         "placeholder": "Art eingeben"
@@ -93,10 +89,6 @@
         "label": "Name",
         "placeholder": "Tiername eingeben"
       },
-      "notes": {
-        "label": "Notizen",
-        "placeholder": "Optionale Hinweise für Pfleger"
-      },
       "species": {
         "label": "Art",
         "placeholder": "Art eingeben"
@@ -126,8 +118,7 @@
       "name": "Name",
       "species": "Art",
       "age": "Alter",
-      "enclosure": "Gehege",
-      "notes": "Notizen"
+      "enclosure": "Gehege"
     },
     "notFound": {
       "title": "Tier nicht gefunden",

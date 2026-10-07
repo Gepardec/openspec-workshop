@@ -12,7 +12,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.matchesRegex;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
@@ -26,7 +28,7 @@ class AnimalResourceTest {
 
     @Test
     void listAnimalsReturnsJsonArrayWithRegisteredAnimals() {
-        persistAnimal("Maja", "Lion", 7, "Savanna", "Keeps close to the lookout rock.");
+        persistAnimal("Maja", "Lion", 7, "Savanna");
 
         given()
                 .when().get("/api/animals")
@@ -41,7 +43,7 @@ class AnimalResourceTest {
 
     @Test
     void getAnimalByIdReturnsAnimalWithAllFieldsWhenAnimalExists() {
-        long animalId = persistAnimal("Kira", "Giraffe", 9, "Savanna 3", "Calm during medical checks.");
+        long animalId = persistAnimal("Kira", "Giraffe", 9, "Savanna 3");
 
         given()
                 .when().get("/api/animals/{id}", animalId)
@@ -52,7 +54,7 @@ class AnimalResourceTest {
                 .body("species", is("Giraffe"))
                 .body("age", is(9))
                 .body("enclosure", is("Savanna 3"))
-                .body("notes", is("Calm during medical checks."));
+                .body("$", not(hasKey("notes")));
     }
 
     @Test
@@ -81,8 +83,7 @@ class AnimalResourceTest {
                           "name": "Nala",
                           "species": "Lion",
                           "age": 5,
-                          "enclosure": "Savanna 2",
-                          "notes": "Recently joined the pride."
+                          "enclosure": "Savanna 2"
                         }
                         """)
                 .when().post("/api/animals");
@@ -100,7 +101,7 @@ class AnimalResourceTest {
                 .body("species", is("Lion"))
                 .body("age", is(5))
                 .body("enclosure", is("Savanna 2"))
-                .body("notes", is("Recently joined the pride."));
+                .body("$", not(hasKey("notes")));
     }
 
     @Test
@@ -111,8 +112,7 @@ class AnimalResourceTest {
                         {
                           "species": "Elephant",
                           "age": 14,
-                          "enclosure": "Grassland",
-                          "notes": "Very social."
+                          "enclosure": "Grassland"
                         }
                         """)
                 .when().post("/api/animals")
@@ -122,7 +122,7 @@ class AnimalResourceTest {
 
     @Test
     void updateAnimalReturnsOkWithUpdatedAnimalWhenAnimalExists() {
-        long animalId = persistAnimal("Nora", "Bear", 6, "Forest 2", "Enjoys climbing.");
+        long animalId = persistAnimal("Nora", "Bear", 6, "Forest 2");
 
         given()
                 .contentType(ContentType.JSON)
@@ -131,8 +131,7 @@ class AnimalResourceTest {
                           "name": "Nora",
                           "species": "Brown Bear",
                           "age": 7,
-                          "enclosure": "Forest 3",
-                          "notes": "Moved to a larger habitat."
+                          "enclosure": "Forest 3"
                         }
                         """)
                 .when().put("/api/animals/{id}", animalId)
@@ -143,12 +142,12 @@ class AnimalResourceTest {
                 .body("species", is("Brown Bear"))
                 .body("age", is(7))
                 .body("enclosure", is("Forest 3"))
-                .body("notes", is("Moved to a larger habitat."));
+                .body("$", not(hasKey("notes")));
     }
 
     @Test
     void updateAnimalReturnsBadRequestWhenRequiredFieldsAreMissing() {
-        long animalId = persistAnimal("Milo", "Monkey", 4, "Jungle 1", "Very curious.");
+        long animalId = persistAnimal("Milo", "Monkey", 4, "Jungle 1");
 
         given()
                 .contentType(ContentType.JSON)
@@ -156,8 +155,7 @@ class AnimalResourceTest {
                         {
                           "species": "Monkey",
                           "age": 5,
-                          "enclosure": "Jungle 2",
-                          "notes": "Changed enclosure."
+                          "enclosure": "Jungle 2"
                         }
                         """)
                 .when().put("/api/animals/{id}", animalId)
@@ -174,8 +172,7 @@ class AnimalResourceTest {
                           "name": "Luna",
                           "species": "Wolf",
                           "age": 3,
-                          "enclosure": "Mountain Ridge",
-                          "notes": "Prefers dusk feeding."
+                          "enclosure": "Mountain Ridge"
                         }
                         """)
                 .when().put("/api/animals/{id}", 99999)
@@ -185,7 +182,7 @@ class AnimalResourceTest {
 
     @Test
     void deleteAnimalReturnsNoContentWhenAnimalExists() {
-        long animalId = persistAnimal("Ravi", "Tiger", 8, "Jungle 3", "Transferred from partner zoo.");
+        long animalId = persistAnimal("Ravi", "Tiger", 8, "Jungle 3");
 
         given()
                 .when().delete("/api/animals/{id}", animalId)
@@ -207,13 +204,12 @@ class AnimalResourceTest {
     }
 
     @Transactional
-    long persistAnimal(String name, String species, Integer age, String enclosure, String notes) {
+    long persistAnimal(String name, String species, Integer age, String enclosure) {
         Animal animal = new Animal();
         animal.name = name;
         animal.species = species;
         animal.age = age;
         animal.enclosure = enclosure;
-        animal.notes = notes;
         animal.persist();
         return animal.id;
     }
