@@ -7,7 +7,7 @@ variant: ascii
 
 <!--
 Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Setup & Konfiguration“ offen?
-Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+Dann wirklich warten – rund zehn Sekunden Stille aushalten.
 -->
 
 ---
@@ -16,7 +16,7 @@ layout: default
 
 # Changes und Specs finden
 
-Was ist in Arbeit — und was gilt bereits?
+Was ist in Arbeit – und was gilt schon?
 
 ```sh
 $ openspec list                          # aktive Changes
@@ -32,13 +32,13 @@ Changes:
   us-06-dashboard     ✓ Complete    just now
 ```
 
-Mit `--json` maschinenlesbar — so fragen Skills die CLI ab.
+Mit `--json` maschinenlesbar – so fragen Skills die CLI ab.
 
 <!--
 show gibt bei einem Change genau den Inhalt von proposal.md aus: Why, What
-Changes, Capabilities, Impact. Die übrigen Artefakte liest man direkt.
+Changes, Capabilities, Impact. Die übrigen Artefakte direkt öffnen.
 
-`--type spec` braucht es, sobald ein Change und eine Spec gleich heißen.
+`--type spec` ist nötig, sobald Change und Spec gleich heißen.
 -->
 
 ---
@@ -70,7 +70,7 @@ Next: openspec instructions design --change "us-07-filter" --json
 `openspec view`: interaktives Dashboard der aktiven Changes und aller Specs, ohne JSON.
 
 <!--
-Braucht ein Change kein design.md, bleibt status bei 3/4 — validate und
+Braucht ein Change kein design.md, bleibt status bei 3/4 – validate und
 archive stört das nicht.
 
 Seit 1.13.1 nennt status in der letzten Zeile den nächsten Befehl.
@@ -82,11 +82,11 @@ layout: default
 
 # Hands-on: Quiz-Runde
 
-Beantworte die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit openspec CLI Befehlen.
+Beantwortet die [Quiz-Fragen](https://forms.gle/SfRRSALoeZnPtegq7) mit der openspec CLI.
 
 1. `main`-Branch auschecken
 2. `npm install -g @fission-ai/openspec@latest`
-3. (optional) `openspec completion install` für Shell Autocompletion
+3. (optional) `openspec completion install` für Shell-Autocompletion
 
 ```sh
 openspec list                           # alle aktiven Changes

@@ -36,7 +36,7 @@ layout: agenda
 - Hands-on Übungen
 
 <!--
-Keine Uhrzeiten auf der Folie — der Tag verschiebt sich ohnehin.
+Keine Uhrzeiten auf der Folie – der Tag verschiebt sich ohnehin.
 
 Pausen: spätestens nach 1,5 Stunden eine einlegen, Mittagspause nach Block 4.
 Am Nachmittag flexibel nach Fortschritt der Hands-on-Übungen.
@@ -55,11 +55,11 @@ class: gepardec-text-lg
 Kurz reihum:
 
 1. **Wer seid ihr** und woran arbeitet ihr?
-2. **Wie nutzt ihr KI heute** — ein Beispiel reicht.
+2. **Wie nutzt ihr KI heute** – ein Beispiel reicht.
 3. **Was erwartet ihr euch** von heute?
 
 <!--
-Direkt reihum, ohne Vorbereitungszeit und ohne Uhr — ein, zwei Sätze pro Frage reichen.
+Direkt reihum, ohne Vorbereitungszeit und ohne Uhr – ein, zwei Sätze pro Frage reichen.
 
 Erwartungen mitschreiben und im Lauf des Tages aufgreifen.
 -->

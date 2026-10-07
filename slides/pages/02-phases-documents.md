@@ -7,7 +7,7 @@ variant: ascii
 
 <!--
 Frage-Pause, bevor das Kapitel beginnt: Was ist zu „Was ist Spec-driven?“ offen?
-Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+Dann wirklich warten – rund zehn Sekunden Stille aushalten.
 -->
 
 ---
@@ -21,44 +21,44 @@ class: gepardec-text-sm
 
 ### Die Kernbegriffe
 
-- **Spec** — wie sich ein Teil des Systems verhält
-- **Haupt-Specs** — `specs/`, der abgenommene Stand
-- **Change** — eine Arbeitseinheit, ein Ordner in `changes/`
-- **Artefakt** — ein Dokument im Change
-- **Delta-Spec** — nur, was sich an einer Spec ändert
-- **Capability** — eine Fähigkeit mit eigener Spec
+- **Spec** – wie sich ein Teil des Systems verhält
+- **Haupt-Specs** – `specs/`, der abgenommene Stand
+- **Change** – eine Arbeitseinheit, ein Ordner in `changes/`
+- **Artefakt** – ein Dokument im Change
+- **Delta-Spec** – nur, was sich an einer Spec ändert
+- **Capability** – eine Fähigkeit mit eigener Spec
 
 ::right::
 
 ### In einer Spec
 
-- **Requirement** — ein Verhalten, das das System haben muss: das *Was*, nicht das *Wie*
-- **Scenario** — ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN
+- **Requirement** – ein Verhalten, das das System haben muss: das *Was*, nicht das *Wie*
+- **Scenario** – ein konkretes, prüfbares Beispiel dafür, als WHEN/THEN
 
 ### Vom Change zur Spec
 
-- **Sync** — Delta-Specs in die Haupt-Specs übernehmen
-- **Archivieren** — Change abschließen, Ordner ins Archiv
+- **Sync** – Delta-Specs in die Haupt-Specs übernehmen
+- **Archivieren** – Change abschließen, Ordner ins Archiv
 
 <!--
-Einmal kurz alle Begriffe, die ab jetzt ständig fallen — nur einen Satz pro
+Alle Begriffe, die ab jetzt ständig fallen, einmal kurz – ein Satz pro
 Begriff, nicht vertiefen. Welche Artefakte es gibt und wozu, zeigt gleich das
-Ablauf-Diagramm; jedes kommt dann einzeln dran.
+Ablauf-Diagramm; danach kommt jedes einzeln dran.
 
-Upstream-Glossar, Abschnitte „The core nouns", „Inside a spec" und „The
-lifecycle".
+Upstream-Glossar, Abschnitte „The core nouns“, „Inside a spec“ und „The
+lifecycle“.
 
 Artefakte im Standard-Schema: proposal, Delta-Specs, design, tasks.
 
-Capability im Zoo-Projekt: animal-list, animal-profile, … — je ein Ordner
+Capability im Zoo-Projekt: animal-list, animal-profile, … – je ein Ordner
 unter specs/. Domänen gruppieren Capabilities, wenn ein Projekt wächst:
 specs/identity/user-auth/. Das Zoo-Projekt ist flach organisiert.
 
 SHALL/MUST: `openspec validate --strict` verlangt in jedem Requirement ein
-englisches SHALL oder MUST. Nur SHOULD — oder ein deutsches SOLL — fällt durch,
+englisches SHALL oder MUST. Nur SHOULD – oder ein deutsches SOLL – fällt durch;
 ohne --strict gibt es eine Warnung.
 
-Sync macht archive meist mit — einzeln braucht man es nur bei lang laufenden
+Sync erledigt archive meist mit – einzeln nötig nur bei lang laufenden
 Changes.
 -->
 
@@ -66,7 +66,7 @@ Changes.
 layout: default
 ---
 
-# Was gilt — und was kommt
+# Was gilt – und was kommt
 
 ````md magic-move {lines: true}
 ```text
@@ -113,8 +113,8 @@ openspec/
 Das ganze Modell auf einer Folie: zwei Ordner. specs/ ist die Wahrheit,
 changes/ sind Vorschläge. Archivieren macht aus einem Vorschlag Wahrheit.
 
-Weil Changes getrennte Ordner sind, können mehrere parallel laufen, ohne sich
-zu stören — erst beim Archivieren treffen sie auf specs/.
+Weil Changes getrennte Ordner sind, laufen mehrere parallel, ohne sich zu
+stören – erst beim Archivieren treffen sie auf specs/.
 
 Genau dieser Change ist Übung 3 am Nachmittag.
 -->
@@ -126,7 +126,7 @@ class: gepardec-text-sm
 
 # Aktionen, keine Phasen
 
-Kein fester Phasenablauf — die Pfeile zeigen, was als Nächstes sinnvoll ist.
+Kein fester Phasenablauf – die Pfeile zeigen, was als Nächstes sinnvoll ist.
 
 <div class="flex justify-center">
 
@@ -149,27 +149,27 @@ flowchart LR
 
 `propose` schreibt: **proposal** – Warum · **specs** – Was · **design** – Wie · **tasks** – To-do
 
-Gestrichelt: optional. Stimmt der Plan nicht, wird er angepasst — nicht umgangen.<br>
+Gestrichelt: optional. Stimmt der Plan nicht: anpassen, nicht umgehen.<br>
 `verify` prüft maschinell und ersetzt kein menschliches Code-Review.
 
 <!--
-Die Artefakte hier nur mit einem Wort — jedes kommt einzeln dran, sobald es im
+Die Artefakte hier nur mit einem Wort – jedes kommt einzeln dran, sobald es im
 Praxisbeispiel entsteht.
 
-Upstream: „fluid not rigid", „iterative not waterfall" (docs/concepts.md).
-Außer apply — das braucht eine tasks.md — sperrt kein Schritt einen anderen.
-Der Preis dafür ist Disziplin: nichts zwingt einen Change, fokussiert zu
+Upstream: „fluid not rigid“, „iterative not waterfall“ (docs/concepts.md).
+Außer apply – das braucht eine tasks.md – sperrt kein Schritt einen anderen.
+Der Preis dafür ist Disziplin: Nichts zwingt einen Change, fokussiert zu
 bleiben.
 
 Zwei Review-Gates: den Plan vor apply, den gebauten Code vor archive.
-verify ist die optionale, maschinelle Vorprüfung — das Code-Review durch
+verify ist die optionale, maschinelle Vorprüfung – das Code-Review durch
 einen Menschen empfehlen wir trotzdem immer.
 
-verify gibt es nur im custom-Profil, dazu mehr nach apply. sync ist hier
-weggelassen: archive bietet es ohnehin an. sync sieht nach nichts aus, ist
-aber der Schritt, in dem aus einem Change dauerhaftes Wissen wird.
+verify gibt es nur im custom-Profil, mehr dazu nach apply. sync fehlt hier
+bewusst: archive bietet es ohnehin an. sync wirkt unscheinbar, ist aber der
+Schritt, in dem aus einem Change dauerhaftes Wissen wird.
 
-Quelle: docs/workflows.md, „Workflow at a Glance".
+Quelle: docs/workflows.md, „Workflow at a Glance“.
 -->
 
 ---
@@ -184,22 +184,22 @@ Zwei Sichten auf denselben Datensatz.
 
 ### Mitarbeiter
 
-Laufender Monat — sind alle Tasks des Abrechnungsmonats (= Vormonat) bereits erledigt?
+Laufender Monat – sind alle Tasks des Abrechnungsmonats (= Vormonat) bereits erledigt?
 
 ::right::
 
 ### Projektleiter
 
-Immer Abrechnungsmonat (= Vormonat) — Überblick über den abzuschließenden Monat
+Immer Abrechnungsmonat (= Vormonat) – Überblick über den abzuschließenden Monat
 
 ::bottom::
 
 Wir begleiten diesen Change von `explore` bis `archive`.
 
 <!--
-Das Szenario entstammt einer Anwendung, die ich mit diesem Ansatz modernisiert habe.
+Das Szenario stammt aus einer Anwendung, die ich mit diesem Ansatz modernisiert habe.
 
-"Mitarbeiter" und "Projektleiter" sind hier die Rollennamen des Systems
+„Mitarbeiter“ und „Projektleiter“ sind hier Rollennamen des Systems
 (employee, project-lead), keine Personenbezeichnungen.
 -->
 
@@ -209,7 +209,7 @@ layout: two-cols-header
 
 # opsx:explore – der Pionier
 
-Kein Pflichtschritt — ein Denkpartner, bevor Artefakte entstehen.
+Kein Pflichtschritt – ein Denkpartner, bevor Artefakte entstehen.
 
 ::left::
 
@@ -224,22 +224,22 @@ Kein Pflichtschritt — ein Denkpartner, bevor Artefakte entstehen.
 
 ### Was passiert dabei?
 
-Fragen stellen, Annahmen aufdecken, Ansätze abwägen — **kein Code**, Artefakte nur auf Wunsch.
+Fragen stellen, Annahmen aufdecken, Ansätze abwägen – **kein Code**, Artefakte nur auf Wunsch.
 
 ::bottom::
 
 Anforderung ist klar? Direkt mit `/opsx:propose` starten.
 
 <!--
-Faustregel: je ungenauer der Task, umso mehr lohnt es sich.
+Faustregel: Je ungenauer der Task, desto mehr lohnt es sich.
 
 Weitere Anlässe:
-- Anforderung wie „Irgendwie sollen Nutzer Tiere filtern können"
+- Anforderung wie „Irgendwie sollen Nutzer Tiere filtern können“
 - Unklar, wie viele Capabilities der Change berührt
 - Mehrere Lösungsansätze gegenüberstellen
 
-Der Agent schlägt von sich aus vor, wann es Zeit für propose ist — auf der
-nächsten Folie mit „Ready to propose?".
+Der Agent schlägt selbst vor, wann es Zeit für propose ist – auf der
+nächsten Folie mit „Ready to propose?“.
 -->
 
 ---
@@ -247,7 +247,7 @@ layout: conversation
 session: "explore · mega-backend"
 ---
 
-# opsx:explore — Praxisbeispiel
+# opsx:explore – Praxisbeispiel
 
 ::turns::
 
@@ -314,24 +314,24 @@ project lead → always prevMonth
 </ChatTurn>
 
 <!--
-Die echte explore-Session zu genau dem Change, der auf den nächsten Folien
-zerlegt wird. Eine Stunde Gespräch, hier auf acht Turns gekürzt.
+Die echte explore-Session zu genau dem Change, den die nächsten Folien
+zerlegen. Eine Stunde Gespräch, hier auf acht Turns gekürzt.
 
-Begriffe aus der Domäne: Ein Monthend-Task hat ein „subject" — wem der Task
-gehört — und einen „actor" — wer mit dem Task zu tun hat. „Tasks, bei denen
-der actor das subject ist" heißt also: die eigenen Tasks des angemeldeten
-Mitarbeiters.
+Domänenbegriffe: Ein Monthend-Task hat ein „subject“ – wem der Task
+gehört – und einen „actor“ – wer mit dem Task zu tun hat. „Tasks, bei denen
+der actor das subject ist" heißt also: die eigenen Tasks der angemeldeten
+Person.
 
 Zwei Dinge zeigen, mehr nicht:
 
-Erstens fragt der Agent, statt zu bauen. Drei Optionen für den Kontext — und
-die Entscheidung fällt nicht aus dem Modell, sondern aus dem Satz, in dem ich
-erkläre, wie das Frontend seine Requests tatsächlich absetzt.
+Erstens: Der Agent fragt, statt zu bauen. Drei Optionen für den Kontext – und
+die Entscheidung kommt nicht aus dem Modell, sondern aus meinem Satz darüber,
+wie das Frontend seine Requests tatsächlich absetzt.
 
 Zweitens: die 14.-des-Monats-Regel. Der Agent kennt sie aus dem Altcode, kann
-sie aber nicht begründen — also fragt er nach. Genau diese Frage stellt in
-einem normalen Sprint niemand, und deshalb steht so eine Regel nach zehn
-Jahren immer noch drin.
+sie aber nicht begründen – also fragt er nach. Genau diese Frage stellt im
+normalen Sprint niemand, und deshalb steht so eine Regel nach zehn Jahren
+immer noch drin.
 
 Export nicht vergessen: --with-clicks.
 -->
@@ -360,23 +360,23 @@ flowchart LR
 
 </div>
 
-Die Pfeile sind Abhängigkeiten, keine Sperren — `design.md` entsteht nur, wenn der Change es braucht.
+Die Pfeile sind Abhängigkeiten, keine Sperren – `design.md` entsteht nur, wenn der Change es braucht.
 
-Kein geändertes Verhalten (Refactoring, Tooling, Doku)? `skip_specs: true` in der `.openspec.yaml` des Change — dann entstehen keine Specs.
+Kein geändertes Verhalten (Refactoring, Tooling, Doku)? `skip_specs: true` in der `.openspec.yaml` des Change – dann entstehen keine Specs.
 
 <!--
-Die folgenden Slides schauen auf jedes Dokument einzeln.
+Die nächsten Folien nehmen sich jedes Dokument einzeln vor.
 
-Upstream nennt das „enablers, not gates". Die CLI erzwingt nur, dass apply
+Upstream nennt das „enablers, not gates“. Die CLI erzwingt nur, dass apply
 eine tasks.md hat: validate, apply und archive laufen auch ohne design.md.
 
-Wann design.md sich lohnt, steht in der design-Instruction von schema.yaml:
+Wann sich design.md lohnt, steht in der design-Instruction von schema.yaml:
 Änderung über mehrere Module oder Services, neues Architekturmuster, neue
 externe Abhängigkeit oder größere Datenmodell-Änderung, Security, Performance
 oder Migration, Unklarheiten, die vor dem Coden entschieden werden sollten.
 
-Im Übungs-Repo schreibt propose trotzdem immer ein design.md: die Skills dort
-wurden noch mit OpenSpec 1.3.1 erzeugt.
+Im Übungs-Repo schreibt propose trotzdem immer ein design.md: Die Skills dort
+stammen noch aus OpenSpec 1.3.1.
 -->
 
 ---
@@ -384,7 +384,7 @@ layout: conversation
 session: "propose · mega-backend"
 ---
 
-# opsx:propose — Praxisbeispiel
+# opsx:propose – Praxisbeispiel
 
 ::turns::
 
@@ -481,14 +481,14 @@ All artifacts complete!
 </ChatTurn>
 
 <!--
-Wir sind noch in derselben Session wie bei explore: der Agent hat das ganze
-Gespräch im Kontext, deshalb reicht ein knappes „Yes, write up the proposal".
-Erst nach propose beginnt eine neue Session (siehe Best practices).
+Noch dieselbe Session wie bei explore: Der Agent hat das ganze Gespräch im
+Kontext, deshalb reicht ein knappes „Yes, write up the proposal“.
+Erst nach propose beginnt eine neue Session (siehe Best Practices).
 
-Der "aha"-Moment: proposal, spec, design und tasks entstehen in einem Rutsch.
+Der Aha-Moment: proposal, spec, design und tasks entstehen in einem Rutsch.
 
-Wichtig für Kapitel 5: zwischen jedem Write steht ein openspec-Aufruf. Der
-Agent fragt die CLI, was als Nächstes dran ist — er entscheidet es nicht selbst.
+Wichtig für Kapitel 5: Zwischen jedem Write steht ein openspec-Aufruf. Der
+Agent fragt die CLI, was als Nächstes dran ist – er entscheidet es nicht selbst.
 
 Export nicht vergessen: --with-clicks.
 -->
@@ -499,15 +499,15 @@ layout: default
 
 # proposal.md – Das WARUM
 
-- Welches Problem wird gelöst – und warum jetzt?
+- Welches Problem löst der Change – und warum jetzt?
 - Vier Abschnitte: Why, What Changes, Capabilities, Impact
-- Capabilities: „Vertrag" zur spec.md – pro Capability eine Spec-Datei
+- Capabilities: „Vertrag“ zur spec.md – pro Capability eine Spec-Datei
 - Breaking Changes immer explizit als BREAKING markieren
 
 <!--
 Capabilities nach dauerhaftem Verhalten benennen (`user-auth`), nicht nach
 der Arbeit dieses Change (`add-login-endpoint`). Die Capability überlebt den
-Change und sammelt später weitere Requirements — also eine zusammenhängende
+Change und sammelt später weitere Requirements – also eine zusammenhängende
 Grenze wählen, aber keinen Sammeltopf.
 
 Quelle: proposal-Instruction und Template in schema.yaml (seit 1.14.0).
@@ -519,7 +519,7 @@ source: proposal.md
 depth: 2
 ---
 
-# Proposal — Praxisbeispiel
+# Proposal – Praxisbeispiel
 
 ::doc::
 
@@ -556,14 +556,14 @@ layout: default
 
 # spec.md – Das WAS
 
-- Beschreibt Verhalten, das man von außen prüfen kann — nicht, wie es gebaut ist
+- Beschreibt von außen prüfbares Verhalten – nicht, wie es gebaut ist
 - **Faustregel:** Kann sich etwas ändern, ohne dass sich sichtbares Verhalten ändert? Dann gehört es nicht in die Spec.
-- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) — exakt 4 Hashtags, sonst wird das Scenario nicht erkannt
+- Struktur: `### Requirement` → `#### Scenario` (WHEN/THEN) – exakt 4 Hashtags, sonst erkennt OpenSpec das Scenario nicht
 - Jedes Requirement braucht ein SHALL/MUST und mindestens ein Scenario
-- Scenarios sind die Vorlage für automatisierte Tests — vom Unit- bis zum Akzeptanztest
+- Scenarios sind die Vorlage für automatisierte Tests – vom Unit- bis zum Akzeptanztest
 
 <!--
-Die Tests entstehen auf Basis der Spec, nicht des Codes. Im Praxisbeispiel
+Die Tests entstehen aus der Spec, nicht aus dem Code. Im Praxisbeispiel
 leitet tasks.md aus denselben Scenarios Unit-Tests für die Services und
 REST-Integrationstests ab.
 
@@ -572,7 +572,7 @@ Implementierungsschritte. Das gehört in design.md oder tasks.md.
 
 Ein Verhalten pro Requirement: Beispiele und Randfälle in die Scenarios.
 Ab 500 Zeichen Beschreibung (Text zwischen Überschrift und erstem Scenario)
-gibt openspec validate eine Warnung; mit --strict ist es ein Fehler, und seit
+warnt openspec validate; mit --strict ist es ein Fehler, und seit
 1.14.1 gilt das auch für ADDED-Requirements im Change. Unter MODIFIED den
 bestehenden Block trotzdem nie kürzen oder aufteilen.
 
@@ -589,7 +589,7 @@ class: gepardec-text-sm
 
 # Delta-Specs
 
-Im Change steht **nicht die ganze Spec** — nur, was sich ändert.
+Im Change steht **nicht die ganze Spec** – nur, was sich ändert.
 
 | Sektion | Wofür | Beim Archivieren |
 |---|---|---|
@@ -602,18 +602,18 @@ Im Change steht **nicht die ganze Spec** — nur, was sich ändert.
 Überschriften: `## ADDED Requirements` … `## RENAMED Requirements`, dazu `## Purpose`.
 
 <!--
-Die Delta-Form macht parallele Changes an derselben Capability überhaupt erst
-möglich. Wie das im Team aussieht, kommt im Team-Kapitel.
+Erst die Delta-Form macht parallele Changes an derselben Capability möglich.
+Wie das im Team aussieht, zeigt das Team-Kapitel.
 
 Reihenfolge beim Archivieren: RENAMED, REMOVED, MODIFIED, ADDED. Wird ein
 Requirement umbenannt und geändert, verweist MODIFIED auf den neuen Namen.
 
 Purpose: nur für eine neue Capability. Bei einer bestehenden Spec ignoriert
-archive ihn — dort ändert man den Purpose direkt in openspec/specs/. Ohne
+archive ihn – dort den Purpose direkt in openspec/specs/ ändern. Ohne
 Purpose schreibt archive einen TBD-Platzhalter, den validate --strict anmahnt.
 Die Praxisbeispiel-Spec der neuen Capability ist älter als diese Regel.
 
-Nimmt ein REMOVED das letzte Requirement einer Capability, bricht archive ab —
+Nimmt ein REMOVED das letzte Requirement einer Capability, bricht archive ab –
 außer die .openspec.yaml des Change setzt retire_capabilities: true. Dann
 löscht archive die Spec-Datei.
 -->
@@ -624,31 +624,31 @@ layout: default
 
 # MODIFIED richtig schreiben
 
-MODIFIED ersetzt das ganze Requirement — was fehlt, geht verloren.
+MODIFIED ersetzt das ganze Requirement – was fehlt, geht verloren.
 
 1. Requirement in `openspec/specs/<capability>/spec.md` suchen
 2. Den **ganzen** Block kopieren: vom `### Requirement:` bis zum letzten Scenario
-3. Unter `## MODIFIED Requirements` einfügen und anpassen — Überschrift unverändert
+3. Unter `## MODIFIED Requirements` einfügen und anpassen – Überschrift unverändert
 
 Kommt nur Neues dazu und Bestehendes bleibt gleich: **ADDED**, nicht MODIFIED.
 
-Fehlende Scenarios fangen `validate` und `archive` ab — fehlenden Text nicht.
+Fehlende Scenarios fangen `validate` und `archive` ab – fehlenden Text nicht.
 
-> `propose` macht das von selbst — die Schritte helfen beim Prüfen und Nachholen.
+> `propose` macht das von selbst – die Schritte helfen beim Prüfen und Nachholen.
 
 <!--
-Kein Grund zur Sorge: diese Schritte bekommt der Agent bei propose als
+Kein Grund zur Sorge: Der Agent bekommt diese Schritte bei propose als
 Instruction mit, dort geht normalerweise nichts schief. Die Folie ist fürs
-Review — und für den Fall, dass jemand einen MODIFIED-Block von Hand schreibt.
+Review – und für den Fall, dass jemand einen MODIFIED-Block von Hand schreibt.
 
 Gleich im Praxisbeispiel: monthend-rest-api ist eine geänderte Capability,
-bekommt aber ein ADDED Requirement — es kommt nur ein neues Verhalten dazu.
+bekommt aber ein ADDED Requirement – es kommt nur ein neues Verhalten dazu.
 
 Der Ablauf steht in der specs-Instruction von schema.yaml („MODIFIED
-requirements workflow") — dort als vier Schritte; der vierte, Überschrift
+requirements workflow") – dort in vier Schritten; der vierte, Überschrift
 exakt gleich lassen, steckt hier in Schritt 3.
 
-Beim Review hilft `openspec show <change> --diff`: zeigt pro MODIFIED-Requirement
+Fürs Review: `openspec show <change> --diff` zeigt pro MODIFIED-Requirement
 nur, was sich tatsächlich ändert.
 -->
 
@@ -658,7 +658,7 @@ source: specs/payroll-month/spec.md
 depth: 4
 ---
 
-# Spec — Neue Capability
+# Spec – Neue Capability
 
 ::doc::
 
@@ -699,7 +699,7 @@ source: specs/monthend-rest-api/spec.md
 depth: 4
 ---
 
-# Spec — Geänderte Capability
+# Spec – Geänderte Capability
 
 ::doc::
 
@@ -741,7 +741,7 @@ layout: two-cols-header
 
 ### Requirement
 
-- Ein Verhalten, ein SHALL — drei „und außerdem“ sind drei Requirements
+- Ein Verhalten, ein SHALL – drei „und außerdem“ sind drei Requirements
 - Beobachtbar: „zeigt einen Fehler, wenn der Name fehlt“ statt „validiert Eingaben sinnvoll“
 
 ::right::
@@ -757,16 +757,16 @@ layout: two-cols-header
 **Test:** Könnte jemand, der den Code nie gesehen hat, prüfen, ob es erfüllt ist?
 
 <!--
-Im Praxisbeispiel ist „No tasks have been generated yet for previous month"
+Im Praxisbeispiel ist „No tasks have been generated yet for previous month“
 genau so ein Randfall-Scenario. In der Zoo-Spec animal-create heißt das
-Scenario „Required fields missing".
+Scenario „Required fields missing“.
 
-Vor dem Approve fragen: Welchen Fall würde ich am wenigsten kaputt sehen
-wollen — und hat er ein Scenario?
+Vor dem Approve fragen: Welchen Fall will ich am wenigsten kaputt sehen –
+und hat er ein Scenario?
 
-Die KI gut anleiten: Absicht UND Grenze nennen („Filter nach Tierart — keine
+Die KI gut anleiten: Absicht UND Grenze nennen („Filter nach Tierart – keine
 neue API"), wichtige Fälle beim Namen nennen, dann nachschärfen. Das
-Artefakt ist Markdown, es darf auch von Hand geändert werden.
+Artefakt ist Markdown – Handarbeit ist erlaubt.
 
 Quelle: docs/writing-specs.md.
 -->
@@ -778,39 +778,39 @@ class: gepardec-text-sm
 
 # design.md – Das WIE
 
-Architektur und technische Entscheidungen — keine Implementierungsanleitung.
+Architektur und technische Entscheidungen – keine Implementierungsanleitung.
 
 ::left::
 
 ### Was hineingehört
 
 - Ziele und Nicht-Ziele
-- Jede Entscheidung mit Begründung und verworfenen Alternativen — warum X statt Y?
+- Jede Entscheidung mit Begründung und verworfenen Alternativen – warum X statt Y?
 - Risiken im Format `[Risk]` → Mitigation
-- „Open Questions" — vor der Implementierung klären
+- „Open Questions“ – vor der Implementierung klären
 
 ::right::
 
 ### Typische Entscheidungen
 
 - In welches Modul gehört die neue Logik?
-- Ein Use Case pro Rolle — oder einer mit Parameter?
+- Ein Use Case pro Rolle – oder einer mit Parameter?
 - Eine Regel aus dem Altcode übernehmen oder streichen?
 - Vorhandene Schnittstelle nutzen oder eine neue bauen?
 
 ::bottom::
 
-Nicht jeder Change braucht eins — erst ab mehreren Modulen, neuen Abhängigkeiten oder Migrationen.
+Nicht jeder Change braucht eins – erst ab mehreren Modulen, neuen Abhängigkeiten oder Migrationen.
 
 <!--
 Alle vier Beispiele rechts stammen aus dem Praxisbeispiel auf der nächsten
 Folie: monthend statt worktime, zwei Use Cases, die 14.-Regel fällt weg,
-findOpenEmployeeTasks reicht — kein neuer Port.
+findOpenEmployeeTasks reicht – kein neuer Port.
 
 Weitere typische Fälle: neue Library oder Eigenbau, neue Tabelle oder Spalte,
 synchron oder über ein Event, Client generieren oder von Hand schreiben.
 
-Wann design.md sich lohnt, steht in der design-Instruction von schema.yaml:
+Wann sich design.md lohnt, steht in der design-Instruction von schema.yaml:
 mehrere Module oder Services, neues Architekturmuster, neue externe
 Abhängigkeit, größere Datenmodell-Änderung, Security, Performance, Migration.
 -->
@@ -820,7 +820,7 @@ layout: document
 source: design.md
 ---
 
-# Design — Praxisbeispiel
+# Design – Praxisbeispiel
 
 ::doc::
 
@@ -903,20 +903,20 @@ Woher kennt der Agent Hexagon und Bounded Contexts? Aus Vorgaben, die er lesen k
 > Eine Vorgabe im Text ist eine Bitte. Ein Werkzeug, das den Build rot macht, ist eine Regel.
 
 <!--
-Die Frage kommt nach der Design-Folie fast immer: der Agent schreibt
-selbstverständlich von Bounded Contexts und Ports — woher kennt er die?
+Die Frage kommt nach der Design-Folie fast immer: Der Agent schreibt
+selbstverständlich von Bounded Contexts und Ports – woher kennt er die?
 
 Die rules-Zeile steht so in der config.yaml von mega-backend (rules → specs).
 Die Hexagon-Regeln selbst hält MEGA in CLAUDE.md/AGENTS.md und einem
-Architektur-Skill — das funktioniert auch, der Agent liest beides beim Start.
+Architektur-Skill – das funktioniert auch, der Agent liest beides beim Start.
 Das passt zur Empfehlung aus dem Setup-Kapitel: Projekt-Doku und
 Konventionen in AGENTS.md, in context nur Constraints für die Artefakte.
 
-Durchgesetzt wird in MEGA mit ArchUnit (HexagonalArchitectureTest): domain
+MEGA setzt das mit ArchUnit durch (HexagonalArchitectureTest): domain
 hängt weder von application noch von adapter ab, application nicht von
 adapter. Die Werkzeuge im Detail nach apply.
 
-context und rules technisch: Kapitel „Setup & Konfiguration".
+context und rules technisch: Kapitel „Setup & Konfiguration“.
 -->
 
 ---
@@ -926,22 +926,22 @@ layout: default
 # tasks.md – Die TODO-Liste
 
 - Bricht die Umsetzung in konkrete Schritte herunter, jeder klein genug für eine Session
-- **Jeder Task nennt, wie er verifiziert wird** — Test, Befehl oder beobachtbares Verhalten
-- Pflichtformat: `- [ ] X.Y Task` – nur `[x]` zählt als erledigt, Zeilen ohne Checkbox werden nicht getrackt
-- Tasks mit nummerierten Überschriften gruppieren — **jede Gruppe bringt ihre eigenen Tests und Doku mit**, keine Sammelgruppe „Tests" am Ende
+- **Jeder Task nennt, wie er verifiziert wird** – Test, Befehl oder beobachtbares Verhalten
+- Pflichtformat: `- [ ] X.Y Task` – nur `[x]` zählt als erledigt, Zeilen ohne Checkbox bleiben ungetrackt
+- Tasks mit nummerierten Überschriften gruppieren – **jede Gruppe bringt ihre eigenen Tests und Doku mit**, keine Sammelgruppe „Tests“ am Ende
 - Reihenfolge nach Abhängigkeiten – was muss zuerst passieren?
 
 <!--
 Die Verifikationsregel steht in der tasks-Instruction von schema.yaml. Das
-Praxisbeispiel ist älter: die meisten seiner Tasks nennen noch keine
-Verifikation. Auch seine Gruppe 5 „Tests" verstößt seit 1.13.2 gegen die
-Instruction: die Unit-Tests gehören in Gruppe 3, die REST-Tests in Gruppe 4.
-Warum: testet erst die letzte Gruppe, was die erste gebaut hat, schlagen die
+Praxisbeispiel ist älter: Die meisten seiner Tasks nennen noch keine
+Verifikation. Auch seine Gruppe 5 „Tests“ verstößt seit 1.13.2 gegen die
+Instruction: Die Unit-Tests gehören in Gruppe 3, die REST-Tests in Gruppe 4.
+Warum: Testet erst die letzte Gruppe, was die erste gebaut hat, schlagen die
 Fehler durch alle Gruppen dazwischen zurück.
 
 Seit 1.14.1: Schritte, die erst nach archive gehen, stehen als normale
-Bullets in einem optionalen ## Workflow follow-up am Ende. Sie werden nicht
-getrackt und blockieren nicht, dass alle Tasks erledigt sind.
+Bullets in einem optionalen ## Workflow follow-up am Ende. OpenSpec trackt
+sie nicht, und sie blockieren nicht, dass alle Tasks erledigt sind.
 -->
 
 ---
@@ -949,7 +949,7 @@ layout: document
 source: tasks.md
 ---
 
-# Tasks — Praxisbeispiel
+# Tasks – Praxisbeispiel
 
 ::doc::
 
@@ -992,30 +992,30 @@ layout: default
 
 # Ein Change, eine Absicht
 
-**Faustregel:** Lässt sich die Absicht in einem Satz beschreiben? Wenn nicht — teilen.
+**Faustregel:** Lässt sich die Absicht in einem Satz beschreiben? Wenn nicht – teilen.
 
 - Der Scope im Proposal liest sich wie eine Liste unabhängiger Features
-- Das Review dauert einen Nachmittag — also macht es niemand gründlich
-- Zwei Leute könnten nicht daran arbeiten, ohne sich in die Quere zu kommen
+- Das Review dauert einen Nachmittag – also macht es niemand gründlich
+- Zwei Personen kämen sich bei der Arbeit daran in die Quere
 - Die Hälfte der Tasks ließe sich für sich allein ausliefern
 
 Ein Satz heißt nicht wenig Code: Ein komplexer Ablauf über mehrere Module bleibt **ein** Change, solange er eine Absicht verfolgt.
 
 <!--
-Es ist eine Faustregel, kein Limit. Was aus Scrum und Kanban bewährt ist —
-Tickets klein schneiden —, sollte man sich mit OpenSpec nicht abgewöhnen: ein
-Ticket, ein Change ist ein guter Startpunkt.
+Faustregel, kein Limit. Tickets klein schneiden, wie in Scrum und Kanban
+bewährt, bleibt auch mit OpenSpec richtig: Ein Ticket, ein Change ist ein
+guter Startpunkt.
 
 Umgekehrt braucht ein Tippfehler-Fix keine drei Requirements. Der Aufwand
 folgt dem Risiko.
 
-Upstream: der häufigste Fehler beim Schreiben ist kein schlecht formuliertes
+Upstream: Der häufigste Fehler beim Schreiben ist kein schlecht formuliertes
 Requirement, sondern ein Change, der eigentlich drei sind.
 
 Gute Namen machen openspec list lesbar: add-animal-filter statt feature-1.
 
-Quelle: docs/writing-specs.md „Right-size the change", docs/workflows.md
-„Keep Changes Focused".
+Quelle: docs/writing-specs.md „Right-size the change“, docs/workflows.md
+„Keep Changes Focused“.
 -->
 
 ---
@@ -1024,7 +1024,7 @@ layout: default
 
 # Zwei Review-Momente
 
-Das erste Review spart am meisten — und wird am häufigsten ausgelassen.
+Das erste Review spart am meisten – und wird am häufigsten ausgelassen.
 
 ```text
 propose ──► PLAN REVIEWEN ──► apply ──► CODE REVIEWEN ──► archive
@@ -1034,13 +1034,13 @@ propose ──► PLAN REVIEWEN ──► apply ──► CODE REVIEWEN ──�
 Den Plan lesen, solange er noch aus Worten besteht. Den Code prüfen, bevor er zur Wahrheit wird.
 
 <!--
-Frage-Pause: die vier Artefakte sind durch, jetzt geht es ums Review. Was ist
+Frage-Pause: Die vier Artefakte sind durch, jetzt geht es ums Review. Was ist
 bis hierher offen? Dann wirklich warten.
 
 Ein Irrtum im Proposal kostet einen Absatz. Derselbe Irrtum nach apply kostet
-den Code, der darauf gebaut wurde.
+den Code, der darauf aufbaut.
 
-Nicht jeder Change braucht den vollen Durchgang: ein Tippfehler-Fix verdient
+Nicht jeder Change braucht den vollen Durchgang: Ein Tippfehler-Fix verdient
 zwanzig Sekunden, ein Change an Auth, Zahlungen oder Daten, die sich nicht
 wiederherstellen lassen, jede Frage auf den nächsten Folien.
 
@@ -1054,7 +1054,7 @@ class: gepardec-text-sm
 
 # Review-Time
 
-Die Artefakte sind fertig. Nun gilt es, sie gründlich in dieser Reihenfolge zu lesen:
+Die Artefakte sind fertig. Lest sie gründlich, in dieser Reihenfolge:
 
 ::left::
 
@@ -1067,23 +1067,23 @@ Die Artefakte sind fertig. Nun gilt es, sie gründlich in dieser Reihenfolge zu 
 
 <v-clicks>
 
-Abweichung bemerkt? Mit `/opsx:update` eine neue Runde drehen: „Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte." Oder die Datei direkt ändern — es ist Markdown.
+Abweichung bemerkt? Mit `/opsx:update` eine neue Runde drehen: „Bei Decision 1 im Design-Artefakt steht X, obwohl Y stehen sollte.“ Oder die Datei direkt ändern – es ist Markdown.
 
-Dieses Spiel wird so lange gespielt, bis alle Artefakte genau das beschreiben, was die Anforderung ist.
+Das wiederholt ihr, bis alle Artefakte genau die Anforderung beschreiben.
 
 **WICHTIG: Keine Open Questions in der `design.md`!**
 
 </v-clicks>
 
 <!--
-Wer früh aufhört, spart Zeit: stimmt das Proposal nicht, erst gar nicht
+Früh aufhören spart Zeit: Stimmt das Proposal nicht, gar nicht erst
 weiterlesen, sondern das Proposal korrigieren.
 
-Open Questions: das Schema erlaubt nur solche, die weder Specs noch Ansatz
-noch Task-Zerlegung ändern würden. Alles andere muss vor tasks geklärt sein —
+Open Questions: Das Schema erlaubt nur solche, die weder Specs noch Ansatz
+noch Task-Zerlegung ändern würden. Alles andere muss vor tasks geklärt sein –
 die tasks-Instruction verlangt, solche Fragen vorher mit dem User zu klären.
 
-Im Übungs-Repo fehlt /opsx:update noch: die Skills dort stammen von
+Im Übungs-Repo fehlt /opsx:update noch: Die Skills dort stammen von
 OpenSpec 1.3.1. Direkt editieren funktioniert immer.
 -->
 
@@ -1101,12 +1101,12 @@ class: gepardec-text-sm
 | `design.md` | Trägt der Ansatz? | Open Questions, falsche Entscheidungen, Lösung für ein Problem, das keins ist |
 | `tasks.md` | Passt der Plan zu den Specs? | Task ohne Requirement, ein Riesen-Task, Arbeit außerhalb des Scopes |
 
-Quer über alles: Gibt es Widersprüche zwischen Artefakten — und **was fehlt?**
+Quer über alles: Gibt es Widersprüche zwischen Artefakten – und **was fehlt?**
 
 <!--
-„Was fehlt?" ist der wertvollste Fund: die KI schreibt treu auf, was man
-gesagt hat. Was man vergessen hat zu sagen, steht nirgends. Welcher Fall wäre
-am schlimmsten, wenn er kaputt ginge — und hat er ein Scenario?
+„Was fehlt?“ ist der wertvollste Fund: Die KI schreibt treu auf, was ihr
+gesagt habt. Was ihr vergessen habt, steht nirgends. Welcher Fall wäre am
+schlimmsten, wenn er kaputtginge – und hat er ein Scenario?
 
 Beispiel für eine Lösung ohne Problem: ein Migrationsplan für ein Feature,
 das noch gar nicht ausgeliefert ist.
@@ -1118,7 +1118,7 @@ Quelle: docs/reviewing-changes.md, ergänzt um eigene Erfahrung.
 layout: default
 ---
 
-# opsx:apply — Praxisbeispiel
+# opsx:apply – Praxisbeispiel
 
 <img src="/screenshots/apply.png" class="w-full rounded-xl object-contain max-h-85" alt="opsx:apply in Aktion" />
 
@@ -1129,23 +1129,23 @@ class: gepardec-text-sm
 
 # Das Sicherheitsnetz
 
-Deterministisch: jeder Change wird gleich geprüft — egal, wer ihn geschrieben hat.
+Deterministisch: Jeder Change durchläuft dieselben Prüfungen – egal, wer ihn geschrieben hat.
 
 | Werkzeug | Fängt |
 |---|---|
 | **ArchUnit** | Architekturverstöße im Java-Code: Schichten, Abhängigkeiten, Namensregeln |
-| **ESLint** | Frontend-Regeln und — mit Sheriff — Modulgrenzen |
+| **ESLint** | Frontend-Regeln und – mit Sheriff – Modulgrenzen |
 | **SonarQube · SonarLint** | Bugs, Code Smells, Security Hotspots, Testabdeckung |
-| **Prettier** | Formatierung — kein Thema mehr im Review |
+| **Prettier** | Formatierung – kein Thema mehr im Review |
 | **Tests** | Verhalten, das von den Scenarios abweicht |
 
 Kein OpenSpec-Feature, sondern **Harness**: Der Agent sieht rot, bessert nach, prüft erneut.
 
 <!--
-Harness: alles rund um das Modell — Werkzeuge, Regeln, Tests, Hooks. OpenSpec
+Harness: alles rund um das Modell – Werkzeuge, Regeln, Tests, Hooks. OpenSpec
 sagt, was gebaut wird. Das Netz prüft, ob es sauber gebaut ist.
 
-Verbindung zu tasks.md: jeder Task nennt, wie er verifiziert wird. Das Netz
+Verbindung zu tasks.md: Jeder Task nennt, wie er verifiziert wird. Das Netz
 macht diese Verifikation ausführbar.
 
 ArchUnit in MEGA, HexagonalArchitectureTest:
@@ -1153,11 +1153,11 @@ ArchUnit in MEGA, HexagonalArchitectureTest:
       .should().dependOnClassesThat().resideInAPackage("..hexagon..adapter..")
 
 Im Zoo-Projekt: ESLint mit angular-eslint und Sheriff, Prettier,
-RestAssured-Tests — alles in der config.yaml beschrieben.
+RestAssured-Tests – alles in der config.yaml beschrieben.
 
 Je früher das Netz greift, desto billiger: im Editor (SonarLint, ESLint), im
 Build (ArchUnit, Tests), in der CI (SonarQube). SonarLint heißt inzwischen
-„SonarQube for IDE".
+„SonarQube for IDE“.
 -->
 
 ---
@@ -1173,9 +1173,9 @@ Nach `apply`, vor `archive`: Hat der Agent gebaut, was vereinbart war?
 
 ### Was es prüft
 
-- **Completeness** — Tasks erledigt, Requirements umgesetzt
-- **Correctness** — Umsetzung trifft Spec und Randfälle
-- **Coherence** — Design-Entscheidungen im Code
+- **Completeness** – Tasks erledigt, Requirements umgesetzt
+- **Correctness** – Umsetzung trifft Spec und Randfälle
+- **Coherence** – Design-Entscheidungen im Code
 
 ::right::
 
@@ -1187,7 +1187,7 @@ openspec instructions apply --change <name> --json
   → Artefakte lesen, Belege im Code suchen
 ```
 
-Meldet **CRITICAL** · **WARNING** · **SUGGESTION** — blockiert aber nichts.
+Meldet **CRITICAL** · **WARNING** · **SUGGESTION** – blockiert aber nichts.
 
 ::bottom::
 
@@ -1195,14 +1195,14 @@ Ein Urteil des Modells, kein Testlauf: verify sucht Tests, führt sie aber nicht
 
 <!--
 Auch sinnvoll, nachdem jemand Code von Hand geändert hat: verify zeigt, wo
-Code und Artefakte auseinanderlaufen — vor dem Archivieren abgleichen.
+Code und Artefakte auseinanderlaufen – vor dem Archivieren abgleichen.
 
 verify gibt es nur im custom-Profil:
   openspec config profile   (verify auswählen)
   openspec update           (Skills und Commands neu schreiben)
 
-Die Skill-Anleitung verlangt Stichwortsuche und „reasonable inference", keine
-Gewissheit — im Zweifel lieber SUGGESTION als WARNING. Deshalb bleiben Tests
+Die Skill-Anleitung verlangt Stichwortsuche und „reasonable inference“, keine
+Gewissheit – im Zweifel lieber SUGGESTION als WARNING. Deshalb bleiben Tests
 und Linter das eigentliche Netz.
 
 CRITICAL: offene Tasks, nicht gefundene Requirements. WARNING: Abweichung von
@@ -1210,7 +1210,7 @@ Spec oder Design, Scenario ohne Test. SUGGESTION: Muster-Abweichungen.
 
 Fehlt design.md, überspringt verify den Abgleich mit dem Design und sagt das.
 
-Quelle: skills/openspec-verify-change/SKILL.md, docs/workflows.md „Verify".
+Quelle: skills/openspec-verify-change/SKILL.md, docs/workflows.md „Verify“.
 -->
 
 ---
@@ -1225,7 +1225,7 @@ layout: two-cols-header
 
 - `explore`: Fragen beantworten, entscheiden
 - Plan-Review nach `propose`
-- Code-Review nach `apply` — `verify` hilft, ersetzt es aber nicht
+- Code-Review nach `apply` – `verify` hilft, ersetzt es aber nicht
 
 ::right::
 
@@ -1236,20 +1236,20 @@ layout: two-cols-header
 
 ::bottom::
 
-Voraussetzung: Tests, Linter und Architekturregeln fangen verlässlich, was heute ein Reviewer fängt.
+Voraussetzung: Tests, Linter und Architekturregeln fangen verlässlich, was heute Reviewer:innen fangen.
 
 <!--
 Die Frage kommt regelmäßig: An welchen Stellen muss ich selbst ran?
 
-Beim Plan wird entschieden, was gebaut wird — dagegen kann keine Maschine
-prüfen. Dieses Review bleibt beim Menschen.
+Beim Plan fällt die Entscheidung, was gebaut wird – dagegen kann keine
+Maschine prüfen. Dieses Review bleibt beim Menschen.
 
-Beim Code sieht es anders aus. verify allein ist ein Urteil des Modells: es
+Beim Code sieht es anders aus. verify allein ist ein Urteil des Modells: Es
 sucht Tests, führt sie aber nicht aus. Erst zusammen mit dem Sicherheitsnetz,
 das Tests und Regeln wirklich ausführt, kann ein automatisiertes Review mit
 Feedback-Loop das menschliche Code-Review ablösen.
 
-Das ist ein Ausblick, keine Empfehlung für morgen: das Vertrauen in die Harness
+Ein Ausblick, keine Empfehlung für morgen: Das Vertrauen in die Harness
 wächst mit jedem Change, in dem sie etwas gefangen hat.
 -->
 
@@ -1260,18 +1260,18 @@ class: gepardec-text-sm
 
 # Der Plan lebt
 
-Jedes Artefakt ist Markdown und jederzeit änderbar — es gibt keine gesperrte Planungsphase.
+Jedes Artefakt ist Markdown und jederzeit änderbar – eine gesperrte Planungsphase gibt es nicht.
 
 | Situation | Was tun |
 |---|---|
-| Der Plan passt nicht, `apply` läuft noch nicht | `/opsx:update` — oder die Datei direkt ändern |
-| Während `apply` zeigt sich: der Ansatz trägt nicht | Artefakt ändern, weiter mit `/opsx:apply` — es liest den aktuellen Stand |
-| Jemand hat Code von Hand geändert | Vor `archive` abgleichen: stimmt der Code, die Delta-Spec nachziehen — stimmt die Spec, den Code |
+| Der Plan passt nicht, `apply` läuft noch nicht | `/opsx:update` – oder die Datei direkt ändern |
+| Während `apply` zeigt sich: der Ansatz trägt nicht | Artefakt ändern, weiter mit `/opsx:apply` – es liest den aktuellen Stand |
+| Jemand hat Code von Hand geändert | Vor `archive` abgleichen: stimmt der Code, die Delta-Spec nachziehen – stimmt die Spec, den Code |
 
-`tasks.md` darf sich ändern — `apply` macht beim ersten offenen Task weiter.
+`tasks.md` darf sich ändern – `apply` macht beim ersten offenen Task weiter.
 
 <!--
-Warum vor archive abgleichen: beim Archivieren wird die Spec zur Wahrheit.
+Warum vor archive abgleichen: Beim Archivieren wird die Spec zur Wahrheit.
 Sie soll dann beschreiben, was der Code wirklich tut. /opsx:verify zeigt, wo
 beides auseinanderläuft.
 
@@ -1295,7 +1295,7 @@ layout: two-cols-header
 ### Update, wenn …
 
 - dieselbe Absicht besser umgesetzt wird
-- der Scope schrumpft — MVP zuerst
+- der Scope schrumpft – MVP zuerst
 - die Codebasis anders ist als gedacht
 
 ::right::
@@ -1311,13 +1311,13 @@ layout: two-cols-header
 Abrechnungsmonat: die 14.-Regel doch behalten → **Update**. Projektleiter bekommen denselben Check wie Mitarbeiter → **neuer Change**.
 
 <!--
-Das zweite Beispiel steht schon im Design des Praxisbeispiels: unter Risks
+Das zweite Beispiel steht schon im Design des Praxisbeispiels: Unter Risks
 heißt es, die Projektleiter-Regel müsse vielleicht einmal denselben
-„smart-check" bekommen. Der Change ist ohne das fertig — also ein eigener.
+„smart-check“ bekommen. Der Change ist ohne das fertig – also ein eigener.
 
-Scope schrumpft: Update, archivieren, und der Rest wird ein neuer Change.
+Scope schrumpft: Update, archivieren – der Rest wird ein neuer Change.
 
-Quelle: docs/workflows.md „When to Update vs Start Fresh", docs/editing-changes.md.
+Quelle: docs/workflows.md „When to Update vs Start Fresh“, docs/editing-changes.md.
 -->
 
 ---
@@ -1325,7 +1325,7 @@ layout: conversation
 session: "archive · mega-backend"
 ---
 
-# opsx:archive — Praxisbeispiel
+# opsx:archive – Praxisbeispiel
 
 ::turns::
 
@@ -1394,12 +1394,12 @@ changes/add-payroll-month-endpoints
 </ChatTurn>
 
 <!--
-Der wichtige Turn ist der vierte: bevor irgendetwas in specs/ wandert, fragt
-das Werkzeug nach. sync ist nicht automatisch, weil das Zusammenführen der
-Deltas die Stelle ist, an der die dauerhafte Spezifikation verändert wird.
+Der wichtige Turn ist der vierte: Bevor irgendetwas in specs/ wandert, fragt
+das Werkzeug nach. sync läuft nicht automatisch – beim Zusammenführen der
+Deltas ändert sich die dauerhafte Spezifikation.
 
-Kontrast zu Kapitel 3 aufmachen: derselbe Ablauf ginge auch deterministisch
-mit `openspec archive` — hier macht ihn ein Agent Schritt für Schritt nach.
+Kontrast zu Kapitel 3 aufmachen: Derselbe Ablauf ginge auch deterministisch
+mit `openspec archive` – hier macht ihn ein Agent Schritt für Schritt nach.
 
 Export nicht vergessen: --with-clicks.
 -->
@@ -1411,7 +1411,7 @@ class: gepardec-text-sm
 
 # Was kostet ein Change?
 
-Ein echter MEGA-Change mit Opus 5: generierte API-Clients im Frontend — 31 Tasks, vier Delta-Specs, rund 1.000 neue Zeilen.
+Ein echter MEGA-Change mit Opus 5: generierte API-Clients im Frontend – 31 Tasks, vier Delta-Specs, rund 1.000 neue Zeilen.
 
 | Session | Tokens | davon aus dem Cache | Kosten |
 |---|--:|--:|--:|
@@ -1433,7 +1433,7 @@ lesen 28 USD, Cache schreiben 6 USD.
 
 Die 1.000 Zeilen zählen ohne den generierten Client, Lockfile und OpenAPI-Snapshot.
 
-Mit einem Abo (Pro, Max, Team) zahlt man nicht pro Token — die Zahl ist dann
+Mit einem Abo (Pro, Max, Team) zahlt ihr nicht pro Token – die Zahl ist dann
 der API-Gegenwert.
 
 Zeit: explore + propose rund 75 Minuten, apply rund 70 Minuten inklusive
@@ -1443,17 +1443,17 @@ Warum nicht der Abrechnungsmonat? Der lief im April noch mit Sonnet 4.6, und
 die vollständigen Transkripte gibt es nicht mehr. Der orval-Change ist
 vergleichbar groß und durchläuft dieselben Phasen.
 
-Daraus folgt die erste Best Practice auf der nächsten Folie: neue Session pro
-Phase hält den Kontext klein — und damit die Kosten.
+Daraus folgt die erste Best Practice auf der nächsten Folie: Eine neue Session pro
+Phase hält den Kontext klein – und damit die Kosten.
 -->
 
 ---
 layout: default
 ---
 
-# Best practices
+# Best Practices
 
-- Nach jeder Phase (außer Explore) neue Session starten — sauberes Kontext-Fenster, geringere Kosten
+- Nach jeder Phase (außer Explore) neue Session starten – sauberes Kontext-Fenster, geringere Kosten
 - Unklarheiten nach propose klären, bevor apply beginnt
-- Implementierungsfehler in derselben Session korrigieren - Spec anpassen, falls das Verhalten davon abweicht
+- Implementierungsfehler in derselben Session korrigieren – Spec anpassen, falls das Verhalten davon abweicht
 - Umfangreiche Aufgaben: Implementierung von einem anderen Agenten reviewen lassen (neue Session!), z. B. mit `/opsx:verify`

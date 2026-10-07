@@ -6,7 +6,7 @@ layout: section
 
 <!--
 Frage-Pause, bevor das Kapitel beginnt: Was ist zu „CLI als Datei-Navigator“ offen?
-Dann wirklich warten — rund zehn Sekunden Stille aushalten.
+Dann wirklich warten – rund zehn Sekunden Stille aushalten.
 -->
 
 ---
@@ -16,11 +16,11 @@ class: gepardec-text-lg
 
 # Die Lücke
 
-Erinnert ihr euch: der Agent ist standardmäßig kontextblind.
+Erinnert euch: Der Agent ist standardmäßig kontextblind.
 
-Er weiß nicht, was entschieden wurde, was nicht verhandelbar ist, was als nächstes zu tun ist.
+Er weiß nicht, was ihr entschieden habt, was nicht verhandelbar ist, was als Nächstes ansteht.
 
-`openspec instructions` ist das Werkzeug dagegen.
+`openspec instructions` schließt diese Lücke.
 
 ---
 layout: default
@@ -28,15 +28,15 @@ layout: default
 
 # openspec instructions
 
-Liefert dem Agenten Anweisungen für das Erstellen eines Artefakts — Template, Projekt-Kontext, Inhalte der Abhängigkeiten.
+Liefert dem Agenten die Anweisungen für ein Artefakt – Template, Projekt-Kontext, Inhalte der Abhängigkeiten.
 
 ```sh
 $ openspec instructions <artifact> --change us-06-dashboard
 ```
 
-Gültige Argumente: `proposal` · `specs` · `design` · `tasks` — dazu `apply` und `archive`
+Gültige Argumente: `proposal` · `specs` · `design` · `tasks` – dazu `apply` und `archive`
 
-`/opsx:propose` ruft diesen Befehl für jedes Artefakt auf. `apply` liefert Implementierungsanweisungen für den aktiven Task, `archive` die Eingaben für den Abschluss — rein lesend, es wird nichts archiviert.
+`/opsx:propose` ruft diesen Befehl für jedes Artefakt auf. `apply` liefert Implementierungsanweisungen für den aktiven Task, `archive` die Eingaben für den Abschluss – rein lesend, der Befehl archiviert nichts.
 
 ---
 layout: default
@@ -51,12 +51,12 @@ flowchart LR
     A["Pfade zu\nAbhängigkeiten"] --> IP["instructions\nPrompt"]
 ```
 
-Der Agent liest die referenzierten Dateien selbst — `instructions` zeigt ihm nur, wo er schauen soll.
+Der Agent liest die referenzierten Dateien selbst – `instructions` zeigt ihm nur, wo er suchen muss.
 
 <!--
-Die Felder heißen im JSON genau so: instruction, template, context, rules,
-dependencies. rules erscheinen nur für das Artefakt, für das sie in
-config.yaml stehen; context erscheint bei jedem.
+Die JSON-Felder heißen genau so: instruction, template, context, rules,
+dependencies. context kommt bei jedem Artefakt mit, rules nur bei dem,
+für das sie in config.yaml stehen.
 -->
 
 ---
@@ -78,11 +78,11 @@ Vier Schichten, jede mit genau einer Aufgabe.
 Eigene Regeln gehören in `config.yaml`. Eine eigene Artefakt-Form braucht ein eigenes Schema.
 
 <!--
-Mit /opsx:archive und /opsx:sync führt der Agent den Merge selbst durch — die
-CLI merged deterministisch nur bei openspec archive (siehe Kapitel 3).
+Bei /opsx:archive und /opsx:sync mergt der Agent selbst – deterministisch
+mergt die CLI nur bei openspec archive (siehe Kapitel 3).
 
-Die Regeln aus Kapitel 2 — Delta-Operationen, MODIFIED-Workflow, Verifikation
-pro Task, wann design.md sich lohnt — stammen nicht aus dem Skill, sondern aus
+Die Regeln aus Kapitel 2 – Delta-Operationen, MODIFIED-Workflow, Verifikation
+pro Task, wann design.md sich lohnt – stammen nicht aus dem Skill, sondern aus
 der instruction des Schemas. Der Skill sagt nur, wann welches Artefakt dran ist.
 
 Ein eigenes Schema: openspec schema fork, siehe FAQ.
@@ -120,8 +120,8 @@ Auszug aus dem Standard-Schema spec-driven (schemas/spec-driven/schema.yaml).
 Zuerst markiert: die Schreibregeln, die auf der tasks.md-Folie standen.
 Nach dem Klick: die Abhängigkeit aus dem propose-Diagramm.
 
-Genauso steht in der specs-Instruction der MODIFIED-Workflow samt „Common
-pitfall", und in der design-Instruction, wann design.md sich lohnt und welche
+Ebenso enthält die specs-Instruction den MODIFIED-Workflow samt „Common
+pitfall", die design-Instruction, wann design.md sich lohnt und welche
 Open Questions erlaubt sind.
 
 Selbst nachlesen: openspec instructions tasks --change <change> --json, Feld
@@ -143,7 +143,7 @@ flowchart LR
     CHECK -->|ja| DONE["Du reviewst\nden Diff"]
 ```
 
-`opsx:apply` ist der Skill, der diesen Loop ausführt — Task für Task, bis alle `[x]` sind.
+`opsx:apply` ist der Skill, der diesen Loop ausführt – Task für Task, bis alle auf `[x]` stehen.
 
 Die CLI steuert den Loop. Der Agent erledigt die Arbeit. Du reviewst den Diff.
 
@@ -153,7 +153,7 @@ layout: default
 
 # Live-Demo
 
-Was der Agent als Input bekommt — einmal pro Artefakt, einmal für die Implementierung.
+Das bekommt der Agent als Input – einmal pro Artefakt, einmal für die Implementierung.
 
 ```sh
 # Während propose: Anweisungen zum Schreiben eines Artefakts
@@ -167,7 +167,7 @@ openspec instructions apply --change us-06-dashboard
 ```
 
 <!--
-Vergleich: Alle Tasks erledigt vs. alle Tasks offen
+Vergleichen: alle Tasks erledigt vs. alle Tasks offen
 
-Validate: wann wird eine violation geworfen??
+Validate: Wann wird eine violation geworfen??
 -->
