@@ -1,12 +1,11 @@
 ---
 layout: section
-variant: ascii
 ---
 
 # OpenSpec im Team
 
 <!--
-Frage-Pause, bevor das Kapitel beginnt: Was ist zu „CLI als Agent-Bridge“ offen?
+Frage-Pause, bevor das Kapitel beginnt: Was ist aus den Übungen offen?
 Dann wirklich warten – rund zehn Sekunden Stille aushalten.
 -->
 
