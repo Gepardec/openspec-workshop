@@ -106,7 +106,8 @@
       become: true
       community.docker.docker_container:
         name: webtop
-        image: lscr.io/linuxserver/webtop:fedora-xfce-2dcb9ef8-ls289
+        # fedora-xfce-2dcb9ef8-ls289; linuxserver tags are not orderable, so Renovate bumps the digest
+        image: lscr.io/linuxserver/webtop:fedora-xfce@sha256:9fe5566441776799e1c600f2fba6982c96abd98c52c2f2ec42daf5e3afc9cbfd
         state: started
         env:
           PUID: "1000"
