@@ -1,0 +1,105 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:recommended', ':semanticCommits'],
+  timezone: 'Europe/Vienna',
+  // One batch per week keeps the noise away from workshop preparation.
+  schedule: ['before 6am on monday'],
+  labels: ['dependencies'],
+  // No CI pipeline exists yet, so every update is reviewed and merged by hand.
+  automerge: false,
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ['before 6am on monday'],
+  },
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Docker images the training VM playbook starts (no built-in manager covers them)',
+      managerFilePatterns: ['/^Schulungsumgebung/.+\\.ya?ml$/'],
+      matchStrings: [
+        'image:\\s*(?<depName>[^\\s:@]+):(?<currentValue>[^\\s@]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?',
+      ],
+      datasourceTemplate: 'docker',
+    },
+  ],
+  packageRules: [
+    {
+      description: 'Commit scopes follow the repo conventions (app, slides, vm)',
+      matchFileNames: ['app/**'],
+      semanticCommitScope: 'app',
+    },
+    {
+      matchFileNames: ['slides/**'],
+      semanticCommitScope: 'slides',
+    },
+    {
+      matchFileNames: ['Schulungsumgebung/**'],
+      semanticCommitScope: 'vm',
+    },
+    {
+      description: 'pnpm 11 refuses packages younger than its minimumReleaseAge, so Renovate waits longer',
+      matchDatasources: ['npm'],
+      minimumReleaseAge: '3 days',
+    },
+    {
+      description: 'Our own theme is exempt, matching minimumReleaseAgeExclude in slides/pnpm-workspace.yaml',
+      matchPackageNames: ['@gepardec/**'],
+      minimumReleaseAge: null,
+    },
+    {
+      description: 'Quarkus platform, plugin and Quarkiverse extensions move together',
+      matchManagers: ['maven'],
+      matchPackageNames: ['io.quarkus:**', 'io.quarkus.platform:**', 'io.quarkiverse.**'],
+      groupName: 'Quarkus',
+    },
+    {
+      description: 'Maven build plugins in one PR',
+      matchManagers: ['maven', 'maven-wrapper'],
+      matchPackageNames: [
+        'org.apache.maven:**',
+        'org.apache.maven.plugins:**',
+        'org.apache.maven.wrapper:**',
+      ],
+      groupName: 'Maven build tooling',
+    },
+    {
+      description: 'Angular framework updates need ng update migrations, so keep the ecosystem in one PR',
+      matchFileNames: ['app/zoo-management/src/main/webui/**'],
+      matchPackageNames: ['@angular/**', '@angular-eslint/**', 'angular-eslint', '@ngrx/**'],
+      groupName: 'Angular',
+    },
+    {
+      description: 'Angular dictates the supported TypeScript range; approve TS bumps only alongside Angular',
+      matchFileNames: ['app/zoo-management/src/main/webui/**'],
+      matchPackageNames: ['typescript'],
+      matchUpdateTypes: ['major', 'minor'],
+      dependencyDashboardApproval: true,
+    },
+    {
+      description: 'Lint and format tooling in one PR',
+      matchFileNames: ['app/zoo-management/src/main/webui/**'],
+      matchPackageNames: [
+        'eslint',
+        '@eslint/**',
+        'typescript-eslint',
+        '@softarc/**',
+        'prettier',
+        'prettier-plugin-*',
+      ],
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'webui lint tooling',
+    },
+    {
+      description: 'Non-major deck updates in one PR; majors stay separate',
+      matchFileNames: ['slides/**'],
+      matchUpdateTypes: ['minor', 'patch'],
+      groupName: 'slides',
+    },
+    {
+      description: 'Stay on the rolling X.Y tags of Red Hat images instead of their build-suffixed tags',
+      matchDatasources: ['docker'],
+      matchPackageNames: ['registry.access.redhat.com/**'],
+      versioning: 'regex:^(?<major>\\d+)\\.(?<minor>\\d+)$',
+    },
+  ],
+}
